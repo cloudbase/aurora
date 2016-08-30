@@ -10,8 +10,16 @@
                 <div class='cell'>Size</div>
                 <div class='cell'>Action</div>
             </div>
-        
-            <div class='table-row' ng-repeat="snapshot in vmView.item.snapshots">
+            <div ng-if='vmView.item.snapshots.length == 0' class='empty-table'>
+                <h3>No snapshots</h3>
+                <a class='btn btn-primary btn-snapshot btn-jumbo' ng-click="vmView.createSnapshot()">
+                    <svg width="15px" height="15px" viewBox="10 11 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path d="M18.6895536,16.9526844 L18.6895536,11 L15.8799999,11 L15.8799999,16.9526844 L10,16.9526844 L10,19.762238 L15.8799999,19.762238 L15.8799999,25.8812697 L18.6895536,25.8812697 L18.6895536,19.762238 L24.6999998,19.762238 L24.6999998,16.9526844 L18.6895536,16.9526844 Z" id="Plus-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd" opacity="0.695079291"></path>
+                    </svg> 
+                    Snapshot
+                </a>
+            </div>
+            <div  class='table-row' ng-repeat="snapshot in vmView.item.snapshots">
                 <div class='cell'>
                     <svg class='snapshot-icon' width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <defs>
