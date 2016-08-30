@@ -124,6 +124,20 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controller: 'VmCtrl',
       controllerAs: 'vmView'
     })
+    .state('vm-view-networking', {
+      parent: 'vm-view',
+      url: "/networking",
+      templateUrl: 'views/partials/vm_view.networking.html',
+      controller: 'VmCtrl',
+      controllerAs: 'vmView'
+    })
+    .state('vm-view-volumes', {
+      parent: 'vm-view',
+      url: "/volumes",
+      templateUrl: 'views/partials/vm_view.snapshots.html',
+      controller: 'VmCtrl',
+      controllerAs: 'vmView'
+    })
     /*.state('state1.list', {
       url: "/list",
       templateUrl: "partials/state1.list.html",

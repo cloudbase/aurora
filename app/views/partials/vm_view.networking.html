@@ -1,0 +1,25 @@
+<div class='section'>
+    <div class='section-header'>
+        <h3>Networks</h3>
+    </div>
+    <div class='section-body no-padding'>
+        <div class="list list-networks">
+            <div class='table network-table'>
+                <div class='table-header'>
+                    <div class='cell'>Network</div>
+                    <div class='cell'>Subnet</div>
+                    <div class='cell'>Interface</div>
+                    <div class='cell'>IP Address</div>
+                    <div class='cell'>Floating IP</div>
+                    <div class='cell'>Actions</div>
+                </div>
+                <div class='table-row' ng-repeat="network in vmView.apiService.vmNetworks" ng-class="{active: network.selected}" ng-click="vmView.selectNetwork(network);">
+                    <div class='cell'>{{ network.name }}</div>
+                    <div class='cell'>{{ network.subnet }}</div>
+                    <div class='cell'>{{ network.state }}</div>
+                    <div class='cell'>{{ network.shared ? "Yes" : "No"}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

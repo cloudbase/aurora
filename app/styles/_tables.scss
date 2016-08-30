@@ -304,6 +304,9 @@
 }
 
 .table.table-snapshots {
+  .table-row {
+    padding-left: 20px;
+  }
   .cell {
     width: 20%;
     .snapshot-icon {

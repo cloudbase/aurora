@@ -118,7 +118,7 @@
                 </svg>
               </li>
               <li class="deleteVM">
-                <a data-toggle="confirmation"  data-placement="top" mwl-confirm message="Are you sure you want to delete this VM? This action is undoable." title="Delete" onmouseenter="$(this).tooltip('show')">
+                <a data-toggle="confirmation"  data-placement="top" mwl-confirm message="Are you sure you want to delete this VM? This action is undoable." title="Delete" onmouseenter="$(this).tooltip('show')" on-confirm="vm.deleteVm(item)">
                   <svg width="16px" height="16px" viewBox="164 1 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <path d="M170,13 C169.448,13 169,12.552 169,12 L169,9 C169,8.448 169.448,8 170,8 C170.552,8 171,8.448 171,9 L171,12 C171,12.552 170.552,13 170,13 L170,13 Z M174,13 C173.448,13 173,12.552 173,12 L173,9 C173,8.448 173.448,8 174,8 C174.552,8 175,8.448 175,9 L175,12 C175,12.552 174.552,13 174,13 L174,13 Z M175,6 L169,6 L167,6 L168,14 C168,14.552 168.448,15 169,15 L175,15 C175.552,15 176,14.552 176,14 L177,6 L175,6 Z M172,3 C171.448,3 171,3.448 171,4 L173,4 C173,3.448 172.552,3 172,3 L172,3 Z M178,15 C178,16.105 177.105,17 176,17 L168,17 C166.895,17 166,16.105 166,15 L165,6 C164.448,6 164,5.552 164,5 C164,4.448 164.448,4 165,4 L169,4 L169,2 C169,1.448 169.448,1 170,1 L174,1 C174.552,1 175,1.448 175,2 L175,4 L179,4 C179.552,4 180,4.448 180,5 C180,5.552 179.552,6 179,6 L178,15 Z" id="Icon" stroke="none" fill="#7F8FA4" fill-rule="evenodd"></path>
                   </svg>

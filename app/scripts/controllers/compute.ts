@@ -142,6 +142,14 @@ module auroraApp {
             this.$state.go("vm-create");
         }
 
+        deleteVm(vm: VmItem) {
+            let index = this.apiService.listItems.indexOf(vm);
+            console.log(index)
+            this.apiService.listItems.splice(index, 1); 
+            
+            //this.apiService.updateVm(this.item)
+        }
+
         selectImage(obj: IVmImage) {
             angular.forEach(this.apiService.vmImages, (flavor:IVmImage) => {
                 flavor.selected = false;
