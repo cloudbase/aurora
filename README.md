@@ -1,15 +1,18 @@
-# cloudbase_app
+# Aurora
 
 
 ## Build & development
-(not complete yet)
 
 npm install
 
-bower install
+sudo npm install -g npm-install-missing
+
+sudo npm install bower -g —save
+
+sudo npm install grunt grunt-cli —save
+
+sudo apt-get install ruby-full
+
+gem install compass
 
 grunt serve
-
-## API Bridge
-
-Copy bridge.php on a Apache server and change the bridge_url in scripts/services/apiService.ts
