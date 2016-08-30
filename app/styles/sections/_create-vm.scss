@@ -1,0 +1,274 @@
+.main-pane {
+  @include clearfix();
+  padding-bottom: 200px;
+  h1 {
+    font-family: "geomanist_light";
+    font-size: 39px;
+    color: #354052;
+  }
+  .sidebar {
+    width: 280px;
+    float: left;
+    background-color: #FFF;
+    border-radius: 4px;
+    padding: 20px;
+    margin-right: 20px;
+    border: 1px solid #B7C0CD;
+    &.is-menu {
+      background-color: transparent;
+      padding-left: 0;
+      padding-top: 0;
+      border: 0;
+    }
+    span.sidebar-title {
+      font-size: 12px;
+      display: block;
+      color: #9FA9BA;
+      text-transform: uppercase;
+      padding-left: 43px;
+      margin-bottom: 6px;
+    }
+    .sidebar-menu {
+      list-style: none;
+      padding-left: 0;
+      li {
+        list-style-image: none;
+        font-family: "geomanist_book";
+        font-size: 14px;
+        color: #354052;
+        line-height: 30px;
+        padding-left: 35px;
+        border-radius: 4px;
+        position: relative;
+        svg {
+          position: absolute;
+          left: 10px;
+          top: 7px;
+        }
+        &.active {
+          color: #FFF;
+          background-color: #30AD63;
+          svg path {
+            fill: #FFF;
+          }
+          a {
+            text-decoration: none;
+          }
+        }
+        a {
+          color: inherit;
+          display: inline-block;
+          width: 100%;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+  .main {
+    width: 910px;
+    float: left;
+  }
+  
+  .section {
+
+  }
+  .list-images {
+    @include clearfix();
+    .item-image {
+      float: left;
+      background-color: #E7E9ED;
+      border-radius: 4px;
+      width: 202px;
+      height: 130px;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      cursor: pointer;
+      .image {
+        float: left;
+        width: 60%;
+        font-family: "geomanist_book";
+        font-size: 18px;
+        color: $dark-blue;
+        padding: 16px 0 0 15px;
+      }
+      .os {
+        .icon {
+          width: 60px;
+          height: 60px;
+          margin: 10px 0 0 10px;
+          background-color: $image-bg-color;
+        }
+      }
+      .version {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #B7C0CD;
+        border-top: 1px solid #B7C0CD;
+        padding: 10px 0 10px 15px;
+      }
+      &.active, &:hover {
+        border-color: #30AD63;
+      }
+      &.active {
+        box-shadow: 0px 0px 4px 0px #30AD63;
+        background-color: #FAFAFB;
+        .version {
+          background: #30AD63;
+        }
+      }
+      &:nth-child(4n) {
+        margin-right: 0;
+      }
+
+
+    }
+  }
+  .list-flavors {
+    @include clearfix();
+    .item-flavor {
+      float: left;
+      background-color: #E7E9ED;
+      border-radius: 4px;
+      width: 32%;
+      margin-right: 2%;
+      margin-bottom: 20px;
+      position: relative;
+      .favorite-icon {
+        position: absolute;
+        right: 15px;
+        top: 18px;
+        cursor: pointer;
+      }
+      &.favorited {
+        .favorite-icon {
+          path {
+            fill: #FEB05A;
+          }
+        }
+      }
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+      .flavor-specs {
+        padding: 10px;
+      }
+      .name {
+        padding: 13px 15px 10px;
+        font-family: 'geomanist_book';
+        font-size: 18px;
+        line-height: 22px;
+        color: #354052;
+        border-bottom: 1px solid #7F8FA4;
+        svg {
+          margin-right: 10px;
+          float: left;
+        }
+        
+      }
+      .details {
+        padding: 10px 0;
+        span {
+          display: inline-block;
+          width: 34%;
+          font-family: "geomanist_book";
+          font-size: 24px;
+          line-height: 24px;
+          color: #354052;
+          &:first-child {
+            width: 20%;
+          }
+          &:last-child {
+            width: 42%;
+          }
+          label {
+            font-size: 14px;
+            line-height: 16px;
+            color: #7F8FA4;
+            display: block;
+          }
+          &:last-child {
+            border-right: 0;
+          }
+        }
+      }
+      .price {
+        @include clearfix();
+        width: 100%;
+        background-color: #B7C0CD;
+        border-top: 1px solid #B7C0CD;
+        padding: 7px 15px;
+        .value {
+          font-family: "geomanist_book";
+          font-size: 24px;
+          color: #354052;
+          float: left;
+        }
+        .label-value {
+          float: left;
+          line-height: 35px;
+          font-size: 14px;
+          color: #7F8FA4;
+          text-transform: uppercase;
+          margin-left: 10px;
+        }
+      }
+      &.active, &:hover {
+        border-color: #30AD63;
+      }
+      &.active {
+        background-color: #FAFAFB; 
+        box-shadow: 0px 0px 4px 0px #30AD63;
+        .price {
+          background-color: #30AD63;
+          .value, .label-value {
+            color: #FFF;
+          }
+        }
+      }
+    }
+  }
+  .panel-networks {
+    section {
+      padding: 0;
+    }
+    h2 {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+  }
+
+  .form-inline {
+    .form-group {
+      &:first-child {
+        width: 40%;
+        padding-right: 20px;
+      }
+      &:nth-child(2) {
+        width: 40%;
+        padding-right: 20px;
+      }
+      &:last-child {
+        width: 19%;
+      }
+      input {
+        width: 100%;
+      }
+    }
+  }
+}
+
+#create-vm {
+  #flavor-section {
+    padding: 0;
+    border: 0;
+    margin-top: 4px;
+    .section-body {
+      padding: 0;
+    }
+  }
+}

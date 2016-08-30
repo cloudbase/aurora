@@ -1,0 +1,159 @@
+
+body {
+  padding: 0;
+  background-color: #EFEFF4;
+  font-family: 'geomanist_regular';
+}
+.container {
+  width: 1210px !important;
+}
+
+body .header {
+  padding-left: 0;
+  padding-right: 0;
+}
+.header .navbar {
+  @include clearfix();
+  height: 70px;
+  background: #354052;
+  box-shadow: 0px -1px 0px 0px #E6EAEE;
+  .navbar-brand {
+    float: left;
+    padding: 0;
+    margin-top: 5px;
+    margin-left: -20px;
+  }
+  .navbar-menu {
+    padding-top: $pad;
+    float: left;
+    @include clearfix();
+    list-style: none;
+    li {
+      float: left;
+      padding: 8px 15px;
+      a {
+        font-family: "geomanist_book";
+        font-size: $font-size-menu;
+        color: #D8D8D8;
+        position: relative;
+        &:after {
+          content: " ";
+          display: block;
+        }
+        &:hover, &.active {
+          color: $menu-hover-color;
+          text-decoration: none;
+          &:after {
+            width: 100%;
+            height: 2px;
+            margin-top: 18px;
+            background-color: $menu-hover-color;
+          }
+        }
+      }
+    }
+  }
+}
+.main {
+  .section {
+    background: #FFFFFF;
+    border: 1px solid #B7C0CD;
+    border-radius: 4px;
+    margin-bottom: 25px;
+    .section-header {
+      padding: 20px 20px 18px;
+      h2, h3 {
+        margin: 0;
+        padding: 0;
+      }
+    }
+    .section-body {
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      &.no-padding {
+        padding: 0  
+      }
+    }
+  }
+}
+
+
+#narrow-col {
+  @include clearfix();
+  .main {
+    width: 610px;
+    .list-flavors {
+      .item-flavor{
+        width: 49%;
+        margin-right: 2%;
+        &:nth-child(2n) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .sidebar {
+    margin-right: 0 !important;
+    margin-left: 20px;
+  }
+}
+
+.panel {
+    overflow: hidden;
+    transition: max-height 0.5s ease-in;
+    max-height: 9999px;
+    border: 1px solid #B7C0CD;
+    h2 {
+      padding: 0;
+      margin: 0;
+    }
+    header {
+        height: 60px;
+        padding: 13px 20px;
+        border-bottom: 1px solid #E7E9ED;
+        .svg-caret {
+          float: left;
+          margin-top: 10px;
+          margin-right: 20px;
+        }
+    }
+    section {
+      padding: 15px 20px;
+      transform: scaleY(1);
+      transition: transform 0.26s ease;
+      transform-origin: top;
+
+    }
+    &.collapsed {
+      height: 60px;
+      section {
+        transform: scaleY(0);
+      }
+      header {
+        .svg-caret {
+          transform: rotate(180deg);
+          margin-top: 11px;
+        }
+      }
+    }  
+}
+
+.main-pane {
+  h1 {
+    @include clearfix();
+    margin-bottom: 30px;
+    svg {
+      float: left;
+      margin-top: -5px;
+      margin-right: 10px;
+    }
+  }
+
+  &.one-col-right-sidebar {
+    .sidebar {
+      margin-right: 0;
+      margin-left: 20px;
+    }
+  }
+  
+}

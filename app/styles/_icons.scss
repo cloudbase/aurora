@@ -1,0 +1,25 @@
+.icon {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 5px;
+    width: 60px;
+    height: 60px;
+    background-color: $image-bg-color;
+    svg {
+        width: 50px;
+        height: 50px;
+        &.icon-ubuntu {
+            width: 45px;
+        }
+        &.icon-windows {
+            width: 45px;
+        }
+    }
+    &.icon-dark {
+        background-color: $image-bg-color-dark;
+    }
+    &.os {
+        margin-top: 13px;
+        
+    }
+}

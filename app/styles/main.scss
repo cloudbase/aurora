@@ -1,0 +1,164 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+@import 'fonts';
+@import 'variables';
+@import 'mixins';
+@import 'layout';
+@import 'tables';
+@import 'forms';
+@import 'sections/create-vm';
+@import 'sections/vm-details';
+@import 'icons';
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.search-bar {
+  background-color: $base_color;
+  border: 1px solid darken($base_color, 10%);
+  padding: 10px 15px;
+  .form-inline {
+    .form-group {
+      &:first-child {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+
+.btn-launch {
+  font-family: "geomanist_book";
+  width: 100%;
+  line-height: 30px;
+  font-size: 18px;
+}
+
+.btn-refresh {
+  line-height: 34px;
+  float: right;
+}
+
+.form {
+  label {
+    font-family: "geomanist-book";
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+    color: #354052;
+  }
+  input[type="text"] {
+    
+  }
+}
+.row-raw-details, .row-actions {
+  border: 1px solid darken($base_color, 20%);
+  background-color: lighten($base_color, 0%);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+// Project Costs
+.project-stats {
+  h4 {
+    margin: 0 0 20px;
+  }
+  .graphs {
+    @include clearfix();
+    .graph {
+      float: left;
+      width: 118px;
+      height: 140px;
+      text-align: center;
+      position: relative;
+      .values {
+        position: absolute;
+        top: 40px;
+        width: 100%;
+        left: 0;
+        font-size: 15px;
+        color: #30AD63;
+      }
+    }
+  }
+  .stat-section {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #B7C0CD;
+    .stat-label {
+      font-family: Geomanist-Regular;
+      font-size: 14px;
+      color: #7F8FA4;
+      display: block;
+      margin-top: 20px;
+    }
+    .price {
+      font-family: "geomanist_book";
+      font-size: 18px;
+      color: #354052;
+      &.price-instance {
+        font-size: 28px;
+        
+      }
+    }
+    .increase {
+      font-size: 14px;
+      color: #30AD63;
+      float: right;
+      border: 1px solid #30AD63;
+      display: inline-block;
+      padding: 2px 4px;
+      border-radius: 4px;
+      &:before {
+        content: '+';
+      }
+      &.decrease {
+        color: #FD9727;
+        border-color: #FD9727;
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+  .budget-indicator {
+    margin-top: 10px;
+    span {
+      height: 10px;
+      border-radius: 4px;
+      display: block;
+      transition: 0.8s width ease-out;
+      &.main-bar {
+        background-color: #E2E7EE;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+      }
+      &.current_level {
+        background-color: #354052;
+        width: 50%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 11;
+      }
+      &.projected_level {
+        background-color: #30AD63;
+        width: 75%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 10;
+      }
+    }
+  }
+}
+
+@import 'loader';
+@import 'general';

@@ -1,0 +1,109 @@
+
+.vm-details {
+    @include clearfix();
+    margin-bottom: 20px;
+    transition: 1ms "background-color" ease-in;
+    .controls {
+      padding-top: 11px;
+    }
+    &.status-running {
+        .cell .info .vm-status {
+          border-color: $status-running;
+        }
+        .icon {
+          background-color: $status-running;
+        }
+        .status {
+          background-color: $status-running;
+        }
+      }
+      &.status-paused{
+        .pauseVM {
+          .icon-pause {
+            display: none;
+          }
+          .icon-play {
+            display: inline-block;
+          }
+        }
+        .cell .info .vm-status {
+          border-color: $status-paused;
+        }
+        .status {
+          background-color: $status-paused;
+        }
+        
+      }
+      &.status-deploying, &.status-restarting {
+        .status {
+          background-color: $status-deploying;
+        }
+        .cell .info .vm-status {
+          border-color: $status-deploying;
+        }
+      }
+      &.status-stopped {
+        .pauseVM {
+          .icon-pause {
+            display: none;
+          }
+          .icon-play {
+            display: inline-block;
+          }
+        }
+        .cell .info .vm-status {
+          border-color: $status-stopped;
+        }
+        .status {
+          background-color: $status-stopped;
+        }
+      }
+    .icon {
+        display: inline-block;
+        border-radius: 4px;
+        padding: 5px;
+        width: 60px;
+        height: 60px;
+        float: left;
+        transition: background-color 0.5s;
+        &.windows {
+            svg.windows {margin-left: 5px; margin-top: 6px;}
+        }
+        &.ubuntu {
+            svg.ubuntu {margin-left: 5px; margin-top: 6px;}
+        }
+        &.cirros {
+            svg.cirros {margin-left: 7px; margin-top: 6px;}
+        }
+        &.centos {
+            svg.centos {margin-left: 2px; margin-top: 5px;}
+        }
+        &.coreos{
+            svg.coreos {margin-left: 8px; margin-top: 8px;}
+        }
+    }
+    .info {
+        float: left;
+        padding: 8px 0 0 20px;
+        position: relative;
+        .name {
+            display: block;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+        .details {
+            display: block;
+            font-size: 12px;
+            color: #7F8FA4;
+        }
+        .vm-status {
+            position: absolute;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 3px solid gray;
+            border-radius: 50%;
+            top: 13px;
+          }
+    }
+}

@@ -1,0 +1,89 @@
+<div id="create-vm">
+    <collapse class="panel" title="General">
+        <div class='form form-inline'>
+            <div class='form-group'>
+                <label for="vm-name">Name</label>
+                <input type="text" id="vm-name" class='form-control' ng-model="newVmName"/>
+            </div>
+            <div class='form-group'>
+                <label for="vm-zone">Zone</label>
+                <input type="text" id="vm-zone" value="nova" class='form-control'/>
+            </div>
+            <div class='form-group'>
+                <label for="vm-count">Count</label>
+                <input type="text" id="vm-count" value="1" class='form-control form-input-number'/>
+            </div>
+        </div>
+    </collapse>
+    <collapse class="panel" title="Choose Image">
+        <div class="list list-images">
+            <div class="item-image" ng-repeat="image in vmCreate.apiService.vmImages" ng-class="{active: image.selected}" ng-click="vmCreate.selectImage(image);">
+                <span class="image">{{ image.name }}</span>
+                <span class="icon icon-dark {{ item.image.id }} os">
+                    <svg class="icon-{{ image.os }}">
+                        <use xlink:href="{{'images/icons.svg#logo-' + image.os}}" />
+                    </svg>
+                </span>
+                <span class="version">{{ image.version }}</span>
+            </div>
+        </div>
+    </collapse>
+    <collapse class="panel" title="Size">
+        <div ui-view="flavors"></div>
+    </collapse>
+    <collapse class="panel panel-networks" title="Network">
+        <div class="list list-networks">
+            <div class='table network-table'>
+                <div class='table-header'>
+                    <div class='cell'>Connect</div>
+                    <div class='cell'>Name</div>
+                    <div class='cell'>Subnet</div>
+                    <div class='cell'>State</div>
+                    <div class='cell'>Shared</div>
+                </div>
+                <div class='table-row' ng-repeat="network in vmCreate.apiService.vmNetworks" ng-class="{active: network.selected}" ng-click="vmCreate.selectNetwork(network);">
+                    <div class='cell'> 
+                        <svg class='radio radio-inactive' width="15px" height="16px" viewBox="0 0 15 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs>
+                                <path d="M7.5,15 C11.6421356,15 15,11.6421356 15,7.5 C15,3.35786438 11.6421356,0 7.5,0 C3.35786438,0 0,3.35786438 0,7.5 C0,11.6421356 3.35786438,15 7.5,15 Z" id="path-1"></path>
+                                <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="15" height="15" fill="white">
+                                    <use xlink:href="#path-1"></use>
+                                </mask>
+                            </defs>
+                            <use id="Colour-Copy" stroke="#B7C0CD" mask="url(#mask-2)" stroke-width="4" fill="none" xlink:href="#path-1"></use>
+                        </svg>
+                        <svg class='radio radio-active' width="15px" height="16px" viewBox="30 176 15 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs>
+                                <ellipse id="path-1" cx="7.5" cy="7.5" rx="7.5" ry="7.5"></ellipse>
+                                <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="15" height="15" fill="white">
+                                    <use xlink:href="#path-1"></use>
+                                </mask>
+                                <ellipse id="path-3" cx="7.5" cy="7.5" rx="3.5" ry="3.5"></ellipse>
+                                <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="7" height="7" fill="white">
+                                    <use xlink:href="#path-3"></use>
+                                </mask>
+                            </defs>
+                            <g id="Group-5-Copy-3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(30.000000, 176.000000)">
+                                <use id="Colour-Copy" stroke="#30AD63" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                                <use id="Colour-Copy" stroke="#30AD63" mask="url(#mask-4)" stroke-width="4" fill="#30AD63" xlink:href="#path-3"></use>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class='cell'>{{ network.name }}</div>
+                    <div class='cell'>{{ network.subnet }}</div>
+                    <div class='cell'>{{ network.state }}</div>
+                    <div class='cell'>{{ network.shared ? "Yes" : "No"}}</div>
+                </div>
+            </div>
+        </div>
+    </collapse>
+    <collapse class="panel" title="Security Groups" opened="false">
+        <p>Nothing to see here yet</p>
+    </collapse>
+    <collapse class="panel" title='Access' opened="false">
+        <p>Nothing to see here yet</p>
+    </collapse>
+    <a class="btn btn-primary btn-launch" ng-click="vmCreate.createVm()">
+        Launch Virtual Machine
+    </a>
+</div>

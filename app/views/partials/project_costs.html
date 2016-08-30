@@ -1,0 +1,110 @@
+<div class='project-stats'>
+    <h4>Project Limits</h4>
+    <div class='graphs'>
+        <div class='graph'>
+            <round-progress
+            max="view.apiService.project.vm_limit"
+            current="view.apiService.project.current_vm"
+            color="{{ (view.apiService.project.current_vm / view.apiService.project.vm_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+            bgcolor="#eaeaea"
+            radius="50"
+            stroke="10"
+            semi="false"
+            rounded="true"
+            clockwise="false"
+            responsive="false"
+            duration="800"
+            animation="easeInOutQuart"
+            animation-delay="500"></round-progress>
+            <span class='values'>{{view.apiService.project.current_vm}}/{{view.apiService.project.vm_limit}}</span>
+            <span class='graph-label'>VMs</span>
+        </div>
+        <div class='graph'>
+            <round-progress
+            max="view.apiService.project.vcpu_limit"
+            current="view.apiService.project.current_vcpu"
+            color="{{ (view.apiService.project.current_vcpu / view.apiService.project.vcpu_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+            bgcolor="#eaeaea"
+            radius="50"
+            stroke="10"
+            semi="false"
+            rounded="true"
+            clockwise="false"
+            responsive="false"
+            duration="800"
+            animation="easeInOutQuart"
+            animation-delay="600"></round-progress>
+            <span class='values'>{{view.apiService.project.current_vcpu}}/{{view.apiService.project.vcpu_limit}}</span>
+            <span class='graph-label'>vCPUs</span>
+        </div>
+        <div class='graph'>
+            <round-progress
+            max="view.apiService.project.vram_limit"
+            current="view.apiService.project.current_vram"
+            color="{{ (view.apiService.project.current_vram / view.apiService.project.vram_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+            bgcolor="#eaeaea"
+            radius="50"
+            stroke="10"
+            semi="false"
+            rounded="true"
+            clockwise="false"
+            responsive="false"
+            duration="800"
+            animation="easeInOutQuart"
+            animation-delay="700"></round-progress>
+            <span class='values'>{{view.apiService.project.current_vram}}/{{view.apiService.project.vram_limit}}</span>
+            <span class='graph-label'>vRAM (GB)</span>
+        </div>
+        <div class='graph'>
+            <round-progress
+            max="view.apiService.project.storage_limit"
+            current="view.apiService.project.current_storage"
+            color="{{ (view.apiService.project.current_storage / view.apiService.project.storage_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+            bgcolor="#eaeaea"
+            radius="50"
+            stroke="10"
+            semi="false"
+            rounded="true"
+            clockwise="false"
+            responsive="false"
+            duration="800"
+            animation="easeInOutQuart"
+            animation-delay="800"></round-progress>
+            <span class='values'>{{view.apiService.project.current_storage}}/{{view.apiService.project.storage_limit}}</span>
+            <span class='graph-label'>Volume Storage (GB)</span>
+        </div>
+        
+    </div>
+    
+    <div class='stat-section'>
+        <h4>Estimated Costs</h4>
+        <div class='monthly-cost'>
+            <span class='stat-label'>Monthly cost/instance</span>
+            <span class='price price-instance'>
+                &euro; {{ ((view.apiService.project.current_cost + view.apiService.project.additional_cost) / view.apiService.project.current_vm) | number : 2 }}
+            </span>
+        </div>
+        <div class='monthly-cost'>
+            <span class='stat-label'>Monthly cost/project</span>
+            <span class='price'>
+                &euro; {{ view.apiService.project.current_cost + view.apiService.project.additional_cost | number : 2 }}
+            </span>
+            <span class='increase'
+            ng-class="{decrease: (view.apiService.project.additional_cost / view.apiService.project.monthly_budget) * 100 < 0}">
+                {{ (view.apiService.project.additional_cost / view.apiService.project.monthly_budget) * 100 | number : 2 }}% 
+            </span>
+            <div class='budget-indicator'>
+                <span class='main-bar'> 
+                    <span class='current_level' style="width: {{ view.apiService.project.current_cost / view.apiService.project.monthly_budget * 100 | number : 2}}%"> 
+                    </span>
+                    <span class='projected_level' style="width: {{ (view.apiService.project.current_cost + view.apiService.project.additional_cost) / view.apiService.project.monthly_budget * 100 | number : 2 }}%"> 
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='stat-section'>
+        <h4>Summary</h4>
+
+    </div>
+</div>

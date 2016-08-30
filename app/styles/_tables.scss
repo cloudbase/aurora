@@ -1,0 +1,342 @@
+
+.main-list {
+  background: #FFFFFF;
+  border: 1px solid #B7C0CD;
+  border-radius: 4px;
+  padding-left: 0;
+  .list-header {
+    padding: 20px 25px 20px 0px;
+    @include clearfix();
+    .btn-add {
+      float: right;
+      padding: 8px 12px 4px 70px;
+      position: relative;
+      font-size: 18px;
+      line-height: 30px;
+      svg {
+        position: absolute;
+        left: 15px;
+        top: 13px;
+      }
+    }
+  }
+  .list-categories {
+    @include clearfix();
+    list-style: none;
+    padding-left: 0;
+    padding-top: 5px;
+    margin-bottom: 0;
+    float: left;
+    li {
+      list-style-image: none;
+      float: left;
+      padding-right: 60px;
+      padding-left: 30px;
+      border-right: 1px solid #DFE3E9;
+      position: relative;
+      cursor: pointer;
+      &:first-child {
+
+      }
+      &:last-child {
+        border-right: 0;
+      }
+      .name {
+        font-size: 24px;
+        color: #7F8FA4;
+      }
+      .count {
+        font-size: 14px;
+        color: #171725;
+        position: relative;
+        right: -40px;
+        top: -3px;
+      }
+      &:after {
+        content: " ";
+        display: none;
+        width: 100%;
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        height: 2px;
+        background-color: $menu-hover-color;
+      }
+      &.active, &:hover {
+        .name {
+          color: #30AD63;
+        }
+        .count {
+          color: #7F8FA4;
+        }
+        &:after {
+          display: block;
+        }
+      }
+    }
+  }
+}
+.table {
+  .table-header {
+    padding: 8px 0 8px 30px;
+    background-color: #E7E9ED;
+    border-top: 2px solid darken(#E7E9ED, 20%);
+    @include clearfix();
+    .cell {
+      font-size: 14px;
+      color: #7F8FA4;
+    }
+  }
+  .table-row {
+    @include clearfix();
+    padding: 15px 0 15px 30px;
+    border-bottom: 1px solid #EFEFF4;
+    &:last-child {
+      border-bottom: 0;
+    }
+    .cell {
+      padding-top: 20px;
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+  .cell {
+    float: left;
+    &:first-child {
+      width: 30%;
+    }
+    &:nth-child(2) {
+      width: 10%;
+    }
+    &:nth-child(3) {
+      width: 10%;
+    }
+    &:nth-child(4) {
+      width: 10%;
+    }
+    &:nth-child(5) {
+      width: 10%;
+    }
+    &:nth-child(6) {
+      width: 13%;
+    }
+    &:nth-child(7) {
+      width: 17%;
+    }
+    .vm-actions {
+      list-style: none;
+      padding-left: 0px;
+      li {
+        float: left;
+        list-style-image: none;
+        margin-right: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.vm-table {
+  .table-content {
+    .table-row {
+      transition: background-color 1s;
+      .icon {
+        float: left;
+      }
+
+      .pauseVM {
+        .icon-pause {
+          display: inline-block;
+        }
+        .icon-play {
+          display: none;
+        }
+      }
+
+      &.status-running {
+        .cell .info .vm-status {
+          border-color: $status-running;
+        }
+        .status {
+          background-color: $status-running;
+        }
+      }
+      &.status-paused{
+        .pauseVM {
+          .icon-pause {
+            display: none;
+          }
+          .icon-play {
+            display: inline-block;
+          }
+        }
+        .cell .info .vm-status {
+          border-color: $status-paused;
+        }
+        .status {
+          background-color: $status-paused;
+        }
+      }
+      &.status-deploying {
+        background-color: lighten($status-deploying, 35%);
+      }
+      &.status-deploying, &.status-restarting {
+        .cell .info .vm-status {
+          border-color: $status-deploying;
+        }
+        .status {
+          background-color: $status-deploying;
+        }
+      }
+      &.status-stopped {
+        .pauseVM {
+          .icon-pause {
+            display: none;
+          }
+          .icon-play {
+            display: inline-block;
+          }
+        }
+        .cell .info .vm-status {
+          border-color: $status-stopped;
+        }
+        .status {
+          background-color: $status-stopped;
+        }
+      }
+
+      .vm-actions li{
+        &:hover {
+          svg {
+            path {
+              fill: #BBC5D5;
+            }
+          }
+        }
+      }
+      .cell {
+        .status {
+          display: inline-block;
+          padding: 2px 4px;
+          text-transform: uppercase;
+          color: #FFF;
+          border-radius: 4px;
+          font-size: 12px;
+          width: 75px;
+          text-align: center;
+          transition: background-color 0.5s;
+        }
+        .info {
+          float: left;
+          padding: 8px 0 0 20px;
+          position: relative;
+          .name {
+            display: block;
+            font-size: 18px;
+            margin-left: 20px;
+          }
+          .details {
+            display: block;
+            font-size: 12px;
+            color: #7F8FA4;
+          }
+          .vm-status {
+            position: absolute;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 3px solid gray;
+            border-radius: 50%;
+            top: 13px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.network-table {
+  .cell {
+    &:first-child {
+      width: 10%;
+    }
+    &:nth-child(2) {
+      width: 30%;
+    }
+    &:nth-child(3) {
+      width: 30%;
+    }
+    &:nth-child(4) {
+      width: 20%;
+    }
+    &:nth-child(5) {
+      width: 10%;
+    }
+  }
+  .table-row {
+    line-height: 35px;
+    .cell {
+      padding-top: 0;
+      .radio {
+        margin-top: 10px;
+        &.radio-active {
+          display: none;
+        }
+        &.radio-inactive {
+          display: block;
+        }
+      }
+    }
+    &.active {
+      .cell {
+        .radio {
+          &.radio-active {
+            display: block;
+          }
+          &.radio-inactive {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.table.table-snapshots {
+  .cell {
+    width: 20%;
+    .snapshot-icon {
+      float: left;
+      margin-right: 15px;
+    }
+    .name {
+      float: left;
+      margin-top: 15px;
+    }
+    &:first-child {
+      width: 40%;
+    }
+    
+  }
+}
+.list-filters {
+  border-top: 1px solid #E7E9ED;
+  margin-bottom: 10px;
+  margin-top: -20px;
+  a {
+    font-size: 16px;
+    color: #7F8FA4;
+    margin-right: 15px;
+    cursor: pointer;
+    text-transform: capitalize;
+    line-height: 35px;
+    display: inline-block;
+    
+    &.active, &:hover {
+      color: #30AD63;
+      text-decoration: none;
+      border-top: 1px solid #30AD63; 
+    }
+  }
+}

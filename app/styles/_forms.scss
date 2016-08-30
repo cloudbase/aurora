@@ -1,0 +1,153 @@
+
+#login-form {
+  max-width: 450px;
+  margin: 0 auto;
+  box-radius: 4px;
+  .logo-login {
+    background-color: $dark-blue;
+    border-radius: 50%;
+    width:90px;
+    height: 90px;
+    margin: 0 auto;
+    position: relative;
+    bottom: -45px;
+    img {
+      margin-left: 20px;
+      margin-top: 25px;
+    }
+  }
+  label {
+    font-size: 14px;
+    color: $font-color-label;
+  }
+  input.form-control {
+    line-height: 46px;
+    border: 1px solid #B7C0CD;
+    padding: 0 10px;
+    border-radius: 4px;
+    height: 46px;
+
+  }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+  .top {
+    background: #7F8FA4;
+    border: 1px solid #E6EAEE;
+    border-radius: 4px 4px 0px 0px;
+    width: 100%;
+    padding: 50px 0 20px;
+    h3 {
+      color: #FFF;
+      text-align: center;
+      font-weight: normal;
+    }
+  }
+  .body {
+    background: #FFFFFF;
+    border: 1px solid #E6EAEE;
+    padding: 15px 30px;
+    width: 100%;
+  }
+  .bottom {
+    border: 1px solid #E6EAEE;
+    border-radius: 0px 0px 4px 4px;
+    background: #FFFFFF;
+    padding: 16px 32px 32px;
+    text-align: center;
+    label.login-social-networks {
+      position: relative;
+      top: -28px;
+      background-color: #FFF;
+      padding: 0 15px;
+    }
+    .social-icons {
+      @include clearfix();
+      list-style: none;
+      padding-left: 0;
+      li {
+        list-style-image: none;
+        height: 70px;
+        width: 70px;
+        border-radius: 4px;
+        margin-right: 34px;
+        position: relative;
+        float: left;
+        &.icon1 {
+          background: #5AC8FA;
+        }
+        &.icon2 {
+          background: #289DF5;
+        }
+        &.icon3 {
+          background: #FDC02F;
+        }
+        &.icon4 {
+          background: #FF2D55;
+          margin-right: 0px;
+        }
+        span {
+          background: #FFFFFF;
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          border-radius: 50%;
+          left:50%;
+          margin-left: -20px;
+          top: 50%;
+          margin-top: -20px;
+        }
+
+      }
+    }
+  }
+  .bottom-links {
+    margin-top: 15px;
+    a {
+      font-size: 14px;
+      color: $font-color-label;
+    }
+  }
+}
+
+.btn {
+  background: #30AD63;
+  border-radius: 4px;
+  font-family: "geomanist_book";
+  font-size: 14px;
+  color: #FFFFFF;
+  line-height: 20px;
+  border: none;
+  &.btn-login {
+    width: 100%;
+    padding: 13px 0px;
+  }
+  &:hover {
+    background-color: $dark-blue;
+    color: #FFF;
+  }
+  &.btn-snapshot {
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 24px;
+    background: #54B87E;
+    border: 1px solid #30AD63;
+    svg {
+      float: left;
+      margin-top: 3px;
+      margin-right: 15px;
+    }
+  }
+  &.btn-shutoff {
+    color: #FFFFFF;
+    line-height: 24px;
+    background: rgba(255,59,48,0.76);
+    border: 1px solid #FF3B30;
+    svg {
+      float: left;
+      margin-top: 3px;
+      margin-right: 12px;
+    }
+  }
+}
