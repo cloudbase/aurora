@@ -9,5 +9,12 @@ declare module auroraApp {
     interface IComputeCtrl {
         
     }
+    interface ISearchField {
+        id: string
+        name: string
+        type: string
+        options: any
+        term: string
+    }
     
 }

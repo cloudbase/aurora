@@ -12,7 +12,8 @@ var app = angular.module('auroraApp', [
     'angular-svg-round-progressbar',
     'xeditable',
     'sticky',
-    'yaru22.angular-timeago'
+    'yaru22.angular-timeago',
+    'ui.select'
 ]);
 app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
   //
@@ -31,7 +32,12 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       url: "/vm/list",
       templateUrl: 'views/sections/main.html',
       controller: 'ComputeCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: {
+        data: ['ApiService', (apiService) => {
+          return apiService.queryServers()
+        }]
+      }
     })
     .state('vm-create', {
       url: "/vm/create",

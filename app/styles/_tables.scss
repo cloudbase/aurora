@@ -76,6 +76,49 @@
     }
   }
 }
+.table-filter {
+  padding: 10px 20px;
+  border-top: 2px solid #B7C0CD;
+  .ui-select-container:first-child {
+    width: 15%;
+    .ui-select-toggle {
+      background-color: #E7E9ED;
+      border: 1px solid #B7C0CD;
+      color: #B7C0CD;
+    } 
+  }
+  .ui-select-bootstrap .ui-select-toggle > .caret {
+    color: #B7C0CD;
+  }
+  .filter-row {
+    @include clearfix();
+    padding-top: 10px;
+    .filter-name {
+      font-size: 16px;
+      float: left;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+    .filter-options {
+      float: left;
+      ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+        li {
+          float: left;
+          margin-right: 10px;
+          font-size: 16px;
+          text-transform: capitalize;
+          cursor: pointer;
+          &.selected {
+            color: #30AD63
+          }
+        }
+      }
+    }
+  }
+}
 .table {
   .editable-input {
     height: 25px;

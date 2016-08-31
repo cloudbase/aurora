@@ -43,8 +43,34 @@
           </select>
         </div>
         <a ng-click="vm.updateList(false)" class='btn-refresh'> <span class='glyphicon glyphicon-refresh'></span> Refresh </a>
-
       </form> -->
+    </div>
+    <div class='table-filter'>
+      <ui-select ng-model="vm.selected.value" search-enabled="false" on-select="vm.selectFilter($item, $model)">
+        <ui-select-match placeholder="Choose field to filter">
+            <span ng-bind="$select.selected.name"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="item in (vm.filters | filter: $select.search) track by item.id">
+            <span ng-bind="item.name"></span>
+        </ui-select-choices>
+    </ui-select>
+    <div class='filter-details'>
+      <div class='filter-row' ng-repeat="filterField in vm.currentFilters">
+        <div class='filter-name'>
+          {{ filterField.name }}:
+        </div>
+        <div class='filter-options'>
+          <div ng-if='filterField.type=="options"'>
+            <ul>
+              <li ng-repeat='option in filterField.options' ng-click='vm.filterTable(option, filterField)' ng-class="{selected: option.selected}">{{ option.term }}</li>
+            </ul>
+          </div>
+          <div ng-if='filterField.type=="text"'>
+            <input type="text" ng-model='filterField.term' />
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
     <div class="table vm-table">
       <div class="table-header">
@@ -63,7 +89,7 @@
         <div class="cell">Actions</div>
       </div>
       <div class='table-content'>
-        <div ng-repeat="item in vm.apiService.listItems | orderBy:vm.sortType:vm.sortReverse | filter : search" ng-class="{editing: item.edit_state}" class='table-row status-{{ item.host_status }}' >
+        <div ng-repeat="item in vm.apiService.listItems | orderBy:vm.sortType:vm.sortReverse | vmFilter: {filters: vm.currentFilters}" ng-class="{editing: item.edit_state}" class='table-row status-{{ item.host_status }}' >
           <div class='cell'>
             <span class="icon {{ item.image.id }}">
               <svg class="icon-{{ item.image.id }}">

@@ -63,7 +63,6 @@ module auroraApp {
         }
 
         changeCategory(category) {
-            console.log(category);
             this.activeList = category
         }
         

@@ -12,6 +12,12 @@ module auroraApp {
         newVmName: string
         sortType: string = ""
         sortReverse = false
+        selected: any
+        currentFilters: any = []
+        filters: ISearchField[] = [
+            {id: 'host_status', name: "Status", type: "options", options: [], term: ""},
+            {id: 'name', name: "Name", type: "text", options: false, term: ""}
+        ]
 
         static $inject = [
             "$scope",
@@ -28,6 +34,25 @@ module auroraApp {
         {
             let rand = Math.floor((Math.random() * 100) + 1)
             this.newVmName = "machine-" + rand;
+
+            // populate filter with terms
+            this.filters.forEach((filterItem) => {
+                switch (filterItem.id) {
+                    case "host_status": 
+                        this.apiService.listItems.forEach((vm: VmItem) => {
+                            let found = false
+                            filterItem.options.forEach((option) => {
+                                if (option.term == vm.host_status)
+                                    found = true
+                            })
+                            if (!found) 
+                                filterItem.options.push({term: vm.host_status, selected: true})
+                        })
+                        break
+                }
+                    
+            })
+            
         }
 
         pauseVm(obj: VmItem)
@@ -84,10 +109,31 @@ module auroraApp {
                 }
             }
         }
+
+        filterTable(option, filterField: ISearchField) {
+            option.selected = !option.selected
+        }
         
         cancelEdit(obj: VmItem) {
             obj.edit_state = false
             obj.name = obj.prev_name
+        }
+
+        selectFilter(item) {
+            let exists = false
+            this.currentFilters.forEach((filter) => {
+                if (filter.id == item.id)
+                    exists = true
+            })
+            if (exists) 
+                return
+            
+            this.currentFilters.push(item);
+            if (item.type == "options") {
+                if (item.id == "status") {
+                    
+                }
+            }
         }
 
         createVm() {
