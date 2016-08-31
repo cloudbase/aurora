@@ -57,12 +57,18 @@
     <div class='filter-details'>
       <div class='filter-row' ng-repeat="filterField in vm.currentFilters">
         <div class='filter-name'>
+          <svg ng-click='vm.removeFilter(filterField)' width="18px" height="18px" viewBox="570 3 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <path d="M578.10303,10.94248 L573.094004,10.94248 L573.094004,12.9320218 L578.10303,12.9320218 L578.10303,17.9410484 L580.092572,17.9410484 L580.092572,12.9320218 L585.101599,12.9320218 L585.101599,10.94248 L580.092572,10.94248 L580.092572,5.93345343 L578.10303,5.93345343 L578.10303,10.94248 Z" id="Close-Button" stroke="none" fill="#333333" fill-rule="evenodd" transform="translate(579.097801, 11.937251) rotate(-315.000000) translate(-579.097801, -11.937251) "></path>
+          </svg>
           {{ filterField.name }}:
         </div>
         <div class='filter-options'>
           <div ng-if='filterField.type=="options"'>
             <ul>
-              <li ng-repeat='option in filterField.options' ng-click='vm.filterTable(option, filterField)' ng-class="{selected: option.selected}">{{ option.term }}</li>
+              <li ng-repeat='option in filterField.options' ng-click='vm.filterTable(option, filterField)' ng-class="{selected: option.selected}">
+                
+                {{ option.term }}
+              </li>
             </ul>
           </div>
           <div ng-if='filterField.type=="text"'>

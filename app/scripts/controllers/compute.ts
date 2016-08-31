@@ -136,6 +136,12 @@ module auroraApp {
             }
         }
 
+        removeFilter(item) {
+            console.log(item)
+            let index = this.currentFilters.indexOf(item)
+            this.currentFilters.splice(index, 1)
+        }
+
         createVm() {
             let image = this.apiService.vmImages.filter((vmImage:IVmImage):boolean => {
                 return vmImage.selected == true
