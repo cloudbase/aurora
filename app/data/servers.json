@@ -546,25 +546,41 @@
     "networks": [
         {
             "name": "private_01",
+            "type": "private",
             "subnet": "private_subnet_01",
+            "interface": "eth0",
+            "ip_address": "10.0.1.2",
+            "floating_ip": "88.65.111.2",
             "state": "down",
             "shared": true
         },
         {
             "name": "private_02",
+            "type": "private",
             "subnet": "private_subnet_02",
-            "state": "down",
+            "interface": "eth0",
+            "ip_address": "10.0.1.2",
+            "floating_ip": "88.65.111.2",
+            "state": "up",
             "shared": true
         },
         {
             "name": "private_03",
+            "type": "private",
             "subnet": "private_subnet_03",
-            "state": "down",
+            "interface": "eth1",
+            "ip_address": "10.0.1.2",
+            "floating_ip": "88.65.111.2",
+            "state": "up",
             "shared": false
         },
         {
-            "name": "private_04",
-            "subnet": "private_subnet_04",
+            "name": "public_04",
+            "type": "public",
+            "subnet": "external",
+            "interface": "eth2",
+            "ip_address": "10.0.1.2",
+            "floating_ip": "",
             "state": "down",
             "shared": false
         }

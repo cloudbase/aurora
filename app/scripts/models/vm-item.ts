@@ -84,7 +84,11 @@ module auroraApp {
 
     export interface IVmNetwork {
         name: string
+        type: string
         subnet: string
+        network_interface: string
+        ip_address: string
+        floating_ip: string
         state: string
         shared: string
         selected: boolean
@@ -92,7 +96,11 @@ module auroraApp {
     export class VmNetwork implements IVmNetwork {
         constructor(
             public name: string,
+            public type: string,
             public subnet: string,
+            public network_interface: string,
+            public ip_address: string,
+            public floating_ip: string,
             public state: string,
             public shared: string,
             public selected: boolean = false

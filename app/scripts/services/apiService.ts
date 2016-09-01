@@ -157,7 +157,16 @@ module auroraApp.Services {
 		}
 
 		addNetwork(obj: any) {
-			var newNetwork = new VmNetwork(obj.name, obj.subnet, obj.state, obj.shared);
+			var newNetwork = new VmNetwork(
+				obj.name, 
+				obj.type,
+				obj.subnet,
+				obj.interface,
+				obj.ip_address,
+				obj.floating_ip, 
+				obj.state, 
+				obj.shared
+			);
 
 			this.vmNetworks.push(newNetwork)
 		}
