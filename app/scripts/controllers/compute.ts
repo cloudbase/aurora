@@ -151,9 +151,18 @@ module auroraApp {
                 return vmFlavor.selected == true
             })[0]
 
-            let networks = this.apiService.vmNetworks.filter((vmNetwork:IVmNetwork):boolean => {
+            let networks = this.apiService.networkList.filter((vmNetwork:IVmNetwork):boolean => {
                 return vmNetwork.selected == true
-            })[0]
+            })
+
+            let network_interfaces: INetworkInterface[] = []
+            
+            networks.forEach((network) => {
+                network_interfaces.push({
+                    network: network,
+                    ip_addr: network.allocateIp()
+                })
+            })
 
             let rand = Math.floor((Math.random() * 100) + 1)
 
@@ -163,9 +172,10 @@ module auroraApp {
                 "deploying",
                 new Date(),
                 image,
-                ["192.168.10." + rand],
+                networks,
                 flavor,
-                []
+                [],
+                network_interfaces
             );
 
             this.$timeout(() => {
@@ -189,7 +199,7 @@ module auroraApp {
             this.apiService.vmFlavors[0].selected = true
             this.apiService.project.additional_cost = this.apiService.vmFlavors[0].price 
 
-            this.apiService.vmNetworks[0].selected = true
+            this.apiService.vmNetworks[Object.keys(this.apiService.vmNetworks)[0]].selected = true
 
             this.$state.go("vm-create");
         }

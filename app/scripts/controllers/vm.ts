@@ -25,6 +25,11 @@ module auroraApp {
             apiService.project.additional_cost = 0
         }
 
+        removeInterface(networkInterface: INetworkInterface) {
+            let index = this.item.network_interfaces.indexOf(networkInterface)
+            this.item.network_interfaces.splice(index, 1)
+        }
+
         createSnapshot() {
             let name = this.item.name + "_sp_" + (this.item.snapshots.length + 1)
             let snapshot = new VmSnapshot(

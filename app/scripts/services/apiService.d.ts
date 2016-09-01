@@ -36,6 +36,7 @@ declare module auroraApp.Services {
 		vmFlavors: IVmFlavor[]
 		vmImages: IVmImage[]
 		vmNetworks: IVmNetwork[]
+		networkList: IVmNetwork[]
 		project: Project
 		//handlerResponded(response: any, params: any): any
 		//_wrapUrl(url: string, type: string): string

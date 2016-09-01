@@ -10,22 +10,30 @@ module auroraApp {
         image: IVmImage
         created: Date
         edit_state: boolean
+        networks: IVmNetwork[]
         flavor: IVmFlavor
-        snapshots: IVmSnapshot[] 
+        snapshots: IVmSnapshot[]
+        network_interfaces: INetworkInterface[]
     }
     export class VmItem implements IVmItem {
         prev_name: string
         constructor(
-            public id: string,
-            public name: string,
-            public host_status: string,
-            public created: Date,
-            public image: IVmImage,
-            public ip_addr: string[],
-            public flavor: IVmFlavor,
-            public snapshots: IVmSnapshot[],
-            public edit_state:boolean = false) {
+            public id,
+            public name,
+            public host_status,
+            public created,
+            public image,
+            public networks,
+            public flavor,
+            public snapshots,
+            public network_interfaces,
+            public edit_state = false) {
         }
+    }
+
+    export interface INetworkInterface {
+        network: IVmNetwork
+        ip_addr: string
     }
 
     export interface IVmSnapshot {
@@ -82,6 +90,11 @@ module auroraApp {
         ) {}
     }
 
+    export interface IAllocationPool {
+        start: string
+        end: string
+    }
+
     export interface IVmNetwork {
         name: string
         type: string
@@ -91,9 +104,12 @@ module auroraApp {
         floating_ip: string
         state: string
         shared: string
+        allocation_pools: IAllocationPool[]
         selected: boolean
+        allocateIp: Function
     }
     export class VmNetwork implements IVmNetwork {
+        allocated_ips: string[] = []
         constructor(
             public name: string,
             public type: string,
@@ -103,8 +119,21 @@ module auroraApp {
             public floating_ip: string,
             public state: string,
             public shared: string,
+            public allocation_pools: IAllocationPool[],
             public selected: boolean = false
         ) {}
+        allocateIp():string {
+            let ip = this.allocation_pools[0].start.split(".")
+            let start = Number(ip[3])
+            let end = Number(this.allocation_pools[0].end.split(".")[3])
+            let ip_prefix = ip[0] + "." + ip[1] + "." + ip[2] + "." 
+            for (let _i = start; _i <= end; _i++) {
+                if (this.allocated_ips.indexOf(ip_prefix + _i) == -1) {
+                    this.allocated_ips.push(ip_prefix + _i)
+                    return ip_prefix + _i
+                }
+            }
+        }
     }
 
     export interface IProject {

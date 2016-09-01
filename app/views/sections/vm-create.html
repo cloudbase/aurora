@@ -57,7 +57,8 @@
                                 <div class='cell'>State</div>
                                 <div class='cell'>Shared</div>
                             </div>
-                            <div class='table-row' ng-repeat="network in vmCreate.apiService.vmNetworks" ng-class="{active: network.selected}" ng-click="vmCreate.selectNetwork(network);">
+                            
+                            <div class='table-row' ng-repeat="network in vmCreate.apiService.networkList" ng-class="{active: network.selected}" ng-click="vmCreate.selectNetwork(network);">
                                 <div class='cell'> 
                                     <svg class='radio radio-inactive' width="20px" height="20px" viewBox="18 230 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <defs>

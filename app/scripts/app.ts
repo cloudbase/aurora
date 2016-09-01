@@ -75,7 +75,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
             this.apiService.vmFlavors[0].selected = true
             this.apiService.project.additional_cost = this.apiService.vmFlavors[0].price 
 
-            this.apiService.vmNetworks[0].selected = true
+            this.apiService.vmNetworks[Object.keys(this.apiService.vmNetworks)[0]].selected = true
           })
         }]
       }

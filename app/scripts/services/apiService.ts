@@ -18,6 +18,7 @@ module auroraApp.Services {
 		vmImages: VmImage[] = []
 		vmImagesList: string[]
 		vmNetworks: VmNetwork[] = []
+		networkList: VmNetwork[] = []
 		project: Project
 		queried: boolean = false
 		
@@ -90,6 +91,15 @@ module auroraApp.Services {
 			let searchFlavor = this.vmFlavors.filter((vmFlavor):boolean => {
 				return vmFlavor.name == obj.flavor
 			})[0]
+			
+			let networkInterfaces: INetworkInterface[] = []
+			
+			obj.networks.forEach((network) => {
+				networkInterfaces.push({
+					network: this.vmNetworks[network],
+					ip_addr: this.vmNetworks[network].allocateIp()
+				})
+			})
 
             let snapshots: VmSnapshot[] = []
 
@@ -110,7 +120,8 @@ module auroraApp.Services {
 				searchImage, 
 				obj.ip_addr, 
 				searchFlavor,
-				snapshots
+				snapshots,
+				networkInterfaces
 			);
 			
 			// if exists, update, if not push into array
@@ -165,10 +176,12 @@ module auroraApp.Services {
 				obj.ip_address,
 				obj.floating_ip, 
 				obj.state, 
-				obj.shared
+				obj.shared,
+				obj.allocation_pools
 			);
 
-			this.vmNetworks.push(newNetwork)
+			this.vmNetworks[obj.name] = newNetwork
+			this.networkList.push(newNetwork) 
 		}
 
 		insertVm(vm: VmItem) {

@@ -104,12 +104,14 @@
             </span>
             <div class="info">
               <span class='vm-status status-circle'> </span>
-              <span class="name" editable-text="item.name">{{ item.name }}</span>
+              <span class="name" ng-click="vm.selectVm(item)">{{ item.name }}</span>
               <span class="details">{{ item.flavor.vCpu }} vCPU | {{item.flavor.ram}} GB RAM | {{ item.flavor.ssd}} GB SSD</span>
             </div>
           </div>
           <div class='cell'>
-            <div>{{ item.ip_addr }}</div>
+            <div class='network-interface' ng-repeat="network_interface in item.network_interfaces">
+              {{network_interface.ip_addr}}
+            </div>
           </div>
           <div class='cell'>
             <div>{{item.created | timeAgo}}</div>

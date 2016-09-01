@@ -74,7 +74,8 @@
                     "created": "2013-09-23T13:53:12Z",
                     "size": 1.2
                 }
-            ]
+            ],
+            "networks": ["private_01"]
         },
         {
             "addresses": {
@@ -133,7 +134,8 @@
             "tenant_id": "openstack",
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
-            "snapshots": []
+            "snapshots": [],
+            "networks": ["private_02"]
         },
         {
             "addresses": {
@@ -201,7 +203,8 @@
             "tenant_id": "openstack",
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
-            "snapshots": []
+            "snapshots": [],
+            "networks": ["private_01"]
         },
         {
             "addresses": {
@@ -269,7 +272,8 @@
             "tenant_id": "openstack",
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
-            "snapshots": []
+            "snapshots": [],
+            "networks": ["private_02"]
         },
         {
             "addresses": {
@@ -337,7 +341,8 @@
             "tenant_id": "openstack",
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
-            "snapshots": []
+            "snapshots": [],
+            "networks": ["private_01"]
         },
         {
             "addresses": [{
@@ -406,7 +411,8 @@
             "tenant_id": "openstack",
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
-            "snapshots": []
+            "snapshots": [],
+            "networks": ["private_01"]
         },
         {
             "addresses": {
@@ -474,7 +480,8 @@
             "tenant_id": "openstack",
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
-            "snapshots": []
+            "snapshots": [],
+            "networks": ["private_03", "public_01"]
         }
     ],
     "images": [
@@ -552,7 +559,11 @@
             "ip_address": "10.0.1.2",
             "floating_ip": "88.65.111.2",
             "state": "down",
-            "shared": true
+            "shared": true,
+            "allocation_pools": [{
+                "start": "10.0.0.2",
+                "end": "10.0.0.254"
+            }]
         },
         {
             "name": "private_02",
@@ -562,7 +573,11 @@
             "ip_address": "10.0.1.2",
             "floating_ip": "88.65.111.2",
             "state": "up",
-            "shared": true
+            "shared": true,
+            "allocation_pools": [{
+                "start": "10.1.1.2",
+                "end": "10.0.1.254"
+            }]
         },
         {
             "name": "private_03",
@@ -572,17 +587,25 @@
             "ip_address": "10.0.1.2",
             "floating_ip": "88.65.111.2",
             "state": "up",
-            "shared": false
+            "shared": false,
+            "allocation_pools": [{
+                "start": "10.2.2.2",
+                "end": "10.0.2.254"
+            }]
         },
         {
-            "name": "public_04",
+            "name": "public_01",
             "type": "public",
             "subnet": "external",
             "interface": "eth2",
             "ip_address": "10.0.1.2",
             "floating_ip": "",
             "state": "down",
-            "shared": false
+            "shared": false,
+            "allocation_pools": [{
+                "start": "10.4.0.2",
+                "end": "10.0.4.254"
+            }]
         }
     ],
     "project" : {

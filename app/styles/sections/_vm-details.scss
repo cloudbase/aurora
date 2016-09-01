@@ -3,6 +3,10 @@
     @include clearfix();
     margin-bottom: 20px;
     transition: 1ms "background-color" ease-in;
+    .editable-input {
+      width: 200px !important;
+      height: 26px;
+    }
     .controls {
       padding-top: 11px;
     }
