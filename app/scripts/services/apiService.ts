@@ -58,14 +58,22 @@ module auroraApp.Services {
 				angular.forEach(response.servers, (value:any):void => {
 					self.addVm(value);
 				});
+				
 				let projectData = response.project
+
+				let zones: IZone[] = []
+				projectData.zones.forEach((zone) => {
+					zones.push({id: zone, name: zone})
+				})
+				
 				this.project = new Project(
 					projectData.vm_limit,
 					projectData.vcpu_limit,
 					projectData.vram_limit,
 					projectData.storage_limit,
 					projectData.monthly_budget,
-					projectData.currency
+					projectData.currency,
+					zones
 				)
 			});
 		}
@@ -120,6 +128,7 @@ module auroraApp.Services {
 				searchImage, 
 				obj.ip_addr, 
 				searchFlavor,
+				obj["OS-EXT-AZ:availability_zone"],
 				snapshots,
 				networkInterfaces
 			);

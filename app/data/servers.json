@@ -614,6 +614,7 @@
         "vram_limit": 128,
         "storage_limit": 1024,
         "monthly_budget": 560,
-        "currency": "&euro;"
+        "currency": "&euro;",
+        "zones": ["nova", "europe-1", "us"]
     }
 }

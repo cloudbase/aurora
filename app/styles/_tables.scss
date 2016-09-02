@@ -76,15 +76,22 @@
     }
   }
 }
-.ui-select-container:first-child {
+.ui-select-container {
   .ui-select-toggle {
     background-color: #E7E9ED;
     border: 1px solid #B7C0CD;
     color: #354052;
   } 
+  .ui-select-toggle {
+    &:hover {
+      background-color: #EFEFF4;
+      color: #333333
+    }
+  }
 }
 .ui-select-bootstrap .ui-select-toggle > .caret {
   color: #B7C0CD;
+  pointer-events: none;
 }
 .table-filter {
   padding: 10px 20px;
@@ -103,6 +110,7 @@
       float: left;
       margin-right: 15px;
       font-weight: bold;
+      min-width: 80px;
       svg {
         float: left;
         margin-top: 3px;

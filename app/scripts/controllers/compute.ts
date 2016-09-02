@@ -13,10 +13,13 @@ module auroraApp {
         sortType: string = ""
         sortReverse = false
         selected: any
+        count: number = 1
+        zone: any
         currentFilters: any = []
         filters: ISearchField[] = [
             {id: 'host_status', name: "Status", type: "options", options: [], term: ""},
-            {id: 'name', name: "Name", type: "text", options: false, term: ""}
+            {id: 'name', name: "Name", type: "text", options: false, term: ""},
+            {id: 'zone', name: "Zone", type: "options", options: [], term: ""},
         ]
 
         static $inject = [
@@ -34,6 +37,9 @@ module auroraApp {
         {
             let rand = Math.floor((Math.random() * 100) + 1)
             this.newVmName = "machine-" + rand;
+            
+            this.zone = {}
+            this.zone.value = this.apiService.project.zones[0]
 
             // populate filter with terms
             this.filters.forEach((filterItem) => {
@@ -49,6 +55,10 @@ module auroraApp {
                                 filterItem.options.push({term: vm.host_status, selected: true})
                         })
                         break
+                    case "zone":
+                        this.apiService.project.zones.forEach((zone) => {
+                            filterItem.options.push({term: zone.name, selected: true})
+                        });
                 }
                     
             })
@@ -143,46 +153,53 @@ module auroraApp {
         }
 
         createVm() {
-            let image = this.apiService.vmImages.filter((vmImage:IVmImage):boolean => {
-                return vmImage.selected == true
-            })[0]
+            let newVm: IVmItem
+            let network_interfaces: INetworkInterface[]
+            let rand: number
 
-            let flavor = this.apiService.vmFlavors.filter((vmFlavor:IVmFlavor):boolean => {
-                return vmFlavor.selected == true
-            })[0]
-
-            let networks = this.apiService.networkList.filter((vmNetwork:IVmNetwork):boolean => {
-                return vmNetwork.selected == true
-            })
-
-            let network_interfaces: INetworkInterface[] = []
-            
-            networks.forEach((network) => {
-                network_interfaces.push({
-                    network: network,
-                    ip_addr: network.allocateIp()
+            for (let _i = 1; _i <= this.count; _i++) {
+                let image = this.apiService.vmImages.filter((vmImage:IVmImage):boolean => {
+                    return vmImage.selected == true
+                })[0]
+    
+                let flavor = this.apiService.vmFlavors.filter((vmFlavor:IVmFlavor):boolean => {
+                    return vmFlavor.selected == true
+                })[0]
+    
+                let networks = this.apiService.networkList.filter((vmNetwork:IVmNetwork):boolean => {
+                    return vmNetwork.selected == true
                 })
-            })
-
-            let rand = Math.floor((Math.random() * 100) + 1)
-
-            let newVm = new VmItem(
-                "machine-" + rand,
-                 this.newVmName, //image.name + "-" + flavor.name + "-" + rand,
-                "deploying",
-                new Date(),
-                image,
-                networks,
-                flavor,
-                [],
-                network_interfaces
-            );
-
-            this.$timeout(() => {
-                newVm.host_status = "running"
-            }, 10000)
-
-            this.apiService.insertVm(newVm);
+    
+                network_interfaces = []
+                
+                networks.forEach((network) => {
+                    network_interfaces.push({
+                        network: network,
+                        ip_addr: network.allocateIp()
+                    })
+                })
+    
+                rand = Math.floor((Math.random() * 100) + 1)
+    
+                newVm = new VmItem(
+                    "machine-" + rand + _i,
+                     this.newVmName, //image.name + "-" + flavor.name + "-" + rand,
+                    "deploying",
+                    new Date(),
+                    image,
+                    networks,
+                    flavor,
+                    this.zone.value.name,
+                    [],
+                    network_interfaces
+                )
+    
+                this.$timeout(() => {
+                    newVm.host_status = "running"
+                }, 10000)
+    
+                this.apiService.insertVm(newVm);
+            }
 
             this.$state.go("vm-list");
 

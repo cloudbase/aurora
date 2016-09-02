@@ -271,4 +271,24 @@
       padding: 0;
     }
   }
+  .form {
+    @include clearfix();
+    .general-field {
+      float: left;
+      padding-right: 50px;
+      &.name {
+        width: 40%;
+      }
+      &.zone {
+        width: 40%;
+      }
+      &.count {
+        width: 20%;
+      }
+    }
+    
+  }
+  .ui-select-container.zone {
+    width: 100%;
+  }
 }

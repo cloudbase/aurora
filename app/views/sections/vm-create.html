@@ -16,18 +16,25 @@
         <div class='main'>
             <div id="create-vm">
                 <collapse class="panel" title="General">
-                    <div class='form form-inline'>
-                        <div class='form-group'>
+                    <div class='form'>
+                        <div class='general-field name'>
                             <label for="vm-name">Name</label>
                             <input type="text" id="vm-name" class='form-control' ng-model="vmCreate.newVmName"/>
                         </div>
-                        <div class='form-group'>
+                        <div class='general-field zone'>
                             <label for="vm-zone">Zone</label>
-                            <input type="text" id="vm-zone" value="nova" class='form-control'/>
+                            <ui-select ng-model="vmCreate.zone.value" class='zone' search-enabled="false">
+                                <ui-select-match placeholder='Zone' class='select-choice'>
+                                    <span ng-bind="$select.selected.name"></span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in (vmCreate.apiService.project.zones | filter: $select.search) track by item.id" class='select-choice'>
+                                    <span ng-bind="item.name"></span>
+                                </ui-select-choices>
+                            </ui-select>
                         </div>
-                        <div class='form-group'>
+                        <div class='general-field count'>
                             <label for="vm-count">Count</label>
-                            <plus-minus id="vm-count" value="1" class='form-input-number' min="1" max="5"></plus-minus>
+                            <plus-minus id="vm-count" ng-model='vmCreate.count' value="vmCreate.count" class='form-input-number' min="1" max="5"></plus-minus>
                         </div>
                     </div>
                 </collapse>

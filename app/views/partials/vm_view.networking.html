@@ -3,10 +3,10 @@
         <h3>Networks</h3>
         <div class='pull-right network-add-interface'>
             <ui-select ng-model="vmView.networkSelected.value" search-enabled="false">
-                <ui-select-match placeholder="Network">
+                <ui-select-match placeholder="Network" class='select-choice'>
                     <span ng-bind="$select.selected.name"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item in (vmView.apiService.networkList | filter: $select.search) track by item.name">
+                <ui-select-choices repeat="item in (vmView.apiService.networkList | filter: $select.search) track by item.name" class='select-choice'>
                     <span ng-bind="item.name"></span>
                 </ui-select-choices>
             </ui-select>

@@ -12,6 +12,7 @@ module auroraApp {
         edit_state: boolean
         networks: IVmNetwork[]
         flavor: IVmFlavor
+        zone: string
         snapshots: IVmSnapshot[]
         network_interfaces: INetworkInterface[]
     }
@@ -25,6 +26,7 @@ module auroraApp {
             public image,
             public networks,
             public flavor,
+            public zone,
             public snapshots,
             public network_interfaces,
             public edit_state = false) {
@@ -136,6 +138,11 @@ module auroraApp {
         }
     }
 
+    export interface IZone {
+        id: string,
+        name: string
+    }
+
     export interface IProject {
         vm_limit: number
         vcpu_limit: number
@@ -144,6 +151,7 @@ module auroraApp {
         monthly_budget: number
         currency: string
         inital_cost: number
+        zones: IZone[]
     }
     export class Project implements IProject {
         current_vm: number
@@ -159,7 +167,8 @@ module auroraApp {
             public vram_limit,
             public storage_limit,
             public monthly_budget,
-            public currency
+            public currency,
+            public zones
         ) {}
     }
 } 

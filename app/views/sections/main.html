@@ -47,10 +47,10 @@
     </div>
     <div class='table-filter'>
       <ui-select ng-model="vm.selected.value" search-enabled="false" on-select="vm.selectFilter($item, $model)">
-        <ui-select-match placeholder="Choose field to filter">
+        <ui-select-match placeholder="Choose field to filter" class='select-choice'>
             <span ng-bind="$select.selected.name"></span>
         </ui-select-match>
-        <ui-select-choices repeat="item in (vm.filters | filter: $select.search) track by item.id">
+        <ui-select-choices repeat="item in (vm.filters | filter: $select.search) track by item.id" class='select-choice'>
             <span ng-bind="item.name"></span>
         </ui-select-choices>
       </ui-select>
@@ -120,7 +120,7 @@
             <div>{{ item.flavor.price }} / day</div>
           </div>
           <div class='cell'>
-            <span class="zone">nova</span>
+            <span class="zone">{{ item.zone }}</span>
           </div>
           <div class='cell'>
             <span class="status">{{ item.host_status }}</span>

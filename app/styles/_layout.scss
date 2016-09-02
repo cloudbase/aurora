@@ -100,7 +100,6 @@ body .header {
 }
 
 .panel {
-    overflow: hidden;
     transition: max-height 0.5s ease-in;
     max-height: 9999px;
     border: 1px solid #B7C0CD;
@@ -127,6 +126,7 @@ body .header {
     }
     &.collapsed {
       height: 60px;
+      overflow: hidden;
       section {
         transform: scaleY(0);
       }
