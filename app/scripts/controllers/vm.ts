@@ -25,6 +25,15 @@ module auroraApp {
             apiService.project.additional_cost = 0
         }
 
+        addInterface(network_obj:IVmNetwork) {
+            let network_interface: INetworkInterface
+            network_interface = {
+                network: network_obj,
+                ip_addr: network_obj.allocateIp()
+            }
+            this.item.network_interfaces.push(network_interface)
+        }
+
         removeInterface(networkInterface: INetworkInterface) {
             let index = this.item.network_interfaces.indexOf(networkInterface)
             this.item.network_interfaces.splice(index, 1)

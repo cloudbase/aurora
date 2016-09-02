@@ -97,6 +97,72 @@ module auroraApp.Directives {
 
      }
 
+     export function plusMinus() {
+         return {
+            restrict: "E",
+            replace: true,
+            transclude: true,
+            scope: {
+                value: "=",
+                min: "@",
+                max: "@"
+            },
+            link: ($scope, $element) => {
+                //if (angular.isUndefined($scope.min))
+                $scope.checkLimits = () => {
+                    if (typeof $scope.min !== "undefined" && $scope.value - $scope.min == 0) {
+                        $element.find('.btn-subtract').addClass('disabled')
+                    } else {
+                        $element.find('.btn-subtract').removeClass('disabled')
+                    }
+                    if (typeof $scope.max !== "undefined" && $scope.value - $scope.max == 0) {
+                        $element.find('.btn-add').addClass('disabled')
+                    } else {
+                        $element.find('.btn-add').removeClass('disabled')
+                    }
+                }
+                $scope.checkLimits()
+
+                $element.find('.btn-add').click(() => {
+                    if (typeof $scope.max !== "undefined") {
+                        if ($scope.max - $scope.value > 0)
+                            $scope.value++
+                    } else {
+                        $scope.value++
+                    }
+                    $scope.$apply()
+                    $scope.checkLimits()
+                })
+                $element.find('.btn-subtract').click(() => {
+                    if (typeof $scope.min !== "undefined") {
+                        if ($scope.value - $scope.min > 0)
+                            $scope.value--
+                    } else {
+                        $scope.value--
+                    }
+                    $scope.$apply()
+                    $scope.checkLimits()
+                })
+            },
+            template: `
+            <div class="input-group plusminus-wrapper">
+              <span class="input-group-btn">
+                  <button type="button" class="btn btn-default btn-number btn-subtract">
+                      <i class="glyphicon glyphicon-minus"></i>
+                  </button>
+              </span>
+              <input type="text" class="form-control input-number" ng-model="value" min="{{min}}" max="{{max}}" readonly="true">
+              <span class="input-group-btn">
+                  <button type="button" class="btn btn-default btn-number btn-add">
+                      <i class="glyphicon glyphicon-plus"></i>
+                  </button>
+              </span>
+          </div>
+            `
+
+         }
+     }
+
      
 }
 
@@ -105,3 +171,4 @@ angular.module('auroraApp')
 	.directive('collection', auroraApp.Directives.collection)
     .directive('item', auroraApp.Directives.item)
     .directive('collapse', auroraApp.Directives.collapse)
+    .directive('plusMinus', auroraApp.Directives.plusMinus)

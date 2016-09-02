@@ -1,6 +1,17 @@
 <div class='section'>
     <div class='section-header'>
         <h3>Networks</h3>
+        <div class='pull-right network-add-interface'>
+            <ui-select ng-model="vmView.networkSelected.value" search-enabled="false">
+                <ui-select-match placeholder="Network">
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in (vmView.apiService.networkList | filter: $select.search) track by item.name">
+                    <span ng-bind="item.name"></span>
+                </ui-select-choices>
+            </ui-select>
+            <a class='btn btn-primary btn-add-interface' ng-click="vmView.addInterface(vmView.networkSelected.value)">Add Interface</a>
+        </div>
     </div>
     <div class='section-body no-padding'>
         <div class="list list-networks">

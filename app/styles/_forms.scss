@@ -119,6 +119,10 @@
   color: #FFFFFF;
   line-height: 20px;
   border: none;
+  &:focus {
+    background: #30AD63;
+    color: #FFFFFF;
+  }
   &.btn-login {
     width: 100%;
     padding: 13px 0px;
@@ -149,5 +153,20 @@
       margin-top: 3px;
       margin-right: 12px;
     }
+  }
+}
+
+.btn-default {
+  &.disabled:hover, &.disabled:focus {
+    background: #30AD63;
+  }
+}
+
+.plusminus-wrapper {
+  .btn {
+    height: 34px;
+  }
+  input {
+    text-align: center;
   }
 }
