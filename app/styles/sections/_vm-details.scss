@@ -14,11 +14,11 @@
         .cell .info .vm-status {
           border-color: $status-running;
         }
-        .icon {
-          background-color: $status-running;
-        }
         .status {
           background-color: $status-running;
+        }
+        .status-circle {
+          border-color: $status-running;
         }
       }
       &.status-paused{
@@ -36,13 +36,18 @@
         .status {
           background-color: $status-paused;
         }
-        
+        .status-circle {
+          border-color: $status-paused;
+        }
       }
       &.status-deploying, &.status-restarting {
         .status {
           background-color: $status-deploying;
         }
         .cell .info .vm-status {
+          border-color: $status-deploying;
+        }
+        .status-circle {
           border-color: $status-deploying;
         }
       }
@@ -60,6 +65,9 @@
         }
         .status {
           background-color: $status-stopped;
+        }
+        .status-circle {
+          border-color: $status-stopped;
         }
       }
     .icon {
