@@ -170,3 +170,23 @@
     text-align: center;
   }
 }
+
+.collapsible {
+  position: relative;
+  .valid-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    svg.invalid {
+      display: none;
+    }
+    &.status-invalid {
+      svg.invalid {
+        display: block;
+      }
+      svg.valid {
+        display: none;
+      }
+    }
+  }
+}

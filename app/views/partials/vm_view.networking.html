@@ -31,7 +31,26 @@
                     <div class='cell'>{{ network_interface.network.subnet }}</div>
                     <div class='cell'>eth{{key}}</div>
                     <div class='cell'>{{ network_interface.ip_addr }}&nbsp;</div>
-                    <div class='cell'>{{ network_interface.network.floating_ip }}&nbsp;</div>
+                    <div class='cell'>
+                        <div ng-if="network_interface.floating_ip">
+                            {{ network_interface.floating_ip.ip }}&nbsp;
+                        </div>
+                        <div ng-if="network_interface.network.type == 'public'">
+                            --
+                        </div>
+                        
+                        <div ng-if="(network_interface.floating_ip == null) && (network_interface.network.type != 'public')">
+                            <ui-select ng-model="vmView.selected.value" search-enabled="false" on-select="vmView.selectFloatingIp($item, network_interface)">
+                                <ui-select-match placeholder="Associate" class='select-choice'>
+                                    <span ng-bind="$select.selected.name"></span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in (vmView.apiService.project.floating_ips | filter: vmView.availableFlaotingIps) track by item.id" class='select-choice'>
+                                    <span ng-bind="item.ip"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
                     <div class='cell'>
                         <ul class="vm-actions">
                             <li>  

@@ -144,6 +144,13 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controller: 'VmCtrl',
       controllerAs: 'vmView'
     })
+    .state('vm-view-log', {
+      parent: 'vm-view',
+      url: "/log",
+      templateUrl: 'views/partials/vm_view.log.html',
+      controller: 'VmCtrl',
+      controllerAs: 'vmView'
+    })
     /*.state('state1.list', {
       url: "/list",
       templateUrl: "partials/state1.list.html",

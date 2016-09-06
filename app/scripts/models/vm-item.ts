@@ -33,9 +33,16 @@ module auroraApp {
         }
     }
 
+    export interface IFloatingIp {
+        id: string
+        ip: string
+        assigned_to?: INetworkInterface
+    }
+
     export interface INetworkInterface {
         network: IVmNetwork
         ip_addr: string
+        floating_ip?: IFloatingIp
     }
 
     export interface IVmSnapshot {
@@ -103,7 +110,6 @@ module auroraApp {
         subnet: string
         network_interface: string
         ip_address: string
-        floating_ip: string
         state: string
         shared: string
         allocation_pools: IAllocationPool[]
@@ -118,7 +124,6 @@ module auroraApp {
             public subnet: string,
             public network_interface: string,
             public ip_address: string,
-            public floating_ip: string,
             public state: string,
             public shared: string,
             public allocation_pools: IAllocationPool[],
@@ -152,6 +157,7 @@ module auroraApp {
         currency: string
         inital_cost: number
         zones: IZone[]
+        floating_ips: IFloatingIp[]
     }
     export class Project implements IProject {
         current_vm: number
@@ -168,7 +174,8 @@ module auroraApp {
             public storage_limit,
             public monthly_budget,
             public currency,
-            public zones
+            public zones,
+            public floating_ips
         ) {}
     }
 } 

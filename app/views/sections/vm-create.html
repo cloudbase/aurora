@@ -15,7 +15,7 @@
             </h1>
         <div class='main'>
             <div id="create-vm">
-                <collapse class="panel" title="General">
+                <collapse class="panel" title="General" valid="valid">
                     <div class='form'>
                         <div class='general-field name'>
                             <label for="vm-name">Name</label>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </collapse>
-                <collapse class="panel" title="Choose Image">
+                <collapse class="panel" title="Choose Image" valid="valid">
                     <div class="list list-images">
                         <div class="item-image" ng-repeat="image in vmCreate.apiService.vmImages" ng-class="{active: image.selected}" ng-click="vmCreate.selectImage(image);">
                             <span class="image">{{ image.name }}</span>
@@ -51,10 +51,10 @@
                         </div>
                     </div>
                 </collapse>
-                <collapse class="panel" title="Size">
+                <collapse class="panel" title="Size" valid="valid">
                     <div ui-view="flavors"></div>
                 </collapse>
-                <collapse class="panel panel-networks" title="Network">
+                <collapse class="panel panel-networks" title="Network" valid="valid">
                     <div class="list list-networks">
                         <div class='table network-table'>
                             <div class='table-header'>
@@ -120,10 +120,10 @@
                         </div>
                     </div>
                 </collapse>
-                <collapse class="panel" title="Security Groups" opened="false">
+                <collapse class="panel" title="Security Groups" opened="false" valid="invalid">
                     <p>Nothing to see here yet</p>
                 </collapse>
-                <collapse class="panel" title='Access' opened="false">
+                <collapse class="panel" title='Access' opened="false" valid="invalid">
                     <p>Nothing to see here yet</p>
                 </collapse>
                 <a class="btn btn-primary btn-launch" ng-click="vmCreate.createVm()">

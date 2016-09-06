@@ -23,7 +23,10 @@ module auroraApp {
                     flavor.selected = true
             })
             apiService.project.additional_cost = 0
+            console.log(apiService.project.floating_ips)
         }
+
+        // TODO: Put network functions in own controller
 
         addInterface(network_obj:IVmNetwork) {
             let network_interface: INetworkInterface
@@ -37,6 +40,15 @@ module auroraApp {
         removeInterface(networkInterface: INetworkInterface) {
             let index = this.item.network_interfaces.indexOf(networkInterface)
             this.item.network_interfaces.splice(index, 1)
+        }
+
+        availableFlaotingIps(floating_ip: IFloatingIp) {
+            return floating_ip.assigned_to == null
+        }
+
+        selectFloatingIp(floatingIp: IFloatingIp, networkInterface:INetworkInterface) {
+            networkInterface.floating_ip = floatingIp
+            floatingIp.assigned_to = networkInterface
         }
 
         createSnapshot() {

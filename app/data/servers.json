@@ -75,7 +75,7 @@
                     "size": 1.2
                 }
             ],
-            "networks": ["private_01"]
+            "networks": [{"network": "private_01", "floating_ip": "2"}]
         },
         {
             "addresses": {
@@ -135,7 +135,7 @@
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": ["private_02"]
+            "networks": [{"network": "private_02", "floating_ip": "3"}]
         },
         {
             "addresses": {
@@ -204,7 +204,7 @@
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": ["private_01"]
+            "networks": [{"network": "private_01", "floating_ip": "1"}]
         },
         {
             "addresses": {
@@ -273,7 +273,7 @@
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": ["private_02"]
+            "networks": [{"network": "private_02", "floating_ip": "4"}]
         },
         {
             "addresses": {
@@ -342,7 +342,7 @@
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": ["private_01"]
+            "networks": [{"network": "private_01", "floating_ip": "5"}]
         },
         {
             "addresses": [{
@@ -412,7 +412,7 @@
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": ["private_01"]
+            "networks": [{"network": "private_01", "floating_ip": ""}]
         },
         {
             "addresses": {
@@ -481,7 +481,8 @@
             "updated": "2013-10-31T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": ["private_03", "public_01"]
+            "networks": [{"network": "private_01", "floating_ip": ""},
+            {"network": "public_01", "floating_ip": ""}]
         }
     ],
     "images": [
@@ -557,7 +558,6 @@
             "subnet": "private_subnet_01",
             "interface": "eth0",
             "ip_address": "10.0.1.2",
-            "floating_ip": "88.65.111.2",
             "state": "down",
             "shared": true,
             "allocation_pools": [{
@@ -571,7 +571,6 @@
             "subnet": "private_subnet_02",
             "interface": "eth0",
             "ip_address": "10.0.1.2",
-            "floating_ip": "88.65.111.2",
             "state": "up",
             "shared": true,
             "allocation_pools": [{
@@ -585,7 +584,6 @@
             "subnet": "private_subnet_03",
             "interface": "eth1",
             "ip_address": "10.0.1.2",
-            "floating_ip": "88.65.111.2",
             "state": "up",
             "shared": false,
             "allocation_pools": [{
@@ -599,7 +597,6 @@
             "subnet": "external",
             "interface": "eth2",
             "ip_address": "10.0.1.2",
-            "floating_ip": "",
             "state": "down",
             "shared": false,
             "allocation_pools": [{
@@ -615,6 +612,18 @@
         "storage_limit": 1024,
         "monthly_budget": 560,
         "currency": "&euro;",
-        "zones": ["nova", "europe-1", "us"]
+        "zones": ["nova", "europe-1", "us"],
+        "floating_ips": [
+            {"id": "1", "ip":"46.101.75.22", "assigned_tp": null},
+            {"id": "2", "ip":"46.101.75.24", "assigned_tp": null},
+            {"id": "3", "ip":"46.101.75.202", "assigned_tp": null},
+            {"id": "4", "ip":"46.101.75.205", "assigned_tp": null},
+            {"id": "5", "ip":"46.102.75.201", "assigned_tp": null},
+            {"id": "6", "ip":"46.102.75.206", "assigned_tp": null},
+            {"id": "7", "ip":"46.102.75.202", "assigned_tp": null},
+            {"id": "8", "ip":"46.103.75.206", "assigned_tp": null},
+            {"id": "9", "ip":"46.103.75.207", "assigned_tp": null},
+            {"id": "10", "ip":"46.103.75.208", "assigned_tp": null}
+        ]
     }
 }

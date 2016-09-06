@@ -46,19 +46,6 @@ module auroraApp.Services {
 
 			// query the service for the list
 			this.queryServers().then(( response: any ):void => {
-				angular.forEach(response.images, (value:any):void => {
-					self.addImage(value)
-				});
-				angular.forEach(response.flavors, (value:any):void => {
-					self.addFlavor(value)
-				});
-				angular.forEach(response.networks, (value:any):void => {
-					self.addNetwork(value)
-				});
-				angular.forEach(response.servers, (value:any):void => {
-					self.addVm(value);
-				});
-				
 				let projectData = response.project
 
 				let zones: IZone[] = []
@@ -73,8 +60,22 @@ module auroraApp.Services {
 					projectData.storage_limit,
 					projectData.monthly_budget,
 					projectData.currency,
-					zones
+					zones,
+					projectData.floating_ips
 				)
+
+				angular.forEach(response.images, (value:any):void => {
+					self.addImage(value)
+				});
+				angular.forEach(response.flavors, (value:any):void => {
+					self.addFlavor(value)
+				});
+				angular.forEach(response.networks, (value:any):void => {
+					self.addNetwork(value)
+				});
+				angular.forEach(response.servers, (value:any):void => {
+					self.addVm(value);
+				});
 			});
 		}
 
@@ -102,11 +103,21 @@ module auroraApp.Services {
 			
 			let networkInterfaces: INetworkInterface[] = []
 			
-			obj.networks.forEach((network) => {
-				networkInterfaces.push({
-					network: this.vmNetworks[network],
-					ip_addr: this.vmNetworks[network].allocateIp()
-				})
+			obj.networks.forEach((item) => {
+				let floatingIp: IFloatingIp = null
+				if (item.floating_ip.length > 0) {
+					floatingIp = this.project.floating_ips[item.floating_ip]
+				}
+				
+				let newNetworkInterface = {
+					network: this.vmNetworks[item.network],
+					ip_addr: this.vmNetworks[item.network].allocateIp(),
+					floating_ip: floatingIp
+				} 
+				networkInterfaces.push(newNetworkInterface)
+				
+				if (floatingIp != null)
+					floatingIp.assigned_to = newNetworkInterface
 			})
 
             let snapshots: VmSnapshot[] = []
@@ -132,13 +143,14 @@ module auroraApp.Services {
 				snapshots,
 				networkInterfaces
 			);
-			
+
 			// if exists, update, if not push into array
 			if (angular.isUndefined(searchVm)) {
 				this.listItems.push(newItem)
 			} else {
 				this.listItems[this.listItems.indexOf(searchVm)] = newItem
 			}
+			
 		}
 
 		getVm(vmId: string): VmItem {
@@ -182,8 +194,7 @@ module auroraApp.Services {
 				obj.type,
 				obj.subnet,
 				obj.interface,
-				obj.ip_address,
-				obj.floating_ip, 
+				obj.ip_address, 
 				obj.state, 
 				obj.shared,
 				obj.allocation_pools

@@ -58,7 +58,8 @@ module auroraApp.Directives {
             transclude: true,
             scope: {
                 title: "@",
-                opened: "@"
+                opened: "@",
+                valid: "@"
             },
             controller: ($scope, $element) => {
                 $scope.toggle = () => {
@@ -88,6 +89,16 @@ module auroraApp.Directives {
                 <polyline id="Arrow" stroke="#354052" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" points="21 35.7167956 29.8567242 27 39 36"></polyline>
             </svg>
             {{title}}</h2>
+            <div class='valid-icon status-{{valid}}'>
+                <svg class='valid' width="18px" height="18px" viewBox="843 22 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(844.000000, 23.000000)">
+                        <path d="M8,16 C12.418278,16 16,12.418278 16,8 C16,3.581722 12.418278,0 8,0 C3.581722,0 0,3.581722 0,8 C0,12.418278 3.581722,16 8,16 Z" id="Base-Copy" stroke="#30AD63" fill="#30AD63"></path>
+                        <path d="M11.3135,5.29325 C10.9225,4.90225 10.2895,4.90225 9.8995,5.29325 L6.5355,8.65725 L5.7065,7.82925 C5.3165,7.43825 4.6835,7.43825 4.2925,7.82925 C3.9025,8.21925 3.9025,8.85225 4.2925,9.24325 L5.8285,10.77825 C6.2185,11.16925 6.8515,11.16925 7.2425,10.77825 L11.3135,6.70725 C11.7045,6.31725 11.7045,5.68425 11.3135,5.29325" id="Tick" fill="#FFFFFF"></path>
+                    </g>
+                </svg>
+                <svg class='invalid' width="18px" height="18px" viewBox="843 22 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M852,39 C856.418278,39 860,35.418278 860,31 C860,26.581722 856.418278,23 852,23 C847.581722,23 844,26.581722 844,31 C844,35.418278 847.581722,39 852,39 Z" id="Base-Copy-4" stroke="#30AD63" stroke-width="1" fill="none"></path>
+                </svg>
         </header>
         <section ng-transclude ng-class="{opened: opened}">
         </section>

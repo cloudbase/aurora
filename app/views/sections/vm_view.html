@@ -8,7 +8,7 @@
             </span>
             <div class="info">
                 <span class='vm-status status-circle'> </span>
-                <span class="name" editable-text="vmView.item.name">{{ vmView.item.name }}</span>
+                <span class="name" editable-text="vmView.item.name">{{ vmView.item.name }}</span> <i class='glyphicon glyphicon-pencil'></i>
                 <span class="details">{{ vmView.item.flavor.vCpu }} vCPU | {{vmView.item.flavor.ram}} GB RAM | {{ vmView.item.flavor.ssd}} GB SSD</span>
             </div>
             <div class='controls pull-right'>
@@ -76,7 +76,7 @@
                     <svg width="17px" height="16px" viewBox="18 209 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <path d="M32.194,209.94 C32.055,209.387 31.559,209 30.989,209 L22.025,209 C21.456,209 20.96,209.386 20.82,209.938 L18.5,219.121 L18.5,223.467 C18.5,224.313 19.186,225 20.033,225 L32.966,225 C33.813,225 34.5,224.313 34.5,223.467 L34.5,219.123 L34.5,219.121 L32.194,209.94 Z M22.537,210.9 L30.476,210.9 L32.6,219.356 L32.6,219.422 L28.658,219.422 L28.658,220.523 C28.658,221.13 28.166,221.622 27.559,221.622 L25.445,221.622 C24.838,221.622 24.345,221.13 24.345,220.523 L24.345,219.422 L20.4,219.422 L20.4,219.358 L22.537,210.9 Z M22.4996,217 C22.4996,216.448 22.9476,216 23.4996,216 L29.4996,216 C30.0516,216 30.4996,216.448 30.4996,217 C30.4996,217.552 30.0516,218 29.4996,218 L23.4996,218 C22.9476,218 22.4996,217.552 22.4996,217 Z M28.4996,215 L24.4996,215 C23.9476,215 23.4996,214.552 23.4996,214 C23.4996,213.448 23.9476,213 24.4996,213 L28.4996,213 C29.0516,213 29.4996,213.448 29.4996,214 C29.4996,214.552 29.0516,215 28.4996,215 Z" id="Combined-Shape" stroke="none" fill="#354052" fill-rule="evenodd"></path>
                     </svg>
-                    <a href='#'>Log</a>
+                    <a ui-sref="vm-view-log">log</a>
                 </li>
             </ul>
         </div>

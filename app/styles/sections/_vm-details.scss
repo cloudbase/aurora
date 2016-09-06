@@ -91,9 +91,12 @@
         padding: 8px 0 0 20px;
         position: relative;
         .name {
-            display: block;
+            display: inline-block;
             font-size: 18px;
             margin-left: 20px;
+        }
+        i {
+          opacity: 0.5
         }
         .details {
             display: block;
