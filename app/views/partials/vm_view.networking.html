@@ -44,7 +44,7 @@
                                 <ui-select-match placeholder="Associate" class='select-choice'>
                                     <span ng-bind="$select.selected.name"></span>
                                 </ui-select-match>
-                                <ui-select-choices repeat="item in (vmView.apiService.project.floating_ips | filter: vmView.availableFlaotingIps) track by item.id" class='select-choice'>
+                                <ui-select-choices repeat="item in (vmView.apiService.project.floating_ips | filter: vmView.availableFloatingIps) track by item.id" class='select-choice'>
                                     <span ng-bind="item.ip"></span>
                                 </ui-select-choices>
                             </ui-select>

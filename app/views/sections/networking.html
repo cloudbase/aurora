@@ -1,0 +1,28 @@
+<div class='row'>
+  <div class="main-list">
+    <div class='list-header'>
+      <ul class="list-categories">
+        <li  ui-sref-active="active">
+          <span class="name" ui-sref="networking">Network Map</span>
+        </li>
+        <li ui-sref-active="active">
+          <span class="name" ui-sref="networking-floating-ips">Floating IP's</span>
+          <span class="count">{{ netView.apiService.project.floating_ips.length }}</span>
+        </li>
+        <li>
+          <span class="name">DNS</span>
+        </li>
+      </ul>
+      <a class="btn btn-primary btn-add" ng-click="netView.reserveIp()">
+
+        <svg width="17px" height="17px" viewBox="16 18 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M26.2483151,24.6949934 L26.2483151,18.3388048 L23.2483151,18.3388048 L23.2483151,24.6949934 L16.9697379,24.6949934 L16.9697379,27.6949934 L23.2483151,27.6949934 L23.2483151,34.2288052 L26.2483151,34.2288052 L26.2483151,27.6949934 L32.6661809,27.6949934 L32.6661809,24.6949934 L26.2483151,24.6949934 Z" id="Plus-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+        </svg>
+        Reserve IP
+
+      </a>
+    </div>
+    
+    <div ui-view="content"></div>
+  </div>
+</div>

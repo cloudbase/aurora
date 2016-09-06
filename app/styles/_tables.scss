@@ -403,7 +403,54 @@
     }
   }
 }
-
+.table.table-floating-ips {
+  .cell {
+    &:first-child {
+      @include clearfix();
+      position: relative;
+      width: 30%;
+      .item-icon {
+        float: left
+      }
+      .name {
+        float: left;
+        margin-top: 15px;
+        margin-left: 10px;
+        /* 46.101.104.22: */
+        font-family: "geomanist_book";
+        font-size: 18px;
+        color: #354052;
+      }
+    }
+    &:nth-child(2) {
+      width: 40%;
+      padding-top: 0px;
+      .ui-select-container {
+        margin-top: 10px;
+        width: 300px;
+      }
+    }
+    &:nth-child(3) {
+      width: 10%;
+    }
+    &:nth-child(4) {
+      width: 10%;
+    }
+    &:nth-child(5) {
+      width: 10%;
+    }
+  }
+  .vm-details {
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+  .connector {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+  }
+  
+}
 .table.table-snapshots {
   .table-row {
     padding-left: 20px;

@@ -38,11 +38,13 @@ module auroraApp {
         }
 
         removeInterface(networkInterface: INetworkInterface) {
+            networkInterface.floating_ip.assigned_to = null
+
             let index = this.item.network_interfaces.indexOf(networkInterface)
             this.item.network_interfaces.splice(index, 1)
         }
 
-        availableFlaotingIps(floating_ip: IFloatingIp) {
+        availableFloatingIps(floating_ip: IFloatingIp) {
             return floating_ip.assigned_to == null
         }
 

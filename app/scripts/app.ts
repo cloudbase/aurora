@@ -105,6 +105,9 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
     .state('vm-view-size', {
       parent: 'vm-view',
       url: "/size",
+      params: {
+        type: 'edit'
+      },
       views: {
         '': {
           templateUrl: "views/templates/partial-with-sidebar.html",
@@ -119,7 +122,8 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
         'sidebar@vm-view-size': {
           templateUrl: "views/partials/project_costs.html",
           controller: "ProjectCtrl",
-          controllerAs: "view"
+          controllerAs: "view",
+          
         }
       }
     })
@@ -151,33 +155,45 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controller: 'VmCtrl',
       controllerAs: 'vmView'
     })
-    /*.state('state1.list', {
-      url: "/list",
-      templateUrl: "partials/state1.list.html",
-      controller: function($scope) {
-        $scope.items = ["A", "List", "Of", "Items"];
+    .state('networking', {
+      //abstract: true,
+      url: "/networking",
+      views: {
+        '': {
+          templateUrl: "views/sections/networking.html",
+          controller: 'NetworkingCtrl',
+          controllerAs: 'netView'
+        },
+        'content@networking': {
+          templateUrl: 'views/partials/networking.map.html',
+          controller: 'NetworkingCtrl',
+          controllerAs: 'netView' 
+        }
+      },
+      resolve: {
+        project: ['ApiService', (apiService) => {
+          return apiService.queryServers()
+        }]
       }
     })
-    .state('state2', {
-      url: "/state2",
-      templateUrl: "partials/state2.html"
-    })
-    .state('state2.list', {
-      url: "/list",
-      templateUrl: "partials/state2.list.html",
-      controller: function($scope) {
-        $scope.things = ["A", "Set", "Of", "Things"];
+    .state('networking-floating-ips', {
+      url: "/networking/floating-ips",
+      views: {
+        '': {
+          templateUrl: "views/sections/networking.html",
+          controller: 'NetworkingCtrl',
+          controllerAs: 'netView'
+        },
+        'content@networking-floating-ips': {
+          templateUrl: 'views/partials/networking.floating-ips.html',
+          controller: 'NetworkingCtrl',
+          controllerAs: 'netView' 
+        }
       }
-    });*/
+    })
 }]); 
 
 app.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 // TODO: Add constants to config
-
-/*.when('/vm/:id_vm', {
- templateUrl: 'views/vm_details.html',
- controller: 'VmDetailsCtrl',
- controllerAs: 'vmDetails'
- })*/

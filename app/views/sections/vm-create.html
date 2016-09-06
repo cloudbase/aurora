@@ -85,9 +85,8 @@
                                             <use stroke="#B7C0CD" mask="url(#mask-3)" stroke-width="2" fill="#E2E7EE" fill-rule="evenodd" xlink:href="#path-1"></use>
                                         </g>
                                     </svg>
-                                    
+                                
                                     <svg class='radio radio-active' width="21px" height="20px" viewBox="18 174 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-
                                         <defs>
                                             <rect id="path-1" x="0" y="0" width="16" height="16" rx="4"></rect>
                                             <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
@@ -100,21 +99,16 @@
                                                 <use xlink:href="#path-1"></use>
                                             </mask>
                                         </defs>
-                                        <g id="Group-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(20.000000, 175.000000)">
-                                            <g id="Active-Copy">
-                                                <g id="Checkbox">
-                                                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                                    <use stroke="#30AD63" mask="url(#mask-3)" stroke-width="2" fill-opacity="0.799999952" fill="#30AD63" fill-rule="evenodd" xlink:href="#path-1"></use>
-                                                </g>
-                                                <path d="M11.3137,5.29286 C10.9227,4.90186 10.2897,4.90186 9.8997,5.29286 L6.5357,8.65686 L5.7067,7.82886 C5.3167,7.43786 4.6837,7.43786 4.2927,7.82886 C3.9027,8.21886 3.9027,8.85186 4.2927,9.24286 L5.8287,10.77786 C6.2187,11.16886 6.8517,11.16886 7.2427,10.77786 L11.3137,6.70686 C11.7047,6.31686 11.7047,5.68386 11.3137,5.29286" id="Tick" fill="#FFFFFF"></path>
-                                            </g>
+                                        <g id="Checkbox" stroke="none" fill="none">
+                                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                            <use stroke="#30AD63" mask="url(#mask-3)" stroke-width="2" fill-opacity="0.799999952" fill="#30AD63" fill-rule="evenodd" xlink:href="#path-1"></use>
                                         </g>
                                     </svg>
                                     
                                 </div>
                                 <div class='cell'>{{ network.name }}</div>
                                 <div class='cell'>{{ network.subnet }}</div>
-                                <div class='cell'>{{ network.state }}</div>
+                                <div class='cell'><span class='network-state state-{{ network.state }}'>{{ network.state }}</span></div>
                                 <div class='cell'>{{ network.shared ? "Yes" : "No"}}</div>
                             </div>
                         </div>

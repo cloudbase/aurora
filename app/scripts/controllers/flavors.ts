@@ -17,11 +17,12 @@ module auroraApp {
             let flavor = this.apiService.vmFlavors.filter((vmFlavor:IVmFlavor):boolean => {
                 return vmFlavor.selected == true
             })[0]
-
+            
             if ($stateParams.type == 'edit') {
                 this.initialCost = flavor.price
                 this.resize = true;
             }
+            )
 
             apiService.vmFlavors.forEach((flavor:VmFlavor) => {
                 flavor.lists.forEach((list) => {

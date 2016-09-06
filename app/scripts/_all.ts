@@ -17,6 +17,8 @@
 
 /// <reference path='controllers/flavors.ts' />
 
+/// <reference path='controllers/networking.ts' />
+
 
 // ## SERVICES ##
 /// <reference path='services/apiService.ts' />

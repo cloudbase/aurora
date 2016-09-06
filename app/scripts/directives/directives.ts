@@ -174,6 +174,33 @@ module auroraApp.Directives {
          }
      }
 
+     export function vmDisplay() {
+         return {
+             restrict: "E",
+             replace: true,
+            transclude: true,
+            scope: {
+                vm: "="
+            },
+            link: ($scope, $element) => {
+            },
+            template: `
+                <div class='vm-details status-{{ vm.host_status }}' ui-sref="vm-view-networking({vm_id: vm.id})">
+            <span class="icon icon-dark {{ vm.image.id }}">
+                <svg class="icon-{{ vm.image.id }}">
+                    <use xlink:href="{{'images/icons.svg#logo-' + vm.image.id}}" />
+                </svg>
+            </span>
+            <div class="info">
+                <span class='vm-status status-circle'> </span>
+                <span class="name">{{ vm.name }}</span>
+                <span class="details">{{ vm.flavor.vCpu }} vCPU | {{vm.flavor.ram}} GB RAM | {{ vm.flavor.ssd}} GB SSD</span>
+            </div>
+        </div>
+            `
+         }
+     }
+
      
 }
 
@@ -183,3 +210,4 @@ angular.module('auroraApp')
     .directive('item', auroraApp.Directives.item)
     .directive('collapse', auroraApp.Directives.collapse)
     .directive('plusMinus', auroraApp.Directives.plusMinus)
+    .directive('vmDisplay', auroraApp.Directives.vmDisplay)
