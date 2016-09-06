@@ -136,8 +136,8 @@
                   <path d="M8,1 C3.582,1 0,4.582 0,9 C0,13.418 3.582,17 8,17 C12.418,17 16,13.418 16,9 C16,4.582 12.418,1 8,1 Z M10.7983,9.3283 L6.5353,11.9163 C6.2373,12.0963 5.9943,11.9583 5.9943,11.6083 L5.9943,6.3923 C5.9943,6.0413 6.2373,5.9033 6.5353,6.0843 L10.7983,8.6713 C11.0963,8.8523 11.0963,9.1473 10.7983,9.3283 Z M8,3 C11.308,3 14,5.692 14,9 C14,12.308 11.308,15 8,15 C4.692,15 2,12.308 2,9 C2,5.692 4.692,3 8,3 Z" id="Start" stroke="none" fill="#30AD63" fill-rule="evenodd"></path>
                 </svg>
               </li>
-              <li class="stopVM">  
-                <svg data-placement="top" title="Halt VM" onmouseenter="$(this).tooltip('show')" class="stopVM" width="16px" height="16px" viewBox="41 1 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <li class="stopVM" ng-class='{disabled: item.host_status == "stopped"}'>  
+                <svg data-placement="top" title="Halt VM" ng-click='vm.haltVm(item)' onmouseenter="$(this).tooltip('show')" class="stopVM" width="16px" height="16px" viewBox="41 1 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <path d="M49,1 C44.582,1 41,4.582 41,9 C41,13.418 44.582,17 49,17 C53.418,17 57,13.418 57,9 C57,4.582 53.418,1 49,1 Z M49,15 C45.692,15 43,12.308 43,9 C43,5.692 45.692,3 49,3 C52.308,3 55,5.692 55,9 C55,12.308 52.308,15 49,15 Z M51.2948,6.1484 L47.0938,6.1484 C46.6788,6.1484 46.3428,6.4844 46.3428,6.8994 L46.3428,11.1004 C46.3428,11.5154 46.6788,11.8514 47.0938,11.8514 L51.2948,11.8514 C51.7098,11.8514 52.0458,11.5154 52.0458,11.1004 L52.0458,6.8994 C52.0458,6.4844 51.7098,6.1484 51.2948,6.1484 Z" id="Combined-Shape" stroke="none" fill="#7F8FA4" fill-rule="evenodd"></path>
                 </svg>
               </li>

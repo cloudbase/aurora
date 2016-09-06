@@ -20,9 +20,8 @@ module auroraApp {
             
             if ($stateParams.type == 'edit') {
                 this.initialCost = flavor.price
-                this.resize = true;
+                this.resize = true
             }
-            )
 
             apiService.vmFlavors.forEach((flavor:VmFlavor) => {
                 flavor.lists.forEach((list) => {

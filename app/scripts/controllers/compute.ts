@@ -229,6 +229,10 @@ module auroraApp {
             //this.apiService.updateVm(this.item)
         }
 
+        haltVm(vm: VmItem) {
+            vm.host_status = "stopped"
+        } 
+
         selectImage(obj: IVmImage) {
             angular.forEach(this.apiService.vmImages, (flavor:IVmImage) => {
                 flavor.selected = false;

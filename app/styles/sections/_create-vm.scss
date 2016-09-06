@@ -1,6 +1,5 @@
 .main-pane {
   @include clearfix();
-  padding-bottom: 200px;
   h1 {
     font-family: "geomanist_light";
     font-size: 39px;
@@ -267,6 +266,9 @@
 }
 
 #create-vm {
+  .panel:first-child {
+    z-index: 10;
+  }
   #flavor-section {
     padding: 0;
     border: 0;

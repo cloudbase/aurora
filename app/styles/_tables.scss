@@ -199,6 +199,9 @@
         list-style-image: none;
         margin-right: 20px;
         cursor: pointer;
+        &.disabled {
+          opacity: 0.4
+        }
       }
     }
   }
