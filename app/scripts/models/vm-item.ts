@@ -158,6 +158,7 @@ module auroraApp {
         inital_cost: number
         zones: IZone[]
         floating_ips: IFloatingIp[]
+        floating_ip_limit: number
     }
     export class Project implements IProject {
         current_vm: number
@@ -175,7 +176,8 @@ module auroraApp {
             public monthly_budget,
             public currency,
             public zones,
-            public floating_ips
+            public floating_ips,
+            public floating_ip_limit
         ) {}
     }
 } 

@@ -1,0 +1,50 @@
+.reserve-floating-ip-modal {
+    .project-limits {
+        width: 55%;
+        display: inline-block;
+        .project-label {
+            font-family: "geomanist_book";
+            font-size: 14px;
+            color: #354052;
+            margin-bottom: 5px;
+        }
+        .item {
+            font-size: 14px;
+            color: #8E8E93;
+            margin-bottom: 10px;
+        }
+    }
+    .network-pool {
+        width: 45%;
+        display: inline-block;
+    }
+    .modal-body {
+        padding: 30px;
+    }
+}
+
+.modal-header {
+    h3.modal-title {
+        font-size: 18px;
+        color: #FFFFFF;
+    }
+    
+    background-color: #30AD63;
+    border-radius: 4px 4px 0 0;
+}
+.modal-footer {
+    background-color: #F0F3F8;
+    border-radius: 0 0 4px 4px;
+    .btn-cancel {
+        background: #FFFFFF;
+        border: 1px solid #7F8FA4;
+        border-radius: 4px;
+        font-family: "geomanist_book";
+        font-size: 14px;
+        color: #7F8FA4;
+        line-height: 19px;
+        &:active {
+            background: #7F8FA4;
+        }
+    }
+}

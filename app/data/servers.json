@@ -624,6 +624,7 @@
             {"id": "8", "ip":"46.103.75.206", "assigned_tp": null},
             {"id": "9", "ip":"46.103.75.207", "assigned_tp": null},
             {"id": "10", "ip":"46.103.75.208", "assigned_tp": null}
-        ]
+        ],
+        "floating_ip_limit": 20
     }
 }

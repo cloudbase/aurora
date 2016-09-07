@@ -61,7 +61,8 @@ module auroraApp.Services {
 					projectData.monthly_budget,
 					projectData.currency,
 					zones,
-					projectData.floating_ips
+					projectData.floating_ips,
+					projectData.floating_ip_limit
 				)
 
 				angular.forEach(response.images, (value:any):void => {
@@ -115,7 +116,7 @@ module auroraApp.Services {
 					floating_ip: floatingIp
 				} 
 				networkInterfaces.push(newNetworkInterface)
-				
+
 				if (floatingIp != null)
 					floatingIp.assigned_to = newNetworkInterface
 			})
