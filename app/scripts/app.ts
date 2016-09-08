@@ -11,7 +11,6 @@ var app = angular.module('auroraApp', [
     'ui.bootstrap',
     'angular-svg-round-progressbar',
     'xeditable',
-    'sticky',
     'yaru22.angular-timeago',
     'ui.select'
 ]);

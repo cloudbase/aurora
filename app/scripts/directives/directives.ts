@@ -176,7 +176,7 @@ module auroraApp.Directives {
 
      export function vmDisplay() {
          return {
-             restrict: "E",
+             restrict: "AE",
              replace: true,
             transclude: true,
             scope: {
@@ -201,7 +201,25 @@ module auroraApp.Directives {
          }
      }
 
-     
+     export function sticky() {
+         return {
+             restrict: "AE",
+             scope: {
+                 offset: "@"
+             },
+             link: ($scope, $element) => {
+                $(window).scroll(() => {
+                    if ($(this).scrollTop() > 175) {
+                        $element.addClass('fixed')
+                    } else {
+                        $element.removeClass('fixed')
+                    }
+                    //console.log("Scroll", $scope.offset)
+                })
+             }
+         }
+     }
+    
 }
 
 
@@ -211,3 +229,4 @@ angular.module('auroraApp')
     .directive('collapse', auroraApp.Directives.collapse)
     .directive('plusMinus', auroraApp.Directives.plusMinus)
     .directive('vmDisplay', auroraApp.Directives.vmDisplay)
+    .directive('sticky', auroraApp.Directives.sticky)

@@ -155,6 +155,11 @@ body .header {
     .sidebar {
       margin-right: 0;
       margin-left: 20px;
+      &.fixed {
+        position: fixed;
+        margin-left: 930px;
+        top: 20px;
+      }
     }
   }
   
