@@ -219,6 +219,36 @@ module auroraApp.Directives {
              }
          }
      }
+
+     export class Notifications implements ng.IDirective {
+        restrict = 'EA'
+        templateUrl = 'views/partials/notifications.html'
+        replace = true
+        transclude = true
+    
+        constructor(private $location: ng.ILocationService, private notificationService: Services.INotificationService, private $scope: ng.IScope) {
+            console.log('whaat?')
+            console.log(this.$location);
+            console.log(this.notificationService);
+            console.log(this.$scope)
+        }
+    
+        link(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, ctrl: any) 
+        {
+            console.log(this.$location)
+            console.log(this.notificationService)
+            console.log("LINK!")
+            scope.$watch('this.notificationService.notifications', (newValue, oldValue) => {
+                console.log("POLICE", newValue, oldValue)
+            })
+        }
+    
+        static factory(): ng.IDirectiveFactory {
+            const directive = ($location: ng.ILocationService, notificationService: Services.INotificationService, $scope: ng.IScope) => new Notifications($location, notificationService, $scope);
+            directive.$inject = ['$location', 'NotificationService', '$rootScope'];
+            return directive;
+        }
+    }
     
 }
 
@@ -230,3 +260,4 @@ angular.module('auroraApp')
     .directive('plusMinus', auroraApp.Directives.plusMinus)
     .directive('vmDisplay', auroraApp.Directives.vmDisplay)
     .directive('sticky', auroraApp.Directives.sticky)
+    .directive('notifications', auroraApp.Directives.Notifications.factory());

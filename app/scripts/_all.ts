@@ -24,6 +24,9 @@
 /// <reference path='services/apiService.ts' />
 /// <reference path='services/apiService.d.ts' />
 
+/// <reference path='services/notificationService.ts' />
+/// <reference path='services/notificationService.d.ts' />
+
 // ## DIRECTIVES ##
 /// <reference path='directives/directives.ts' />
 /// <reference path='directives/directives.d.ts' />

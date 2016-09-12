@@ -26,14 +26,16 @@ module auroraApp {
             "$scope",
             "ApiService",
             "$state",
-            "$timeout"
+            "$timeout",
+            "NotificationService"
         ];
 
         constructor(
             isolateScope: Directives.IVmListScope,
             public apiService: Services.IApiService,
             private $state: any,
-            private $timeout: ng.ITimeoutService)
+            private $timeout: ng.ITimeoutService,
+            private notificationService: Services.INotificationService)
         {
             let rand = Math.floor((Math.random() * 100) + 1)
             this.newVmName = "machine-" + rand;
@@ -87,7 +89,8 @@ module auroraApp {
             this.$timeout(() => {
                 obj.host_status = "running"
             }, 7000)
-
+            
+            this.notificationService.addNotification("Se da peste cap baaa", "info")
         }
         
         editName(obj: VmItem)
