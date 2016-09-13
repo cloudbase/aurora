@@ -17,8 +17,24 @@ module auroraApp.Services {
 
             this.notifications.push(notification)
 
-            console.log(this.notifications)
+            this.notifyObservers()
         }
+
+        observerCallbacks = []
+
+        // Register an observer 
+        registerObserverCallback(callback) 
+        {
+            this.observerCallbacks.push(callback);
+        };
+        
+        // Notify observer function
+        notifyObservers()
+        {
+            angular.forEach(this.observerCallbacks, (callback) => {
+                callback()
+            })
+        };
     }
 }
 

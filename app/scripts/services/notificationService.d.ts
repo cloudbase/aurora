@@ -4,6 +4,7 @@ declare module auroraApp.Services {
     export interface INotificationService {
         notifications: INotification[]
         addNotification(message: string, type: string)
+        registerObserverCallback(callbacK: any)
     }
 
     export interface INotification {

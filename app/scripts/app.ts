@@ -12,7 +12,8 @@ var app = angular.module('auroraApp', [
     'angular-svg-round-progressbar',
     'xeditable',
     'yaru22.angular-timeago',
-    'ui.select'
+    'ui.select',
+    'ui-notification'
 ]);
 app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
   //
@@ -190,7 +191,17 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
         }
       }
     })
-}]); 
+}]).config(function(NotificationProvider) {
+      NotificationProvider.setOptions({
+          delay: 10000,
+          startTop: 20,
+          startRight: 20,
+          verticalSpacing: 20,
+          horizontalSpacing: 20,
+          positionX: 'left',
+          positionY: 'bottom'
+      });
+  });; 
 
 app.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'

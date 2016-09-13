@@ -225,21 +225,25 @@ module auroraApp.Directives {
         templateUrl = 'views/partials/notifications.html'
         replace = true
         transclude = true
-    
-        constructor(private $location: ng.ILocationService, private notificationService: Services.INotificationService, private $scope: ng.IScope) {
-            console.log('whaat?')
-            console.log(this.$location);
-            console.log(this.notificationService);
-            console.log(this.$scope)
+        notifications: Services.INotification[]
+        scope: any = {
+            notifications: "@"
         }
     
-        link(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, ctrl: any) 
+        constructor(private $location: ng.ILocationService, private notificationService: Services.INotificationService, private $scope: any) {
+            $scope.notifications = notificationService.notifications
+        }
+    
+        link(scope: any, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, ctrl: any) 
         {
             console.log(this.$location)
             console.log(this.notificationService)
-            console.log("LINK!")
-            scope.$watch('this.notificationService.notifications', (newValue, oldValue) => {
-                console.log("POLICE", newValue, oldValue)
+            console.log(scope)
+            let self = this
+            this.notificationService.registerObserverCallback(() => {
+                self.$scope.notifications = self.notificationService.notifications
+                console.log(self.$scope.notifications)
+                setTimeout(function(){ self.$scope.$apply(); });
             })
         }
     

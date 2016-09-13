@@ -27,6 +27,7 @@ module auroraApp {
             "ApiService",
             "$state",
             "$timeout",
+            "Notification",
             "NotificationService"
         ];
 
@@ -35,11 +36,12 @@ module auroraApp {
             public apiService: Services.IApiService,
             private $state: any,
             private $timeout: ng.ITimeoutService,
+            private Notification: any,
             private notificationService: Services.INotificationService)
         {
             let rand = Math.floor((Math.random() * 100) + 1)
             this.newVmName = "machine-" + rand;
-            
+
             this.zone = {}
             this.zone.value = this.apiService.project.zones[0]
 
@@ -89,8 +91,8 @@ module auroraApp {
             this.$timeout(() => {
                 obj.host_status = "running"
             }, 7000)
-            
-            this.notificationService.addNotification("Se da peste cap baaa", "info")
+
+            this.Notification.info("Rebooting VM: " + obj.name)
         }
         
         editName(obj: VmItem)
@@ -199,9 +201,12 @@ module auroraApp {
     
                 this.$timeout(() => {
                     newVm.host_status = "running"
+                    this.Notification.success("VM '" + newVm.name +  "' is running")
                 }, 10000)
     
                 this.apiService.insertVm(newVm);
+
+                this.Notification.primary("Deploying VM: " + "machine-" + rand + _i, " - status: deploying")
             }
 
             this.$state.go("vm-list");
@@ -226,14 +231,16 @@ module auroraApp {
 
         deleteVm(vm: VmItem) {
             let index = this.apiService.listItems.indexOf(vm);
-            console.log(index)
+            
             this.apiService.listItems.splice(index, 1); 
             
+            this.Notification.info("Deleted VM: " + vm.name)
             //this.apiService.updateVm(this.item)
         }
 
         haltVm(vm: VmItem) {
             vm.host_status = "stopped"
+            this.Notification.info("Stopped VM: " + vm.name)
         } 
 
         selectImage(obj: IVmImage) {

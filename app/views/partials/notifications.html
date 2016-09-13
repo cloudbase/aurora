@@ -1,1 +1,9 @@
-<p>NOTIFICATIONS</p>
+<div>
+    <p>NOTIFICATIONS</p>
+    <div ng-repeat="notification in notifications">
+        {{ notification.name }}
+        ---
+        {{ notification.msg }}
+    </div>
+    {{ notifications.length }}
+</div>
