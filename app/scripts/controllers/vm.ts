@@ -53,6 +53,11 @@ module auroraApp {
             floatingIp.assigned_to = networkInterface
         }
 
+        releaseFloatingIp(network_interface: INetworkInterface) {
+            network_interface.floating_ip.assigned_to = null
+            network_interface.floating_ip = null
+        }
+
         createSnapshot() {
             let name = this.item.name + "_sp_" + (this.item.snapshots.length + 1)
             let snapshot = new VmSnapshot(

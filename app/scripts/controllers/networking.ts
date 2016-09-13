@@ -69,6 +69,12 @@ module auroraApp {
                 
             });
         }
+
+        releaseFloatingIp(floating_ip: IFloatingIp) {
+            console.log(floating_ip)
+            floating_ip.assigned_to.floating_ip = null
+            floating_ip.assigned_to = null
+        }
         
     }
 }
