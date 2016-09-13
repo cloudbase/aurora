@@ -166,6 +166,16 @@
       &:first-child {
         padding-top: 0;
       }
+      &.iprange-2 {
+        padding-top: 10px;
+      }
+      &.iprange-3 {
+          padding-top: 0px;
+      }
+      &[class^="iprange-"] {
+        max-height: 60px;
+        overflow: hidden;
+      }
     }
   }
   .cell {
@@ -202,6 +212,16 @@
         &.disabled {
           opacity: 0.4
         }
+      }
+    }
+    .network-interface {
+      &.floating-ip {
+        color:#30AD63;
+      }
+      .label {
+        min-width: 90px;
+        text-align: center;
+        display: inline-block;
       }
     }
   }

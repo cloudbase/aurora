@@ -269,6 +269,20 @@ module auroraApp {
         {
             this.$state.go('vm-view-overview', {vm_id: vm.id});
         }
+
+        /**
+         * Calculates the number of ip's of vm. Used for templating.
+         */
+        numOfIps(vm: VmItem) {
+            let num = 0
+            vm.network_interfaces.forEach((item:INetworkInterface) => {
+                num++ // always has internal ip address assigned
+                if (item.floating_ip)
+                    num++ // if has floating ip, increment
+            })
+
+            return num
+        }
     }
 }
 

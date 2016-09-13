@@ -108,9 +108,16 @@
               <span class="details">{{ item.flavor.vCpu }} vCPU | {{item.flavor.ram}} GB RAM | {{ item.flavor.ssd}} GB SSD</span>
             </div>
           </div>
-          <div class='cell'>
-            <div class='network-interface' ng-repeat="network_interface in item.network_interfaces">
-              {{network_interface.ip_addr}}
+          <div class='cell iprange-{{ vm.numOfIps(item) }}'>
+            <div ng-repeat="network_interface in item.network_interfaces" class='network-interface ipnum-{{item.network_interfaces.length}} floating-ip' ng-if="network_interface.floating_ip">
+              <div class='label label-primary'> 
+                {{network_interface.floating_ip.ip}}
+              </div>
+            </div>
+            <div ng-repeat="network_interface in item.network_interfaces" class='network-interface ipnum-{{item.network_interfaces.length}}'>
+              <div class='label label-info'>
+                {{network_interface.ip_addr}}
+              </div>
             </div>
           </div>
           <div class='cell'>
