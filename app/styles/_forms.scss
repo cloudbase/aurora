@@ -190,3 +190,38 @@
     }
   }
 }
+
+.action-dropdown {
+  .ui-select-container .ui-select-toggle {
+    background-color: #FFF;
+    padding-left: 30px;
+  }
+  .action-dropdown .ui-select-container .ui-select-toggle {
+    
+  }
+  svg {
+    position: absolute;
+    z-index: 2;
+    top: 9px;
+    left: 8px;
+  }
+  &.bulk-actions {
+    float: right;
+    width: 155px;
+    position: relative;
+  }
+  &.vm-actions {
+    float: right;
+    width: 155px;
+    position: relative;
+    margin-left: 2px;
+    svg {
+      top: 12px;
+    }
+    .ui-select-container .ui-select-toggle {
+      height: 38px;
+      line-height: 24px;
+    }
+
+  }
+}

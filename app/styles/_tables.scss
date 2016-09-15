@@ -102,6 +102,7 @@
   pointer-events: none;
 }
 .table-filter {
+  @include clearfix();
   padding: 10px 20px;
   border-top: 2px solid #B7C0CD;
   .text-muted {
@@ -109,6 +110,7 @@
   }
   .ui-select-container:first-child {
     width: 15%;
+    float: left;
   }
   .filter-row {
     @include clearfix();

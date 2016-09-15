@@ -8,13 +8,20 @@ module auroraApp {
         static $inject = [
             "ApiService",
             "$state",
-            "$stateParams"
+            "$stateParams",
+            "$timeout",
+        ]
+        actions: IVmAction[] = [
+            {id: "stop", name: "Stop", action: this.haltVm, available: true},
+            {id: "start", name: "Start", action: this.startVm, available: true},
+            {id: "restart", name: "Restart", action: this.restartVm, available: true}
         ]
 
         constructor(
             public apiService: Services.ApiService,
             private $state,
-            private $stateParams
+            private $stateParams,
+            private $timeout: ng.ITimeoutService
         ) {
             this.item = apiService.getVm($stateParams.vm_id)
             apiService.vmFlavors.forEach((flavor) => {
@@ -23,7 +30,7 @@ module auroraApp {
                     flavor.selected = true
             })
             apiService.project.additional_cost = 0
-            console.log(apiService.project.floating_ips)
+            
         }
 
         // TODO: Put network functions in own controller
@@ -73,6 +80,31 @@ module auroraApp {
             this.item.snapshots.splice(index, 1); 
 
             this.apiService.updateVm(this.item)
+        }
+
+        haltVm() 
+        {
+            this.item.host_status = "stopped"
+        }
+
+        startVm()
+        {
+            this.item.host_status = "running"
+        }
+
+        restartVm()
+        {
+            console.log(this)
+            this.item.host_status = "restarting"
+            this.$timeout(() => {
+                this.item.host_status = "running"
+            }, 7000)
+        }
+
+        selectAction(action: IVmAction, vm: VmItem)
+        {
+            console.log(action, vm)
+            action.action()
         }
     }
 }

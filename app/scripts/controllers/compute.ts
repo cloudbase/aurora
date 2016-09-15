@@ -21,6 +21,11 @@ module auroraApp {
             {id: 'name', name: "Name", type: "text", options: false, term: ""},
             {id: 'zone', name: "Zone", type: "options", options: [], term: ""},
         ]
+        bulkActions: IVmAction[] = [
+            {id: "stop", name: "Stop", action: this.haltVm, available: true},
+            {id: "start", name: "Start", action: this.startVm, available: true},
+            {id: "restart", name: "Restart", action: this.haltVm, available: true}
+        ]
 
         static $inject = [
             "$scope",
@@ -82,7 +87,7 @@ module auroraApp {
 
         startVm(obj: VmItem)
         {
-
+            obj.host_status = "running";
         }
 
         restartVm(obj: VmItem)
@@ -270,6 +275,26 @@ module auroraApp {
             this.$state.go('vm-view-overview', {vm_id: vm.id});
         }
 
+        /**
+         * Executes bulk actions on selected VMs
+         */
+        bulkAction(action: IVmAction) 
+        {
+            let selected = 0
+            this.apiService.listItems.forEach((item: VmItem) => {
+                if (item.checked) {
+                    action.action(item)
+                    item.checked = false
+                    selected++
+                } 
+            })
+            if (selected == 0) {
+                this.Notification.warning("Error: No VMs are selected.")
+            } else {
+                this.Notification.success("Performed " + action.name + " on " + selected + " VMs");
+            }
+            
+        }
         checkVm(vm: VmItem) {
             vm.checked = !vm.checked
         }

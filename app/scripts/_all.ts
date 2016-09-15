@@ -12,6 +12,7 @@
 /// <reference path='controllers/vm-details.d.ts' />
 
 /// <reference path='controllers/vm.ts' />
+/// <reference path='controllers/vm.d.ts' />
 
 /// <reference path='controllers/project.ts' />
 

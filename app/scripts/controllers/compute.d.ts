@@ -16,5 +16,11 @@ declare module auroraApp {
         options: any
         term: string
     }
+    interface IVmAction {
+        id: string
+        name: string
+        action: any
+        available: boolean
+    }
     
 }
