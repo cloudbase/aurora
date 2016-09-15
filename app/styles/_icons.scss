@@ -27,7 +27,7 @@
         position: absolute;
         display: inline-block;
         top: -8px;
-        right: -5px;
+        left: -6px;
         i {
             background-color: #FFF;
             border: 2px solid #999;
@@ -39,7 +39,10 @@
                 transition: opacity 0.1s ease-out;
             }
         }
-        &.checked {
+    }
+    &.checked {
+        background-color: darken($image-bg-color, 15%);
+        .checkable {
             i {
                 border-color: #000;
                 &:before {
@@ -48,6 +51,7 @@
             }
         }
     }
+
     &:hover {
         .checkable {
             i {
