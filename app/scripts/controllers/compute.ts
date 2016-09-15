@@ -270,6 +270,10 @@ module auroraApp {
             this.$state.go('vm-view-overview', {vm_id: vm.id});
         }
 
+        checkVm(vm: VmItem) {
+            vm.checked = !vm.checked
+        }
+
         /**
          * Calculates the number of ip's of vm. Used for templating.
          */

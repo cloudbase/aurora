@@ -1,28 +1,7 @@
 <div class='row'>
   <div class="main-list">
     <div class='list-header'>
-      <!-- <div class="loading">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div> -->
-      <ul class="list-categories">
-        <li class="active">
-          <span class="name">VM's</span>
-          <span class="count">{{ vm.apiService.listItems.length }}</span>
-        </li>
-        <li>
-          <span class="name">Storage</span>
-          <span class="count">0</span>
-        </li>
-        <li>
-          <span class="name">Containers</span>
-          <span class="count">0</span>
-        </li>
-      </ul>
+      <h1>Virtual Machines</h1>
       <a class="btn btn-primary btn-add" ng-click="vm.newVm()">
 
         <svg width="17px" height="17px" viewBox="16 18 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -78,7 +57,7 @@
         </div>
       </div>
     </div>
-    <div class="table vm-table">
+    <div class="table vm-table vm-list-table">
       <div class="table-header">
         <div class="cell sortable" ng-click="vm.sortTable('name')"  ng-class="{sortUp: (vm.sortType == 'name' && vm.sortReverse == false), sortDown: (vm.sortType == 'name' && vm.sortReverse == true)}">
           <div class='cell-text'>Name</div> 
@@ -97,10 +76,13 @@
       <div class='table-content'>
         <div ng-repeat="item in vm.apiService.listItems | orderBy:vm.sortType:vm.sortReverse | vmFilter: {filters: vm.currentFilters}" ng-class="{editing: item.edit_state}" class='table-row status-{{ item.host_status }}' >
           <div class='cell'>
-            <span class="icon {{ item.image.id }}">
+            <span class="icon {{ item.image.id }}" ng-click="vm.checkVm(item)">
               <svg class="icon-{{ item.image.id }}">
                  <use xlink:href="{{'images/icons.svg#logo-' + item.image.id + '-dark'}}" />
                </svg>
+               <span class='checkable' ng-class='{checked : item.checked}'>
+                 <i class='glyphicon glyphicon-ok'></i>
+               </span>
             </span>
             <div class="info">
               <span class='vm-status status-circle'> </span>

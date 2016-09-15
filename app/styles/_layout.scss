@@ -8,53 +8,6 @@ body {
 .container {
   width: 1210px !important;
 }
-
-body .header {
-  padding-left: 0;
-  padding-right: 0;
-}
-.header .navbar {
-  @include clearfix();
-  height: 70px;
-  background: #354052;
-  box-shadow: 0px -1px 0px 0px #E6EAEE;
-  .navbar-brand {
-    float: left;
-    padding: 0;
-    margin-top: 5px;
-    margin-left: -20px;
-  }
-  .navbar-menu {
-    padding-top: $pad;
-    float: left;
-    @include clearfix();
-    list-style: none;
-    li {
-      float: left;
-      padding: 8px 15px;
-      a {
-        font-family: "geomanist_book";
-        font-size: $font-size-menu;
-        color: #D8D8D8;
-        position: relative;
-        &:after {
-          content: " ";
-          display: block;
-        }
-        &:hover, &.active {
-          color: $menu-hover-color;
-          text-decoration: none;
-          &:after {
-            width: 100%;
-            height: 2px;
-            margin-top: 18px;
-            background-color: $menu-hover-color;
-          }
-        }
-      }
-    }
-  }
-}
 .main {
   .section {
     background: #FFFFFF;
@@ -78,7 +31,9 @@ body .header {
     }
   }
 }
-
+.main-body {
+  margin-top: 110px;
+}
 
 #narrow-col {
   @include clearfix();

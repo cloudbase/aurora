@@ -28,9 +28,24 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controller: 'LoginCtrl',
       controllerAs: 'login'
     })
+    // COMPUTE
+    .state('compute', {
+      url: "/compute",
+      abstract: true,
+      templateUrl: "views/main.html",
+      controllerAs: 'vm'
+    })
+    .state('vm', {
+      url: "/vm",
+      parent: "compute",
+      abstract: true,
+      templateUrl: "views/abstract.html",
+      controllerAs: 'vm'
+    })
     .state('vm-list', {
-      url: "/vm/list",
-      templateUrl: 'views/sections/main.html',
+      url: "",
+      parent: "vm",
+      templateUrl: 'views/sections/vm_list.html',
       controller: 'ComputeCtrl',
       controllerAs: 'vm',
       resolve: {
@@ -40,7 +55,8 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       }
     })
     .state('vm-create', {
-      url: "/vm/create",
+      url: "/create",
+      parent: "vm",
       params: {
         type: 'create'
       },
@@ -82,7 +98,8 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
     })
     .state('vm-view', {
       abstract: true,
-      url: "/vm/view/:vm_id",
+      parent: "vm",
+      url: "/view/:vm_id",
       templateUrl: 'views/sections/vm_view.html',
       controller: 'VmCtrl',
       controllerAs: 'vmView',
@@ -156,6 +173,13 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controllerAs: 'vmView'
     })
     .state('networking', {
+      abstract: true,
+      url: "/networking",
+      templateUrl: "views/main.html",
+      controllerAs: 'vm'
+    })
+    // NETWORKING
+    /*.state('networking', {
       //abstract: true,
       url: "/networking",
       views: {
@@ -175,9 +199,10 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           return apiService.queryServers()
         }]
       }
-    })
+    }) */
     .state('networking-floating-ips', {
-      url: "/networking/floating-ips",
+      parent: "networking",
+      url: "/floating-ips",
       views: {
         '': {
           templateUrl: "views/sections/networking.html",

@@ -1,38 +1,66 @@
-<div class='row'>
-  <div id="login-form">
-    <div class="logo-login">
-      <img src="images/Aurora-White-LogoOnly.svg" />
+<div id="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
     </div>
-    <div class="top">
-      <h3>Welcome back! Please login.</h3>
-    </div>
-    <div class="body">
-      <form>
-        <div class="form-group">
-          <label for="login_username">Sign in with e-mail address</label>
-          <input type="text" class="form-control" id="login_username" ng-model="login.username" placeholder="Username">
+<!-- Add your site or application content here -->
+<div class="header">
+    <div class="navbar navbar-default" role="navigation">
+    <div class="navbar-inner">
+        <div class='container logo-container'>
+            <a class="navbar-brand" href="#/">
+                <img src="images/LogAuroraDark.svg" />    
+            </a>
         </div>
-        <div class="form-group">
-          <label for="login_password">Password</label>
-          <input type="password" class="form-control" id="login_password" ng-model="login.password" placeholder="Password">
+        <div class='container'>
+            <div class="navbar-header">
+            </div>
         </div>
-        <div class="form-group">
-          <input type="button" class="btn btn-primary btn-login" value="Sign in to Aurora" ng-click="login.auth()"/>
-        </div>
-      </form>
     </div>
-    <div class="bottom">
-      <label class="login-social-networks">Login via social networks</label>
-      <ul class="social-icons">
-        <li class="icon1"><span></span></li>
-        <li class="icon2"><span></span></li>
-        <li class="icon3"><span></span></li>
-        <li class="icon4"><span></span></li>
-      </ul>
     </div>
-    <div class="bottom-links">
-      <a class="pull-left">Don't have an account? Get Started</a>
-      <a class="pull-right">Forgot Password?</a>
+</div>
+
+<div class="container main-body">
+  <div class='row'>
+    <div id="login-form">
+      <div class="logo-login">
+        <img src="images/Aurora-White-LogoOnly.svg" />
+      </div>
+      <div class="top">
+        <h3>Welcome back! Please login.</h3>
+      </div>
+      <div class="body">
+        <form>
+          <div class="form-group">
+            <label for="login_username">Sign in with e-mail address</label>
+            <input type="text" class="form-control" id="login_username" ng-model="login.username" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="login_password">Password</label>
+            <input type="password" class="form-control" id="login_password" ng-model="login.password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <input type="button" class="btn btn-primary btn-login" value="Sign in to Aurora" ng-click="login.auth()"/>
+          </div>
+        </form>
+      </div>
+      <div class="bottom">
+        <label class="login-social-networks">Login via social networks</label>
+        <ul class="social-icons">
+          <li class="icon1"><span></span></li>
+          <li class="icon2"><span></span></li>
+          <li class="icon3"><span></span></li>
+          <li class="icon4"><span></span></li>
+        </ul>
+      </div>
+      <div class="bottom-links">
+        <a class="pull-left">Don't have an account? Get Started</a>
+        <a class="pull-right">Forgot Password?</a>
+      </div>
     </div>
   </div>
 </div>
+
