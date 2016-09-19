@@ -19,6 +19,7 @@ module auroraApp {
     export class VmItem implements IVmItem {
         prev_name: string
         checked = false
+        detail_view = false
         constructor(
             public id,
             public name,

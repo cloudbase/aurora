@@ -5,7 +5,7 @@
   border-radius: 4px;
   padding-left: 0;
   .list-header {
-    padding: 20px 25px 20px 0px;
+    padding: 20px 20px 20px 0px;
     @include clearfix();
     h1 {
       font-family: "geomanist_light";
@@ -232,6 +232,7 @@
         min-width: 90px;
         text-align: center;
         display: inline-block;
+        font-size: 12px;
       }
     }
   }
@@ -352,12 +353,77 @@
   }
 }
 .vm-list-table {
-  .table-row {
-    padding-left: 20px;
-    .icon {
-      cursor: pointer;
-      &:hover {
-        box-shadow: 0px 0px 6px 1px #999;
+  .table-content {
+    .table-row {
+      padding-left: 0px;
+      padding-bottom: 0px;
+      transition: background-color 0.1s ease-in;
+      .icon {
+        cursor: pointer;
+        &:hover {
+        }
+      }
+      .cell{
+        &:first-child {
+          position: relative;
+          .vm-caret {
+            position: absolute;
+            border: 1px solid transparent;
+            right: 20px;
+            top: 20px;
+            padding: 5px 5px 1px 5px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            &:hover {
+                border-color:#354052;
+                border-radius: 4px;
+                background-color: #E6EAEE;
+            }
+          }
+        }
+      }
+      .vm-excerpt {
+        @include clearfix();
+        padding-left: 20px;
+        padding-bottom: 20px;
+      }
+      .vm-detail-row {
+        background-color: #E6EAEE;
+        transition: all 0.1s ease-in;
+        overflow: hidden;
+        height: 0;
+        padding: 0px 20px;
+      }
+      &.detailView {
+        background-color: #C4C9D2;
+        .cell .info .details{
+          color: #354052;
+        }
+        .cell{
+          &:first-child {
+            .vm-caret {
+              transform: scale(-1);
+              &:hover {
+                background-color: #FFF;
+              }
+            }
+          }
+        }
+        .icon {
+          background-color: #FFF;
+        }
+        .vm-actions {
+          svg {
+            path {
+              fill: #354052;
+            }
+          }
+        }
+        .vm-detail-row { 
+          height: 120px;
+          display: block;
+          padding: 20px;
+        }
       }
     }
   }
@@ -459,7 +525,6 @@
         float: left;
         margin-top: 15px;
         margin-left: 10px;
-        /* 46.101.104.22: */
         font-family: "geomanist_book";
         font-size: 18px;
         color: #354052;

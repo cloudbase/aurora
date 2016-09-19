@@ -54,8 +54,10 @@
     }
 
     &:hover {
+        background-color: darken($image-bg-color, 15%);
         .checkable {
             i {
+                border-color: #354052;
                 &:before {
                     //opacity: 0.7;
                 }

@@ -117,7 +117,8 @@ module auroraApp {
             })
         }
 
-        sortTable(column: string) {
+        sortTable(column: string) 
+        {
             if (this.sortType != column) {
                 this.sortType = column;
             } else {
@@ -130,16 +131,19 @@ module auroraApp {
             }
         }
 
-        filterTable(option, filterField: ISearchField) {
+        filterTable(option, filterField: ISearchField) 
+        {
             option.selected = !option.selected
         }
         
-        cancelEdit(obj: VmItem) {
+        cancelEdit(obj: VmItem) 
+        {
             obj.edit_state = false
             obj.name = obj.prev_name
         }
 
-        selectFilter(item) {
+        selectFilter(item) 
+        {
             let exists = false
             this.currentFilters.forEach((filter) => {
                 if (filter.id == item.id)
@@ -156,13 +160,15 @@ module auroraApp {
             }
         }
 
-        removeFilter(item) {
+        removeFilter(item) 
+        {
             console.log(item)
             let index = this.currentFilters.indexOf(item)
             this.currentFilters.splice(index, 1)
         }
 
-        createVm() {
+        createVm() 
+        {
             let newVm: IVmItem
             let network_interfaces: INetworkInterface[]
             let rand: number
@@ -218,7 +224,8 @@ module auroraApp {
 
         }
 
-        newVm() {
+        newVm() 
+        {
             angular.forEach(this.apiService.vmImages, (flavor:IVmImage) => {
                 flavor.selected = false;
             })
@@ -234,7 +241,8 @@ module auroraApp {
             this.$state.go("vm-create");
         }
 
-        deleteVm(vm: VmItem) {
+        deleteVm(vm: VmItem) 
+        {
             let index = this.apiService.listItems.indexOf(vm);
             
             this.apiService.listItems.splice(index, 1); 
@@ -243,7 +251,8 @@ module auroraApp {
             //this.apiService.updateVm(this.item)
         }
 
-        haltVm(vm: VmItem) {
+        haltVm(vm: VmItem) 
+        {
             vm.host_status = "stopped"
             this.Notification.info("Stopped VM: " + vm.name)
         } 
@@ -255,7 +264,8 @@ module auroraApp {
             obj.selected = true
         }
 
-        selectFlavor(obj: IVmFlavor) {
+        selectFlavor(obj: IVmFlavor) 
+        {
             angular.forEach(this.apiService.vmFlavors, (flavor:IVmFlavor) => {
                 flavor.selected = false;
             })
@@ -263,7 +273,8 @@ module auroraApp {
             obj.selected = true
         }
         
-        selectNetwork(obj: IVmNetwork) {
+        selectNetwork(obj: IVmNetwork) 
+        {
             obj.selected = !obj.selected
         }
 
@@ -295,14 +306,22 @@ module auroraApp {
             }
             
         }
-        checkVm(vm: VmItem) {
+        
+        checkVm(vm: VmItem) 
+        {
             vm.checked = !vm.checked
+        }
+
+        detailVm(vm: VmItem) 
+        {
+            vm.detail_view = !vm.detail_view
         }
 
         /**
          * Calculates the number of ip's of vm. Used for templating.
          */
-        numOfIps(vm: VmItem) {
+        numOfIps(vm: VmItem) 
+        {
             let num = 0
             vm.network_interfaces.forEach((item:INetworkInterface) => {
                 num++ // always has internal ip address assigned
