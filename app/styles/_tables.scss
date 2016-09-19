@@ -155,7 +155,7 @@
 }
 .table {
   .table-header {
-    padding: 8px 0 8px 30px;
+    padding: 8px 0 8px 20px;
     background-color: #E7E9ED;
     border-top: 2px solid darken(#E7E9ED, 20%);
     @include clearfix();
@@ -166,7 +166,7 @@
   }
   .table-row {
     @include clearfix();
-    padding: 15px 0 15px 30px;
+    padding: 15px 0 15px 20px;
     border-bottom: 1px solid #EFEFF4;
     &:last-child {
       border-bottom: 0;
@@ -353,6 +353,10 @@
   }
 }
 .vm-list-table {
+  margin-bottom: 0;
+  .table-header {
+    padding-left: 20px;
+  }
   .table-content {
     .table-row {
       padding-left: 0px;
@@ -419,10 +423,15 @@
             }
           }
         }
-        .vm-detail-row { 
+        .vm-detail-row {
+          @include clearfix(); 
           height: 120px;
           display: block;
           padding: 20px;
+          .detail-col {
+            width: 40%;
+            float: left;
+          }
         }
       }
     }
