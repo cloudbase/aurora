@@ -48,3 +48,26 @@
         }
     }
 }
+.modal-xl {
+    width: 1200px;
+}
+.manage-widgets-modal {
+    .modal-body {
+        padding: 0;
+    }
+    .vm-widgets-container {
+        background-color: #E6EAEE;
+        zoom: 0.9;
+        .empty-row {
+            height: $widget-row-height;
+            clear: both;
+            background-color: lighten(#E6EAEE, 5%);
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+    }
+    .all-widgets {
+        background-color: #FFF;
+        height: 200px;
+    }
+}

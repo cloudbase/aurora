@@ -220,6 +220,8 @@ module auroraApp.Directives {
          }
      }
 
+     
+
      export class Notifications implements ng.IDirective {
         restrict = 'EA'
         templateUrl = 'views/partials/notifications.html'

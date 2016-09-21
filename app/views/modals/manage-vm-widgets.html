@@ -1,0 +1,17 @@
+<div class='manage-widgets-modal'>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Manage Widgets</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class='vm-widgets-container'>
+            <vm-widgets-editable vm="vm" widgets="widgets"></vm-widgets-editable>
+            <div class='empty-row'></div>
+        </div>
+        <div class='all-widgets'>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning btn-cancel pull-left" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="ok()" >Save</button>
+    </div>
+</div>

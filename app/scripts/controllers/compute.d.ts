@@ -22,5 +22,15 @@ declare module auroraApp {
         action: any
         available: boolean
     }
+    interface IPositionXY {
+        x: number
+        y: number
+    }
+    interface IVmWidget {
+        name: string
+        position: IPositionXY
+        size: string
+        settings: any
+    }
     
 }

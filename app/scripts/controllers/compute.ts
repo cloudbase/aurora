@@ -16,6 +16,44 @@ module auroraApp {
         count: number = 1
         zone: any
         currentFilters: any = []
+        vmWidgets: IVmWidget[] = [
+            {
+                name: "vm-field",
+                position: {x:0, y:0}, 
+                size: "2x2",
+                settings: {field: "id", label: "ID", clipboard: true}
+            },
+            {
+                name: "vm-field",
+                position: {x:0, y:0}, 
+                size: "2x1",
+                settings: {field: "zone", label: "Zone"}
+            },
+            {
+                name: "vm-field",
+                position: {x:0, y:0}, 
+                size: "2x1",
+                settings: {field: "zone", label: "Zone"}
+            },
+            {
+                name: "vm-field",
+                position: {x:0, y:0}, 
+                size: "2x1",
+                settings: {field: "zone", label: "Zone"}
+            },
+            {
+                name: "vm-field",
+                position: {x:0, y:0}, 
+                size: "3x1",
+                settings: {field: "id", label: "ImageID", clipboard: true}
+            },
+            {
+                name: "vm-field",
+                position: {x:0, y:0}, 
+                size: "3x1",
+                settings: {field: "id", label: "ImageID", clipboard: true}
+            }
+        ]
         filters: ISearchField[] = [
             {id: 'host_status', name: "Status", type: "options", options: [], term: ""},
             {id: 'name', name: "Name", type: "text", options: false, term: ""},
@@ -33,7 +71,8 @@ module auroraApp {
             "$state",
             "$timeout",
             "Notification",
-            "NotificationService"
+            "NotificationService",
+            "$uibModal"
         ];
 
         constructor(
@@ -42,7 +81,8 @@ module auroraApp {
             private $state: any,
             private $timeout: ng.ITimeoutService,
             private Notification: any,
-            private notificationService: Services.INotificationService)
+            private notificationService: Services.INotificationService,
+            private $uibModal: any)
         {
             let rand = Math.floor((Math.random() * 100) + 1)
             this.newVmName = "machine-" + rand;
@@ -72,6 +112,43 @@ module auroraApp {
                     
             })
             
+        }
+
+        manageWidgets(vm: VmItem) {
+            let self = this
+
+            var modalInstance = this.$uibModal.open({
+                animation: true,
+                size: "xl",
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/modals/manage-vm-widgets.html',
+                controller: ($scope, $uibModalInstance, vm, widgets) => {
+                    $scope.vm = vm
+                    $scope.widgets = widgets
+                    $scope.cancel = () => {
+                        $uibModalInstance.dismiss('cancel')
+                    }
+                    $scope.ok = () => {
+                        $uibModalInstance.close(true);
+                    }
+                },
+                controllerAs: 'ctrl',
+                resolve: {
+                    vm: function () {
+                        return vm
+                    },
+                    widgets: function () {
+                        return self.vmWidgets 
+                    }
+                }
+            });
+        
+            modalInstance.result.then(function (selectedItem) {
+                
+            }, function () {
+                
+            });
         }
 
         pauseVm(obj: VmItem)

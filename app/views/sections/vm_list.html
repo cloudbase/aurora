@@ -171,35 +171,9 @@
             </div>
           </div>
           <div class='vm-detail-row'>
-            <div class='detail-col'>
-              <p>
-                <label>Info</label>
-              </p>
-              <p>
-                <span>ID:</span>
-                <span>86db0c5a-b833-4db2-910d-f77eb2b6e05c</span>
-              </p>
-              <p>
-                <span>Created:</span>
-                <span>Aug. 23, 2016, 12:15 p.m.</span>
-              </p>
-              <p>
-                <span>Time Since Created:</span>
-                <span>3 weeks, 2 days, 8 hrs</span>
-              </p>
-            </div>
-            <div class='detail-col'>
-              <p>
-                <label>Metadata</label>
-              </p>
-              <p>
-                <span>Image Name:</span>
-                <span>cirros</span>
-              </p>
-              <p>
-                <span>Image ID:</span>
-                <span>49569ffb-8750-475c-afe0-dd9d7aa90b0f</span>
-              </p>
+            <div class='vm-widgets-container'>
+              <vm-widgets vm="item" widgets="vm.vmWidgets"></vm-widgets>
+              <a class='manage-widgets' ng-click='vm.manageWidgets(item)'><i class='glyphicon glyphicon-edit'></i></a>
             </div>
           </div>
         </div>

@@ -31,6 +31,7 @@
 // ## DIRECTIVES ##
 /// <reference path='directives/directives.ts' />
 /// <reference path='directives/directives.d.ts' />
+/// <reference path='directives/widgets.ts' />
 /// <reference path='directives/filters.ts' />
 
 // ## MODELS ##

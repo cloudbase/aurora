@@ -112,6 +112,9 @@
     width: 15%;
     float: left;
   }
+  .filter-details{
+    clear: both;
+  }
   .filter-row {
     @include clearfix();
     padding-top: 10px;
@@ -396,7 +399,14 @@
         transition: all 0.1s ease-in;
         overflow: hidden;
         height: 0;
-        padding: 0px 20px;
+        padding: 0px;
+        position: relative;
+        .manage-widgets {
+          position: absolute;
+          top: 3px;
+          right: 3px;
+        }
+        
       }
       &.detailView {
         background-color: #C4C9D2;
@@ -425,18 +435,71 @@
         }
         .vm-detail-row {
           @include clearfix(); 
-          height: 120px;
+          height: 130px;
           display: block;
-          padding: 20px;
-          .detail-col {
-            width: 40%;
-            float: left;
-          }
         }
       }
     }
   }
 }
+.vm-widgets-container {
+  @include clearfix();
+  padding: 20px 10px 10px 20px;
+}
+.vm-widget {
+  padding: 0px 10px 10px 0;
+  float: left;
+  .vm-widget-content {
+    padding: 5px;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 100%;
+  }
+  @for $i from 1 through 4 {
+    @for $j from 1 through 4 {
+      &.size-#{$i}x#{$j} {
+        width: calc(100% / #{$widget-cols} * #{$i});
+        height: calc((#{$widget-row-height} * #{$j}) + (10px * #{$j}));
+      }
+    }
+  }
+  &.vm-field-widget {
+    .vm-widget-content{
+      @include clearfix();
+      padding: 0;
+      background-color: #FFF;
+      position: relative;
+      span:first-child {
+        height: 100%;
+        min-width: 70px;
+        background: #7F8FA4;
+        color: #FFF;
+        text-align: right;
+        padding-right: 10px;
+        margin-right: 10px;
+        display: block;
+        float: left;
+        font-family: "geomanist_medium";
+      }
+      span:last-child {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        float: left;
+        text-overflow: ellipsis;
+        padding: 0 5px 0 10px;
+      }
+      .clipboard {
+        position: absolute;
+        right: 10px;
+        top: 0px;
+        cursor: pointer;
+      }
+      line-height: 40px;
+    }
+  }
+}
+
 .network-table {
   .cell {
     &:first-child {
