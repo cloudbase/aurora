@@ -141,6 +141,34 @@ module auroraApp.Directives {
             `
          }
      }
+
+     export function securityGroupsWidget() {
+         return {
+            restrict: "AE",
+            replace: true,
+            transclude: true,
+            scope: {
+                vm: "=",
+                widget: "="
+            },
+            link: ($scope, $filter) => {
+
+            },
+            template: `
+            <div class="vm-widget size-{{ widget.size }} security-groups-widget">    
+                <div class='vm-widget-container'>
+                    <div class='vm-widget-header'>{{ widget.label }}</div>
+                    <div class='widget-content'>
+                        ALLOW IPv6 from default <br />
+                        ALLOW IPv4 from default <br />
+                        ALLOW IPv6 to ::/0 <br />
+                        ALLOW IPv4 to 0.0.0.0/0
+                    </div>
+                </div>
+            </div>
+            `
+         }
+     }
 }
 
 
@@ -149,4 +177,5 @@ angular.module('auroraApp')
     .directive('vmWidgets', auroraApp.Directives.vmWidgets)
     .directive('vmFieldWidget', auroraApp.Directives.vmFieldWidget)
     .directive('resourceConsumptionWidget', auroraApp.Directives.resourceConsumptionWidget)
+    .directive('securityGroupsWidget', auroraApp.Directives.securityGroupsWidget)
     .directive('vmWidgetsEditable', auroraApp.Directives.vmWidgetsEditable)

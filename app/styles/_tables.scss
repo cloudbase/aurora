@@ -406,7 +406,10 @@
           top: 3px;
           right: 3px;
           cursor: pointer;
-          color: #BBC5D5;
+          color: #354052;
+          &:hover {
+            color: #BBC5D5;
+          }
         }
         
       }
@@ -461,7 +464,7 @@
   }
   .vm-widget-header {
       font-family: "geomanist_book";
-      font-size: 12px;
+      font-size: 13px;
       color: #FFF;
       background-color: darken(#7F8FA4, 10%);
       line-height: 20px;
@@ -537,7 +540,16 @@
       }
       &:last-child {
         width: 44%;
+        .resource-label {
+          border-right: 0;
+        }
       }
+    }
+  }
+  &.security-groups-widget {
+    .widget-content {
+      padding: 5px;
+      font-size: 12px;
     }
   }
 }

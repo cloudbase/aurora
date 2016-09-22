@@ -36,13 +36,14 @@ module auroraApp {
                 label: "Average Resource Consumption",
                 position: {x:0, y:0}, 
                 size: "2x2",
-                settings: {
-                    fields: [
-                        {field: "id", label: "ID", clipboard: true},
-                        {field: "zone", label: "Zone", clipboard: true},
-                        {field: "created", label: "Zone", clipboard: true}
-                    ]
-                }
+                settings: {}
+            },
+            {
+                name: "security-groups",
+                label: "Security Groups",
+                position: {x:0, y:0}, 
+                size: "2x2",
+                settings: {}
             }
         ]
         filters: ISearchField[] = [
