@@ -28,6 +28,7 @@ declare module auroraApp {
     }
     interface IVmWidget {
         name: string
+        label: string
         position: IPositionXY
         size: string
         settings: any

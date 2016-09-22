@@ -68,15 +68,74 @@ module auroraApp.Directives {
                 vm: "=",
                 widget: "="
             },
+            controller: ["$scope", "$filter", ($scope, $filter) => {
+                $scope.widget.settings.fields.forEach(field => {
+                    if (field.type) {
+                        switch (field.type) {
+                            case "date":
+                                field.value = $scope.vm[field.field].toISOString().substring(0, 19)
+                            break;
+                            case "time_since":
+                                console.log($scope.vm[field.field])
+                                field.value = $filter("timeAgo")($scope.vm[field.field])
+                            break;
+                            
+                        }
+                    } else {
+                        field.value = $scope.vm[field.field]
+                    }
+                })
+            }],
             link: ($scope, $element) => {
-                $scope.fieldValue = $scope.vm[$scope.widget.settings.field]
+                
             },
             template: `
             <div class="vm-widget size-{{ widget.size }} vm-field-widget">
-                <div class='vm-widget-content'>
-                    <span>{{ widget.settings.label }}</span>
-                    <span>{{ fieldValue }}</span>
-                    <div ng-if="widget.settings.clipboard" class="clipboard" ><i class="glyphicon glyphicon-scissors"></i></div>
+                
+                <div class='vm-widget-container'>
+                    <div class='vm-widget-header'>{{ widget.label }}</div>
+                    <div class='vm-widget-content'>
+                        <div ng-repeat="field in widget.settings.fields" class='field-container'>
+                            <span class='field-label'>{{ field.label }}</span>
+                            <span class='field-value'>{{ field.value }}</span>
+                            <div ng-if="field.clipboard" class="clipboard" ><i class="glyphicon glyphicon-scissors"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+         }
+     }
+     export function resourceConsumptionWidget() {
+         return {
+            restrict: "AE",
+            replace: true,
+            transclude: true,
+            scope: {
+                vm: "=",
+                widget: "="
+            },
+            link: ($scope, $filter) => {
+
+            },
+            template: `
+            <div class="vm-widget size-{{ widget.size }} resource-consumption-widget">    
+                <div class='vm-widget-container'>
+                    <div class='vm-widget-header'>{{ widget.label }}</div>
+                    <div class='widget-content'>
+                        <div class='col'>
+                            <span class='resource-label'>CPU</span>
+                            <span class='resource-value'>22%</span>
+                        </div>
+                        <div class='col'>
+                            <span class='resource-label'>RAM</span>
+                            <span class='resource-value'>55%</span>
+                        </div>
+                        <div class='col'>
+                            <span class='resource-label'>HDD</span>
+                            <span class='resource-value'>22.2/{{ vm.flavor.ssd }} GB</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             `
@@ -89,4 +148,5 @@ module auroraApp.Directives {
 angular.module('auroraApp')
     .directive('vmWidgets', auroraApp.Directives.vmWidgets)
     .directive('vmFieldWidget', auroraApp.Directives.vmFieldWidget)
+    .directive('resourceConsumptionWidget', auroraApp.Directives.resourceConsumptionWidget)
     .directive('vmWidgetsEditable', auroraApp.Directives.vmWidgetsEditable)

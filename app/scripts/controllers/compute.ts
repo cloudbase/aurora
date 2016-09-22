@@ -19,39 +19,30 @@ module auroraApp {
         vmWidgets: IVmWidget[] = [
             {
                 name: "vm-field",
+                label: "VM Fields",
+                position: {x:0, y:0}, 
+                size: "3x2",
+                settings: {
+                    fields: [
+                        {field: "id", label: "ID", clipboard: true},
+                        {field: "zone", label: "Zone"},
+                        {field: "created", label: "Created", type: "date"},
+                        {field: "started", label: "Uptime", type: "time_since"}
+                    ]
+                }
+            },
+            {
+                name: "resource-consumption",
+                label: "Average Resource Consumption",
                 position: {x:0, y:0}, 
                 size: "2x2",
-                settings: {field: "id", label: "ID", clipboard: true}
-            },
-            {
-                name: "vm-field",
-                position: {x:0, y:0}, 
-                size: "2x1",
-                settings: {field: "zone", label: "Zone"}
-            },
-            {
-                name: "vm-field",
-                position: {x:0, y:0}, 
-                size: "2x1",
-                settings: {field: "zone", label: "Zone"}
-            },
-            {
-                name: "vm-field",
-                position: {x:0, y:0}, 
-                size: "2x1",
-                settings: {field: "zone", label: "Zone"}
-            },
-            {
-                name: "vm-field",
-                position: {x:0, y:0}, 
-                size: "3x1",
-                settings: {field: "id", label: "ImageID", clipboard: true}
-            },
-            {
-                name: "vm-field",
-                position: {x:0, y:0}, 
-                size: "3x1",
-                settings: {field: "id", label: "ImageID", clipboard: true}
+                settings: {
+                    fields: [
+                        {field: "id", label: "ID", clipboard: true},
+                        {field: "zone", label: "Zone", clipboard: true},
+                        {field: "created", label: "Zone", clipboard: true}
+                    ]
+                }
             }
         ]
         filters: ISearchField[] = [
