@@ -73,10 +73,9 @@ module auroraApp.Directives {
                     if (field.type) {
                         switch (field.type) {
                             case "date":
-                                field.value = $scope.vm[field.field].toISOString().substring(0, 19)
+                                field.value = $scope.vm[field.field].toISOString().substring(0, 19).replace("T", " ")
                             break;
                             case "time_since":
-                                console.log($scope.vm[field.field])
                                 field.value = $filter("timeAgo")($scope.vm[field.field])
                             break;
                             
@@ -159,10 +158,22 @@ module auroraApp.Directives {
                 <div class='vm-widget-container'>
                     <div class='vm-widget-header'>{{ widget.label }}</div>
                     <div class='widget-content'>
-                        ALLOW IPv6 from default <br />
-                        ALLOW IPv4 from default <br />
-                        ALLOW IPv6 to ::/0 <br />
-                        ALLOW IPv4 to 0.0.0.0/0
+                        <div class='field-container'>
+                            <span class='field-label'>ALLOW</span>
+                            <span class='field-value'>IPv6 from default</span>
+                        </div>
+                        <div class='field-container'>
+                            <span class='field-label'>ALLOW</span>
+                            <span class='field-value'>IPv4 from default</span>
+                        </div>
+                        <div class='field-container'>
+                            <span class='field-label'>ALLOW</span>
+                            <span class='field-value'>IPv6 to ::/0</span>
+                        </div>
+                        <div class='field-container'>
+                            <span class='field-label'>ALLOW</span>
+                            <span class='field-value'>IPv4 to 0.0.0.0/0</span>
+                        </div>
                     </div>
                 </div>
             </div>

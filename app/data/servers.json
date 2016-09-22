@@ -66,7 +66,7 @@
             "status": "deploying",
             "host_status": "paused",
             "tenant_id": "openstack",
-            "updated": "2013-10-31T06:32:32Z",
+            "updated": "2016-06-31T06:32:32Z",
             "user_id": "fake",
             "snapshots": [
                 {
@@ -132,7 +132,7 @@
             ],
             "host_status": "stopped",
             "tenant_id": "openstack",
-            "updated": "2013-10-31T06:32:32Z",
+            "updated": "2016-08-21T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
             "networks": [{"network": "private_02", "floating_ip": "3"}]
@@ -201,7 +201,7 @@
             ],
             "host_status": "stopped",
             "tenant_id": "openstack",
-            "updated": "2013-10-31T06:32:32Z",
+            "updated": "2016-09-01T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
             "networks": [{"network": "private_01", "floating_ip": "1"}]
@@ -270,7 +270,7 @@
             ],
             "host_status": "running",
             "tenant_id": "openstack",
-            "updated": "2013-10-31T06:32:32Z",
+            "updated": "2016-06-22T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
             "networks": [{"network": "private_02", "floating_ip": "4"}]
@@ -339,7 +339,7 @@
             ],
             "host_status": "paused",
             "tenant_id": "openstack",
-            "updated": "2013-10-31T06:32:32Z",
+            "updated": "2016-06-11T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
             "networks": [{"network": "private_01", "floating_ip": "5"}]
@@ -409,7 +409,7 @@
             "status": "stopped",
             "host_status": "paused",
             "tenant_id": "openstack",
-            "updated": "2013-10-31T06:32:32Z",
+            "updated": "2016-09-20T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
             "networks": [{"network": "private_01", "floating_ip": ""}]
@@ -478,7 +478,7 @@
             ],
             "host_status": "stopped",
             "tenant_id": "openstack",
-            "updated": "2013-10-31T06:32:32Z",
+            "updated": "2016-06-31T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
             "networks": [{"network": "private_01", "floating_ip": ""},

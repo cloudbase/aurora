@@ -547,9 +547,13 @@
     }
   }
   &.security-groups-widget {
-    .widget-content {
-      padding: 5px;
-      font-size: 12px;
+    @extend .vm-field-widget;
+    font-size: 13px;
+    .vm-widget-container {
+      span.field-label {
+        text-align: center;
+        padding-right: 0;
+      }
     }
   }
 }

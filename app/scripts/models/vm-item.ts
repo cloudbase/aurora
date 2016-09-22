@@ -9,17 +9,18 @@ module auroraApp {
         host_status: string
         image: IVmImage
         created: Date
-        edit_state: boolean
         networks: IVmNetwork[]
         flavor: IVmFlavor
         zone: string
         snapshots: IVmSnapshot[]
         network_interfaces: INetworkInterface[]
+        started: Date
     }
     export class VmItem implements IVmItem {
         prev_name: string
         checked = false
         detail_view = false
+        edit_state = false
         constructor(
             public id,
             public name,
@@ -31,8 +32,8 @@ module auroraApp {
             public zone,
             public snapshots,
             public network_interfaces,
-            public edit_state = false) {
-        }
+            public started = new Date()
+        ) {}
     }
 
     export interface IFloatingIp {

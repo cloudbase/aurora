@@ -87,6 +87,8 @@ module auroraApp.Services {
 		{
 			let date:Date = new Date(Date.parse(obj.created));
 
+			let started:Date = new Date(Date.parse(obj.updated));
+
 			// search if VM already exists
 			let searchVm = this.listItems.filter((vmItem):boolean => {
 				return vmItem.id == obj.id
@@ -142,9 +144,10 @@ module auroraApp.Services {
 				searchFlavor,
 				obj["OS-EXT-AZ:availability_zone"],
 				snapshots,
-				networkInterfaces
+				networkInterfaces,
+				started
 			);
-
+			console.log(started)
 			// if exists, update, if not push into array
 			if (angular.isUndefined(searchVm)) {
 				this.listItems.push(newItem)
