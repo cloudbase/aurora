@@ -19,7 +19,7 @@ module auroraApp {
         vmWidgets: IVmWidget[] = [
             {
                 name: "vm-field",
-                label: "VM Fields",
+                label: "Virtual Machine Information",
                 position: {x:0, y:0}, 
                 size: "3x2",
                 settings: {
