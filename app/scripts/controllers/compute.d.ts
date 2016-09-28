@@ -27,11 +27,13 @@ declare module auroraApp {
         y: number
     }
     interface IVmWidget {
+        id: string
         name: string
         label: string
         position: IPositionXY
         size: string
-        settings: any
+        default_settings: any
+        settings?: any
     }
     
 }

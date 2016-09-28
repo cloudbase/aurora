@@ -68,6 +68,10 @@ module auroraApp {
         os: string
         version: string
         selected: boolean
+        type: string
+        size: number
+        tags: string[]
+        dateCreated: Date
     }
     export class VmImage implements IVmImage {
         constructor(
@@ -75,6 +79,10 @@ module auroraApp {
             public name: string,
             public os: string,
             public version: string,
+            public size: number,
+            public type: string,
+            public dateCreated: Date,
+            public tags: string[],
             public selected: boolean = false
         ) {
 
@@ -87,7 +95,7 @@ module auroraApp {
         ram: number
         ssd: number
         price: number
-        lists: string[]
+        tags: string[]
         selected: boolean
     }
     export class VmFlavor implements IVmFlavor {
@@ -97,7 +105,7 @@ module auroraApp {
             public ram: number,
             public ssd: number,
             public price: number,
-            public lists: string[],
+            public tags: string[],
             public selected: boolean = false
         ) {}
     }

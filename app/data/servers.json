@@ -490,31 +490,36 @@
             "id": "cirros",
             "name": "cirros custom",
             "os": "cirros",
-            "version": "x64_v2"
+            "version": "x64_v2",
+            "tags": []
         },
         {
             "id": "ubuntu",
             "name": "Ubuntu",
             "os": "ubuntu",
-            "version": "14.04.2 x64"
+            "version": "14.04.2 x64",
+            "tags": ["recommended", "favorites"]
         },
         {
             "id": "windows",
             "name": "Windows",
             "os": "windows",
-            "version": "2012 R2 x64"
+            "version": "2012 R2 x64",
+            "tags": ["recommended", "favorites"]
         },
         {
             "id": "centos",
             "name": "CentOS",
             "os": "centos",
-            "version": "7.2 x86"
+            "version": "7.2 x86",
+            "tags": []
         },
         {
             "id": "coreos",
             "name": "CoreOS",
             "os": "coreos",
-            "version": "8 x86"
+            "version": "8 x86",
+            "tags": []
         }
     ],
     "flavors": [

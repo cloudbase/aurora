@@ -5,13 +5,21 @@
     <div class="modal-body" id="modal-body">
         <div class='vm-widgets-container'>
             <vm-widgets-editable vm="vm" widgets="widgets"></vm-widgets-editable>
-            <div class='empty-row'></div>
         </div>
         <div class='all-widgets'>
+            <ui-select ng-model="selected.value" search-enabled="false" on-select="selectWidget($item, $model)">
+                <ui-select-match placeholder="Available Widgets" class='select-choice'>
+                    <span ng-bind="$select.selected.label"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in all_widgets track by item.id" class='select-choice'>
+                    <span ng-bind="item.label"></span>
+                </ui-select-choices>
+            </ui-select>
+            <a class='btn bt-primary' ng-click="addWidget()">Add</a>
         </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-warning btn-cancel pull-left" type="button" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="ok()" >Save</button>
+        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="save()" >Save</button>
     </div>
 </div>

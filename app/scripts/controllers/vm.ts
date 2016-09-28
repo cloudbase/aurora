@@ -23,7 +23,7 @@ module auroraApp {
             private $stateParams,
             private $timeout: ng.ITimeoutService
         ) {
-            this.item = apiService.getVm($stateParams.vm_id)
+            this.item = <VmItem> apiService.getVm($stateParams.vm_id)
             apiService.vmFlavors.forEach((flavor) => {
                 flavor.selected = false
                 if (this.item.flavor == flavor)
@@ -67,10 +67,10 @@ module auroraApp {
 
         createSnapshot() {
             let name = this.item.name + "_sp_" + (this.item.snapshots.length + 1)
-            let snapshot = new VmSnapshot(
-                name, new Date(), 4
-            )
-            this.item.snapshots.push(snapshot)
+            let id = Math.floor((Math.random() * 1000) + 1) + " " + Math.floor((Math.random() * 1000) + 1)
+            let image:IVmImage = new VmImage(id, name, this.item.image.os, this.item.image.version, this.item.flavor.ssd, "snapshot", new Date(), ["snapshots"])
+            
+            this.item.snapshots.push(image)
             
             this.apiService.updateVm(this.item)
         }

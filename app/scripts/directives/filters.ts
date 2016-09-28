@@ -10,7 +10,7 @@ module auroraApp.Filters {
             
             let output = []
             input.forEach((item) => {
-                if (item.lists.indexOf(search.list) > -1)
+                if (item.tags.indexOf(search.list) > -1)
                     output.push(item)
             })
 

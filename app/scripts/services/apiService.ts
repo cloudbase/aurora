@@ -125,14 +125,14 @@ module auroraApp.Services {
 
             let snapshots: VmSnapshot[] = []
 
-			obj.snapshots.forEach((snapshot) => {
-				let date:Date = new Date(Date.parse(snapshot.created));
-				snapshots.push(new VmSnapshot(
-					snapshot.name,
-					date,
-					snapshot.size
-				))
-			})
+			// obj.snapshots.forEach((snapshot) => {
+			// 	let date:Date = new Date(Date.parse(snapshot.created));
+			// 	snapshots.push(new VmSnapshot(
+			// 		snapshot.name,
+			// 		date,
+			// 		snapshot.size
+			// 	))
+			// })
 
 			var newItem = new VmItem(
 				obj.id, 
@@ -147,7 +147,7 @@ module auroraApp.Services {
 				networkInterfaces,
 				started
 			);
-			console.log(started)
+
 			// if exists, update, if not push into array
 			if (angular.isUndefined(searchVm)) {
 				this.listItems.push(newItem)
@@ -168,7 +168,7 @@ module auroraApp.Services {
 		}
 
 		addImage(obj: any) {
-			var newImage = new VmImage(obj.id, obj.name, obj.os, obj.version);
+			var newImage = new VmImage(obj.id, obj.name, obj.os,  obj.version, 2, "image", new Date(), obj.tags);
 
 			this.vmImages.push(newImage)
 

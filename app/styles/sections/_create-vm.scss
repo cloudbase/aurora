@@ -90,21 +90,44 @@
       position: relative;
       cursor: pointer;
       .image {
-        float: left;
+        float: right;
         width: 60%;
         font-family: "geomanist_book";
         font-size: 18px;
         color: $dark-blue;
-        padding: 16px 0 0 15px;
+        padding: 0px 22px 0 5px;
+        margin-top: 15px;
       }
       .os {
         .icon {
           width: 60px;
           height: 60px;
-          margin: 10px 0 0 10px;
+          margin: 10px 22px 0 10px;
           background-color: $image-bg-color;
         }
+        &.icon-dark:hover {
+          background-color: #354052;
+        }
       }
+      .favorite-icon {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        cursor: pointer;
+        &:hover {
+          path {
+            fill: lighten(#FEB05A, 10%);
+          }
+        }
+      }
+      &.favorited {
+        .favorite-icon {
+          path {
+            fill: #FEB05A;
+          }
+        }
+      }
+
       .version {
         position: absolute;
         bottom: 0;
@@ -132,6 +155,11 @@
 
     }
   }
+  .empty-results {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+  }
   .list-flavors {
     @include clearfix();
     .item-flavor {
@@ -147,6 +175,11 @@
         right: 15px;
         top: 18px;
         cursor: pointer;
+        &:hover {
+          path {
+            fill: lighten(#FEB05A, 10%);
+          }
+        }
       }
       &.favorited {
         .favorite-icon {

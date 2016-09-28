@@ -5,12 +5,12 @@
     <div class='section-body'>
         <div class='list-filters'>
             <div class='filter'>
-                <a ng-repeat="list in flavorView.lists" ng-class="{active: list == flavorView.activeList}" ng-click="flavorView.changeCategory(list)">{{list}}</a>
+                <a ng-repeat="list in flavorView.tags" ng-class="{active: list == flavorView.activeList}" ng-click="flavorView.changeCategory(list)">{{list}}</a>
                 <a ng-click="flavorView.changeCategory('all')" ng-class="{active: flavorView.activeList == 'all'}">All</a>
             </div>
         </div>
         <div class="list list-flavors">
-            <div class="item-flavor" ng-repeat="flavor in flavorView.apiService.vmFlavors | listFilter : {list: flavorView.activeList}" ng-class="{active: flavor.selected, favorited: (flavor.lists.indexOf('favorites') > -1)}" ng-click="flavorView.selectFlavor(flavor)">
+            <div class="item-flavor" ng-repeat="flavor in flavorView.apiService.vmFlavors | listFilter : {list: flavorView.activeList}" ng-class="{active: flavor.selected, favorited: (flavor.tags.indexOf('favorites') > -1)}" ng-click="flavorView.selectFlavor(flavor)">
                 <svg class='favorite-icon' width="16px" height="15px" viewBox="234 15 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-click="flavorView.favoriteFlavor(flavor)">
                     <path d="M241.488775,26.0306602 L237.164923,28.2815547 L238.499103,29.2413887 L239.324885,24.4739176 C239.376046,24.1785548 239.277153,23.8771772 239.060434,23.6680001 L235.562364,20.2916583 L235.052753,21.8447023 L239.886966,21.1491376 C240.186464,21.1060448 240.44537,20.9197831 240.579309,20.6510532 L242.741235,16.3134647 L241.092098,16.3134647 L243.254024,20.6510532 C243.387964,20.9197831 243.646869,21.1060448 243.946367,21.1491376 L248.780581,21.8447023 L248.270969,20.2916583 L244.772899,23.6680001 C244.556181,23.8771772 244.457288,24.1785548 244.508448,24.4739176 L245.33423,29.2413887 L246.66841,28.2815547 L242.344558,26.0306602 C242.076679,25.8912088 241.756654,25.8912088 241.488775,26.0306602 L241.488775,26.0306602 Z M242.344558,27.6424951 L241.488775,27.6424951 L245.812627,29.8933896 C246.487214,30.2445633 247.275642,29.6773535 247.146807,28.9335556 L246.321025,24.1660845 L246.056574,24.9720019 L249.554644,21.5956601 C250.100396,21.0688995 249.799243,20.1511347 249.045032,20.0426161 L244.210818,19.3470514 L244.903161,19.8451358 L242.741235,15.5075472 C242.403942,14.8308176 241.429391,14.8308176 241.092098,15.5075472 L238.930172,19.8451358 L239.622515,19.3470514 L234.788301,20.0426161 C234.03409,20.1511347 233.732938,21.0688995 234.27869,21.5956601 L237.77676,24.9720019 L237.512308,24.1660845 L236.686526,28.9335556 C236.557691,29.6773535 237.346119,30.2445633 238.020706,29.8933896 L242.344558,27.6424951 L242.344558,27.6424951 Z" id="Shape" stroke="none" fill="#B7C0CD" fill-rule="evenodd"></path>
                 </svg>

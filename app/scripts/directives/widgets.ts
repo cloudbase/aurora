@@ -20,6 +20,7 @@ module auroraApp.Directives {
                      output += generatedTemplate
                  });
                  output += "</div>"
+               
                 
                  $element.append($compile(output)($scope))
              },
@@ -32,28 +33,40 @@ module auroraApp.Directives {
      */
     export function vmWidgetsEditable($compile) {
          return {
-             restrict: "EA",
-             scope: {
-                vm: "=",
-                widgets: "=",
-                sortable: "="
-             }, 
-             link: ($scope, $element) => {
-                 let output = "<div class='sortable'>"
-                 $scope.widgets.forEach((widget, index) => {
-                     let generatedTemplate = '<div ' + widget.name
-                     + '-widget vm="vm" widget="widgets[' + index + ']" dropFn="onDrop"></div>';
-                     output += generatedTemplate
-                 });
-                 output += "</div>"
-                 output += "<div class='empty-row'></div>"
-                 $element.append($compile(output)($scope)) 
-                 let el = <any> $($element).find('.sortable')
-                 el.sortable()
+            restrict: "EA",
+            replace: true,
+            transclude: true,
+            scope: {
+               vm: "=",
+               widgets: "=",
+               sortable: "="
+            }, 
+            controller: ($scope, $element) => {
+                $scope.removeWidget = widget => {
+                    let index = $scope.widgets.indexOf(widget)
+                    $scope.widgets.splice(index, 1)
+                }
+            },
+            link: ($scope, $element) => {
+                let output = "<div class='sortable'>"
+                $scope.widgets.forEach((widget, index) => {
+                    let generatedTemplate = '<div ' + widget.name
+                    + '-widget vm="vm" widget="widgets[' + index + ']" dropFn="onDrop">'
+                    generatedTemplate += "<div class='remove-widget' ng-click='removeWidget(widgets[" + index + "])'><i class='glyphicon glyphicon-remove'></i></div></div>";
+                    output += generatedTemplate
+                });
+                output += "</div>"
                 
-             },
-             
-         }
+                $element.append($compile(output)($scope)) 
+
+                let el = <any> $($element).find('.sortable')
+                el.sortable()
+  
+                $scope.$watch('widgets',  () => {
+                  console.log('asdasd')
+                })
+            }, 
+        }
      }
     
     /**
@@ -62,8 +75,8 @@ module auroraApp.Directives {
      export function vmFieldWidget() {
          return {
             restrict: "AE",
-            replace: true,
             transclude: true,
+            replace: true,
             scope: {
                 vm: "=",
                 widget: "="
@@ -101,10 +114,12 @@ module auroraApp.Directives {
                         </div>
                     </div>
                 </div>
+                <ng-transclude></ng-transclude>
             </div>
             `
          }
      }
+     
      export function resourceConsumptionWidget() {
          return {
             restrict: "AE",
@@ -136,6 +151,7 @@ module auroraApp.Directives {
                         </div>
                     </div>
                 </div>
+                <ng-transclude></ng-transclude>
             </div>
             `
          }
@@ -176,6 +192,7 @@ module auroraApp.Directives {
                         </div>
                     </div>
                 </div>
+                <ng-transclude></ng-transclude>
             </div>
             `
          }

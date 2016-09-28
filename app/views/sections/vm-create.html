@@ -39,17 +39,7 @@
                     </div>
                 </collapse>
                 <collapse class="panel" title="Choose Image" valid="valid">
-                    <div class="list list-images">
-                        <div class="item-image" ng-repeat="image in vmCreate.apiService.vmImages" ng-class="{active: image.selected}" ng-click="vmCreate.selectImage(image);">
-                            <span class="image">{{ image.name }}</span>
-                            <span class="icon icon-dark {{ item.image.id }} os">
-                                <svg class="icon-{{ image.os }}">
-                                    <use xlink:href="{{'images/icons.svg#logo-' + image.os}}" />
-                                </svg>
-                            </span>
-                            <span class="version">{{ image.version }}</span>
-                        </div>
-                    </div>
+                    <div ui-view="images"></div>
                 </collapse>
                 <collapse class="panel" title="Size" valid="valid">
                     <div ui-view="flavors"></div>

@@ -66,6 +66,11 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           controller: 'ComputeCtrl',
           controllerAs: 'vmCreate'
         },
+        'images@vm-create': {
+          templateUrl: 'views/partials/vm.images.html',
+          controller: 'ImagesCtrl',
+          controllerAs: 'imagesView'
+        },
         'flavors@vm-create': {
           templateUrl: 'views/partials/vm_view.size.html',
           controller: 'FlavorsCtrl',

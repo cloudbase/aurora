@@ -6,7 +6,7 @@ module auroraApp {
     export class FlavorsCtrl {
         initialCost = 0
         resize = false
-        lists: string[] = []
+        tags: string[] = []
         activeList: string = "recommended"
         static $inject = [
             "$scope",
@@ -24,9 +24,9 @@ module auroraApp {
             }
 
             apiService.vmFlavors.forEach((flavor:VmFlavor) => {
-                flavor.lists.forEach((list) => {
-                    if (this.lists.indexOf(list) == -1)
-                        this.lists.push(list)
+                flavor.tags.forEach((list) => {
+                    if (this.tags.indexOf(list) == -1)
+                        this.tags.push(list)
                 })
             })
         }
@@ -54,11 +54,11 @@ module auroraApp {
         }
 
         favoriteFlavor(obj:VmFlavor) {
-            let index = obj.lists.indexOf("favorites")
+            let index = obj.tags.indexOf("favorites")
             if (index == -1) {
-                obj.lists.push("favorites")
+                obj.tags.push("favorites")
             } else {
-                obj.lists.splice(index, 1)
+                obj.tags.splice(index, 1)
             }
         }
 

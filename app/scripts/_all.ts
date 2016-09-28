@@ -18,6 +18,8 @@
 
 /// <reference path='controllers/flavors.ts' />
 
+/// <reference path='controllers/images.ts' />
+
 /// <reference path='controllers/networking.ts' />
 
 
@@ -35,6 +37,6 @@
 /// <reference path='directives/filters.ts' />
 
 // ## MODELS ##
-/// <reference path='models/vm-item.ts' />
+/// <reference path='models/models.ts' />
 
 /// <reference path='app.ts' />

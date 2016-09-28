@@ -16,13 +16,14 @@ module auroraApp {
         count: number = 1
         zone: any
         currentFilters: any = []
-        vmWidgets: IVmWidget[] = [
+        vmAvailableWidgets: IVmWidget[] = [
             {
+                id: "vm-field",
                 name: "vm-field",
                 label: "Virtual Machine Information",
                 position: {x:0, y:0}, 
                 size: "3x2",
-                settings: {
+                default_settings: {
                     fields: [
                         {field: "id", label: "ID", clipboard: true},
                         {field: "zone", label: "Zone"},
@@ -32,20 +33,23 @@ module auroraApp {
                 }
             },
             {
+                id: "resource-consumption",
                 name: "resource-consumption",
                 label: "Average Resource Consumption",
                 position: {x:0, y:0}, 
                 size: "2x2",
-                settings: {}
+                default_settings: {}
             },
             {
+                id: "security-groups",
                 name: "security-groups",
                 label: "Security Groups",
                 position: {x:0, y:0}, 
                 size: "2x2",
-                settings: {}
+                default_settings: {}
             }
         ]
+        vmWidgets: IVmWidget[] = []
         filters: ISearchField[] = [
             {id: 'host_status', name: "Status", type: "options", options: [], term: ""},
             {id: 'name', name: "Name", type: "text", options: false, term: ""},
@@ -103,6 +107,11 @@ module auroraApp {
                 }
                     
             })
+            this.vmAvailableWidgets.forEach((widget) => {
+                let newWidget: IVmWidget = widget
+                newWidget.settings = newWidget.default_settings 
+                this.vmWidgets.push(newWidget)
+            })
             
         }
 
@@ -118,20 +127,37 @@ module auroraApp {
                 controller: ($scope, $uibModalInstance, vm, widgets) => {
                     $scope.vm = vm
                     $scope.widgets = widgets
+                    $scope.selected = null
+                    $scope.all_widgets = widgets
                     $scope.cancel = () => {
                         $uibModalInstance.dismiss('cancel')
                     }
                     $scope.ok = () => {
                         $uibModalInstance.close(true);
                     }
+                    $scope.selectWidget = (item, model) => {
+                        console.log(item, model)
+                        $scope.selected = item
+                    }
+                    $scope.addWidget = () => {
+                        if ($scope.selected != null) {
+                            let new_Item = angular.copy($scope.selected)
+                            let rand = Math.floor((Math.random() * 100) + 1)
+                            new_Item.id = new_Item.id + "_" + rand
+                            $scope.widgets.push(new_Item)
+                            console.log(widgets)
+                        }
+                    }
                 },
-                controllerAs: 'ctrl',
                 resolve: {
-                    vm: function () {
+                    vm: () => {
                         return vm
                     },
-                    widgets: function () {
+                    widgets: () => {
                         return self.vmWidgets 
+                    },
+                    all_widgets: () => {
+                        return self.vmAvailableWidgets
                     }
                 }
             });
@@ -231,7 +257,6 @@ module auroraApp {
 
         removeFilter(item) 
         {
-            console.log(item)
             let index = this.currentFilters.indexOf(item)
             this.currentFilters.splice(index, 1)
         }
