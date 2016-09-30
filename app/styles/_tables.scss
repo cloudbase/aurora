@@ -364,7 +364,24 @@
     .table-row {
       padding-left: 0px;
       padding-bottom: 0px;
-      transition: background-color 0.1s ease-in;
+      transition: background 0.2s ease-in;
+
+      $start: lighten(#30ad63, 50%);
+      $end: #FFF;
+
+      background: -moz-linear-gradient(left,  #{$start} 0%, #{$end} 0%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(left,  #{$start} 0%,#{$end} 0%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to right,  #{$start} 0%,#{$end} 0%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      &.selected {
+
+        background: #30ad63; /* Old browsers */
+        background: -moz-linear-gradient(left,  #{$start} 0%, #{$end} 33%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left,  #{$start} 0%,#{$end} 33%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right,  #{$start} 0%,#{$end} 33%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        &.detailView {
+
+        }
+      }
       .icon {
         cursor: pointer;
         &:hover {
@@ -414,7 +431,7 @@
         
       }
       &.detailView {
-        background-color: #C4C9D2;
+        background: #C4C9D2;
         .cell .info .details{
           color: #354052;
         }

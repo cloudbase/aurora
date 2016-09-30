@@ -3,8 +3,11 @@
         <h3 class="modal-title" id="modal-title">Manage Widgets</h3>
     </div>
     <div class="modal-body" id="modal-body">
-        <div class='vm-widgets-container'>
-            <vm-widgets-editable vm="vm" widgets="widgets"></vm-widgets-editable>
+        <div class='vm-widgets-container' ng-if="show">
+            <vm-widgets-editable ng-if="widgets" vm="vm" widgets="widgets"></vm-widgets-editable>
+        </div>
+        <div class='vm-widgets-container' ng-if="!show">
+            <vm-widgets-editable ng-if="widgets" vm="vm" widgets="widgets"></vm-widgets-editable>
         </div>
         <div class='all-widgets'>
             <ui-select ng-model="selected.value" search-enabled="false" on-select="selectWidget($item, $model)">

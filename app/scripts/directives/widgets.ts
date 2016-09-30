@@ -63,7 +63,7 @@ module auroraApp.Directives {
                 el.sortable()
   
                 $scope.$watch('widgets',  () => {
-                  console.log('asdasd')
+                  
                 })
             }, 
         }

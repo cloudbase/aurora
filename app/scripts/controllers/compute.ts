@@ -124,11 +124,12 @@ module auroraApp {
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'views/modals/manage-vm-widgets.html',
-                controller: ($scope, $uibModalInstance, vm, widgets) => {
+                controller: ($scope, $uibModalInstance, vm, widgets, all_widgets) => {
                     $scope.vm = vm
                     $scope.widgets = widgets
+                    $scope.show = true
                     $scope.selected = null
-                    $scope.all_widgets = widgets
+                    $scope.all_widgets = all_widgets
                     $scope.cancel = () => {
                         $uibModalInstance.dismiss('cancel')
                     }
@@ -136,16 +137,17 @@ module auroraApp {
                         $uibModalInstance.close(true);
                     }
                     $scope.selectWidget = (item, model) => {
-                        console.log(item, model)
                         $scope.selected = item
                     }
                     $scope.addWidget = () => {
                         if ($scope.selected != null) {
+                            $scope.show = !$scope.show
+                            
                             let new_Item = angular.copy($scope.selected)
                             let rand = Math.floor((Math.random() * 100) + 1)
+                            
                             new_Item.id = new_Item.id + "_" + rand
                             $scope.widgets.push(new_Item)
-                            console.log(widgets)
                         }
                     }
                 },

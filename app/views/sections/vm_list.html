@@ -88,7 +88,7 @@
         <div class="cell">Actions</div>
       </div>
       <div class='table-content'>
-        <div ng-repeat="item in vm.apiService.listItems | orderBy:vm.sortType:vm.sortReverse | vmFilter: {filters: vm.currentFilters}" ng-class="{detailView: item.detail_view}" class='table-row status-{{ item.host_status }}' >
+        <div ng-repeat="item in vm.apiService.listItems | orderBy:vm.sortType:vm.sortReverse | vmFilter: {filters: vm.currentFilters}" ng-class="{detailView: item.detail_view, selected: item.checked}" class='table-row status-{{ item.host_status }}' >
           <div class='vm-excerpt'>
             <div class='cell'>
               <span class="icon {{ item.image.id }}" ng-click="vm.checkVm(item)"  ng-class='{checked : item.checked}'>
