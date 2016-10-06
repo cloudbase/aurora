@@ -16,6 +16,7 @@ module auroraApp {
         count: number = 1
         zone: any
         currentFilters: any = []
+        reloadDirectives: boolean = true
         vmAvailableWidgets: IVmWidget[] = [
             {
                 id: "vm-field",
@@ -133,7 +134,9 @@ module auroraApp {
                     $scope.cancel = () => {
                         $uibModalInstance.dismiss('cancel')
                     }
-                    $scope.ok = () => {
+                    $scope.save = () => {
+                        self.vmWidgets = widgets
+                        self.reloadDirectives = !self.reloadDirectives
                         $uibModalInstance.close(true);
                     }
                     $scope.selectWidget = (item, model) => {

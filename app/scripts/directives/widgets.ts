@@ -46,6 +46,9 @@ module auroraApp.Directives {
                     let index = $scope.widgets.indexOf(widget)
                     $scope.widgets.splice(index, 1)
                 }
+                $scope.save = () => {
+                  
+                }
             },
             link: ($scope, $element) => {
                 let output = "<div class='sortable'>"

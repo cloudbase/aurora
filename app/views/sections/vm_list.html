@@ -83,7 +83,7 @@
         <div class="cell">IP</div>
         <div class="cell">Uptime</div>
         <div class="cell">Cost</div>
-        <div class="cell">Zone</div>
+        <div class="cell">Region</div>
         <div class="cell">Status</div>
         <div class="cell">Actions</div>
       </div>
@@ -111,13 +111,14 @@
               </div>
             </div>
             <div class='cell iprange-{{ vm.numOfIps(item) }}'>
-              <div ng-repeat="network_interface in item.network_interfaces" class='network-interface ipnum-{{item.network_interfaces.length}} floating-ip' ng-if="network_interface.floating_ip">
-                <div class='label label-primary'> 
+              <div ng-repeat="network_interface in item.network_interfaces" class='network-interface ipnum-{{item.network_interfaces.length}}'>
+                <div ng-if="network_interface.floating_ip" class='label label-primary floating-ip'>
                   {{network_interface.floating_ip.ip}}
                 </div>
-              </div>
-              <div ng-repeat="network_interface in item.network_interfaces" class='network-interface ipnum-{{item.network_interfaces.length}}'>
-                <div class='label label-info'>
+                <div ng-if="network_interface.floating_ip" class='label label-info ip-addr stick'>
+                  {{network_interface.ip_addr}}
+                </div>
+                <div ng-if="!network_interface.floating_ip" class='label label-info ip-addr'>
                   {{network_interface.ip_addr}}
                 </div>
               </div>
@@ -172,7 +173,8 @@
           </div>
           <div class='vm-detail-row'>
             <div class='vm-widgets-container'>
-              <vm-widgets vm="item" widgets="vm.vmWidgets" avialablewidgets="vm.vmAvailableWidgets"></vm-widgets>
+              <vm-widgets ng-if="vm.reloadDirectives" vm="item" widgets="vm.vmWidgets" avialablewidgets="vm.vmAvailableWidgets"></vm-widgets>
+              <vm-widgets ng-if="!vm.reloadDirectives" vm="item" widgets="vm.vmWidgets" avialablewidgets="vm.vmAvailableWidgets"></vm-widgets>
               <a class='manage-widgets' ng-click='vm.manageWidgets(item)'><i class='glyphicon glyphicon-edit'></i></a>
             </div>
           </div>
