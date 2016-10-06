@@ -74,15 +74,16 @@ body .header {
                  border-right: 0;
                }
                a {
-                   font-size: 20px;
+                   font-size: 18px;
                    font-family: "geomanist_regular";
                    color: #354052;
                    line-height: 38px;
                    &:after {
-                     display: none;
+                     margin-top: 7px;
+                     background-color: #354052;
                    }
                    &.active {
-                     font-family: "geomanist_medium";
+                     font-family: "geomanist_book";
                    }                
                }
                &.active {
