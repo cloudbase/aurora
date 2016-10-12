@@ -48,20 +48,6 @@ module auroraApp {
         floating_ip?: IFloatingIp
     }
 
-    export interface IVmSnapshot {
-        name: string
-        dateCreated: Date
-        size: number
-    }
-
-    export class VmSnapshot {
-        constructor(
-            public name,
-            public dateCreated,
-            public size
-        ) {}
-    }
-
     export interface IVmImage {
         id: string
         name: string
@@ -72,6 +58,7 @@ module auroraApp {
         size: number
         tags: string[]
         dateCreated: Date
+        extra ?: any
     }
     export class VmImage implements IVmImage {
         constructor(
@@ -83,9 +70,76 @@ module auroraApp {
             public type: string,
             public dateCreated: Date,
             public tags: string[],
+            public extra: any = null,
             public selected: boolean = false
         ) {
 
+        }
+    }
+    
+    export interface IVmSnapshot {
+        id: string
+        name: string
+        size: number
+        dateCreated: Date
+    }
+    
+    export class VmSnapshot implements IVmSnapshot {
+        selected: boolean = false
+        constructor(
+          public id,
+          public name,
+          public size,
+          public dateCreated
+        ) {}
+    }
+    
+    export interface IVolumeAttachment {
+        vm: VmItem
+        path: string
+    }
+    
+    export interface IVmVolume {
+        id: string
+        name: string
+        description: string
+        size: number
+        attached_to: IVolumeAttachment[]
+        status: string
+        type: string
+        region: IZone
+        bootable: boolean
+        encrypted: boolean
+    }
+    
+    export class VmVolume implements IVmVolume {
+        constructor(
+          public id,
+          public name,
+          public description,
+          public size,
+          public attached_to,
+          public status,
+          public type,
+          public region,
+          public bootable,
+          public encrypted,
+          public selected = false
+        ) {}
+        
+        attachVm(vm:VmItem):void {
+            this.attached_to.push({
+                vm: vm,
+                path: "/dev/vdb"
+            })
+        }
+        detachVm(vm:VmItem):void {
+            let attachment:IVolumeAttachment = {
+                vm: vm,
+                path: "/dev/vdb"
+            }
+            let index = this.attached_to.indexOf(attachment)
+            this.attached_to.splice(index, 1)
         }
     }
 

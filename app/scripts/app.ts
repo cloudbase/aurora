@@ -221,6 +221,72 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
         }
       }
     })
+    .state('volumes', {
+      url: "/volumes",
+      parent: "compute",
+      abstract: true,
+      templateUrl: "views/abstract.html",
+      controllerAs: 'vm'
+    })
+    .state('volumes-list', {
+      url: "/list",
+      parent: "volumes",
+      templateUrl: 'views/sections/volumes_list.html',
+      controller: 'VolumesCtrl',
+      controllerAs: 'vm',
+      resolve: {
+        data: ['ApiService', (apiService) => {
+          return apiService.queryServers()
+        }]
+      }
+    })
+    .state('volumes-create', {
+      url: "/create",
+      parent: "volumes",
+      params: {
+        type: 'create'
+      },
+      views: {
+        '': {
+          templateUrl: "views/sections/volumes_create.html",
+          controller: 'ComputeCtrl',
+          controllerAs: 'vmCreate'
+        },
+        'images@vm-create': {
+          templateUrl: 'views/partials/vm.images.html',
+          controller: 'ImagesCtrl',
+          controllerAs: 'imagesView'
+        },
+        'flavors@vm-create': {
+          templateUrl: 'views/partials/vm_view.size.html',
+          controller: 'FlavorsCtrl',
+          controllerAs: 'flavorView'
+        },
+        'sidebar@vm-create': {
+          templateUrl: "views/partials/project_costs.html",
+          controller: "ProjectCtrl",
+          controllerAs: "view",
+        }
+      },
+      resolve: {
+        project: ['ApiService', (apiService) => {
+          this.apiService = apiService
+          return apiService.queryServers().then(()=>{
+            angular.forEach(this.apiService.vmImages, (flavor) => {
+              flavor.selected = false;
+            })
+            this.apiService.vmImages[0].selected = true
+            angular.forEach(this.apiService.vmFlavors, (flavor) => {
+              flavor.selected = false;
+            })
+            this.apiService.vmFlavors[0].selected = true
+            this.apiService.project.additional_cost = this.apiService.vmFlavors[0].price
+          
+            this.apiService.vmNetworks[Object.keys(this.apiService.vmNetworks)[0]].selected = true
+          })
+        }]
+      }
+    })
 }]).config(function(NotificationProvider) {
       NotificationProvider.setOptions({
           delay: 10000,

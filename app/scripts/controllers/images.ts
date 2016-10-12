@@ -18,7 +18,9 @@ module auroraApp {
             let flavor = this.apiService.vmImages.filter((vmFlavor:IVmImage):boolean => {
                 return vmFlavor.selected == true
             })[0]
-
+            
+            this.tags.push("recommended")
+            
             apiService.vmImages.forEach((image:VmImage) => {
                 image.tags.forEach((tag) => {
                     if (this.tags.indexOf(tag) == -1)
@@ -37,7 +39,8 @@ module auroraApp {
                 })
             })
             
-            this.tags.push("snapshots")
+            
+            console.log("Images:", this.images)
         }
 
         selectImage(obj: IVmImage) {

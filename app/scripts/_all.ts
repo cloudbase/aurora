@@ -20,6 +20,8 @@
 
 /// <reference path='controllers/images.ts' />
 
+/// <reference path='controllers/volumes.ts' />
+
 /// <reference path='controllers/networking.ts' />
 
 

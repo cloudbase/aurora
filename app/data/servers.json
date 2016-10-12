@@ -556,6 +556,21 @@
             "lists": []
         }
     ],
+    "volumes": [
+        {
+            "id": "23g6724s",
+            "name": "first volume",
+            "description": "Test volume for scaffolding",
+            "size": 1.5,
+            "source": null,
+            "region" : "nova",
+            "status": "ready",
+            "type": "nsf",
+            "region": "nova",
+            "bootable": false,
+            "encrypted": false
+        }
+    ],
     "networks": [
         {
             "name": "private_01",

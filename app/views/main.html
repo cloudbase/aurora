@@ -28,18 +28,14 @@
                                     <a ui-sref="vm-list">Virtual Machines</a>
                                     <a ui-sref="vm" style="display:none" > </a>
                                 </li>
-                                <li><a ui-sref-active="active" ui-sref="/">Volumes</a></li>
+                                <li>
+                                    <a ui-sref-active="active" ui-sref="volumes-list">Volumes</a>
+                                    <a ui-sref="vm" style="display:none" > </a>
+                                </li>
                                 <li><a ui-sref-active="active" ui-sref="/">Templates</a></li>
                                 <li><a ui-sref-active="active" ui-sref="/">Snapshots</a></li>
                             </ul>
                     </div>
-                </li>
-                <li ui-sref-active="active">
-                    <a href="#">Storage</a>
-                    <ul class='submenu'>
-                    <li><a>Volumes</a></li>
-                    <li><a>Containers</a></li>
-                    </ul>
                 </li>
                 <li ui-sref-active="active">
                     <a ui-sref="networking-floating-ips"  ui-sref-active="active" href="#">Networking</a>

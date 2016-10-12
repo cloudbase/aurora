@@ -473,6 +473,47 @@
     }
   }
 }
+
+.volumes-list-table {
+  .cell {
+    &:first-child {
+      width: 25%;
+    }
+    &:nth-child(2) {
+      width: 25%;
+    }
+    &:nth-child(3) {
+      width: 10%;
+    }
+    &:nth-child(4) {
+      width: 7%;
+    }
+    &:nth-child(5) {
+      width: 7%;
+    }
+    &:nth-child(6) {
+      width: 7%;
+    }
+    &:nth-child(7) {
+      width: 7%;
+    }
+    &:nth-child(8) {
+      width: 12%;
+    }
+  }
+  .icon {
+    background-color: #FFF;
+    cursor: pointer;
+    .checkable {
+      top: -5px;
+      left: -2px;
+    }
+    &:hover {
+      background-color: #FFF;
+    }
+  }
+}
+
 .vm-widgets-container {
   @include clearfix();
   padding: 20px 10px 10px 20px;

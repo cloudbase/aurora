@@ -2,27 +2,27 @@
 
 module auroraApp.Services {
 	
-	export class ApiService implements IApiService  
-	{
-		httpService: ng.IHttpService;
-		cache: VmItem[] = []
-		token: string
-		tenant_name: string = 'admin'
-		tenant_id: string
-		os_url: string = "http://192.168.0.103:35357/v2.0" //35357
-		compute_url: string
-		bridge_url: string = "http://localhost/bridge.php"
-		listItems: VmItem[] = []
-		vmFlavors: VmFlavor[] = []
-		vmFlavorsList: string[] = []
-		vmImages: VmImage[] = []
-		vmImagesList: string[]
-		vmNetworks: VmNetwork[] = []
-		networkList: VmNetwork[] = []
-		project: Project
-		queried: boolean = false
+	export class ApiService implements IApiService {
+		httpService:ng.IHttpService;
+		cache:VmItem[] = []
+		token:string
+		tenant_name:string = 'admin'
+		tenant_id:string
+		os_url:string = "http://192.168.0.103:35357/v2.0" //35357
+		compute_url:string
+		bridge_url:string = "http://localhost/bridge.php"
+		listItems:VmItem[] = []
+		vmFlavors:VmFlavor[] = []
+		vmFlavorsList:string[] = []
+		vmImages:VmImage[] = []
+		vmVolumes: VmVolume[] = []
+		vmImagesList:string[]
+		vmNetworks:VmNetwork[] = []
+		networkList:VmNetwork[] = []
+		project:Project
+		queried:boolean = false
 		
-		private authenticated: boolean = false
+		private authenticated:boolean = false
 		
 		static $inject = [
 			"$http",
@@ -30,25 +30,23 @@ module auroraApp.Services {
 			"$cookies",
 			"$location"
 		]
-		  
-		constructor( 
-			private $http: ng.IHttpService, 
-			private $q: ng.IQService, 
-			private $cookies: Services.ICookiesService,
-			private $location: ng.ILocationService)
-		{
+		
+		constructor(private $http:ng.IHttpService,
+		            private $q:ng.IQService,
+		            private $cookies:Services.ICookiesService,
+		            private $location:ng.ILocationService) {
 			this.processData();
 		}
-
-
+		
+		
 		processData() {
 			var self = this
-
+			
 			// query the service for the list
-			this.queryServers().then(( response: any ):void => {
+			this.queryServers().then((response:any):void => {
 				let projectData = response.project
-
-				let zones: IZone[] = []
+				
+				let zones:IZone[] = []
 				projectData.zones.forEach((zone) => {
 					zones.push({id: zone, name: zone})
 				})
@@ -64,50 +62,61 @@ module auroraApp.Services {
 					projectData.floating_ips,
 					projectData.floating_ip_limit
 				)
-
+				
+				// Images
 				angular.forEach(response.images, (value:any):void => {
 					self.addImage(value)
 				});
+				
+				// Volumes
+				angular.forEach(response.volumes, (value:any):void => {
+					self.addVolume(value)
+				});
+				
+				// Flavors
 				angular.forEach(response.flavors, (value:any):void => {
 					self.addFlavor(value)
 				});
+				
+				// Networks
 				angular.forEach(response.networks, (value:any):void => {
 					self.addNetwork(value)
 				});
+				
+				// VMs
 				angular.forEach(response.servers, (value:any):void => {
 					self.addVm(value);
 				});
 			});
 		}
-
+		
 		/**
 		 * Adds or updates record in list
 		 */
-		addVm(obj: any)
-		{
+		addVm(obj:any) {
 			let date:Date = new Date(Date.parse(obj.created));
-
+			
 			let started:Date = new Date(Date.parse(obj.updated));
-
+			
 			// search if VM already exists
 			let searchVm = this.listItems.filter((vmItem):boolean => {
 				return vmItem.id == obj.id
 			})[0]
-
+			
 			// get the image object
 			let searchImage = this.vmImages.filter((vmImage):boolean => {
 				return vmImage.id == obj.os_type
 			})[0]
-
+			
 			// get the flavor object
 			let searchFlavor = this.vmFlavors.filter((vmFlavor):boolean => {
 				return vmFlavor.name == obj.flavor
 			})[0]
 			
-			let networkInterfaces: INetworkInterface[] = []
+			let networkInterfaces:INetworkInterface[] = []
 			
 			obj.networks.forEach((item) => {
-				let floatingIp: IFloatingIp = null
+				let floatingIp:IFloatingIp = null
 				if (item.floating_ip.length > 0) {
 					floatingIp = this.project.floating_ips[item.floating_ip]
 				}
@@ -116,15 +125,15 @@ module auroraApp.Services {
 					network: this.vmNetworks[item.network],
 					ip_addr: this.vmNetworks[item.network].allocateIp(),
 					floating_ip: floatingIp
-				} 
+				}
 				networkInterfaces.push(newNetworkInterface)
-
+				
 				if (floatingIp != null)
 					floatingIp.assigned_to = newNetworkInterface
 			})
-
-            let snapshots: VmSnapshot[] = []
-
+			
+			let snapshots:VmSnapshot[] = []
+			
 			// obj.snapshots.forEach((snapshot) => {
 			// 	let date:Date = new Date(Date.parse(snapshot.created));
 			// 	snapshots.push(new VmSnapshot(
@@ -133,21 +142,21 @@ module auroraApp.Services {
 			// 		snapshot.size
 			// 	))
 			// })
-
+			
 			var newItem = new VmItem(
-				obj.id, 
-				obj.name, 
-				obj.host_status, 
-				date, 
-				searchImage, 
-				obj.ip_addr, 
+				obj.id,
+				obj.name,
+				obj.host_status,
+				date,
+				searchImage,
+				obj.ip_addr,
 				searchFlavor,
 				obj["OS-EXT-AZ:availability_zone"],
 				snapshots,
 				networkInterfaces,
 				started
 			);
-
+			
 			// if exists, update, if not push into array
 			if (angular.isUndefined(searchVm)) {
 				this.listItems.push(newItem)
@@ -156,64 +165,87 @@ module auroraApp.Services {
 			}
 			
 		}
-
-		getVm(vmId: string): VmItem {
-			let vm: VmItem
-			this.listItems.forEach((item: VmItem) => {
+		
+		getVm(vmId:string):VmItem {
+			let vm:VmItem
+			this.listItems.forEach((item:VmItem) => {
 				if (item.id == vmId) {
 					vm = item
 				}
 			});
 			return vm
 		}
-
-		addImage(obj: any) {
-			var newImage = new VmImage(obj.id, obj.name, obj.os,  obj.version, 2, "image", new Date(), obj.tags);
-
+		
+		addImage(obj:any) {
+			var newImage = new VmImage(obj.id, obj.name, obj.os, obj.version, 2, "image", new Date(), obj.tags);
+			
 			this.vmImages.push(newImage)
-
+			
 		}
-
-		updateVm(obj: VmItem) {
+		
+		addVolume(obj:any) {
+			let region:IZone = null
+			console.log(this.project.zones)
+			this.project.zones.forEach((zone:IZone) => {
+				if (zone.name == obj.region)
+					region = zone
+			})
+			let newVolume = new VmVolume(
+				obj.id,
+				obj.name,
+				obj.description,
+				obj.size,
+				null,
+				obj.status,
+				obj.type,
+				region,
+				obj.bootable,
+				obj.encrypted
+			)
+			
+			this.vmVolumes.push(newVolume)
+			console.log(newVolume)
+		}
+		
+		updateVm(obj:VmItem) {
 			this.listItems.forEach((vm:VmItem) => {
 				if (vm.id == obj.id)
 					vm = obj
 			})
 		}
-
-		addFlavor(obj: any) {
+		
+		addFlavor(obj:any) {
 			var newFlavor = new VmFlavor(obj.name, obj.vCpu, obj.ram, obj.ssd, obj.price, obj.lists);
 			obj.lists.forEach((item) => {
 				if (this.vmFlavorsList.indexOf(item) == -1) {
 					this.vmFlavorsList.push(item)
-				}	
+				}
 			})
-
+			
 			this.vmFlavors.push(newFlavor)
 		}
-
-		addNetwork(obj: any) {
+		
+		addNetwork(obj:any) {
 			var newNetwork = new VmNetwork(
-				obj.name, 
+				obj.name,
 				obj.type,
 				obj.subnet,
 				obj.interface,
-				obj.ip_address, 
-				obj.state, 
+				obj.ip_address,
+				obj.state,
 				obj.shared,
 				obj.allocation_pools
 			);
-
+			
 			this.vmNetworks[obj.name] = newNetwork
-			this.networkList.push(newNetwork) 
+			this.networkList.push(newNetwork)
 		}
-
-		insertVm(vm: VmItem) {
+		
+		insertVm(vm:VmItem) {
 			this.listItems.push(vm);
 		}
-
-		isAuthenticated():ng.IPromise< any >
-		{
+		
+		isAuthenticated():ng.IPromise< any > {
 			let deferred = this.$q.defer()
 			let self = this
 			if (!this.authenticated) {
@@ -223,7 +255,7 @@ module auroraApp.Services {
 					this.authWithToken(token).then(() => {
 						self.authenticated = true
 						deferred.resolve(true)
-					}, (reason: any) => {
+					}, (reason:any) => {
 						this.$location.url("/")
 					});
 				} else {
@@ -236,27 +268,26 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
-		authCredentials(user: string, pass: string):ng.IPromise< string >
-		{
+		authCredentials(user:string, pass:string):ng.IPromise< string > {
 			let deferred = this.$q.defer()
 			deferred.notify("Logging in..")
-
+			
 			// REMOVE
 			this.authenticated = true;
 			deferred.resolve("Success")
 			return deferred.promise
 			// END REMOVE
-
-			let credentials: IPasswordCredentials = {
+			
+			let credentials:IPasswordCredentials = {
 				username: user,
 				password: pass
 			}
-			let authObj: IAuthCredentials = {
+			let authObj:IAuthCredentials = {
 				tenantName: this.tenant_name,
 				passwordCredentials: credentials
 			}
 			
-			let url: string = this.os_url + "/tokens"
+			let url:string = this.os_url + "/tokens"
 			
 			this._post(url, {auth: authObj}).then((response) => {
 				if (angular.isDefined(response.access)) {
@@ -278,18 +309,18 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
-		authWithToken(token: string) {
+		authWithToken(token:string) {
 			let deferred = this.$q.defer()
 			deferred.notify("Loging in..")
 			
-			let tokenObj: IToken = {id: token}
+			let tokenObj:IToken = {id: token}
 			
-			let authObj: IAuthTokenRequest = {
+			let authObj:IAuthTokenRequest = {
 				tenantName: this.tenant_name,
 				token: tokenObj
 			}
 			
-			let url: string = this.os_url + "/tokens"
+			let url:string = this.os_url + "/tokens"
 			
 			this._post(url, {auth: authObj}).then((response) => {
 				if (angular.isDefined(response.access)) {
@@ -305,17 +336,16 @@ module auroraApp.Services {
 			}, (reason) => {
 				deferred.notify("No connection");
 			});
-		
+			
 			return deferred.promise
 		}
 		
-		setVmProperty(id: string, properties: IVmProperty[]):ng.IPromise< any > 
-		{
-			let url: string = this.compute_url + "/servers/" + id
+		setVmProperty(id:string, properties:IVmProperty[]):ng.IPromise< any > {
+			let url:string = this.compute_url + "/servers/" + id
 			let deferred = this.$q.defer();
 			this.isAuthenticated().then(() => {
 				deferred.notify("Starting request")
-				let payload: {} = {}
+				let payload:{} = {}
 				angular.forEach(properties, (property:IVmProperty) => {
 					payload[property.name] = property.value
 				})
@@ -329,8 +359,7 @@ module auroraApp.Services {
 		/**
 		 * Returns the list of servers from API
 		 */
-		queryServers(useCache:boolean = true):ng.IPromise< any > 
-		{
+		queryServers(useCache:boolean = true):ng.IPromise< any > {
 			let deferred = this.$q.defer()
 			if (this.queried) {
 				deferred.resolve(this.cache)
@@ -341,15 +370,15 @@ module auroraApp.Services {
 				this.cache = response
 				this.queried = true
 			})
-
+			
 			return deferred.promise
 			// END REMOVE
-
+			
 			this.isAuthenticated().then(() => {
-				let url: string = this.compute_url + "/servers/detail" 
-		
+				let url:string = this.compute_url + "/servers/detail"
+				
 				if (this.cache.length == 0 || !useCache) {
-					this._get(url).then( (response):void => {
+					this._get(url).then((response):void => {
 						this.cache = response
 						deferred.resolve(response)
 					});
@@ -362,12 +391,11 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
-		serverAction(id:string, action: string):ng.IPromise< any >
-		{
+		serverAction(id:string, action:string):ng.IPromise< any > {
 			let deferred = this.$q.defer();
 			this.isAuthenticated().then(() => {
-				let url: string = this.compute_url + "/servers/detail"
-				let actionObj: {} = {}
+				let url:string = this.compute_url + "/servers/detail"
+				let actionObj:{} = {}
 				actionObj[action] = null
 				this._post(this.compute_url + "/servers/" + id + "/action", actionObj).then(() => {
 					deferred.resolve()
@@ -387,64 +415,61 @@ module auroraApp.Services {
 			this.$cookies.put("tenant_id", this.tenant_id)
 			this.$cookies.put("compute_url", this.compute_url)
 			
-			this.$http.defaults.headers.common["X-Auth-Token"]  = this.token
-			this.$http.defaults.headers.put["X-Auth-Token"]  = this.token
+			this.$http.defaults.headers.common["X-Auth-Token"] = this.token
+			this.$http.defaults.headers.put["X-Auth-Token"] = this.token
 			
 			this.authenticated = true
 		}
 		
 		
-		
 		/**
 		 * GET call function wrapper
 		 */
-		private _get(url: string): ng.IPromise< any >
-		{
+		private _get(url:string):ng.IPromise< any > {
 			$("#loader").addClass('loading');
 			url = this._wrapUrl(url, "GET");
 			
-			var result: ng.IPromise< any > = this.$http.get( url )
-				.then( ( response: any ):ng.IPromise< any > => this.handleResponse(response, null))
-				
+			var result:ng.IPromise< any > = this.$http.get(url)
+				.then((response:any):ng.IPromise< any > => this.handleResponse(response, null))
+			
 			return result
 		}
 		
 		/**
 		 * POST call function wrapper
 		 */
-		private _post(url, payload): ng.IPromise< any > {
+		private _post(url, payload):ng.IPromise< any > {
 			$("#loader").addClass('loading');
 			url = this._wrapUrl(url, "POST");
 			
-			var result: ng.IPromise< any > = this.$http.post(url, payload)
-				.then( ( response: any ):ng.IPromise< any > => this.handleResponse(response, null))
-				
+			var result:ng.IPromise< any > = this.$http.post(url, payload)
+				.then((response:any):ng.IPromise< any > => this.handleResponse(response, null))
+			
 			return result
 		}
 		
 		/**
 		 * POST call function wrapper
 		 */
-		private _put(url, payload): ng.IPromise< any > {
+		private _put(url, payload):ng.IPromise< any > {
 			$("#loader").addClass('loading');
 			url = this._wrapUrl(url, "PUT");
 			// PUT request will be relayed:
-			var result: ng.IPromise< any > = this.$http.post(url, payload)
-				.then( ( response: any ):ng.IPromise< any > => this.handleResponse(response, null))
-				
+			var result:ng.IPromise< any > = this.$http.post(url, payload)
+				.then((response:any):ng.IPromise< any > => this.handleResponse(response, null))
+			
 			return result
 		}
 		
 		/**
 		 * Wrapper function for URL, here we change the url if we have to relay the request
 		 */
-		private _wrapUrl(url: string, type: string):string {
+		private _wrapUrl(url:string, type:string):string {
 			//url = this.bridge_url + "?type=" + type + "&url=" + encodeURIComponent(url)
 			return url
 		}
 		
-		private handleResponse( response: any, params: any ): any
-		{
+		private handleResponse(response:any, params:any):any {
 			// TODO: Add error cases
 			response.data.requestParams = params
 			$("#loader").removeClass('loading');

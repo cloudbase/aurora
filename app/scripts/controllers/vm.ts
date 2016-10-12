@@ -68,9 +68,9 @@ module auroraApp {
         createSnapshot() {
             let name = this.item.name + "_sp_" + (this.item.snapshots.length + 1)
             let id = Math.floor((Math.random() * 1000) + 1) + " " + Math.floor((Math.random() * 1000) + 1)
-            let image:IVmImage = new VmImage(id, name, this.item.image.os, this.item.image.version, this.item.flavor.ssd, "snapshot", new Date(), ["snapshots"])
+            let snapshot = new VmSnapshot(id, name, this.item.flavor.ssd, new Date())
             
-            this.item.snapshots.push(image)
+            this.item.snapshots.push(snapshot)
             
             this.apiService.updateVm(this.item)
         }
