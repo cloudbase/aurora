@@ -86,6 +86,10 @@ module auroraApp {
 						}
 						
 					}
+					$scope.removeAttachment = (attachment: IVolumeAttachment) => {
+						let index = $scope.volume.attached_to.indexOf(attachment)
+						$scope.volume.attached_to.splice(index, 1)
+					}
 				},
 				resolve: {
 					apiService: () => {
