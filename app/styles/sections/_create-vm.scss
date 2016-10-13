@@ -269,6 +269,34 @@
       }
     }
   }
+  .list-security-groups {
+
+    .cell {
+      &:first-child {
+        width: 10%;
+      }
+    }
+    .table-row {
+      line-height: 35px;
+      .cell {
+        padding-top: 0;
+      }
+      .cell .radio.radio-inactive {
+        display: block;
+      }
+      .cell .radio.radio-active {
+        display: none;
+      }
+      &.active {
+        .cell .radio.radio-inactive {
+          display: none;
+        }
+        .cell .radio.radio-active {
+          display: block;
+        }
+      }
+    }
+  }
   .panel-networks {
     section {
       padding: 0;
@@ -278,7 +306,11 @@
       border-bottom: 0;
     }
   }
-
+  .panel-security-groups {
+    section {
+      padding: 0;
+    }
+  }
   .form-inline {
     .form-group {
       &:first-child {
@@ -321,7 +353,7 @@
           i {
             float: left;
             margin-right: 15px;
-            opacity: 0;
+            opacity: 0.1;
             transition: opacity 0.15s ease-in;
           }
         }

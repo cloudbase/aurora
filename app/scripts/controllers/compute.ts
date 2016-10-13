@@ -16,6 +16,9 @@ module auroraApp {
         count: number = 1
         zone: any
         currentFilters: any = []
+        validation = {
+            security_groups: true
+        }
         reloadDirectives: boolean = true
         vmAvailableWidgets: IVmWidget[] = [
             {
@@ -380,6 +383,11 @@ module auroraApp {
         selectVm(vm: VmItem = null):void 
         {
             this.$state.go('vm-view-overview', {vm_id: vm.id});
+        }
+    
+        selectSecurityGroup(group: ISecurityGroup)
+        {
+            group.selected = !group.selected
         }
 
         /**

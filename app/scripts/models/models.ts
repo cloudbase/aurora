@@ -212,6 +212,12 @@ module auroraApp {
         id: string,
         name: string
     }
+    
+    export interface ISecurityGroup {
+        name: string
+        rules: any
+        selected: boolean
+    }
 
     export interface IProject {
         vm_limit: number
@@ -224,6 +230,7 @@ module auroraApp {
         zones: IZone[]
         floating_ips: IFloatingIp[]
         floating_ip_limit: number
+        security_groups: ISecurityGroup[]
     }
     export class Project implements IProject {
         current_vm: number
@@ -242,7 +249,8 @@ module auroraApp {
             public currency,
             public zones,
             public floating_ips,
-            public floating_ip_limit
+            public floating_ip_limit,
+            public security_groups
         ) {}
     }
 } 

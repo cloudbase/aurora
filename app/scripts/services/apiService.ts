@@ -51,6 +51,15 @@ module auroraApp.Services {
 					zones.push({id: zone, name: zone})
 				})
 				
+				let security_groups:ISecurityGroup[] = []
+				
+				angular.forEach(projectData.security_groups, (value: any) => {
+					if (value == "default")
+						security_groups.push({name: value, rules: null, selected: true})
+					else
+						security_groups.push({name: value, rules: null, selected: false})
+				})
+				
 				this.project = new Project(
 					projectData.vm_limit,
 					projectData.vcpu_limit,
@@ -60,7 +69,8 @@ module auroraApp.Services {
 					projectData.currency,
 					zones,
 					projectData.floating_ips,
-					projectData.floating_ip_limit
+					projectData.floating_ip_limit,
+					security_groups
 				)
 				
 				// Images
@@ -185,7 +195,7 @@ module auroraApp.Services {
 		
 		addVolume(obj:any) {
 			let region:IZone = null
-			console.log(this.project.zones)
+			
 			this.project.zones.forEach((zone:IZone) => {
 				if (zone.name == obj.region)
 					region = zone
@@ -204,7 +214,6 @@ module auroraApp.Services {
 			)
 			
 			this.vmVolumes.push(newVolume)
-			console.log(newVolume)
 		}
 		
 		updateVm(obj:VmItem) {
