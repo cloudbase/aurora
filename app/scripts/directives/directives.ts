@@ -77,7 +77,6 @@ module auroraApp.Directives {
 					$element.addClass('collapsed')
 					$scope.opened = false
 				} else if (angular.isUndefined($scope.opened)) {
-					console.log('is undefined');
 					$scope.opened = true
 				}
 				//container = $(@).parents(".collapsible-jq:first").find(">section").css("height", "auto").slideToggle()
@@ -116,7 +115,8 @@ module auroraApp.Directives {
 			scope: {
 				value: "=",
 				min: "@",
-				max: "@"
+				max: "@",
+				readonly: "@"
 			},
 			link: ($scope, $element) => {
 				//if (angular.isUndefined($scope.min))
@@ -162,7 +162,7 @@ module auroraApp.Directives {
                       <i class="glyphicon glyphicon-minus"></i>
                   </button>
               </span>
-              <input type="text" class="form-control input-number" ng-model="value" min="{{min}}" max="{{max}}" readonly="true">
+              <input type="text" class="form-control input-number" ng-model="value" min="{{min}}" max="{{max}}" readonly="readonly">
               <span class="input-group-btn">
                   <button type="button" class="btn btn-default btn-number btn-add">
                       <i class="glyphicon glyphicon-plus"></i>

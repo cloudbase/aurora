@@ -53,20 +53,20 @@ module auroraApp {
                     }
                 }
             });
-        
+    
             modalInstance.result.then(function (selectedItem) {
                 let randomIp:string = Math.floor((Math.random() * 255) + 1) + "." +
-                Math.floor((Math.random() * 255) + 1) + "." +
-                Math.floor((Math.random() * 255) + 1) + "." +
-                Math.floor((Math.random() * 255) + 1)
-                
+                  Math.floor((Math.random() * 255) + 1) + "." +
+                  Math.floor((Math.random() * 255) + 1) + "." +
+                  Math.floor((Math.random() * 255) + 1)
+        
                 _this.apiService.project.floating_ips.push({
                     id: _this.apiService.project.floating_ips.length + 1,
                     ip: randomIp,
                     assigned_to: null
                 })
             }, function () {
-                
+        
             });
         }
 

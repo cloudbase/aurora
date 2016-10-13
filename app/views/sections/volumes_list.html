@@ -2,7 +2,7 @@
     <div class="main-list">
         <div class='list-header'>
             <h1>Volumes</h1>
-            <a class="btn btn-primary btn-add" ng-click="vm.newVolume()">
+            <a class="btn btn-primary btn-add" ui-sref="volumes-create">
                 <svg width="17px" height="17px" viewBox="16 18 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg"
                      xmlns:xlink="http://www.w3.org/1999/xlink">
                     <path d="M26.2483151,24.6949934 L26.2483151,18.3388048 L23.2483151,18.3388048 L23.2483151,24.6949934 L16.9697379,24.6949934 L16.9697379,27.6949934 L23.2483151,27.6949934 L23.2483151,34.2288052 L26.2483151,34.2288052 L26.2483151,27.6949934 L32.6661809,27.6949934 L32.6661809,24.6949934 L26.2483151,24.6949934 Z"
@@ -31,6 +31,15 @@
                 <div class="cell">Actions</div>
             </div>
             <div class='table-content'>
+                <div ng-if='!vm.apiService.vmVolumes' class='empty-table'>
+                    <h3>No volumes</h3>
+                    <a class='btn btn-primary btn-snapshot btn-jumbo' ng-click="vmView.createSnapshot()">
+                        <svg width="15px" height="15px" viewBox="10 11 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M18.6895536,16.9526844 L18.6895536,11 L15.8799999,11 L15.8799999,16.9526844 L10,16.9526844 L10,19.762238 L15.8799999,19.762238 L15.8799999,25.8812697 L18.6895536,25.8812697 L18.6895536,19.762238 L24.6999998,19.762238 L24.6999998,16.9526844 L18.6895536,16.9526844 Z" id="Plus-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd" opacity="0.695079291"></path>
+                        </svg>
+                        Snapshot
+                    </a>
+                </div>
                 <div ng-repeat="item in vm.apiService.vmVolumes | orderBy:vm.sortType:vm.sortReverse"
                      ng-class="{selected: item.checked}" class='table-row status-{{ item.host_status }}'>
                     <div class='vm-excerpt'>
@@ -78,13 +87,13 @@
                         <div class='cell'>
                             <div ng-if="item.attached_to.length">
                                 <div ng-repeat="attachment in item.attached_to">
-                                    {{attachment.vm.name}} on {{attachment.path}}
+                                    <a href="">{{attachment.vm.name}}</a> on <strong>{{attachment.path}}</strong>
                                 </div>
                             </div>
                             <div ng-if="!item.attached_to.length">
                                 N/A
                             </div>
-                            <a class="btn btn-priamry btn-xs" ng-click="vm.manageAttachment">
+                            <a class="btn btn-priamry btn-xs" ng-click="vm.manageAttachment(item)">
                                 <i class='glyphicon glyphicon-edit'></i>
                                 Manage
                             </a>
@@ -93,7 +102,7 @@
                             <div>{{ item.region.name }}</div>
                         </div>
                         <div class='cell'>
-                            <div>Ready</div>
+                            <div class='label label-success'>READY</div>
                         </div>
                         <div class='cell'>
                             <div>No</div>
@@ -118,9 +127,8 @@
                                 </li>
                                 <li class="deleteVM">
                                     <a uib-tooltip="Delete volume" data-toggle="confirmation" data-placement="top" mwl-confirm
-                                       message="Are you sure you want to delete this VM? This action is undoable."
-                                       title="Delete" onmouseenter="$(this).tooltip('show')"
-                                       on-confirm="vm.deleteVm(item)">
+                                       message="Are you sure you want to delete this Volume? This action is undoable."
+                                       on-confirm="vm.deleteVolume(item)">
                                         <svg width="16px" height="16px" viewBox="164 1 16 16" version="1.1"
                                              xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink">

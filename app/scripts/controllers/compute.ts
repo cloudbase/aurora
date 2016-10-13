@@ -401,14 +401,13 @@ module auroraApp {
                     action.action(item)
                     item.checked = false
                     selected++
-                } 
+                }
             })
             if (selected == 0) {
                 this.Notification.warning("Error: No VMs are selected.")
             } else {
                 this.Notification.success("Performed " + action.name + " on " + selected + " VMs");
             }
-            
         }
         
         checkVm(vm: VmItem) 

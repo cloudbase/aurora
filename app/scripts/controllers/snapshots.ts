@@ -3,7 +3,7 @@
 'use strict';
 
 module auroraApp {
-	export class VolumesCtrl {
+	export class SnapshotsCtrl {
 		volumes:VmVolume[]
 		size = 1
 		static $inject = [
@@ -29,16 +29,7 @@ module auroraApp {
 			let id = Math.floor((Math.random() * 1000) + 1) + " " + Math.floor((Math.random() * 1000) + 1)
 		}
 		
-		deleteVolume(volume: VmVolume)
-		{
-			let index = this.volumes.indexOf(volume)
-			this.volumes.splice(index, 1)
-			
-			index = this.apiService.vmVolumes.indexOf(volume)
-			this.apiService.vmVolumes.splice(index, 1)
-		}
-		
-		manageAttachment(volume: VmVolume)
+		manageAttachment(volume: IVmVolume)
 		{
 			let self = this
 			var modalInstance = this.$uibModal.open({
@@ -49,7 +40,6 @@ module auroraApp {
 				controller: ($scope, $uibModalInstance, apiService, volume) => {
 					$scope.vmList = apiService.listItems
 					$scope.volume = volume
-					$scope.selected = null
 					if (volume.attached_to != null) {
 						volume.attached_to.forEach((attachment) => {
 							let index = $scope.vmList.indexOf(attachment.vm)
@@ -64,27 +54,18 @@ module auroraApp {
 						$uibModalInstance.close(true);
 					}
 					$scope.selectVm = (item:VmItem) => {
-						$scope.selected = item
-						console.log($scope.selected)
-					}
-					$scope.addAttachment = () => {
-						if ($scope.selected != null) {
-							let attachment:IVolumeAttachment = {
-								vm: $scope.selected,
-								path: "/dev/sdb"
-							}
-							
-							if ($scope.volume.attached_to == null)
-								$scope.volume.attached_to = []
-							
-							$scope.volume.attached_to.push(attachment)
-							
-							let index = $scope.vmList.indexOf($scope.selected)
-							$scope.vmList.splice(index, 1)
-							
-							$scope.selected = null
+						let attachment:IVolumeAttachment = {
+							vm: item,
+							path: "/dev/sdb"
 						}
 						
+						if ($scope.volume.attached_to == null)
+							$scope.volume.attached_to = []
+						
+						$scope.volume.attached_to.push(attachment)
+						
+						let index = $scope.vmList.indexOf(item)
+						$scope.vmList.splice(index, 1)
 					}
 				},
 				resolve: {
@@ -108,4 +89,4 @@ module auroraApp {
 }
 
 angular.module('auroraApp')
-	.controller('VolumesCtrl', auroraApp.VolumesCtrl)
+	.controller('SnapshotsCtrl', auroraApp.SnapshotsCtrl)

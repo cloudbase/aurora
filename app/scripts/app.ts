@@ -249,20 +249,15 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       views: {
         '': {
           templateUrl: "views/sections/volumes_create.html",
-          controller: 'ComputeCtrl',
-          controllerAs: 'vmCreate'
+          controller: 'VolumesCtrl',
+          controllerAs: 'vm'
         },
-        'images@vm-create': {
+        'images@volumes-create': {
           templateUrl: 'views/partials/vm.images.html',
           controller: 'ImagesCtrl',
           controllerAs: 'imagesView'
         },
-        'flavors@vm-create': {
-          templateUrl: 'views/partials/vm_view.size.html',
-          controller: 'FlavorsCtrl',
-          controllerAs: 'flavorView'
-        },
-        'sidebar@vm-create': {
+        'sidebar@volumes-create': {
           templateUrl: "views/partials/project_costs.html",
           controller: "ProjectCtrl",
           controllerAs: "view",

@@ -103,3 +103,69 @@
         }
     }
 }
+
+.manage-volume-attachments-modal {
+    .list-volume-attachments {
+        .table-row {
+            padding: 0 0 0 20px;
+            &.empty {
+                border: 1px solid #E7E9ED;
+                border-radius: 0 0 4px 4px;
+                text-align: center;
+            }
+            line-height: 40px;
+            &.active {
+                .cell {
+                    .radio {
+                        &.radio-active {
+                            display: block;
+                        }
+                        &.radio-inactive {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+        .cell {
+            padding-top: 0;
+            &:first-child {
+                width: 8%;
+            }
+            &:nth-child(2) {
+                width: 41%;
+            }
+            &:nth-child(3) {
+                width: 41%;
+            }
+            &:nth-child(4) {
+                width: 10%;
+                ul {
+                    float: right;
+                }
+            }
+            .radio {
+                margin-top: 10px;
+                &.radio-active {
+                    display: none;
+                }
+                &.radio-inactive {
+                    display: block;
+                }
+            }
+        }
+
+    }
+    .select-vm {
+        @include clearfix();
+        .ui-select-container {
+            width: 85%;
+            float: left;
+        }
+        .btn-add-attachment {
+            width: 14%;
+            margin-left: 1%;
+            float: left;
+        }
+    }
+}
