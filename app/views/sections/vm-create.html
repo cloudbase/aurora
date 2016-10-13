@@ -38,16 +38,29 @@
                         </div>
                     </div>
                 </collapse>
-                <collapse class="panel" title="Choose Source" valid="valid">
+                <collapse class="panel sources-panel" title="Choose Source" valid="valid">
                     <uib-accordion close-others="true">
-                        <div uib-accordion-group class="panel-default" heading="Images" is-open="true">
+                        <div uib-accordion-group class="panel-default" is-open="true">
+                            <uib-accordion-heading>
+                                <i class="glyphicon glyphicon-ok"></i>
+                                Images
+                            </uib-accordion-heading>
+
                             <div ui-view="images"></div>
                         </div>
-                        <div uib-accordion-group class="panel-default" heading="Volumes">
-                            Volumes here
+                        <div uib-accordion-group class="panel-default">
+                            <uib-accordion-heading>
+                                <i class="glyphicon glyphicon-ok"></i>
+                                Volumes
+                            </uib-accordion-heading>
+                            Volumes
                         </div>
-                        <div uib-accordion-group class="panel-default" heading="Snapshots">
-                            Snapshots here
+                        <div uib-accordion-group class="panel-default">
+                            <uib-accordion-heading>
+                                <i class="glyphicon glyphicon-ok"></i>
+                                Snapshot
+                            </uib-accordion-heading>
+                            Snapshots
                         </div>
                     </uib-accordion>
                 </collapse>

@@ -325,14 +325,11 @@ module auroraApp {
 
         newVm() 
         {
-            angular.forEach(this.apiService.vmImages, (flavor:IVmImage) => {
-                flavor.selected = false;
-            })
-            this.apiService.vmImages[0].selected = true
             angular.forEach(this.apiService.vmFlavors, (flavor:IVmFlavor) => {
                 flavor.selected = false;
             })
             this.apiService.vmFlavors[0].selected = true
+            
             this.apiService.project.additional_cost = this.apiService.vmFlavors[0].price 
 
             this.apiService.vmNetworks[Object.keys(this.apiService.vmNetworks)[0]].selected = true

@@ -21,10 +21,17 @@ module auroraApp {
             
             this.tags.push("recommended")
             
+            let firstSelected = false
+            
             apiService.vmImages.forEach((image:VmImage) => {
+                image.selected = false
                 image.tags.forEach((tag) => {
                     if (this.tags.indexOf(tag) == -1)
                         this.tags.push(tag)
+                    if (tag == "recommended" && !firstSelected) {
+                        image.selected = true
+                        firstSelected = true
+                    }
                 })
                 if (this.tags.indexOf(image.os) == -1)
                     this.tags.push(image.os)

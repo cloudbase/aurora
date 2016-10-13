@@ -300,8 +300,41 @@
 }
 
 #create-vm {
-  .panel:first-child {
-    z-index: 10;
+  .panel{
+    &:first-child {
+      z-index: 10;
+    }
+  }
+  .sources-panel {
+    overflow: hidden;
+    section {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .panel-group {
+      margin-bottom: 0;
+      &> .panel {
+        margin: 0 -20px;
+        border: 0;
+        .panel-heading {
+          padding-left: 20px;
+          i {
+            float: left;
+            margin-right: 15px;
+            opacity: 0;
+            transition: opacity 0.15s ease-in;
+          }
+        }
+        .panel-body {
+          padding: 15px 20px;
+        }
+        &.panel-open {
+          i {
+            opacity: 1;
+          }
+        }
+      }
+    }
   }
   #flavor-section {
     padding: 0;
@@ -331,4 +364,5 @@
   .ui-select-container.zone {
     width: 100%;
   }
+
 }
