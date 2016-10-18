@@ -86,8 +86,8 @@
 }
 .ui-select-container {
   .ui-select-toggle {
-    background-color: #E7E9ED;
-    border: 1px solid #B7C0CD;
+    background-color: #FFF;
+    border: 1px solid #C4C9D2;
     color: #354052;
   } 
   .ui-select-toggle {
@@ -248,6 +248,9 @@
         border-radius: 0 0 4px 4px;
       }
     }
+  }
+  .radio-btn {
+    margin-top: 7px;
   }
 }
 
@@ -475,6 +478,7 @@
 }
 
 .volumes-list-table {
+
   .cell {
     &:first-child {
       width: 22%;
@@ -499,6 +503,11 @@
     }
     &:nth-child(8) {
       width: 12%;
+    }
+    .vm-actions {
+      li {
+        margin-right: 15px;
+      }
     }
   }
   .icon {
@@ -660,7 +669,7 @@
     line-height: 35px;
     .cell {
       padding-top: 0;
-      .radio {
+      .radio-btn{
         margin-top: 10px;
         &.radio-active {
           display: none;
@@ -672,7 +681,7 @@
     }
     &.active {
       .cell {
-        .radio {
+        .radio-btn {
           &.radio-active {
             display: block;
           }

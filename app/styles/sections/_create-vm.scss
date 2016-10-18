@@ -280,18 +280,21 @@
       line-height: 35px;
       .cell {
         padding-top: 0;
+        &:first-child {
+          width: 5%;
+        }
       }
-      .cell .radio.radio-inactive {
+      .cell .radio-btn.radio-inactive {
         display: block;
       }
-      .cell .radio.radio-active {
+      .cell .radio-btn.radio-active {
         display: none;
       }
       &.active {
-        .cell .radio.radio-inactive {
+        .cell .radio-btn.radio-inactive {
           display: none;
         }
-        .cell .radio.radio-active {
+        .cell .radio-btn.radio-active {
           display: block;
         }
       }

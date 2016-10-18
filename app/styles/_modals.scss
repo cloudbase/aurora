@@ -121,7 +121,7 @@
             line-height: 40px;
             &.active {
                 .cell {
-                    .radio {
+                    .radio-btn {
                         &.radio-active {
                             display: block;
                         }
@@ -149,7 +149,7 @@
                     float: right;
                 }
             }
-            .radio {
+            .radio-btn {
                 margin-top: 10px;
                 &.radio-active {
                     display: none;

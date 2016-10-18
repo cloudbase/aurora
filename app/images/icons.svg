@@ -46,4 +46,44 @@
     <symbol id="logo-coreos-dark" width="32px" height="32px" viewBox="12 12 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M33.8843832,31.9672998 C33.7527983,31.9863936 33.6228416,32.0048954 33.4908127,32.0217691 C32.2902673,32.1770363 31.0086101,32.2824226 29.6692271,32.3324515 C29.0927108,32.3539136 28.5040572,32.3669388 27.908595,32.3669388 C27.3113567,32.3669388 26.7244793,32.3540616 26.1461868,32.3324515 C24.808432,32.2824226 23.5258866,32.1770363 22.3263774,32.0217691 C22.2193629,31.1267256 22.1468358,30.1954186 22.1105723,29.2374689 C22.0932546,28.7999382 22.0846698,28.3558948 22.0846698,27.9075589 C22.0846698,27.4587791 22.0932546,27.0156237 22.1105723,26.5772049 C22.1468358,25.6191072 22.2193629,24.6883923 22.3263774,23.7933488 C22.3478395,23.6069986 22.3721139,23.4218325 22.3971283,23.2388866 C23.1807169,17.5515787 25.350313,13.4597187 27.908447,13.4597187 C35.8868709,13.4597187 42.3558432,19.9278029 42.3559912,27.9075589 C42.3559912,29.7127434 38.8804635,31.2657112 33.8843832,31.9672998 M27.908447,12 C19.1356295,12 12,19.1360735 12,27.9075589 C12,36.6796364 19.1356295,43.8152659 27.908447,43.8152659 C36.6786003,43.8152659 43.8148218,36.6796364 43.8148218,27.9075589 C43.8148218,19.1360735 36.6786003,12 27.908447,12 Z M33.4182856,23.2390346 C32.092668,21.6764459 30.118007,20.6835648 27.908595,20.6835648 C27.192353,20.6835648 26.5545587,21.779908 26.1461868,23.4823704 C25.9839629,24.1611647 25.8580026,24.9357244 25.7768907,25.7762986 C25.7129484,26.4499124 25.678461,27.1663025 25.678461,27.9075589 C25.678461,28.6488154 25.7129484,29.3653534 25.7768907,30.0383752 C26.4509486,30.1023175 27.1663025,30.1366568 27.908595,30.1366568 C28.6499995,30.1366568 29.3653534,30.1023175 30.0394113,30.0383752 C31.5211842,29.8977615 32.8003252,29.6128336 33.7064698,29.2374689 C34.6013652,28.8672847 35.130961,28.4063677 35.130961,27.9075589 C35.130813,26.4025478 34.6712281,25.0046992 33.8842351,23.8473741 C33.739329,23.6360094 33.5839138,23.4335256 33.4182856,23.2390346 Z" id="Combined-Shape" stroke="none" fill="#354052" fill-rule="evenodd"></path>
     </symbol>
+
+    <symbol id="check-inactive" width="20px" height="20px" viewBox="18 230 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <rect id="path-1" x="20" y="231" width="16" height="16" rx="4"></rect>
+            <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+                <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+            </filter>
+            <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+        </defs>
+        <g id="Checkbox" stroke="none" fill="none">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <use stroke="#B7C0CD" mask="url(#mask-3)" stroke-width="2" fill="#E2E7EE" fill-rule="evenodd" xlink:href="#path-1"></use>
+        </g>
+    </symbol>
+    <symbol id="check-active" width="21px" height="20px" viewBox="-2 -1 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+        <desc>Created with Sketch.</desc>
+        <defs>
+            <rect id="path-12345" x="0" y="0" width="16" height="16" rx="4"></rect>
+            <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-234">
+                <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+            </filter>
+            <mask id="mask-38" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+        </defs>
+        <g id="Checkbox" stroke="none" fill="none">
+            <use fill="black" fill-opacity="1" filter="url(#filter-234)" xlink:href="#path-12345"></use>
+            <use stroke="#30AD63" mask="url(#mask-38)" stroke-width="2" fill-opacity="0.799999952" fill="#30AD63" fill-rule="evenodd" xlink:href="#path-12345"></use>
+        </g>
+        <path d="M11.3137,5.29286 C10.9227,4.90186 10.2897,4.90186 9.8997,5.29286 L6.5357,8.65686 L5.7067,7.82886 C5.3167,7.43786 4.6837,7.43786 4.2927,7.82886 C3.9027,8.21886 3.9027,8.85186 4.2927,9.24286 L5.8287,10.77786 C6.2187,11.16886 6.8517,11.16886 7.2427,10.77786 L11.3137,6.70686 C11.7047,6.31686 11.7047,5.68386 11.3137,5.29286" id="Tick" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+    </symbol>
 </svg>

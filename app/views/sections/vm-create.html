@@ -71,7 +71,7 @@
                     <div class="list list-networks">
                         <div class='table network-table'>
                             <div class='table-header'>
-                                <div class='cell'> </div>
+                                <div class='cell'>&nbsp;</div>
                                 <div class='cell'>Name</div>
                                 <div class='cell'>Subnet</div>
                                 <div class='cell'>State</div>
@@ -79,45 +79,14 @@
                             </div>
                             
                             <div class='table-row' ng-repeat="network in vmCreate.apiService.networkList" ng-class="{active: network.selected}" ng-click="vmCreate.selectNetwork(network);">
-                                <div class='cell'> 
-                                    <svg class='radio radio-inactive' width="20px" height="20px" viewBox="18 230 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <defs>
-                                            <rect id="path-1" x="20" y="231" width="16" height="16" rx="4"></rect>
-                                            <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-                                                <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-                                                <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                                                <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
-                                                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-                                            </filter>
-                                            <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
-                                                <use xlink:href="#path-1"></use>
-                                            </mask>
-                                        </defs>
-                                        <g id="Checkbox" stroke="none" fill="none">
-                                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                            <use stroke="#B7C0CD" mask="url(#mask-3)" stroke-width="2" fill="#E2E7EE" fill-rule="evenodd" xlink:href="#path-1"></use>
-                                        </g>
+                                <div class='cell'>
+
+                                    <svg class='radio-btn radio-active' width="21px" height="20px">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#check-active"></use>
                                     </svg>
-                                
-                                    <svg class='radio radio-active' width="21px" height="20px" viewBox="18 174 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <defs>
-                                            <rect id="path-1" x="0" y="0" width="16" height="16" rx="4"></rect>
-                                            <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-                                                <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-                                                <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                                                <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
-                                                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-                                            </filter>
-                                            <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
-                                                <use xlink:href="#path-1"></use>
-                                            </mask>
-                                        </defs>
-                                        <g id="Checkbox" stroke="none" fill="none">
-                                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                            <use stroke="#30AD63" mask="url(#mask-3)" stroke-width="2" fill-opacity="0.799999952" fill="#30AD63" fill-rule="evenodd" xlink:href="#path-1"></use>
-                                        </g>
+                                    <svg class='radio-btn radio-inactive' width="21px" height="20px">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#check-inactive"></use>
                                     </svg>
-                                    
                                 </div>
                                 <div class='cell'>{{ network.name }}</div>
                                 <div class='cell'>{{ network.subnet }}</div>
@@ -131,50 +100,19 @@
                     <div class="list list-security-groups">
                         <div class='table'>
                             <div class='table-header'>
-                                <div class='cell'> </div>
+                                <div class='cell'>&nbsp;</div>
                                 <div class='cell'>Name</div>
                             </div>
 
                             <div class='table-row' ng-repeat="group in vmCreate.apiService.project.security_groups" ng-class="{active: group.selected}" ng-click="vmCreate.selectSecurityGroup(group);">
                                 <div class='cell'>
-                                    <svg class='radio radio-inactive' width="20px" height="20px" viewBox="18 230 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <defs>
-                                            <rect id="path-1" x="20" y="231" width="16" height="16" rx="4"></rect>
-                                            <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-                                                <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-                                                <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                                                <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
-                                                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-                                            </filter>
-                                            <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
-                                                <use xlink:href="#path-1"></use>
-                                            </mask>
-                                        </defs>
-                                        <g id="Checkbox" stroke="none" fill="none">
-                                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                            <use stroke="#B7C0CD" mask="url(#mask-3)" stroke-width="2" fill="#E2E7EE" fill-rule="evenodd" xlink:href="#path-1"></use>
-                                        </g>
-                                    </svg>
 
-                                    <svg class='radio radio-active' width="21px" height="20px" viewBox="18 174 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <defs>
-                                            <rect id="path-1" x="0" y="0" width="16" height="16" rx="4"></rect>
-                                            <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-                                                <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-                                                <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                                                <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
-                                                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-                                            </filter>
-                                            <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
-                                                <use xlink:href="#path-1"></use>
-                                            </mask>
-                                        </defs>
-                                        <g id="Checkbox" stroke="none" fill="none">
-                                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                            <use stroke="#30AD63" mask="url(#mask-3)" stroke-width="2" fill-opacity="0.799999952" fill="#30AD63" fill-rule="evenodd" xlink:href="#path-1"></use>
-                                        </g>
+                                    <svg class='radio-btn radio-active' width="21px" height="20px">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#check-active"></use>
                                     </svg>
-
+                                    <svg class='radio-btn radio-inactive' width="21px" height="20px">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#check-inactive"></use>
+                                    </svg>
                                 </div>
                                 <div class="cell">
                                     {{ group.name }}
