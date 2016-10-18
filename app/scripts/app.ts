@@ -16,7 +16,7 @@ var app = angular.module('auroraApp', [
     'ui-notification',
     'ui.router.modal'
 ]);
-app.config(['$stateProvider', '$urlRouterProvider', 'modalStateProvider', ($stateProvider, $urlRouterProvider, modalStateProvider) => {
+app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
   //
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/");
@@ -300,32 +300,7 @@ app.config(['$stateProvider', '$urlRouterProvider', 'modalStateProvider', ($stat
           positionX: 'right',
           positionY: 'top'
       });
-  }).provider('modalState', function($stateProvider) {
-  var provider = this;
-  this.$get = function() {
-    return provider;
-  }
-  this.state = function(stateName, options) {
-    var modalInstance;
-    $stateProvider.state(stateName, {
-      url: options.url,
-      onEnter: function($modal, $state) {
-        modalInstance = $modal.open(options);
-        modalInstance.result['finally'](function() {
-          modalInstance = null;
-          if ($state.$current.name === stateName) {
-            $state.go('^');
-          }
-        });
-      },
-      onExit: function() {
-        if (modalInstance) {
-          modalInstance.close();
-        }
-      }
-    });
-  };
-});;
+  });
 
 app.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
