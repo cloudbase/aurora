@@ -273,16 +273,13 @@
 
     .cell {
       &:first-child {
-        width: 10%;
+        width: 5%;
       }
     }
     .table-row {
       line-height: 35px;
       .cell {
         padding-top: 0;
-        &:first-child {
-          width: 5%;
-        }
       }
       .cell .radio-btn.radio-inactive {
         display: block;
