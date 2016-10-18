@@ -58,7 +58,7 @@
         </div>
         <div class='cell'>
             <div ng-if="item.assigned_to == null">
-                <ui-select ng-model="netView.selected.value" multiple on-select="netView.selectFloatingIp($item, network_interface)">
+                <ui-select ng-model="netView.selected.value" on-select="netView.selectFloatingIp($item, network_interface)">
                     <ui-select-match placeholder="Unallocated" class='select-choice'>
                         <span ng-bind="$select.selected.name"></span>
                     </ui-select-match>

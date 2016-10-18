@@ -67,7 +67,11 @@
   }
   
 }
-
+.label {
+  &.label-purple {
+    background-color: #9A5CB4;
+  }
+}
 .editable-input {
     height: 25px;
     line-height: 25px;

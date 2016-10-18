@@ -3,50 +3,33 @@
     <div class='list-header'>
       <h1>Virtual Machines</h1>
       <a class="btn btn-primary btn-add" ng-click="vm.newVm()">
-
-        <svg width="17px" height="17px" viewBox="16 18 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <path d="M26.2483151,24.6949934 L26.2483151,18.3388048 L23.2483151,18.3388048 L23.2483151,24.6949934 L16.9697379,24.6949934 L16.9697379,27.6949934 L23.2483151,27.6949934 L23.2483151,34.2288052 L26.2483151,34.2288052 L26.2483151,27.6949934 L32.6661809,27.6949934 L32.6661809,24.6949934 L26.2483151,24.6949934 Z" id="Plus-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
-        </svg>
         New VM
-
       </a>
-      <!-- <form class="form-inline">
-        <div class="form-group">
-          <label for="filter_name">Name</label>
-          <input type="text" class="form-control" id="filter_name" ng-model="search.name" placeholder="">
+      <div class="table-functions">
+
+        <div class="filter-dropdown">
+          <ui-select ng-model="vm.selected.value" search-enabled="false" on-select="vm.selectFilter($item, $model)">
+            <ui-select-match placeholder="Filter" class='select-choice'>
+              <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in (vm.filters | filter: $select.search) track by item.id" class='select-choice'>
+              <span ng-bind="item.name"></span>
+            </ui-select-choices>
+          </ui-select>
         </div>
-        <div class="form-group">
-          <label>Status</label>
-          <select ng-model="search.status" class='form-control'>
-            <option ng-repeat="status in vm.filterStatuses" value="{{ status }}">{{ status }}</option>
-          </select>
+        <div class='dropdown action-dropdown bulk-actions'>
+          <ui-select class='bulk-actions' ng-model="vm.bulkSelected.value" search-enabled="false" on-select="vm.bulkAction($item, $model)">
+            <ui-select-match placeholder="Actions" class='select-choice'>
+              <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in (vm.bulkActions | filter: $select.search) track by item.id" class='select-choice'>
+              <span ng-bind="item.name"></span>
+            </ui-select-choices>
+          </ui-select>
         </div>
-        <a ng-click="vm.updateList(false)" class='btn-refresh'> <span class='glyphicon glyphicon-refresh'></span> Refresh </a>
-      </form> -->
+      </div>
     </div>
     <div class='table-filter'>
-      <ui-select ng-model="vm.selected.value" search-enabled="false" on-select="vm.selectFilter($item, $model)">
-        <ui-select-match placeholder="Choose field to filter" class='select-choice'>
-            <span ng-bind="$select.selected.name"></span>
-        </ui-select-match>
-        <ui-select-choices repeat="item in (vm.filters | filter: $select.search) track by item.id" class='select-choice'>
-            <span ng-bind="item.name"></span>
-        </ui-select-choices>
-      </ui-select>
-      <div class='action-dropdown bulk-actions'>
-        <svg width="17px" height="15px" viewBox="13 10 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path d="M28,20.9999 C28.552,20.9999 29,21.4479 29,21.9999 C29,22.5519 28.552,22.9999 28,22.9999 L26.859,22.9999 C26.942,22.6789 27,22.3479 27,21.9999 C27,21.6529 26.942,21.3209 26.859,20.9999 L28,20.9999 Z M23,22.9999 C23.552,22.9999 24,22.5519 24,21.9999 C24,21.4479 23.552,20.9999 23,20.9999 C22.448,20.9999 22,21.4479 22,21.9999 C22,22.5519 22.448,22.9999 23,22.9999 L23,22.9999 Z M23,18.9999 C24.657,18.9999 26,20.3429 26,21.9999 C26,23.6569 24.657,24.9999 23,24.9999 C21.343,24.9999 20,23.6569 20,21.9999 C20,20.3429 21.343,18.9999 23,18.9999 L23,18.9999 Z M14,20.9999 L19.142,20.9999 C19.058,21.3209 19,21.6529 19,21.9999 C19,22.3479 19.058,22.6789 19.142,22.9999 L14,22.9999 C13.448,22.9999 13,22.5519 13,21.9999 C13,21.4479 13.448,20.9999 14,20.9999 L14,20.9999 Z M14,14.9999 C13.448,14.9999 13,14.5519 13,13.9999 C13,13.4479 13.448,12.9999 14,12.9999 L15.141,12.9999 C15.058,13.3209 15,13.6529 15,13.9999 C15,14.3479 15.058,14.6789 15.141,14.9999 L14,14.9999 Z M19,12.9999 C18.448,12.9999 18,13.4479 18,13.9999 C18,14.5519 18.448,14.9999 19,14.9999 C19.552,14.9999 20,14.5519 20,13.9999 C20,13.4479 19.552,12.9999 19,12.9999 L19,12.9999 Z M19,16.9999 C17.343,16.9999 16,15.6569 16,13.9999 C16,12.3429 17.343,10.9999 19,10.9999 C20.657,10.9999 22,12.3429 22,13.9999 C22,15.6569 20.657,16.9999 19,16.9999 L19,16.9999 Z M28,14.9999 L22.859,14.9999 C22.942,14.6789 23,14.3479 23,13.9999 C23,13.6529 22.942,13.3209 22.859,12.9999 L28,12.9999 C28.552,12.9999 29,13.4479 29,13.9999 C29,14.5519 28.552,14.9999 28,14.9999 L28,14.9999 Z" id="Tools-Icon" stroke="none" fill="#A1A7AF" fill-rule="evenodd"></path>
-        </svg>
-        <ui-select class='bulk-actions' ng-model="vm.bulkSelected.value" search-enabled="false" on-select="vm.bulkAction($item, $model)">
-          <ui-select-match placeholder="Bulk actions" class='select-choice'>
-              <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="item in (vm.bulkActions | filter: $select.search) track by item.id" class='select-choice'>
-              <span ng-bind="item.name"></span>
-          </ui-select-choices>
-          
-        </ui-select>
-      </div>
       <div class='filter-details'>
         <div class='filter-row' ng-repeat="filterField in vm.currentFilters">
           <div class='filter-name'>
@@ -88,16 +71,19 @@
         <div class="cell">Actions</div>
       </div>
       <div class='table-content'>
-        <div ng-repeat="item in vm.apiService.listItems | orderBy:vm.sortType:vm.sortReverse | vmFilter: {filters: vm.currentFilters}" ng-class="{detailView: item.detail_view, selected: item.checked}" class='table-row status-{{ item.host_status }}' >
+        <div ng-repeat="item in vm.apiService.listItems | orderBy:vm.sortType:vm.sortReverse | vmFilter: {filters: vm.currentFilters}" ng-class="{detailView: item.detail_view, selected: item.checked}" class='table-row status-{{ item.host_status }}'  ng-class='{checked : item.checked}'>
           <div class='vm-excerpt'>
             <div class='cell'>
-              <span class="icon {{ item.image.id }}" ng-click="vm.checkVm(item)"  ng-class='{checked : item.checked}'>
+              <span class='checkable'>
+                <svg width="21px" height="22px" viewBox="-1 -1 21 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <polygon id="Rectangle" stroke="none" fill="#4CD964" fill-rule="evenodd" transform="translate(10.000000, 10.000000) rotate(-270.000000) translate(-10.000000, -10.000000) " points="20 0 20 20 0 20"></polygon>
+                    <path d="M8.76869228,12.2313077 C8.46028199,11.9228974 7.9609886,11.9228974 7.65336708,12.2313077 L4.99993427,14.8847405 L4.34604134,14.2316364 C4.03841982,13.9232261 3.53912643,13.9232261 3.23071614,14.2316364 C2.92309462,14.5392579 2.92309462,15.0385513 3.23071614,15.3469616 L4.44227167,16.5577283 C4.74989319,16.8661386 5.24918658,16.8661386 5.55759687,16.5577283 L8.76869228,13.3466329 C9.07710257,13.0390114 9.07710257,12.539718 8.76869228,12.2313077" id="Tick" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+                </svg>
+              </span>
+              <span class="icon {{ item.image.id }}" ng-click="vm.checkVm(item)" >
                 <svg class="icon-{{ item.image.id }}">
                   <use xlink:href="{{'images/icons.svg#logo-' + item.image.id + '-dark'}}" />
                 </svg>
-                <span class='checkable'>
-                  <i class='glyphicon glyphicon-ok'></i>
-                </span>
               </span>
               <div class="info">
                 <span class='vm-status status-circle'> </span>
@@ -106,20 +92,17 @@
               </div>
               <div class='vm-caret' ng-click="vm.detailVm(item)">
                 <svg class='' width="22px" height="13px" viewBox="19 25 22 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <polyline id="Page-1" stroke="#354052" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(30.000000, 31.500000) rotate(-180.000000) translate(-30.000000, -31.500000) " points="21 35.7167956 29.8567242 27 39 36"></polyline>
+                    <polyline id="Page-1" stroke="#C4C9D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(30.000000, 31.500000) rotate(-180.000000) translate(-30.000000, -31.500000) " points="21 35.7167956 29.8567242 27 39 36"></polyline>
                 </svg>
               </div>
             </div>
             <div class='cell iprange-{{ vm.numOfIps(item) }}'>
               <div ng-repeat="network_interface in item.network_interfaces" class='network-interface ipnum-{{item.network_interfaces.length}}'>
-                <div ng-if="network_interface.floating_ip" class='label label-primary floating-ip'>
-                  {{network_interface.floating_ip.ip}}
+                <div ng-if="network_interface.floating_ip" class='floating-ip'>
+                  <div class="label label-pub">PUB</div> {{network_interface.floating_ip.ip}}
                 </div>
-                <div ng-if="network_interface.floating_ip" class='label label-info ip-addr stick'>
-                  {{network_interface.ip_addr}}
-                </div>
-                <div ng-if="!network_interface.floating_ip" class='label label-info ip-addr'>
-                  {{network_interface.ip_addr}}
+                <div class='ip-addr'>
+                  <div class="label label-priv">PRIV</div>{{network_interface.ip_addr}}
                 </div>
               </div>
             </div>

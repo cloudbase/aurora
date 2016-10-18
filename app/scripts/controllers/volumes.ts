@@ -117,6 +117,16 @@ module auroraApp {
 				
 			});
 		}
+		
+		attachVm($item:VmItem, volume:IVmVolume)
+		{
+			let attachment:IVolumeAttachment = {
+				vm: $item,
+				path: "/dev/sdb"
+			}
+			volume.attached_to = attachment
+			console.log(volume)
+		}
 	}
 	
 }

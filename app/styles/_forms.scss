@@ -196,7 +196,6 @@
 .action-dropdown {
   .ui-select-container .ui-select-toggle {
     background-color: #FFF;
-    padding-left: 30px;
   }
   .action-dropdown .ui-select-container .ui-select-toggle {
     
@@ -204,7 +203,7 @@
   svg {
     position: absolute;
     z-index: 2;
-    top: 9px;
+    top: 13px;
     left: 8px;
   }
   &.bulk-actions {

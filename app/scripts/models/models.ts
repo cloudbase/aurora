@@ -104,7 +104,7 @@ module auroraApp {
         name: string
         description: string
         size: number
-        attached_to: IVolumeAttachment[]
+        attached_to: IVolumeAttachment
         status: string
         type: string
         region: IZone

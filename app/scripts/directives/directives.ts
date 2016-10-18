@@ -186,7 +186,7 @@ module auroraApp.Directives {
 			},
 			template: `
                 <div class='vm-details status-{{ vm.host_status }}' ui-sref="vm-view-networking({vm_id: vm.id})">
-            <span class="icon icon-dark {{ vm.image.id }}">
+            <span class="icon {{ vm.image.id }}">
                 <svg class="icon-{{ vm.image.id }}">
                     <use xlink:href="{{'images/icons.svg#logo-' + vm.image.id}}" />
                 </svg>

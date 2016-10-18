@@ -23,46 +23,5 @@
         margin-top: 13px;
         margin-left: 13px;
     }
-    .checkable {
-        position: absolute;
-        display: inline-block;
-        top: -8px;
-        left: -6px;
-        i {
-            background-color: #FFF;
-            border: 2px solid #bbc1cc;
-            border-radius: 50%;
-            padding: 1px 0px 2px 2px;
-            font-size: 10px;
-            color: #354052;
-            &:before {
-                opacity: 0;
-                transition: opacity 0.1s ease-out;
-            }
-        }
-    }
-    &.checked {
-        background-color: darken($image-bg-color, 15%);
-        .checkable {
-            i {
-                border-color: #354052;
-                &:before {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
-    &:hover {
-        background-color: darken($image-bg-color, 15%);
-        .checkable {
-            i {
-                border-color: #354052;
-                &:before {
-                    //opacity: 0.7;
-                }
-            }
-        }
-    }
     
 }
