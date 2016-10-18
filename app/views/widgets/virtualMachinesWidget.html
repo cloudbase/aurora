@@ -1,0 +1,37 @@
+<div class="widget size-half virtualMachinesWidget">
+    <div class="widget-container">
+        <h2>Virtual Machines</h2>
+        <div class="list-filters">
+            <a class="active">Weekly</a>
+            <a>Monthly</a>
+        </div>
+        <div class="vm-table"">
+            <div ng-repeat="vm in virtualMachines" class="table-row">
+                <vm-display vm="vm"></vm-display>
+                <svg class="vm-graph" width="212px" height="69px" viewBox="-1 0 212 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <polygon id="Line" stroke="none" fill="#5B6779" fill-rule="evenodd" opacity="0.0965485075" points="24 57.2913907 34.3333333 53.8476821 42.1407407 45.2384106 50.1777778 43.1721854 57.9851852 34.5629139 65.7925926 37.3178808 73.8296296 43.1721854 81.637037 50.0596026 89.4444444 32.8410596 97.4814815 25.6092715 105.288889 17 113.096296 17 121.133333 26.2980132 128.940741 26.986755 136.977778 32.1523179 144.785185 42.4834437 152.822222 43.1721854 160.62963 44.8940397 168.207407 40.0728477 176.014815 45.2384106 183.822222 51.781457 191.859259 48.3377483 199.666667 43.5165563 210 42.8278146 210 69 24.2296296 69"></polygon>
+                    <rect id="Divider" stroke="none" fill="#E6EAEE" fill-rule="evenodd" opacity="0.5" x="24.6957049" y="41.1237752" width="184.769459" height="0.64090495"></rect>
+                    <rect id="Divider-Copy-3" stroke="none" fill="#E6EAEE" fill-rule="evenodd" opacity="0.5" x="24.6957049" y="54.3473868" width="184.769459" height="0.64090495"></rect>
+                    <rect id="Divider" stroke="none" fill="#E6EAEE" fill-rule="evenodd" opacity="0.5" x="24.6957049" y="27.9001636" width="184.769459" height="0.64090495"></rect>
+                    <rect id="Divider" stroke="none" fill="#E6EAEE" fill-rule="evenodd" opacity="0.5" x="24.6957049" y="14.676552" width="184.769459" height="0.64090495"></rect>
+                    <polyline id="Line" stroke="#354052" stroke-width="1" stroke-linejoin="round" fill="none" points="24 57 34.3333333 53.6050345 42.217284 44.8285524 50.1012346 43.0260317 57.9851852 34.5932275 65.8691358 37.2669061 73.7530864 42.8002852 81.637037 49.8705724 89.5209877 32.7606836 97.4049383 25.7487725 105.288889 17.2789033 113.17284 17.1342184 121.05679 26.3892053 128.940741 27.1243034 136.901235 32.1596556 144.861728 42.3557725 152.822222 43.0806413 160.553086 44.6857465 168.283951 39.913364 176.014815 45.1176207 183.898765 51.3675262 191.782716 47.8992478 199.666667 43.4201379 210 42.7411448"></polyline>
+                    <text id="CPU" stroke="none" fill="none" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="15">
+                        <tspan x="171" y="12" fill="#7F8FA4">CPU </tspan>
+                    </text>
+                    <text id="100" stroke="none" fill="none" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="15">
+                        <tspan x="0.955958209" y="12" fill="#7F8FA4">100</tspan>
+                    </text>
+                    <text id="60" stroke="none" fill="none" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="15">
+                        <tspan x="6.46377071" y="40" fill="#7F8FA4">60 </tspan>
+                    </text>
+                    <text id="20" stroke="none" fill="none" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="15">
+                        <tspan x="6.86220821" y="65" fill="#7F8FA4">20 </tspan>
+                    </text>
+                    <text id="chevron-down---FontAwesome" stroke="none" fill="none" font-family="LastResort, .LastResort" font-size="8" font-weight="normal">
+                        <tspan x="198" y="10" fill="#7F8FA4"></tspan>
+                    </text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>

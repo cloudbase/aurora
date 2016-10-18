@@ -105,12 +105,17 @@
 }
 
 .manage-volume-attachments-modal {
+    .vm-actions {
+        margin-bottom: 0;
+    }
+
     .list-volume-attachments {
+        .table {
+            border-bottom: 1px solid #E7E9ED;
+        }
         .table-row {
             padding: 0 0 0 20px;
             &.empty {
-                border: 1px solid #E7E9ED;
-                border-radius: 0 0 4px 4px;
                 text-align: center;
             }
             line-height: 40px;
@@ -157,6 +162,7 @@
 
     }
     .select-vm {
+        padding: 15px;
         @include clearfix();
         .ui-select-container {
             width: 85%;
@@ -167,5 +173,11 @@
             margin-left: 1%;
             float: left;
         }
+    }
+    .modal-body {
+        padding: 0;
+    }
+    .btn-add-attachment {
+        line-height: 21px;
     }
 }

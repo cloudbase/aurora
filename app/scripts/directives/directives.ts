@@ -207,9 +207,9 @@ module auroraApp.Directives {
 			scope: {
 				offset: "@"
 			},
-			link: ($scope, $element) => {
+			link: ($scope, $element, offset) => {
 				$(window).scroll(() => {
-					if ($(this).scrollTop() > 175) {
+					if ($(this).scrollTop() > 235) {
 						$element.addClass('fixed')
 					} else {
 						$element.removeClass('fixed')

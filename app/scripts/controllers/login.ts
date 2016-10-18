@@ -27,7 +27,7 @@ module auroraApp {
         auth()
         {
            this.apiService.authCredentials(this.username, this.password).then((response: string) => {
-               this.state.go("vm-list")
+               this.state.go("dashboard")
            }, (reason: any) => {
                console.log("ERROR : " + reason);
                this.status = "Login failed"

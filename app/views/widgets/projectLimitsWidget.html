@@ -1,0 +1,143 @@
+<div class="widget size-full projectLimitsWidget">
+    <div class="widget-container">
+        <h2>
+            Project Limits
+            <div class="btn btn-primary btn-change-limits">Change Limits</div>
+        </h2>
+        <div class="list-filters">
+            <a class="active">Nova 1</a>
+            <a>Nova 2</a>
+        </div>
+        <div class="stats">
+            <div class='graphs'>
+                <div class='graph'>
+                    <div class='graph-label'>Instances</div>
+                    <round-progress
+                            max="apiService.project.vm_limit"
+                            current="apiService.project.current_vm"
+                            color="{{ (apiService.project.current_vm / apiService.project.vm_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+                            bgcolor="#eaeaea"
+                            radius="73"
+                            stroke="10"
+                            semi="false"
+                            rounded="false"
+                            clockwise="false"
+                            responsive="false"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="500"></round-progress>
+                    <span class='values'><span>{{apiService.project.current_vm}}</span>/{{apiService.project.vm_limit}}</span>
+                </div>
+                <div class='graph'>
+                    <div class='graph-label'>vCPUs</div>
+                    <round-progress
+                            max="apiService.project.vcpu_limit"
+                            current="apiService.project.current_vcpu"
+                            color="{{ (apiService.project.current_vcpu / apiService.project.vcpu_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+                            bgcolor="#eaeaea"
+                            radius="73"
+                            stroke="10"
+                            semi="false"
+                            rounded="false"
+                            clockwise="false"
+                            responsive="false"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="600"></round-progress>
+                    <span class='values'><span>{{apiService.project.current_vcpu}}</span>/{{apiService.project.vcpu_limit}}</span>
+                </div>
+                <div class='graph'>
+                    <div class='graph-label'>RAM</div>
+                    <round-progress
+                            max="apiService.project.vram_limit"
+                            current="apiService.project.current_vram"
+                            color="{{ (apiService.project.current_vram / apiService.project.vram_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+                            bgcolor="#eaeaea"
+                            radius="73"
+                            stroke="10"
+                            semi="false"
+                            rounded="false"
+                            clockwise="false"
+                            responsive="false"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="700"></round-progress>
+                    <span class='values'><span>{{apiService.project.current_vram}}</span>/{{apiService.project.vram_limit}}</span>
+                </div>
+                <div class='graph'>
+                    <div class='graph-label'>Floating IPs</div>
+                    <round-progress
+                            max="apiService.project.floating_ip_limit"
+                            current="apiService.project.floating_ips.length"
+                            color="{{ (apiService.project.floating_ips.length / apiService.project.floating_ip_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+                            bgcolor="#eaeaea"
+                            radius="73"
+                            stroke="10"
+                            semi="false"
+                            rounded="false"
+                            clockwise="false"
+                            responsive="false"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="800"></round-progress>
+                    <span class='values'><span>{{apiService.project.floating_ips.length}}</span>/{{apiService.project.floating_ip_limit}}</span>
+                </div>
+                <div class='graph'>
+                    <div class='graph-label'>Security Groups</div>
+                    <round-progress
+                            max="99"
+                            current="23"
+                            color="{{ (23 / 99) > 0.75 ? 'FD9727' : '30AD63' }}"
+                            bgcolor="#eaeaea"
+                            radius="73"
+                            stroke="10"
+                            semi="false"
+                            rounded="false"
+                            clockwise="false"
+                            responsive="false"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="800"></round-progress>
+                    <span class='values'><span>23</span>/99</span>
+                </div>
+                <div class='graph'>
+                    <div class='graph-label'>Volumes</div>
+                    <round-progress
+                            max="apiService.project.volumes_limit"
+                            current="apiService.project.current_volumes"
+                            color="{{ (apiService.project.current_volumes / apiService.project.volumes_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+                            bgcolor="#eaeaea"
+                            radius="73"
+                            stroke="10"
+                            semi="false"
+                            rounded="false"
+                            clockwise="false"
+                            responsive="false"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="800"></round-progress>
+                    <span class='values'><span>{{apiService.project.current_volumes}}</span>/{{apiService.project.volumes_limit}}</span>
+                </div>
+                <div class='graph'>
+                    <div class='graph-label'>Volume Storage</div>
+                    <round-progress
+                            max="apiService.project.storage_limit"
+                            current="apiService.project.current_storage"
+                            color="{{ (apiService.project.current_storage / apiService.project.storage_limit) > 0.75 ? 'FD9727' : '30AD63' }}"
+                            bgcolor="#eaeaea"
+                            radius="73"
+                            stroke="10"
+                            semi="false"
+                            rounded="false"
+                            clockwise="false"
+                            responsive="false"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="800"></round-progress>
+                    <span class='values'><span>{{apiService.project.current_storage}}</span>/{{apiService.project.storage_limit}}</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

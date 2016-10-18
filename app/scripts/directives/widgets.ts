@@ -1,7 +1,110 @@
 /// <reference path="../_all.ts" />
 
 module auroraApp.Directives {
-
+  
+  
+  import IApiService = auroraApp.Services.IApiService;
+  /**
+   * Generates directive tags for vm widgets
+   */
+  export function dashboardWidgets($compile) {
+    return {
+      restrict: "EA",
+      scope: {
+        vm: "=",
+        widgets: "="
+      },
+      link: ($scope, $element, service) => {
+        let output = "<div>"
+        $scope.widgets.forEach((widget, index) => {
+          let generatedTemplate = '<div ' + widget.id
+            + '-widget widget="widgets[' + index + ']"></div>';
+          output += generatedTemplate
+        });
+        output += "</div>"
+        
+        
+        $element.append($compile(output)($scope))
+      },
+      
+    }
+  }
+  
+  export function usageWidget ($compile) {
+    return {
+      restrict: "EA",
+      controller: ($scope, $element, widget) => {
+        
+      },
+      link: ($scope, $element) => {
+        console.log("link usageWidget")
+      },
+      templateUrl: "views/widgets/usageWidget.html"
+    }
+  }
+  export function projectCostWidget ($compile) {
+    return {
+      restrict: "EA",
+      controller: ($scope, $element, widget) => {
+        
+      },
+      link: ($scope, $element) => {
+        console.log("link usageWidget")
+      },
+      templateUrl: "views/widgets/projectCostWidget.html"
+    }
+  }
+  export function virtualMachinesWidget ($compile) {
+    return {
+      restrict: "EA",
+      controller: ["$scope", "$element", "ApiService", ($scope, $element, apiService:IApiService) => {
+        $scope.virtualMachines = apiService.listItems.slice(0, 5)
+      }],
+      templateUrl: "views/widgets/virtualMachinesWidget.html"
+    }
+  }
+  export function projectLimitsWidget ($compile) {
+    return {
+      restrict: "EA",
+      controller: ["$scope", "$element", "ApiService", ($scope, $element, apiService:IApiService) => {
+        $scope.apiService = apiService
+        
+        apiService.project.current_cost = 0
+        apiService.project.current_vm = 0
+        apiService.project.current_vcpu = 0
+        apiService.project.current_vram = 0
+        apiService.project.current_storage = 0
+        apiService.project.current_volumes = apiService.vmVolumes.length
+  
+        apiService.listItems.forEach((item:VmItem) => {
+          apiService.project.current_cost += item.flavor.price
+          apiService.project.current_vm++
+          apiService.project.current_vcpu += item.flavor.vCpu
+          apiService.project.current_vram += item.flavor.ram
+          apiService.project.current_storage += item.flavor.ssd
+        })
+        
+      }],
+      link: ($scope, $element) => {
+        console.log($scope.apiService)
+        console.log("link usageWidget")
+      },
+      templateUrl: "views/widgets/projectLimitsWidget.html"
+    }
+  }
+  
+  export function newsFeedWidget ($compile) {
+    return {
+      restrict: "EA",
+      controller: ($scope, $element, widget) => {
+        
+      },
+      link: ($scope, $element) => {
+        console.log("what?")
+      },
+      templateUrl: "views/widgets/newsFeedWidget.html"
+    }
+  }
     /**
      * Generates directive tags for vm widgets
      */
@@ -205,8 +308,14 @@ module auroraApp.Directives {
 
 
 angular.module('auroraApp')
-    .directive('vmWidgets', auroraApp.Directives.vmWidgets)
-    .directive('vmFieldWidget', auroraApp.Directives.vmFieldWidget)
-    .directive('resourceConsumptionWidget', auroraApp.Directives.resourceConsumptionWidget)
-    .directive('securityGroupsWidget', auroraApp.Directives.securityGroupsWidget)
-    .directive('vmWidgetsEditable', auroraApp.Directives.vmWidgetsEditable)
+  .directive('dashboardWidgets', auroraApp.Directives.dashboardWidgets)
+  .directive('projectCostWidget', auroraApp.Directives.projectCostWidget)
+  .directive('usageWidget', auroraApp.Directives.usageWidget)
+  .directive('virtualMachinesWidget', auroraApp.Directives.virtualMachinesWidget)
+  .directive('projectLimitsWidget', auroraApp.Directives.projectLimitsWidget)
+  .directive('newsFeedWidget', auroraApp.Directives.newsFeedWidget)
+  .directive('vmWidgets', auroraApp.Directives.vmWidgets)
+  .directive('vmFieldWidget', auroraApp.Directives.vmFieldWidget)
+  .directive('resourceConsumptionWidget', auroraApp.Directives.resourceConsumptionWidget)
+  .directive('securityGroupsWidget', auroraApp.Directives.securityGroupsWidget)
+  .directive('vmWidgetsEditable', auroraApp.Directives.vmWidgetsEditable)

@@ -630,6 +630,7 @@
         "vcpu_limit": 32,
         "vram_limit": 128,
         "storage_limit": 1024,
+        "volumes_limit": 5,
         "monthly_budget": 560,
         "currency": "&euro;",
         "zones": ["nova", "europe-1", "us"],

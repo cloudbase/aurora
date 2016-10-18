@@ -3,6 +3,7 @@
     <div class='table-header'>
         <div class='cell'>IP Address</div>
         <div class='cell'>Virtual Machine</div>
+        <div class='cell'>Interface</div>
         <div class='cell'>Pool</div>
         <div class='cell'>Status</div>
         <div class='cell'>Actions</div>
@@ -57,7 +58,7 @@
         </div>
         <div class='cell'>
             <div ng-if="item.assigned_to == null">
-                <ui-select ng-model="netView.selected.value" search-enabled="false" on-select="netView.selectFloatingIp($item, network_interface)">
+                <ui-select ng-model="netView.selected.value" multiple on-select="netView.selectFloatingIp($item, network_interface)">
                     <ui-select-match placeholder="Unallocated" class='select-choice'>
                         <span ng-bind="$select.selected.name"></span>
                     </ui-select-match>
@@ -68,6 +69,11 @@
             </div>
             <div ng-if="item.assigned_to != null">
                 <vm-display vm="netView.getInterfaceVm(item.assigned_to)"></vm-display>
+            </div>
+        </div>
+        <div class="cell">
+            <div ng-if="item.assigned_to == null">
+
             </div>
         </div>
         <div class='cell'>public</div>

@@ -112,13 +112,14 @@
 }
 
 .btn {
-  background: #30AD63;
+  background: $btn-default-color;
   border-radius: 4px;
   font-family: "geomanist_book";
   font-size: 14px;
   color: #FFFFFF;
   line-height: 20px;
   border: none;
+  border: 1px solid #54B87E;
   &:focus {
     background: #30AD63;
     color: #FFFFFF;

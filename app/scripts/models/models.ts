@@ -224,6 +224,7 @@ module auroraApp {
         vcpu_limit: number
         vram_limit: number
         storage_limit: number
+        volumes_limit: number
         monthly_budget: number
         currency: string
         inital_cost: number
@@ -237,6 +238,7 @@ module auroraApp {
         current_vcpu: number
         current_vram: number
         current_cost: number
+        current_volumes: number
         current_storage: number
         additional_cost: number = 0
         inital_cost: number = 0
@@ -245,6 +247,7 @@ module auroraApp {
             public vcpu_limit,
             public vram_limit,
             public storage_limit,
+            public volumes_limit,
             public monthly_budget,
             public currency,
             public zones,

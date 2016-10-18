@@ -65,6 +65,7 @@ module auroraApp.Services {
 					projectData.vcpu_limit,
 					projectData.vram_limit,
 					projectData.storage_limit,
+					projectData.volumes_limit,
 					projectData.monthly_budget,
 					projectData.currency,
 					zones,

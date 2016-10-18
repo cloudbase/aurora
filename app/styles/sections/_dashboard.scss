@@ -1,0 +1,230 @@
+.dashboard {
+  margin-top: 60px;
+  .header {
+    text-align: center;
+    margin-bottom: 60px;
+    h1 {
+      margin: 0 0 15px;
+      font-family: "geomanist_light";
+      color: #353746;
+    }
+    h3 {
+      font-size: 16px;
+      color: #354052;
+    }
+  }
+  .widget {
+    float: left;
+    overflow: hidden;
+    padding: 10px;
+    h2 {
+      font-family: "geomanist_regular";
+      font-size: 24px;
+      color: #353746;
+      margin: 0 0 10px;
+    }
+    h4 {
+      font-family: "geomanist-book";
+      font-size: 14px;
+      color: #354052;
+      margin-bottom: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    .widget-container {
+      background: #FFFFFF;
+      border: 1px solid #CED0DA;
+      border-radius: 4px;
+      height: 380px;
+      padding: 14px 20px;
+    }
+    .list-filters {
+      margin-top: 0;
+    }
+  }
+  .size-third {
+    width: 33.3%;
+  }
+  .size-half {
+    width: 50%;
+  }
+  .size-full {
+    width: 100%;
+  }
+  .newVmWidget {
+    text-align: center;
+    svg.widgetIcon {
+      margin-top: 40px;
+    }
+    p {
+      margin-top: 30px;
+      margin-bottom: 40px;
+      font-size: 16px;
+      color: #354052;
+    }
+    .btn {
+      width: 270px;
+      font-family: "geomanist_book";
+      font-size: 18px;
+      color: #FFFFFF;
+      svg {
+        margin-right: -60px;
+        float: left;
+        margin-left: 79px;
+      }
+      &:hover {
+        background-color: #30AD63;
+      }
+    }
+  }
+  .newsFeedWidget {
+    ul {
+      list-style: none;
+      padding: 0px;
+      height: 278px;
+      margin-bottom: 0;
+      overflow-y: scroll;
+      display: block;
+      li {
+        padding: 10px;
+        &:nth-child(2n) {
+          background-color: #D6D9E0;
+          border-top: 1px solid darken(#D6D9E0, 10%);
+        }
+        &:nth-child(2n+1) {
+          background-color: lighten(#D6D9E0, 10%);
+        }
+      }
+    }
+  }
+  .allWidgetsWidget {
+    ul {
+      li {
+        float: left;
+        width: 47%;
+        margin-right: 6%;
+        margin-bottom: 22px;
+        &:nth-child(2n) {
+          margin-right: 0;
+        }
+        background-color: #E7E9ED;
+        padding: 10px;
+        border-radius: 4px;
+        height: 128px;
+        position: relative;
+        .widget-overlay {
+          display: none;
+          width: 100%;
+          height: 128px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: rgba(0, 0, 0, 0.75);
+          border-radius: 4px;
+          cursor: pointer;
+          svg {
+            left: 50%;
+            margin-left: -22px;
+            position: absolute;
+            top: 15px;
+          }
+        }
+        &:hover {
+          .widget-overlay {
+            display: block;
+          }
+        }
+      }
+    }
+
+    svg.widget-icon {
+      float: left;
+      margin-bottom: 15px;
+    }
+    .widget-title {
+      float: left;
+      font-family: "geomanist-book";
+      font-size: 18px;
+      margin: 20px 0 0 10px;
+    }
+    .widget-description {
+      clear: both;
+      font-size: 12px;
+      color: #354052;
+      line-height: 15px;
+      margin-top: 10px;
+    }
+
+  }
+  .usageWidget {
+    .widget-container {
+      height: 460px;
+      svg {
+        margin-left: -10px;
+      }
+    }
+  }
+  .virtualMachinesWidget {
+    .vm-table {
+      height: 270px;
+      margin-top: -10px;
+      overflow-y: scroll;
+      .table-row {
+        padding-top: 15px;
+        border-top: 1px solid #E6EAEE;
+        @include clearfix();
+        .vm-details {
+          float: left;
+          margin-bottom: 15px;
+        }
+        .vm-graph {
+          float: right;
+        }
+      }
+    }
+
+  }
+  .projectLimitsWidget {
+    h2 {
+      margin-bottom: 22px;
+    }
+    .btn-change-limits {
+      float: right;
+    }
+    .stats {
+
+      .graphs {
+        padding: 25px 0 0;
+        .graph {
+          float: left;
+          margin: 0 20px 0 0;
+          position: relative;
+          text-align: center;
+          font-family: "geomanist-book";
+          &:last-child {
+            margin-right: 0;
+          }
+          .graph-label {
+            font-size: 18px;
+            color: #354052;
+            margin-bottom: 25px;
+          }
+          .values {
+            position: absolute;
+            top: 110px;
+            width: 100%;
+            left: 0;
+
+            font-size: 19px;
+            color: #C4C9D2;
+            span {
+              color: #354052;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -47,15 +47,20 @@ module auroraApp {
 				ariaDescribedBy: 'modal-body',
 				templateUrl: 'views/modals/manage-volumes-attachments.html',
 				controller: ($scope, $uibModalInstance, apiService, volume) => {
-					$scope.vmList = apiService.listItems
 					$scope.volume = volume
 					$scope.selected = null
-					if (volume.attached_to != null) {
-						volume.attached_to.forEach((attachment) => {
-							let index = $scope.vmList.indexOf(attachment.vm)
-							$scope.vmList.splice(index, 1)
-						})
+					
+					let populateVmList = () => {
+						$scope.vmList = apiService.listItems
+						if (volume.attached_to != null) {
+							volume.attached_to.forEach((attachment) => {
+								let index = $scope.vmList.indexOf(attachment.vm)
+								$scope.vmList.splice(index, 1)
+							})
+						}
 					}
+					
+					populateVmList()
 					
 					$scope.cancel = () => {
 						$uibModalInstance.dismiss('cancel')
@@ -83,13 +88,18 @@ module auroraApp {
 							$scope.vmList.splice(index, 1)
 							
 							$scope.selected = null
+							
+							console.log($scope.selected)
 						}
 						
 					}
 					$scope.removeAttachment = (attachment: IVolumeAttachment) => {
 						let index = $scope.volume.attached_to.indexOf(attachment)
 						$scope.volume.attached_to.splice(index, 1)
+						$scope.vmList.push(attachment.vm)
+						$scope.selected = null
 					}
+					
 				},
 				resolve: {
 					apiService: () => {

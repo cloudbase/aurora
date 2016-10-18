@@ -1,0 +1,250 @@
+<div id="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<!-- Add your site or application content here -->
+<div class="header">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-inner">
+            <div class='container logo-container'>
+                <a class="navbar-brand" href="#/">
+                    <img src="images/LogAuroraDark.svg" />
+                </a>
+            </div>
+            <div class='container'>
+                <div class="navbar-header">
+                    <ul class="navbar-menu">
+                        <li ui-sref-active="active"><a ui-sref="dashboard">Dashboard</a></li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="vm-list">Compute</a>
+                            <a ui-sref="compute" style="display:none" > </a>
+                            <div class='submenu'>
+                                <ul>
+                                    <li ui-sref-active="active">
+                                        <a ui-sref="vm-list">Virtual Machines</a>
+                                        <a ui-sref="vm" style="display:none" > </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref-active="active" ui-sref="volumes-list">Volumes</a>
+                                        <a ui-sref="vm" style="display:none" > </a>
+                                    </li>
+                                    <li><a ui-sref-active="active" ui-sref="/">Templates</a></li>
+                                    <li><a ui-sref-active="active" ui-sref="/">Snapshots</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="networking-floating-ips"  ui-sref-active="active" href="#">Networking</a>
+                            <a ui-sref="networking" style="display:none" > </a>
+                            <div class='submenu'>
+                                <ul>
+                                    <li><a ui-sref-active="active" ui-sref="/">Map</a></li>
+                                    <li><a ui-sref-active="active" ui-sref="/">Networks</a></li>
+                                    <li><a ui-sref-active="active" ui-sref="networking-floating-ips">Floating IPs</a></li>
+                                    <li><a ui-sref-active="active" ui-sref="/">Routers</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a href="#">Extra</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container main-body dashboard">
+    <div class="header">
+        <h1>Get started with Aurora</h1>
+        <h3>Get insights into Aurora activities using graphs and vizualization tools.</h3>
+    </div>
+    <div class="widgets">
+        <div class="row">
+            <div class="widget size-third newVmWidget">
+                <div class="widget-container">
+                    <svg class="widgetIcon" width="130px" height="130px" viewBox="125 190 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect id="Rectangle" stroke="none" fill="#4CD964" fill-rule="evenodd" x="125" y="190" width="130" height="130" rx="65"></rect>
+                        <g id="Group-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(152.000000, 225.000000)">
+                            <path d="M29.510811,43.6083391 C30.3548797,42.6495173 30.8383641,41.4309904 30.965902,40.173044 C31.1386578,38.4675702 30.6551734,36.6902137 29.510811,35.390529 C29.3264608,35.1795186 29.1374729,34.9731459 28.9508038,34.7644543 C27.8968773,33.5841876 26.8197622,32.4271088 25.7182989,31.2966961 C24.6759667,30.2277316 23.6127648,29.1796362 22.5275335,28.1535693 C21.5709996,27.2503986 20.6005525,26.3611406 19.6103949,25.4892737 C18.8961829,24.8620396 18.0393604,24.4330625 17.1292039,24.2023423 C15.1570048,23.7014826 12.9366866,24.1304597 11.3911597,25.4892737 C9.24040764,27.3825699 7.17197548,29.3523864 5.18122547,31.3998825 C3.91976011,32.6984078 2.6895995,34.0270775 1.48958421,35.390529 C-0.496528068,37.6490355 -0.496528068,41.3498326 1.48958421,43.6083391 C4.58295697,47.1236325 7.876912,50.4174811 11.3911597,53.5095944 C13.6497392,55.4968019 17.3518154,55.4968019 19.6103949,53.5095944 C19.7819913,53.3577133 19.9512688,53.2046728 20.1217058,53.0516324 C22.7976819,50.6679109 25.3449608,48.1647716 27.7716584,45.5340984 C28.3571731,44.8987486 28.9392095,44.2587611 29.510811,43.6083391 Z" id="Combined-Shape" stroke="#FAFAFB" stroke-width="1.5"></path>
+                            <path d="M52.510811,19.6083391 C53.3548797,18.6495173 53.8383641,17.4309904 53.965902,16.173044 C54.1386578,14.4675702 53.6551734,12.6902137 52.510811,11.390529 C52.3264608,11.1795186 52.1374729,10.9731459 51.9508038,10.7644543 C50.8968773,9.58418757 49.8197622,8.42710879 48.7182989,7.29669615 C47.6759667,6.22773158 46.6127648,5.17963616 45.5275335,4.1535693 C44.5709996,3.25039859 43.6005525,2.36114064 42.6103949,1.48927366 C41.8961829,0.862039569 41.0393604,0.433062464 40.1292039,0.202342345 C38.1570048,-0.29851741 35.9366866,0.130459695 34.3911597,1.48927366 C32.2404076,3.38256991 30.1719755,5.3523864 28.1812255,7.39988253 C26.9197601,8.69840782 25.6895995,10.0270775 24.4895842,11.390529 C22.5034719,13.6490355 22.5034719,17.3498326 24.4895842,19.6083391 C27.582957,23.1236325 30.876912,26.4174811 34.3911597,29.5095944 C36.6497392,31.4968019 40.3518154,31.4968019 42.6103949,29.5095944 C42.7819913,29.3577133 42.9512688,29.2046728 43.1217058,29.0516324 C45.7976819,26.6679109 48.3449608,24.1647716 50.7716584,21.5340984 C51.3571731,20.8987486 51.9392095,20.2587611 52.510811,19.6083391 Z" id="Stroke-3" stroke="#FAFAFB" stroke-width="1.5"></path>
+                            <path d="M74.510811,43.6083391 C75.3548797,42.6495173 75.8383641,41.4309904 75.965902,40.173044 C76.1386578,38.4675702 75.6551734,36.6902137 74.510811,35.390529 C74.3264608,35.1795186 74.1374729,34.9731459 73.9508038,34.7644543 C72.8968773,33.5841876 71.8197622,32.4271088 70.7182989,31.2966961 C69.6759667,30.2277316 68.6127648,29.1796362 67.5275335,28.1535693 C66.5709996,27.2503986 65.6005525,26.3611406 64.6103949,25.4892737 C63.8961829,24.8620396 63.0393604,24.4330625 62.1292039,24.2023423 C60.1570048,23.7014826 57.9366866,24.1304597 56.3911597,25.4892737 C54.2404076,27.3825699 52.1719755,29.3523864 50.1812255,31.3998825 C48.9197601,32.6984078 47.6895995,34.0270775 46.4895842,35.390529 C44.5034719,37.6490355 44.5034719,41.3498326 46.4895842,43.6083391 C49.582957,47.1236325 52.876912,50.4174811 56.3911597,53.5095944 C58.6497392,55.4968019 62.3518154,55.4968019 64.6103949,53.5095944 C64.7819913,53.3577133 64.9512688,53.2046728 65.1217058,53.0516324 C67.7976819,50.6679109 70.3449608,48.1647716 72.7716584,45.5340984 C73.3571731,44.8987486 73.9392095,44.2587611 74.510811,43.6083391 Z" id="Stroke-5" stroke="#FAFAFB" stroke-width="1.5"></path>
+                        </g>
+                    </svg>
+
+                    <p>Easily deploy new <br />
+                        virtual machines</p>
+                    <a class="btn btn-primary btn-new-vm">
+                        <svg width="23px" height="22px" viewBox="42 11 23 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <text id="add---material" stroke="none" fill="none" font-family="LastResort, .LastResort" font-size="20" font-weight="normal">
+                                <tspan x="42.2180544" y="28.4116743" fill="#FAFAFB"></tspan>
+                            </text>
+                        </svg>
+                        New VM
+                    </a>
+                </div>
+            </div>
+            <div class="widget size-third newsFeedWidget">
+                <div class="widget-container">
+                    <h2>Notifications</h2>
+                    <h4>News from above</h4>
+                    <ul>
+                        <li>
+                            <div class="head">
+                                Manage your volumes like a pro <br />
+                                10/7/2016, 1:03:44 AM
+                            </div>
+                            <div class="divider"></div>
+                            <div class="content">
+                                Synth polaroid bitters chillwave pickled. Vegan disrupt tousled, Portland keffiyeh aesthetic food truck sriracha cornhole …
+                            </div>
+                        </li>
+                        <li>
+                            <div class="head">
+                                New features <br />
+                                23/6/2016, 2:014:34 AM
+                            </div>
+                            <div class="content">
+                                So strongly and metaphysically did I conceive of my situation then, that while earnestly watching his motions, I seemed distinctly to perceive …
+                            </div>
+                        </li>
+                        <li>
+                            <div class="head">
+                                Manage your volumes like a pro <br />
+                                10/7/2016, 1:03:44 AM
+                            </div>
+                            <div class="divider"></div>
+                            <div class="content">
+                                Synth polaroid bitters chillwave pickled. Vegan disrupt tousled, Portland keffiyeh aesthetic food truck sriracha cornhole …
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="widget size-third allWidgetsWidget">
+                <div class="widget-container">
+                    <h2>Widgets</h2>
+                    <h4>Drag and drop widgets to the canvas</h4>
+                    <ul>
+                        <li>
+                            <svg class="widget-icon" width="56px" height="56px" viewBox="10 10 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <rect id="Rectangle-Copy-2" stroke="none" fill="#354052" fill-rule="evenodd" x="10" y="10" width="56" height="56" rx="8"></rect>
+                                <g id="Group-5" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(23.000000, 23.000000)">
+                                    <path d="M1.25,31 C0.56,31 0,30.43875 0,29.75 L0,22.25 C0,21.56125 0.56,21 1.25,21 L3.75,21 C4.43875,21 5,21.56125 5,22.25 L5,29.75 C5,30.43875 4.43875,31 3.75,31 L1.25,31 Z" id="Fill-1" fill="#4CD964"></path>
+                                    <path d="M7.25,31 C6.56,31 6,30.4612 6,29.8 L6,20.2 C6,19.5388 6.56,19 7.25,19 L9.75,19 C10.43875,19 11,19.5388 11,20.2 L11,29.8 C11,30.4612 10.43875,31 9.75,31 L7.25,31 Z" id="Fill-3" fill="#4CD964"></path>
+                                    <path d="M14.25,31 C13.56,31 13,30.4473846 13,29.7692308 L13,16.2307692 C13,15.5526154 13.56,15 14.25,15 L16.75,15 C17.43875,15 18,15.5526154 18,16.2307692 L18,29.7692308 C18,30.4473846 17.43875,31 16.75,31 L14.25,31 Z" id="Fill-5" fill="#4CD964"></path>
+                                    <path d="M20.25,31 C19.56,31 19,30.4285455 19,29.7272727 L19,18.2727273 C19,17.5714545 19.56,17 20.25,17 L22.75,17 C23.43875,17 24,17.5714545 24,18.2727273 L24,29.7272727 C24,30.4285455 23.43875,31 22.75,31 L20.25,31 Z" id="Fill-7" fill="#4CD964"></path>
+                                    <path d="M26.25,31 C25.56,31 25,30.4312667 25,29.7333333 L25,13.2666667 C25,12.5687333 25.56,12 26.25,12 L28.75,12 C29.43875,12 30,12.5687333 30,13.2666667 L30,29.7333333 C30,30.4312667 29.43875,31 28.75,31 L26.25,31 Z" id="Fill-9" fill="#4CD964"></path>
+                                    <g id="Group-4" fill="#FAFAFB">
+                                        <path d="M2.465875,15.4774071 C2.122125,15.4774071 1.785875,15.3049786 1.600875,14.9953357 C1.322125,14.5314786 1.483375,13.9364786 1.960875,13.6669071 L8.144625,10.16855 L14.379625,5.37090714 C14.608375,5.19362143 14.903375,5.12562143 15.193375,5.17905 L21.019625,6.28890714 L26.793375,1.66976429 C27.220875,1.32733571 27.849625,1.38926429 28.200875,1.80090714 C28.552125,2.21497857 28.490875,2.82819286 28.064625,3.16819286 L21.927125,8.07876429 C21.695875,8.26455 21.392125,8.33740714 21.098375,8.28276429 L15.260875,7.17047857 L9.330875,11.7337643 C9.293375,11.7616929 9.254625,11.7884071 9.213375,11.8114786 L2.968375,15.3462643 C2.809625,15.4349071 2.637125,15.4774071 2.465875,15.4774071" id="Fill-11"></path>
+                                        <path d="M29.765625,2.42857143 C29.765625,3.64407143 28.751875,4.62885714 27.500625,4.62885714 C26.249375,4.62885714 25.234375,3.64407143 25.234375,2.42857143 C25.234375,1.21307143 26.249375,0.228285714 27.500625,0.228285714 C28.751875,0.228285714 29.765625,1.21307143 29.765625,2.42857143" id="Fill-13"></path>
+                                        <path d="M23.515625,7.28571429 C23.515625,8.50121429 22.501875,9.486 21.250625,9.486 C19.999375,9.486 18.984375,8.50121429 18.984375,7.28571429 C18.984375,6.07021429 19.999375,5.08542857 21.250625,5.08542857 C22.501875,5.08542857 23.515625,6.07021429 23.515625,7.28571429" id="Fill-15"></path>
+                                        <path d="M17.265625,6.07142857 C17.265625,7.28692857 16.251875,8.27171429 15.000625,8.27171429 C13.748125,8.27171429 12.734375,7.28692857 12.734375,6.07142857 C12.734375,4.85592857 13.748125,3.87114286 15.000625,3.87114286 C16.251875,3.87114286 17.265625,4.85592857 17.265625,6.07142857" id="Fill-17"></path>
+                                        <path d="M11.015625,10.9285714 C11.015625,12.1440714 10.001875,13.1288571 8.750625,13.1288571 C7.498125,13.1288571 6.484375,12.1440714 6.484375,10.9285714 C6.484375,9.71307143 7.498125,8.72828571 8.750625,8.72828571 C10.001875,8.72828571 11.015625,9.71307143 11.015625,10.9285714" id="Fill-19"></path>
+                                        <path d="M4.765625,14.5714286 C4.765625,15.7869286 3.751875,16.7717143 2.500625,16.7717143 C1.248125,16.7717143 0.234375,15.7869286 0.234375,14.5714286 C0.234375,13.3559286 1.248125,12.3711429 2.500625,12.3711429 C3.751875,12.3711429 4.765625,13.3559286 4.765625,14.5714286" id="Fill-21"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div class="widget-title">Charts</div>
+                            <div class="widget-description">Add any chart to the dashboard.</div>
+                            <div class="widget-overlay">
+                                <svg width="43px" height="102px" viewBox="59 9 43 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <text id="+" stroke="none" fill="none" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="75" font-weight="normal">
+                                        <tspan x="59" y="82" fill="#4CD964">+</tspan>
+                                    </text>
+                                </svg>
+                            </div>
+                        </li>
+                        <li>
+                            <svg class="widget-icon" width="56px" height="56px" viewBox="10 10 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <defs>
+                                    <path d="M18.7745695,37.5491389 C29.1434778,37.5491389 37.5491389,29.1434778 37.5491389,18.7745695 C37.5491389,8.40566106 29.1434778,3.55271368e-15 18.7745695,3.55271368e-15 C8.40566106,3.55271368e-15 3.55271368e-15,8.40566106 3.55271368e-15,18.7745695 C3.55271368e-15,29.1434778 8.40566106,37.5491389 18.7745695,37.5491389 Z M18.7745695,32.4845915 C26.3464055,32.4845915 32.4845915,26.3464055 32.4845915,18.7745695 C32.4845915,11.2027334 26.3464055,5.06454745 18.7745695,5.06454745 C11.2027334,5.06454745 5.06454745,11.2027334 5.06454745,18.7745695 C5.06454745,26.3464055 11.2027334,32.4845915 18.7745695,32.4845915 Z" id="path-1"></path>
+                                </defs>
+                                <rect id="Rectangle-Copy-2" stroke="none" fill="#354052" fill-rule="evenodd" x="10" y="10" width="56" height="56" rx="8"></rect>
+                                <g id="Group-6-Copy-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(19.000000, 20.000000)">
+                                    <g id="Pie-Chart">
+                                        <mask id="mask-2" fill="white">
+                                            <use xlink:href="#path-1"></use>
+                                        </mask>
+                                        <use id="Graph-Base" fill="#4CD964" xlink:href="#path-1"></use>
+                                        <polygon id="Yellow" fill="#FAFAFB" mask="url(#mask-2)" transform="translate(27.585955, 4.484229) rotate(-51.000000) translate(-27.585955, -4.484229) " points="10.4855364 7.12491425 34.328298 -13.304338 44.6863728 22.2727953"></polygon>
+                                    </g>
+                                    <text id="890/999" font-family="Geomanist-Book, Geomanist" font-size="6" font-weight="300" fill="#FAFAFB">
+                                        <tspan x="8.349" y="21">890/999</tspan>
+                                    </text>
+                                </g>
+                            </svg>
+                            <div class="widget-title">Gauges</div>
+                            <div class="widget-description">Add and configure any number of gauges.</div>
+                            <div class="widget-overlay">
+                                <svg width="43px" height="102px" viewBox="59 9 43 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <text id="+" stroke="none" fill="none" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="75" font-weight="normal">
+                                        <tspan x="59" y="82" fill="#4CD964">+</tspan>
+                                    </text>
+                                </svg>
+                            </div>
+                        </li>
+                        <li>
+
+                            <svg class="widget-icon" width="56px" height="56px" viewBox="10 10 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <rect id="Rectangle-Copy-2" stroke="none" fill="#354052" fill-rule="evenodd" x="10" y="10" width="56" height="56" rx="8"></rect>
+                                <g id="Group-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(24.000000, 21.000000)">
+                                    <path d="M2.63636364,2.61538462 L2.63636364,31.3846154 L26.361,31.3846154 L26.3636364,2.61538462 L2.63636364,2.61538462 L2.63636364,2.61538462 Z M26.3636364,31.3846154 L26.3636364,32.6923077 L26.3649545,31.3846154 L26.3636364,31.3846154 L26.3636364,31.3846154 Z M26.3636364,34 L2.63636364,34 C1.18240909,34 0,32.8256923 0,31.3846154 L0,2.61538462 C0,1.173 1.18240909,0 2.63636364,0 L26.3636364,0 C27.8175909,0 29,1.173 29,2.61538462 L29,31.3846154 C29,32.8256923 27.8175909,34 26.3636364,34 L26.3636364,34 Z" id="Fill-1" fill="#4CD964"></path>
+                                    <polygon id="Fill-3" fill="#4CD964" points="21 17 23 17 23 15 21 15"></polygon>
+                                    <polygon id="Fill-5" fill="#4CD964" points="6 17 19 17 19 15 6 15"></polygon>
+                                    <polygon id="Fill-6" fill="#4CD964" points="6 21 14 21 14 19 6 19"></polygon>
+                                    <polygon id="Fill-7" fill="#4CD964" points="6 27 17 27 17 25 6 25"></polygon>
+                                    <polygon id="Fill-8" fill="#4CD964" points="21 21 23 21 23 19 21 19"></polygon>
+                                    <polygon id="Fill-9" fill="#4CD964" points="21 27 23 27 23 25 21 25"></polygon>
+                                    <path d="M22.64111,7 L6.35889,7 C5.61014161,7 5,7.59866667 5,8.33333333 L5,9.66666667 C5,10.4013333 5.61014161,11 6.35889,11 L22.64111,11 C23.3898584,11 24,10.4013333 24,9.66666667 L24,8.33333333 C24,7.59866667 23.3898584,7 22.64111,7" id="Fill-10" fill="#FAFAFB"></path>
+                                </g>
+                            </svg>
+                            <div class="widget-title">Billing</div>
+                            <div class="widget-description">The main billing and expences widget.</div>
+                            <div class="widget-overlay">
+                                <svg width="43px" height="102px" viewBox="59 9 43 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <text id="+" stroke="none" fill="none" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="75" font-weight="normal">
+                                        <tspan x="59" y="82" fill="#4CD964">+</tspan>
+                                    </text>
+                                </svg>
+                            </div>
+                        </li>
+                        <li>
+                            <svg class="widget-icon" width="56px" height="56px" viewBox="10 10 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <rect id="Rectangle-Copy-2" stroke="none" fill="#354052" fill-rule="evenodd" x="10" y="10" width="56" height="56" rx="8"></rect>
+                                <text id="$❚" stroke="none" fill="none" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal">
+                                    <tspan x="19" y="36" fill="#4CD964">$</tspan>
+                                    <tspan x="30.8378906" y="36" font-family="ZapfDingbatsITC, Zapf Dingbats" fill="#FAFAFB">❚</tspan>
+                                </text>
+                            </svg>
+                            <div class="widget-title">Console</div>
+                            <div class="widget-description">Quick SSH Console to any VM.</div>
+                            <div class="widget-overlay">
+                                <svg width="43px" height="102px" viewBox="59 9 43 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <text id="+" stroke="none" fill="none" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="75" font-weight="normal">
+                                        <tspan x="59" y="82" fill="#4CD964">+</tspan>
+                                    </text>
+                                </svg>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <dashboard-widgets widgets="vm.widgets"></dashboard-widgets>
+        </div>
+    </div>
+</div>
+

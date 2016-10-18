@@ -28,6 +28,12 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controller: 'LoginCtrl',
       controllerAs: 'login'
     })
+    .state('dashboard', {
+      url: "/dashboard",
+      templateUrl: 'views/sections/dashboard.html',
+      controller: 'DashboardCtrl',
+      controllerAs: 'vm'
+    })
     // COMPUTE
     .state('compute', {
       url: "/compute",
