@@ -83,6 +83,7 @@ module auroraApp {
         size: number
         region: IZone
         dateCreated: Date
+        selected: boolean
     }
     
     export class VmSnapshot implements IVmSnapshot {
@@ -131,6 +132,7 @@ module auroraApp {
         ) {}
         
         attachVm(vm:VmItem):void {
+            
             this.attached_to= {
                 vm: vm,
                 path: "/dev/sdb"

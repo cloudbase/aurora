@@ -80,9 +80,12 @@
                     <path d="M8.76869228,12.2313077 C8.46028199,11.9228974 7.9609886,11.9228974 7.65336708,12.2313077 L4.99993427,14.8847405 L4.34604134,14.2316364 C4.03841982,13.9232261 3.53912643,13.9232261 3.23071614,14.2316364 C2.92309462,14.5392579 2.92309462,15.0385513 3.23071614,15.3469616 L4.44227167,16.5577283 C4.74989319,16.8661386 5.24918658,16.8661386 5.55759687,16.5577283 L8.76869228,13.3466329 C9.07710257,13.0390114 9.07710257,12.539718 8.76869228,12.2313077" id="Tick" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
                 </svg>
               </span>
-              <span class="icon {{ item.image.id }}" ng-click="vm.checkVm(item)" >
-                <svg class="icon-{{ item.image.id }}">
-                  <use xlink:href="{{'images/icons.svg#logo-' + item.image.id + '-dark'}}" />
+              <span class="icon {{ item.image.os }}" ng-click="vm.checkVm(item)" >
+                <svg ng-if="(item.image.os != 'volume') && (item.image.os != 'snapshot')" class="icon-{{ item.image.os }}">
+                  <use xlink:href="{{'images/icons.svg#logo-' + item.image.os + '-dark'}}" />
+                </svg>
+                <svg ng-if="(item.image.os == 'volume') || (item.image.os == 'snapshot')" class="icon-{{ item.image.os }}">
+                  <use xlink:href="{{'images/icons.svg#logo-' + item.image.os}}" />
                 </svg>
               </span>
               <div class="info">

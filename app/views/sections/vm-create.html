@@ -19,28 +19,28 @@
                     <div class='form'>
                         <div class='general-field name'>
                             <label for="vm-name">Name</label>
-                            <input type="text" id="vm-name" class='form-control' ng-model="vmCreate.newVmName"/>
+                            <input type="text" id="vm-name" class='form-control' ng-model="vm.newVmName"/>
                         </div>
                         <div class='general-field zone'>
                             <label for="vm-zone">Region</label>
-                            <ui-select ng-model="vmCreate.zone.value" class='zone' search-enabled="false">
+                            <ui-select ng-model="vm.zone.value" class='zone' search-enabled="false">
                                 <ui-select-match placeholder='Zone' class='select-choice'>
                                     <span ng-bind="$select.selected.name"></span>
                                 </ui-select-match>
-                                <ui-select-choices repeat="item in (vmCreate.apiService.project.zones | filter: $select.search) track by item.id" class='select-choice'>
+                                <ui-select-choices repeat="item in (vm.apiService.project.zones | filter: $select.search) track by item.id" class='select-choice'>
                                     <span ng-bind="item.name"></span>
                                 </ui-select-choices>
                             </ui-select>
                         </div>
                         <div class='general-field count'>
                             <label for="vm-count">Count</label>
-                            <plus-minus id="vm-count" ng-model='vmCreate.count' value="vmCreate.count" class='form-input-number' min="1" max="5" readonly="true"></plus-minus>
+                            <plus-minus id="vm-count" ng-model='vm.count' value="vm.count" class='form-input-number' min="1" max="5" readonly="true"></plus-minus>
                         </div>
                     </div>
                 </collapse>
                 <collapse class="panel sources-panel" title="Choose Source" valid="valid">
                     <uib-accordion close-others="true">
-                        <div uib-accordion-group class="panel-default" is-open="true">
+                        <div ng-class="{active: vm.src_category_selected == 'images'}" uib-accordion-group class="panel-default" is-open="true">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
                                 Images
@@ -48,19 +48,28 @@
 
                             <div ui-view="images"></div>
                         </div>
-                        <div uib-accordion-group class="panel-default">
+                        <div ng-class="{active: vm.src_category_selected == 'volumes'}" uib-accordion-group class="panel-default">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
                                 Volumes
                             </uib-accordion-heading>
-                            Volumes
+                            <div class="list-volumes">
+                                <div ng-repeat="volume in vm.apiService.vmVolumes"  class="volume-wrapper" ng-class="{selected: volume.selected}" ng-click="vm.selectVolume(volume)">
+                                    <volume-display  selectable="true" volume="volume"></volume-display>
+                                </div>
+                            </div>
                         </div>
-                        <div uib-accordion-group class="panel-default">
+                        <div ng-class="{active: vm.src_category_selected == 'snapshots'}" uib-accordion-group class="panel-default">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
                                 Snapshot
                             </uib-accordion-heading>
-                            Snapshots
+                            <div class="list-volumes">
+                                <div ng-repeat="snapshot in vm.apiService.vmSnapshots"  class="volume-wrapper" ng-class="{selected: snapshot.selected}" ng-click="vm.selectSnapshot(snapshot)">
+                                    <snapshot-display  selectable="true" snapshot="snapshot"></snapshot-display>
+                                </div>
+                            </div>
+                            <h4 ng-if="!vm.apiService.vmSnapshots.length">No snapshots available</h4>
                         </div>
                     </uib-accordion>
                 </collapse>
@@ -78,7 +87,7 @@
                                 <div class='cell'>Shared</div>
                             </div>
                             
-                            <div class='table-row' ng-repeat="network in vmCreate.apiService.networkList" ng-class="{active: network.selected}" ng-click="vmCreate.selectNetwork(network);">
+                            <div class='table-row' ng-repeat="network in vm.apiService.networkList" ng-class="{active: network.selected}" ng-click="vm.selectNetwork(network);">
                                 <div class='cell'>
 
                                     <svg class='radio-btn radio-active' width="21px" height="20px">
@@ -96,7 +105,7 @@
                         </div>
                     </div>
                 </collapse>
-                <collapse class="panel panel-security-groups" title="Security Groups" opened="true" valid="vmCreate.validation.security_groups" ng-model="validation.security_groups">
+                <collapse class="panel panel-security-groups" title="Security Groups" opened="true" valid="vm.validation.security_groups" ng-model="validation.security_groups">
                     <div class="list list-security-groups">
                         <div class='table'>
                             <div class='table-header'>
@@ -104,7 +113,7 @@
                                 <div class='cell'>Name</div>
                             </div>
 
-                            <div class='table-row' ng-repeat="group in vmCreate.apiService.project.security_groups" ng-class="{active: group.selected}" ng-click="vmCreate.selectSecurityGroup(group);">
+                            <div class='table-row' ng-repeat="group in vm.apiService.project.security_groups" ng-class="{active: group.selected}" ng-click="vm.selectSecurityGroup(group);">
                                 <div class='cell'>
 
                                     <svg class='radio-btn radio-active' width="21px" height="20px">
@@ -121,14 +130,14 @@
                         </div>
                     </div>
                 </collapse>
-                <a class="btn btn-primary btn-launch" ng-click="vmCreate.createVm()">
+                <a class="btn btn-primary btn-launch" ng-click="vm.createVm()">
                     Launch Virtual Machine
                 </a>
             </div>
         </div>
         <div class='sidebar' sticky offset="200">
             <div ui-view="sidebar"></div>
-            <a class="btn btn-primary btn-launch" ng-click="vmCreate.createVm()">
+            <a class="btn btn-primary btn-launch" ng-click="vm.createVm()">
                 Launch Virtual Machine
             </a>
         </div>

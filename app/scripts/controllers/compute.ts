@@ -10,6 +10,7 @@ module auroraApp {
         filter: ng.IFilterProvider
         endpoints: string[] = []
         newVmName: string
+        vmVolumes: VmVolume[]
         sortType: string = ""
         sortReverse = false
         selected: any
@@ -20,6 +21,9 @@ module auroraApp {
             security_groups: true
         }
         reloadDirectives: boolean = true
+        
+        src_category_selected = "images"
+        
         vmAvailableWidgets: IVmWidget[] = [
             {
                 id: "vm-field",
@@ -76,7 +80,7 @@ module auroraApp {
         ];
 
         constructor(
-            isolateScope: Directives.IVmListScope,
+            private $scope: ng.IScope,
             public apiService: Services.IApiService,
             private $state: any,
             private $timeout: ng.ITimeoutService,
@@ -89,6 +93,12 @@ module auroraApp {
 
             this.zone = {}
             this.zone.value = this.apiService.project.zones[0]
+    
+            $scope.$on("select_image", () => {
+                this.resetSourceSelection()
+                this.src_category_selected = "images"
+                
+            })
 
             // populate filter with terms
             this.filters.forEach((filterItem) => {
@@ -276,9 +286,45 @@ module auroraApp {
             let rand: number
 
             for (let _i = 1; _i <= this.count; _i++) {
-                let image = this.apiService.vmImages.filter((vmImage:IVmImage):boolean => {
-                    return vmImage.selected == true
-                })[0]
+                let image = null
+                switch (this.src_category_selected) {
+                    case "images":
+                        image = this.apiService.vmImages.filter((vmImage:IVmImage):boolean => {
+                            return vmImage.selected == true
+                        })[0]
+                        break;
+                    case "volumes":
+                        let volume = this.apiService.vmVolumes.filter((vmVolume:VmVolume):boolean => {
+                            return vmVolume.selected == true
+                        })[0]
+                        image = new VmImage(
+                          volume.id,
+                          volume.name,
+                          "volume",
+                          null,
+                          volume.size,
+                          "volume",
+                          new Date(),
+                          [],
+                          {source: volume})
+                        break;
+                    case "snapshots":
+                        let snapshot = this.apiService.vmSnapshots.filter((vmSnapshot:VmSnapshot):boolean => {
+                            return vmSnapshot.selected == true
+                        })[0]
+                        image = new VmImage(
+                          snapshot.id,
+                          snapshot.name,
+                          "snapshot",
+                          null,
+                          snapshot.size,
+                          "snapshot",
+                          new Date(),
+                          [],
+                          {source: snapshot})
+                        break;
+                }
+                console.log(image)
     
                 let flavor = this.apiService.vmFlavors.filter((vmFlavor:IVmFlavor):boolean => {
                     return vmFlavor.selected == true
@@ -357,10 +403,30 @@ module auroraApp {
         } 
 
         selectImage(obj: IVmImage) {
-            angular.forEach(this.apiService.vmImages, (flavor:IVmImage) => {
-                flavor.selected = false;
-            })
+            this.resetSourceSelection()
             obj.selected = true
+            this.src_category_selected = "images"
+        }
+    
+        selectVolume(volume:VmVolume)
+        {
+            this.resetSourceSelection()
+            volume.selected = true
+            this.src_category_selected = "volumes"
+        }
+    
+        selectSnapshot(snapshot:VmSnapshot)
+        {
+            this.resetSourceSelection()
+            snapshot.selected = true
+            this.src_category_selected = "snapshots"
+        }
+        
+        resetSourceSelection()
+        {
+            angular.forEach(this.apiService.vmSnapshots, snapshot => snapshot.selected = false)
+            angular.forEach(this.apiService.vmVolumes, volume => volume.selected = false)
+            angular.forEach(this.apiService.vmImages, flavor => flavor.selected = false)
         }
 
         selectFlavor(obj: IVmFlavor) 
@@ -419,6 +485,7 @@ module auroraApp {
         {
             vm.detail_view = !vm.detail_view
         }
+        
 
         /**
          * Calculates the number of ip's of vm. Used for templating.

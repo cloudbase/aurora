@@ -40,6 +40,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       url: "/compute",
       abstract: true,
       templateUrl: "views/main.html",
+      controller: "ComputeCtrl",
       controllerAs: 'vm'
     })
     .state('vm', {
@@ -72,7 +73,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
         '': {
           templateUrl: "views/sections/vm-create.html",
           controller: 'ComputeCtrl',
-          controllerAs: 'vmCreate'
+          controllerAs: 'vm'
         },
         'images@vm-create': {
           templateUrl: 'views/partials/vm.images.html',
@@ -174,9 +175,9 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
     .state('vm-view-volumes', {
       parent: 'vm-view',
       url: "/volumes",
-      templateUrl: 'views/partials/vm_view.snapshots.html',
+      templateUrl: 'views/partials/vm_view.volumes.html',
       controller: 'VmCtrl',
-      controllerAs: 'vmView'
+      controllerAs: 'vm'
     })
     .state('vm-view-log', {
       parent: 'vm-view',

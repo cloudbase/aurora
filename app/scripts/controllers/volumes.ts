@@ -52,7 +52,7 @@ module auroraApp {
 		createSnapshot(obj:VmVolume)
 		{
 			let rand = Math.floor((Math.random() * 100) + 1)
-			let name = obj.name + "_vol_sp_" + rand
+			let name = obj.name + "_vol_" + rand
 			let id = Math.floor((Math.random() * 1000) + 1) + " " + Math.floor((Math.random() * 1000) + 1)
 			
 			let newSnapshot = new VmSnapshot(id, name, obj.size, obj.region, new Date())

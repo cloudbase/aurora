@@ -55,6 +55,7 @@ body .header {
           }
         }
       }
+
       .submenu {
           @include clearfix();
           display: none;
@@ -90,7 +91,19 @@ body .header {
                  a {
                    font-family: "geomanist_medium";
                  }
-               } 
+               }
+              &.with-counter {
+                span.count {
+                  font-size: 14px;
+                  color: #7F8FA4;
+                  position: absolute;
+                  margin-left: 25px;
+                  right: 33px;
+                  top: 10px;
+                }
+                padding-right: 70px;
+                position: relative;
+              }
             }
           }
       }

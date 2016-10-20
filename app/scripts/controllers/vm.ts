@@ -5,6 +5,8 @@
 module auroraApp {
     export class VmCtrl  {
         item: VmItem
+        volumes: VmVolume[] = []
+        
         static $inject = [
             "ApiService",
             "$state",
@@ -30,6 +32,11 @@ module auroraApp {
                     flavor.selected = true
             })
             apiService.project.additional_cost = 0
+            
+            apiService.vmVolumes.forEach(volume => {
+                if (volume.attached_to && volume.attached_to.vm == this.item)
+                    this.volumes.push(volume)
+            })
             
         }
 

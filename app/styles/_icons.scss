@@ -50,13 +50,23 @@
                 border: 1px solid #30AD63;
             }
         }
+        &:nth-child(3) {
+            margin-right: 0;
+        }
     }
     .volume-details {
         padding: 15px;
-        width: 202px;
+        width: 275px;
         margin-bottom: 0;
         background-color: #E7E9ED;
         border-radius: 4px;
-
+    }
+    .icon-volume, .icon-snapshot {
+        float: right;
+    }
+    .icon-volume {
+        svg {
+            margin-left: 6px;
+        }
     }
 }

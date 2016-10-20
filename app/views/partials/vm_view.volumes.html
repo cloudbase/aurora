@@ -1,0 +1,53 @@
+<div class='section'>
+    <div class='section-header'>
+        <h3>Volumes</h3>
+    </div>
+    <div class='section-body no-padding'>
+        <div class='table table-vm-volumes'>
+            <div class='table-header'>
+                <div class='cell'>Name</div>
+                <div class='cell'>Description</div>
+                <div class='cell'>Size</div>
+                <div class='cell'>Action</div>
+            </div>
+            <div ng-if='vm.volumes.length == 0' class='empty-table'>
+                <h3>No volumes</h3>
+                <a class='btn btn-primary btn-snapshot btn-jumbo' ui-sref="volumes-create">
+                    <svg width="15px" height="15px" viewBox="10 11 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path d="M18.6895536,16.9526844 L18.6895536,11 L15.8799999,11 L15.8799999,16.9526844 L10,16.9526844 L10,19.762238 L15.8799999,19.762238 L15.8799999,25.8812697 L18.6895536,25.8812697 L18.6895536,19.762238 L24.6999998,19.762238 L24.6999998,16.9526844 L18.6895536,16.9526844 Z" id="Plus-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd" opacity="0.695079291"></path>
+                    </svg> 
+                    Volume
+                </a>
+            </div>
+            <div  class='table-row' ng-repeat="volume in vm.volumes">
+                <div class='cell'>
+                    <volume-display volume="volume"></volume-display>
+                </div>
+                <div class='cell'>
+                    {{volume.description}}
+                </div>
+                <div class='cell'>{{volume.size}} GB</div>
+                <div class='cell'>
+                    <ul class="vm-actions">
+                        <li>
+                            <svg width="17px" height="18px" viewBox="1200 332 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1200.000000, 332.000000)">
+                                    <g id="Group-6" transform="translate(0.000000, 0.019300)" fill="#7F8FA4">
+                                        <path d="M14,12.5354 C14,13.3434 13.357,14.0004 12.568,14.0004 L3.432,14.0004 C2.643,14.0004 2,13.3434 2,12.5354 L2,4.4454 C2,3.6374 2.643,2.9804 3.432,2.9804 L6.917,2.9804 L6.917,0.9804 L3.432,0.9804 C1.537,0.9804 0,2.5314 0,4.4454 L0,12.5354 C0,14.4484 1.534,16.0004 3.432,16.0004 L12.568,16.0004 C14.463,16.0004 16,14.4494 16,12.5354 L16,9.9184 L14,9.9184 L14,12.5354 Z M4.0686,9.689 C3.8836,10.209 4.1556,10.782 4.6766,10.966 C4.7866,11.005 4.8996,11.024 5.0106,11.024 C5.4226,11.024 5.8076,10.768 5.9536,10.359 C6.2096,9.639 6.5416,9.046 6.9166,8.543 C8.7586,6.071 11.7076,5.982 12.5576,6.02 L11.3116,7.278 C10.9236,7.669 10.9236,8.303 11.3116,8.695 C11.6986,9.086 12.3266,9.086 12.7146,8.695 L15.7226,5.658 C15.9086,5.47 16.0136,5.215 16.0136,4.949 C16.0136,4.683 15.9086,4.429 15.7226,4.241 L12.7226,1.274 C12.3356,0.883 11.7076,0.883 11.3196,1.274 C10.9316,1.666 10.9316,2.3 11.3196,2.691 L12.6636,4.011 C11.1326,3.89 8.8406,4.264 6.9166,5.715 C5.7466,6.597 4.7126,7.877 4.0686,9.689 Z" id="Combined-Shape"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </li>
+                        <li>
+                            <a data-toggle="confirmation"  data-placement="top" mwl-confirm message="Are you sure you want to delete this snapshot? This action is undoable." title="Delete" onmouseenter="$(this).tooltip('show')" on-confirm="vm.deleteSnapshot(snapshot)">
+                            <svg width="16px" height="16px" viewBox="1250 333 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <path d="M1256,345 C1255.448,345 1255,344.552 1255,344 L1255,341 C1255,340.448 1255.448,340 1256,340 C1256.552,340 1257,340.448 1257,341 L1257,344 C1257,344.552 1256.552,345 1256,345 L1256,345 Z M1260,345 C1259.448,345 1259,344.552 1259,344 L1259,341 C1259,340.448 1259.448,340 1260,340 C1260.552,340 1261,340.448 1261,341 L1261,344 C1261,344.552 1260.552,345 1260,345 L1260,345 Z M1261,338 L1255,338 L1253,338 L1254,346 C1254,346.552 1254.448,347 1255,347 L1261,347 C1261.552,347 1262,346.552 1262,346 L1263,338 L1261,338 Z M1258,335 C1257.448,335 1257,335.448 1257,336 L1259,336 C1259,335.448 1258.552,335 1258,335 L1258,335 Z M1265,338 L1264,347 C1264,348.105 1263.105,349 1262,349 L1254,349 C1252.895,349 1252,348.105 1252,347 L1251,338 C1250.448,338 1250,337.552 1250,337 C1250,336.448 1250.448,336 1251,336 L1255,336 L1255,334 C1255,333.448 1255.448,333 1256,333 L1260,333 C1260.552,333 1261,333.448 1261,334 L1261,336 L1265,336 C1265.552,336 1266,336.448 1266,337 C1266,337.552 1265.552,338 1265,338 L1265,338 Z" id="Icon-Copy" stroke="none" fill="#7F8FA4" fill-rule="evenodd"></path>
+                            </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

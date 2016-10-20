@@ -559,7 +559,7 @@
     "volumes": [
         {
             "id": "23g6724s",
-            "name": "first volume",
+            "name": "volume_01",
             "description": "Test volume for scaffolding",
             "size": 1.5,
             "source": null,
