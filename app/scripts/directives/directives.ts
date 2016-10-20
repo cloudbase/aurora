@@ -201,6 +201,38 @@ module auroraApp.Directives {
 		}
 	}
 	
+	export function volumeDisplay() {
+		return {
+			restrict: "AE",
+			replace: true,
+			transclude: true,
+			scope: {
+				volume: "=",
+				selectable: "@"
+			},
+			link: ($scope, $element) => {
+				
+			},
+			template: `
+                <div class='vm-details volume-details '>
+            <span class="icon icon-volume">
+                <svg ng-if="!volume.attached_to" width="40px" height="54px" viewBox="7 0 40 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#icon-volume-full"></use>
+                </svg>
+
+                <svg ng-if="volume.attached_to" width="40px" height="55px" viewBox="7 0 40 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    							<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#icon-volume-empty"></use>
+								</svg>
+            </span>
+            <div class="info">
+                <span class="name">{{ volume.name }}</span>
+                <span class="details">Size: {{ volume.size }} GB | NSF</span>
+            </div>
+        </div>
+            `
+		}
+	}
+	
 	export function sticky() {
 		return {
 			restrict: "AE",
@@ -280,5 +312,6 @@ angular.module('auroraApp')
 	.directive('collapse', auroraApp.Directives.collapse)
 	.directive('plusMinus', auroraApp.Directives.plusMinus)
 	.directive('vmDisplay', auroraApp.Directives.vmDisplay)
+	.directive('volumeDisplay', auroraApp.Directives.volumeDisplay)
 	.directive('sticky', auroraApp.Directives.sticky)
 	.directive('notifications', auroraApp.Directives.Notifications.factory());

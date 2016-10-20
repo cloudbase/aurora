@@ -239,6 +239,9 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
     .state('volumes-list', {
       url: "/list",
       parent: "volumes",
+      params: {
+        type: 'list'
+      },
       templateUrl: 'views/sections/volumes_list.html',
       controller: 'VolumesCtrl',
       controllerAs: 'vm',
@@ -287,6 +290,28 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           
             this.apiService.vmNetworks[Object.keys(this.apiService.vmNetworks)[0]].selected = true
           })
+        }]
+      }
+    })
+    .state('snapshot', {
+      url: "/snapshot",
+      parent: "compute",
+      abstract: true,
+      templateUrl: "views/abstract.html",
+      controllerAs: 'vm'
+    })
+    .state('snapshot-list', {
+      url: "/list",
+      parent: "snapshot",
+      params: {
+        type: 'list'
+      },
+      templateUrl: 'views/sections/snapshot_list.html',
+      controller: 'SnapshotsCtrl',
+      controllerAs: 'vm',
+      resolve: {
+        data: ['ApiService', (apiService) => {
+          return apiService.queryServers()
         }]
       }
     })

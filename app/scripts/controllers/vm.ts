@@ -68,7 +68,7 @@ module auroraApp {
         createSnapshot() {
             let name = this.item.name + "_sp_" + (this.item.snapshots.length + 1)
             let id = Math.floor((Math.random() * 1000) + 1) + " " + Math.floor((Math.random() * 1000) + 1)
-            let snapshot = new VmSnapshot(id, name, this.item.flavor.ssd, new Date())
+            let snapshot = new VmSnapshot(id, name, this.item.flavor.ssd, this.item.zone, new Date())
             
             this.item.snapshots.push(snapshot)
             

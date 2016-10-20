@@ -83,6 +83,7 @@ module auroraApp.Directives {
           apiService.project.current_vram += item.flavor.ram
           apiService.project.current_storage += item.flavor.ssd
         })
+        apiService.vmVolumes.forEach(volume => apiService.project.current_storage += volume.size)
         
       }],
       link: ($scope, $element) => {

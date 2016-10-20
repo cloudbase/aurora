@@ -81,6 +81,7 @@ module auroraApp {
         id: string
         name: string
         size: number
+        region: IZone
         dateCreated: Date
     }
     
@@ -90,6 +91,7 @@ module auroraApp {
           public id,
           public name,
           public size,
+          public region,
           public dateCreated
         ) {}
     }
@@ -113,6 +115,8 @@ module auroraApp {
     }
     
     export class VmVolume implements IVmVolume {
+        selected = false
+        selectedVm = false
         constructor(
           public id,
           public name,
@@ -123,20 +127,19 @@ module auroraApp {
           public type,
           public region,
           public bootable,
-          public encrypted,
-          public selected = false
+          public encrypted
         ) {}
         
         attachVm(vm:VmItem):void {
-            this.attached_to.push({
+            this.attached_to= {
                 vm: vm,
-                path: "/dev/vdb"
-            })
+                path: "/dev/sdb"
+            }
         }
         detachVm(vm:VmItem):void {
             let attachment:IVolumeAttachment = {
                 vm: vm,
-                path: "/dev/vdb"
+                path: "/dev/sdb"
             }
             let index = this.attached_to.indexOf(attachment)
             this.attached_to.splice(index, 1)

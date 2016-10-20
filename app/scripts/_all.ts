@@ -22,6 +22,8 @@
 
 /// <reference path='controllers/volumes.ts' />
 
+/// <reference path='controllers/snapshots.ts' />
+
 /// <reference path='controllers/networking.ts' />
 
 

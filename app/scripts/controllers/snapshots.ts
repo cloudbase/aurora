@@ -5,85 +5,30 @@
 module auroraApp {
 	export class SnapshotsCtrl {
 		volumes:VmVolume[]
+		snapshots:IVmSnapshot[]
 		size = 1
 		static $inject = [
 			"$scope",
 			"ApiService",
 			"$stateParams",
-			"$uibModal"
+			"$uibModal",
+			"Notification"
 		]
 		
-		constructor(isolateScope:Directives.IVmListScope, public apiService:Services.IApiService, public $stateParams, public $uibModal) {
-			this.volumes = apiService.vmVolumes
+		constructor(isolateScope:Directives.IVmListScope,
+		            public apiService:Services.IApiService,
+		            public $stateParams,
+		            public $uibModal,
+		            public notification) {
+			this.snapshots = apiService.vmSnapshots
 		}
 		
-		toggleSelection(obj:VmVolume)
-		{
-			obj.selected = !obj.selected
+		deleteSnapshot(obj:IVmSnapshot) {
+			let index = this.apiService.vmSnapshots.indexOf(obj)
+			this.apiService.vmSnapshots.splice(index, 1)
+			this.notification.info("Snapshot " + obj.name + " deleted")
 		}
 		
-		createSnapshot(obj:VmVolume)
-		{
-			let rand = Math.floor((Math.random() * 100) + 1)
-			let name = obj.name + "_vol_sp_" + rand
-			let id = Math.floor((Math.random() * 1000) + 1) + " " + Math.floor((Math.random() * 1000) + 1)
-		}
-		
-		manageAttachment(volume: IVmVolume)
-		{
-			let self = this
-			var modalInstance = this.$uibModal.open({
-				animation: true,
-				ariaLabelledBy: 'modal-title',
-				ariaDescribedBy: 'modal-body',
-				templateUrl: 'views/modals/manage-volumes-attachments.html',
-				controller: ($scope, $uibModalInstance, apiService, volume) => {
-					$scope.vmList = apiService.listItems
-					$scope.volume = volume
-					if (volume.attached_to != null) {
-						volume.attached_to.forEach((attachment) => {
-							let index = $scope.vmList.indexOf(attachment.vm)
-							$scope.vmList.splice(index, 1)
-						})
-					}
-					
-					$scope.cancel = () => {
-						$uibModalInstance.dismiss('cancel')
-					}
-					$scope.ok = () => {
-						$uibModalInstance.close(true);
-					}
-					$scope.selectVm = (item:VmItem) => {
-						let attachment:IVolumeAttachment = {
-							vm: item,
-							path: "/dev/sdb"
-						}
-						
-						if ($scope.volume.attached_to == null)
-							$scope.volume.attached_to = []
-						
-						$scope.volume.attached_to.push(attachment)
-						
-						let index = $scope.vmList.indexOf(item)
-						$scope.vmList.splice(index, 1)
-					}
-				},
-				resolve: {
-					apiService: () => {
-						return self.apiService
-					},
-					volume: () => {
-						return volume
-					}
-				}
-			});
-			
-			modalInstance.result.then(function (selectedItem) {
-				
-			}, function () {
-				
-			});
-		}
 	}
 	
 }

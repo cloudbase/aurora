@@ -19,11 +19,11 @@
                     <div class='form'>
                         <div class='general-field name'>
                             <label for="vm-name">Name</label>
-                            <input type="text" id="vm-name" class='form-control' ng-model="vm.newVmName"/>
+                            <input type="text" id="vm-name" class='form-control' ng-model="vm.newVolumeName"/>
                         </div>
                         <div class='general-field zone'>
                             <label for="vm-zone">Region</label>
-                            <ui-select ng-model="vm.zone.value" class='zone' search-enabled="false">
+                            <ui-select ng-model="vm.region.value" class='zone' search-enabled="false">
                                 <ui-select-match placeholder='Zone' class='select-choice'>
                                     <span ng-bind="$select.selected.name"></span>
                                 </ui-select-match>
@@ -36,59 +36,31 @@
                             <label for="vm-count">Size (GB)</label>
                             <plus-minus id="vm-count" ng-model='vm.size' value="vm.size" class='form-input-number' readonly="false" min="1"></plus-minus>
                         </div>
+                        <div class="general-field description">
+                            <label for="volume-description">Description</label>
+                            <textarea ng-model="vm.volumeDescription" id="volume-description"></textarea>
+                        </div>
                     </div>
                 </collapse>
                 <collapse class="panel sources-panel" title="Choose Source" valid="valid">
                     <uib-accordion close-others="true">
-                        <div uib-accordion-group class="panel-default">
+                        <div uib-accordion-group class="panel-default" ng-class="{active: vm.category_selected == 'empty'}" is-open="true">
                             <uib-accordion-heading>
-
-                                <svg width="21px" height="20px" viewBox="-2 -1 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
-                                    <desc>Created with Sketch.</desc>
-                                    <defs>
-                                        <rect id="path-1" x="0" y="0" width="16" height="16" rx="4"></rect>
-                                        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-                                            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-                                            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                                            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
-                                            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-                                        </filter>
-                                        <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
-                                            <use xlink:href="#path-1"></use>
-                                        </mask>
-                                    </defs>
-                                    <g id="Checkbox" stroke="none" fill="none">
-                                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                        <use stroke="#30AD63" mask="url(#mask-3)" stroke-width="2" fill-opacity="0.799999952" fill="#30AD63" fill-rule="evenodd" xlink:href="#path-1"></use>
-                                    </g>
-                                    <path d="M11.3137,5.29286 C10.9227,4.90186 10.2897,4.90186 9.8997,5.29286 L6.5357,8.65686 L5.7067,7.82886 C5.3167,7.43786 4.6837,7.43786 4.2927,7.82886 C3.9027,8.21886 3.9027,8.85186 4.2927,9.24286 L5.8287,10.77786 C6.2187,11.16886 6.8517,11.16886 7.2427,10.77786 L11.3137,6.70686 C11.7047,6.31686 11.7047,5.68386 11.3137,5.29286" id="Tick" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
-                                </svg>
+                                <i class="glyphicon glyphicon-ok"></i>
                                 Empty
                             </uib-accordion-heading>
 
-                            <svg width="21px" height="20px" viewBox="-2 -1 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <defs>
-                                    <rect id="path-1" x="0" y="0" width="16" height="16" rx="4"></rect>
-                                    <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-                                        <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-                                        <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                                        <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
-                                        <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-                                    </filter>
-                                    <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
-                                        <use xlink:href="#path-1"></use>
-                                    </mask>
-                                </defs>
-                                <g id="Checkbox" stroke="none" fill="none">
-                                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                    <use stroke="#30AD63" mask="url(#mask-3)" stroke-width="2" fill-opacity="0.799999952" fill="#30AD63" fill-rule="evenodd" xlink:href="#path-1"></use>
-                                </g>
-                                <path d="M11.3137,5.29286 C10.9227,4.90186 10.2897,4.90186 9.8997,5.29286 L6.5357,8.65686 L5.7067,7.82886 C5.3167,7.43786 4.6837,7.43786 4.2927,7.82886 C3.9027,8.21886 3.9027,8.85186 4.2927,9.24286 L5.8287,10.77786 C6.2187,11.16886 6.8517,11.16886 7.2427,10.77786 L11.3137,6.70686 C11.7047,6.31686 11.7047,5.68386 11.3137,5.29286" id="Tick" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
-                            </svg>
-                            No source, empty volume
+                            <div ng-class="{selected: vm.category_selected == 'empty'}" class="option" ng-click="vm.selectEmpty()">
+                                <svg class='radio-btn radio-active' width="21px" height="20px">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#check-active"></use>
+                                </svg>
+                                <svg class='radio-btn radio-inactive' width="21px" height="20px">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#check-inactive"></use>
+                                </svg>
+                                No source, empty volume
+                            </div>
                         </div>
-                        <div uib-accordion-group class="panel-default" is-open="true">
+                        <div ng-class="{active: vm.category_selected == 'images'}" uib-accordion-group class="panel-default" is-open="false">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
                                 Images
@@ -96,23 +68,27 @@
 
                             <div ui-view="images"></div>
                         </div>
-                        <div uib-accordion-group class="panel-default">
+                        <div ng-class="{active: vm.category_selected == 'volumes'}" uib-accordion-group class="panel-default">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
                                 Volumes
                             </uib-accordion-heading>
-                            Volumes
+                            <div class="list-volumes">
+                                <div ng-repeat="volume in vm.volumes"  class="volume-wrapper" ng-class="{selected: volume.selected}" ng-click="vm.selectVolume(volume)">
+                                    <volume-display  selectable="true" volume="volume"></volume-display>
+                                </div>
+                            </div>
                         </div>
                     </uib-accordion>
                 </collapse>
-                <a class="btn btn-primary btn-launch" ng-click="vm.createVm()">
+                <a class="btn btn-primary btn-launch" ng-click="vm.createVolume()">
                     Create Volume
                 </a>
             </div>
         </div>
         <div class='sidebar' sticky offset="175">
             <div ui-view="sidebar"></div>
-            <a class="btn btn-primary btn-launch" ng-click="vm.createVm()">
+            <a class="btn btn-primary btn-launch" ng-click="vm.createVolume()">
                 Create Volume
             </a>
         </div>

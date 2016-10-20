@@ -37,6 +37,7 @@ declare module auroraApp.Services {
 		vmImages:IVmImage[]
 		vmVolumes:VmVolume[]
 		vmNetworks:IVmNetwork[]
+		vmSnapshots:IVmSnapshot[]
 		networkList:IVmNetwork[]
 		project:Project
 		//handlerResponded(response: any, params: any): any

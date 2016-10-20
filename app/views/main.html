@@ -28,12 +28,15 @@
                                     <a ui-sref="vm-list">Virtual Machines</a>
                                     <a ui-sref="vm" style="display:none" > </a>
                                 </li>
-                                <li>
-                                    <a ui-sref-active="active" ui-sref="volumes-list">Volumes</a>
-                                    <a ui-sref="vm" style="display:none" > </a>
+                                <li ui-sref-active="active">
+                                    <a ui-sref="volumes-list">Volumes</a>
+                                    <a ui-sref="volumes" style="display:none" > </a>
                                 </li>
                                 <li><a ui-sref-active="active" ui-sref="/">Templates</a></li>
-                                <li><a ui-sref-active="active" ui-sref="/">Snapshots</a></li>
+                                <li ui-sref-active="active">
+                                    <a ui-sref="snapshot-list">Snapshots</a>
+                                    <a ui-sref="snapshots" style="display:none" > </a>
+                                </li>
                             </ul>
                     </div>
                 </li>

@@ -1,4 +1,4 @@
-.reserve-floating-ip-modal {
+.reserve-floating-ip-modal, .edit-volume-details {
     .project-limits {
         width: 55%;
         display: inline-block;
@@ -22,7 +22,21 @@
         padding: 30px;
     }
 }
-
+.edit-volume-details {
+    @include clearfix();
+    .project-limits {
+        width: 100%;
+        .form-group {
+            width: 30%;
+            float: left;
+            margin-right: 5%;
+        }
+        .storage-limit {
+            width: 65%;
+            float: left;
+        }
+    }
+}
 .modal-header {
     h3.modal-title {
         font-size: 18px;

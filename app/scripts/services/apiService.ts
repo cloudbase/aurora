@@ -16,6 +16,7 @@ module auroraApp.Services {
 		vmFlavorsList:string[] = []
 		vmImages:VmImage[] = []
 		vmVolumes: VmVolume[] = []
+		vmSnapshots: VmSnapshot[] = []
 		vmImagesList:string[]
 		vmNetworks:VmNetwork[] = []
 		networkList:VmNetwork[] = []

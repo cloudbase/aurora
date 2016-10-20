@@ -580,6 +580,16 @@
       background-color: #FFF;
     }
   }
+  .table-content .table-row {
+    .volume-details {
+      .info {
+        padding-left: 5px;
+        .name {
+          margin-left: 0;
+        }
+      }
+    }
+  }
 }
 
 .vm-widgets-container {
@@ -827,7 +837,7 @@
   }
   
 }
-.table.table-snapshots {
+.table-snapshots {
   .table-row {
     padding-left: 20px;
   }
@@ -845,6 +855,25 @@
       width: 40%;
     }
     
+  }
+}
+.table-main-snapshots {
+  .cell {
+    &:first-child {
+      width: 60%;
+    }
+    &:nth-child(2) {
+      width: 10%;
+    }
+    &:nth-child(3) {
+      width: 10%;
+    }
+    &:nth-child(4) {
+      width: 10%;
+    }
+    &:last-child {
+      width: 10%;
+    }
   }
 }
 .list-filters {

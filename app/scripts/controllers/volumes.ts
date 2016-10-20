@@ -6,15 +6,42 @@ module auroraApp {
 	export class VolumesCtrl {
 		volumes:VmVolume[]
 		size = 1
+		newVolumeName: string
+		region: any
+		volumeDescription: string
+		category_selected = "empty"
+		images: IVmImage[]
 		static $inject = [
 			"$scope",
+			"$state",
 			"ApiService",
 			"$stateParams",
-			"$uibModal"
+			"$uibModal",
+			"Notification"
 		]
 		
-		constructor(isolateScope:Directives.IVmListScope, public apiService:Services.IApiService, public $stateParams, public $uibModal) {
+		constructor(
+			public $scope: ng.IScope,
+			public $state: any,
+			public apiService:Services.IApiService,
+			public $stateParams,
+			public $uibModal,
+		  public notifications
+		) {
 			this.volumes = apiService.vmVolumes
+			this.images = apiService.vmImages
+			if ($stateParams.type == "create") {
+				let rand = Math.floor((Math.random() * 100) + 1)
+				
+				this.newVolumeName = "volume-" + rand;
+				this.volumeDescription = ""
+				
+				$scope.$on("select_image", () => this.category_selected = "images")
+				this.clearSelections()
+			}
+			
+			this.region = {}
+			this.region.value = this.apiService.project.zones[0]
 		}
 		
 		toggleSelection(obj:VmVolume)
@@ -27,6 +54,13 @@ module auroraApp {
 			let rand = Math.floor((Math.random() * 100) + 1)
 			let name = obj.name + "_vol_sp_" + rand
 			let id = Math.floor((Math.random() * 1000) + 1) + " " + Math.floor((Math.random() * 1000) + 1)
+			
+			let newSnapshot = new VmSnapshot(id, name, obj.size, obj.region, new Date())
+			
+			this.apiService.vmSnapshots.push(newSnapshot)
+			
+			this.notifications.info("Created snapshot " + name)
+			
 		}
 		
 		deleteVolume(volume: VmVolume)
@@ -110,24 +144,102 @@ module auroraApp {
 					}
 				}
 			});
+		}
+		
+		clearSelections()
+		{
+			this.apiService.vmImages.forEach(image => image.selected = false)
+			this.volumes.forEach(volume => volume.selected = false)
+			this.$scope.$emit('clear_selection')
+		}
+		
+		selectEmpty()
+		{
+			this.clearSelections()
+			this.category_selected = "empty"
+		}
+		
+		attachVm(volume)
+		{
+			volume.attachVm(volume.selectedVm.value)
+			this.notifications.info("Attached volume " + volume.name + " to VM:" + volume.selectedVm.value.name)
+		}
+		
+		discardVm(volume:IVmVolume)
+		{
 			
-			modalInstance.result.then(function (selectedItem) {
-				
-			}, function () {
-				
+			this.notifications.info("Discarded volume " + volume.name + " from VM:" + volume.attached_to.vm.name)
+			volume.attached_to = null
+		}
+		
+		selectVolume(volume:VmVolume)
+		{
+			this.clearSelections()
+			this.category_selected = "volumes"
+			volume.selected = true
+		}
+		
+		editVolume(volume:VmVolume)
+		{
+			let self = this
+			
+			this.apiService.project.current_storage = 0
+			this.apiService.listItems.forEach(item => this.apiService.project.current_storage += item.flavor.ssd)
+			this.apiService.vmVolumes.forEach(volume => this.apiService.project.current_storage += volume.size)
+			
+			var modalInstance = this.$uibModal.open({
+				animation: true,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'views/modals/edit-volume-details.html',
+				controller: ($scope, $uibModalInstance, apiService, volume, project) => {
+					$scope.project = project
+					
+					$scope.increaseStorage = 0
+					$scope.volumeName = volume.name
+					$scope.volumeDescription = volume.description
+					
+					$scope.cancel = () => {
+						$uibModalInstance.dismiss('cancel')
+					}
+					$scope.ok = () => {
+						volume.name = $scope.volumeName
+						volume.description = $scope.volumeDescription
+						volume.size += $scope.increaseStorage
+						this.notifications.info("Saved changes")
+						$uibModalInstance.close(true);
+					}
+				},
+				resolve: {
+					apiService: () => {
+						return self.apiService
+					},
+					project: () => {
+						return self.apiService.project
+					},
+					volume: () => {
+						return volume
+					}
+				}
 			});
 		}
 		
-		attachVm($item:VmItem, volume:IVmVolume)
+		createVolume()
 		{
-			let attachment:IVolumeAttachment = {
-				vm: $item,
-				path: "/dev/sdb"
-			}
-			volume.attached_to = attachment
-			console.log(volume)
+			let newVolume = new VmVolume(
+				this.newVolumeName,
+				this.newVolumeName,
+				this.volumeDescription,
+				this.size,
+				null, "READY", "NFS", this.region.value, false, false
+			)
+			this.apiService.vmVolumes.push(newVolume)
+			this.$state.go("volumes-list");
+			this.notifications.info("Volume " + this.newVolumeName + " created")
 		}
 	}
+	
+	
 	
 }
 

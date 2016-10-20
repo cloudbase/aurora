@@ -14,7 +14,7 @@ module auroraApp {
             "ApiService",
             "$stateParams"
         ]
-        constructor(isolateScope: Directives.IVmListScope, public apiService: Services.IApiService, public $stateParams) {
+        constructor(public $scope: ng.IScope, public apiService: Services.IApiService, public $stateParams) {
             let flavor = this.apiService.vmImages.filter((vmFlavor:IVmImage):boolean => {
                 return vmFlavor.selected == true
             })[0]
@@ -22,6 +22,7 @@ module auroraApp {
             this.tags.push("recommended")
             
             let firstSelected = false
+            
             
             apiService.vmImages.forEach((image:VmImage) => {
                 image.selected = false
@@ -45,15 +46,14 @@ module auroraApp {
                     this.images.push(snapshot)
                 })
             })
-            
-            
-            console.log("Images:", this.images)
         }
 
         selectImage(obj: IVmImage) {
             angular.forEach(this.apiService.vmImages, (image:IVmFlavor) => {
                 image.selected = false;
             })
+    
+            this.$scope.$emit("select_image")
             
             obj.selected = true
         }
