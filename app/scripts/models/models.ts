@@ -40,6 +40,7 @@ module auroraApp {
         id: string
         ip: string
         assigned_to?: INetworkInterface
+        assigned_vm?: VmItem
     }
 
     export interface INetworkInterface {

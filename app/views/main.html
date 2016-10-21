@@ -52,10 +52,21 @@
                     <a ui-sref="networking" style="display:none" > </a>
                     <div class='submenu'>
                         <ul>
-                            <li><a ui-sref-active="active" ui-sref="/">Map</a></li>
-                            <li><a ui-sref-active="active" ui-sref="/">Networks</a></li>
-                            <li><a ui-sref-active="active" ui-sref="networking-floating-ips">Floating IPs</a></li>
-                            <li><a ui-sref-active="active" ui-sref="/">Routers</a></li>
+                            <li>
+                                <a ui-sref-active="active" ui-sref="/">Map</a>
+                            </li>
+                            <li class="with-counter">
+                                <a ui-sref-active="active" ui-sref="/">Networks</a>
+                                <span class="count">{{vm.apiService.networkList.length}}</span>
+                            </li>
+                            <li class="with-counter">
+                                <a ui-sref-active="active" ui-sref="networking-floating-ips">Floating IPs</a>
+                                <span class="count">{{vm.apiService.project.floating_ips.length}}</span>
+                            </li>
+                            <li class="with-counter">
+                                <a ui-sref-active="active" ui-sref="/">Routers</a>
+                                <span class="count">0</span>
+                            </li>
                         </ul>
                     </div>
                 </li>

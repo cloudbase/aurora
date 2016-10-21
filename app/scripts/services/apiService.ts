@@ -169,12 +169,20 @@ module auroraApp.Services {
 				started
 			);
 			
+			
 			// if exists, update, if not push into array
 			if (angular.isUndefined(searchVm)) {
 				this.listItems.push(newItem)
 			} else {
 				this.listItems[this.listItems.indexOf(searchVm)] = newItem
 			}
+			
+			newItem.network_interfaces.forEach((item:INetworkInterface) => {
+				if (item.floating_ip) {
+					let index = this.project.floating_ips.indexOf(item.floating_ip)
+					this.project.floating_ips[index].assigned_vm = newItem
+				}
+			});
 			
 		}
 		

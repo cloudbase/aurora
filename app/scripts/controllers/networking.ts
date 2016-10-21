@@ -16,7 +16,7 @@ module auroraApp {
             public $uibModal: any
         )
         {
-            
+            apiService.project.floating_ips.forEach(ip => console.log(ip))
         }
 
         getInterfaceVm(networkInterface: INetworkInterface) {
@@ -63,7 +63,8 @@ module auroraApp {
                 _this.apiService.project.floating_ips.push({
                     id: _this.apiService.project.floating_ips.length + 1,
                     ip: randomIp,
-                    assigned_to: null
+                    assigned_to: null,
+                    assigned_vm: null
                 })
             }, function () {
         
@@ -71,9 +72,19 @@ module auroraApp {
         }
 
         releaseFloatingIp(floating_ip: IFloatingIp) {
-            console.log(floating_ip)
             floating_ip.assigned_to.floating_ip = null
             floating_ip.assigned_to = null
+            floating_ip.assigned_vm = null
+        }
+    
+        selectVm(item: VmItem, floatingIp: IFloatingIp)
+        {
+            console.log(item.network_interfaces)
+            floatingIp.assigned_vm = item
+        }
+        
+        selectNetwork(item: INetworkInterface, floating_ip: IFloatingIp) {
+            floating_ip.assigned_to = item
         }
         
     }

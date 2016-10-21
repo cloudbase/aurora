@@ -190,7 +190,12 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       abstract: true,
       url: "/networking",
       templateUrl: "views/main.html",
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: {
+        data: ['ApiService', (apiService) => {
+          return apiService.queryServers()
+        }]
+      }
     })
     // NETWORKING
     /*.state('networking', {

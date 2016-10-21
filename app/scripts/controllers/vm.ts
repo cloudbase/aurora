@@ -79,6 +79,8 @@ module auroraApp {
             
             this.item.snapshots.push(snapshot)
             
+            this.apiService.vmSnapshots.push(snapshot)
+            
             this.apiService.updateVm(this.item)
         }
 

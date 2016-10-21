@@ -57,8 +57,8 @@
             </div>
         </div>
         <div class='cell'>
-            <div ng-if="item.assigned_to == null">
-                <ui-select ng-model="netView.selected.value" on-select="netView.selectFloatingIp($item, network_interface)">
+            <div ng-if="item.assigned_vm == null">
+                <ui-select ng-model="item.selected.value" on-select="netView.selectVm($item, item)">
                     <ui-select-match placeholder="Unallocated" class='select-choice'>
                         <span ng-bind="$select.selected.name"></span>
                     </ui-select-match>
@@ -67,14 +67,25 @@
                     </ui-select-choices>
                 </ui-select>
             </div>
-            <div ng-if="item.assigned_to != null">
-                <vm-display vm="netView.getInterfaceVm(item.assigned_to)"></vm-display>
+            <div ng-if="item.assigned_vm != null">
+                <vm-display vm="item.assigned_vm"></vm-display>
             </div>
         </div>
         <div class="cell">
-            <div ng-if="item.assigned_to == null">
-
+            <div ng-if="item.assigned_vm != null && item.assigned_to == null" class="network_interface">
+                <ui-select ng-model="item.selectedNetwork.value" on-select="netView.selectNetwork($item, item)">
+                    <ui-select-match placeholder="Network interface" class='select-choice'>
+                        <span ng-bind="$select.selected.name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="network_interface in item.assigned_vm.network_interfaces" class='select-choice'>
+                        <span ng-bind="network_interface.network.network_interface">eth{{$index}}</span>
+                    </ui-select-choices>
+                </ui-select>
             </div>
+            <div ng-if="item.assigned_to != null">
+                {{item.assigned_to.network.network_interface}}
+            </div>
+
         </div>
         <div class='cell'>public</div>
         <div class='cell'>
