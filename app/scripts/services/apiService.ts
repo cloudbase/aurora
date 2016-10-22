@@ -39,13 +39,23 @@ module auroraApp.Services {
 		            private $cookies:Services.ICookiesService,
 		            private $location:ng.ILocationService,
 								private $timeout:ng.ITimeoutService) {
-			this.processData();
+				this.processData();
 		}
 		
 		
-		processData() {
+		processData():ng.IPromise< any > {
+			let deferred = this.$q.defer()
 			var self = this
 			
+			window['mapDetails'] = {
+				elements: {
+					internet: {x: 1, y: 6, type: 'internet'},
+					router: {x: 6, y: 6, type: 'router'}
+				},
+				links: [
+					{from: "internet", to: "router", type: "uni"}
+				]
+			}
 			// query the service for the list
 			this.queryServers().then((response:any):void => {
 				let projectData = response.project
@@ -94,27 +104,33 @@ module auroraApp.Services {
 				});
 				
 				// Networks
+				let networkCount = 0;
 				angular.forEach(response.networks, (value:any):void => {
-					self.addNetwork(value)
+					self.addNetwork(value, response.networks.length, networkCount)
+					networkCount++
 				});
 				
 				// routers
 				angular.forEach(response.routers, (value:any):void => {
 					self.addRouter(value)
 				});
-				console.log(response.routers)
 				
 				// VMs
+				let vmCount = 0;
 				angular.forEach(response.servers, (value:any):void => {
-					self.addVm(value);
+					self.addVm(value, vmCount);
+					vmCount++
 				});
+				deferred.resolve()
+				
 			});
+			return deferred.promise
 		}
 		
 		/**
 		 * Adds or updates record in list
 		 */
-		addVm(obj:any) {
+		addVm(obj:any, index) {
 			let date:Date = new Date(Date.parse(obj.created));
 			
 			let started:Date = new Date(Date.parse(obj.updated));
@@ -181,7 +197,9 @@ module auroraApp.Services {
 			
 			// if exists, update, if not push into array
 			if (angular.isUndefined(searchVm)) {
-				this.listItems.push(newItem)
+				this.insertVm(newItem)
+				
+				//window['mapDetails']['links'].push({from: "router", to: 'network' + '_' + obj.name, type: "uni"})
 			} else {
 				this.listItems[this.listItems.indexOf(searchVm)] = newItem
 			}
@@ -253,7 +271,7 @@ module auroraApp.Services {
 			this.vmFlavors.push(newFlavor)
 		}
 		
-		addNetwork(obj:any) {
+		addNetwork(obj:any, length: number, index: number) {
 			var newNetwork = new VmNetwork(
 				obj.name,
 				obj.type,
@@ -267,6 +285,11 @@ module auroraApp.Services {
 			
 			this.vmNetworks[obj.name] = newNetwork
 			this.networkList.push(newNetwork)
+			
+			let network_start =  (12 - (12 % length)) / length
+			let network_pos = network_start + index * 2
+			window['mapDetails']['elements']['network' + '_' + obj.name] = {x: 10, y: network_pos, type: 'network'}
+			window['mapDetails']['links'].push({from: "router", to: 'network' + '_' + obj.name, type: "uni"})
 		}
 		
 		addRouter(obj:any) {
@@ -284,6 +307,16 @@ module auroraApp.Services {
 		}
 		insertVm(vm:VmItem) {
 			this.listItems.push(vm);
+			let index = this.listItems.length
+			
+			let vm_pos_y = index * 2 - 1
+			let vm_pos_x = 15
+			window['mapDetails']['elements']['vm' + '_' + vm.id] = {x: vm_pos_x, y: vm_pos_y, type: 'vm'}
+			vm.network_interfaces.forEach((networkInterface:INetworkInterface) => {
+				let newLink = {from: "network_" + networkInterface.network.name, to: 'vm' + '_' + vm.id, type: "uni", connector: "metro"}
+				if (window['mapDetails']['links'].indexOf(newLink) == -1)
+					window['mapDetails']['links'].push(newLink)
+			})
 		}
 		
 		isAuthenticated():ng.IPromise< any > {

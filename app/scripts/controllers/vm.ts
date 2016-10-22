@@ -49,6 +49,10 @@ module auroraApp {
                 ip_addr: network_obj.allocateIp()
             }
             this.item.network_interfaces.push(network_interface)
+    
+            let newLink = {from: "network_" + network_interface.network.name, to: 'vm' + '_' + this.item.id, type: "uni", connector: "metro"}
+            if (window['mapDetails']['links'].indexOf(newLink) == -1)
+                window['mapDetails']['links'].push(newLink)
         }
 
         removeInterface(networkInterface: INetworkInterface) {
@@ -56,6 +60,11 @@ module auroraApp {
 
             let index = this.item.network_interfaces.indexOf(networkInterface)
             this.item.network_interfaces.splice(index, 1)
+    
+            let newLink = {from: "network_" + networkInterface.network.name, to: 'vm' + '_' + this.item.id, type: "uni", connector: "metro"}
+            index = window['mapDetails']['links'].indexOf(newLink)
+            if (index > -1)
+                window['mapDetails']['links'].splice(index, 1)
         }
 
         availableFloatingIps(floating_ip: IFloatingIp) {

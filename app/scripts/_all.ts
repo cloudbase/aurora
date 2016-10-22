@@ -39,6 +39,7 @@
 /// <reference path='directives/directives.d.ts' />
 /// <reference path='directives/widgets.ts' />
 /// <reference path='directives/filters.ts' />
+/// <reference path='directives/map.ts' />
 
 // ## MODELS ##
 /// <reference path='models/models.ts' />

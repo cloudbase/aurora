@@ -5,17 +5,27 @@
 module auroraApp {
     export class NetworkingCtrl {
         static $inject = [
+            "$scope",
             "ApiService",
             "$state",
-            "$uibModal"
+            "$uibModal",
+            "$stateParams",
+            "data"
         ];
 
         constructor(
+            public $scope: ng.IScope,
             public apiService: Services.IApiService,
             private $state: any,
-            public $uibModal: any
+            public $uibModal: any,
+            public $stateParams,
+            public data: any
         )
         {
+            
+            if ($stateParams.type == "map") {
+                this.mapInit(data)
+            }
         }
 
         getInterfaceVm(networkInterface: INetworkInterface) {
@@ -86,6 +96,18 @@ module auroraApp {
             floating_ip.assigned_to = item
         }
         
+        mapInit(data)
+        {
+            let self = this
+            
+            /*
+            
+            let network_start =  (12 - (12 % data.vmNetworks.length)) / data.vmNetworks.length
+            console.log(network_start)
+            data.vmNetworks.forEach(network => {
+                console.log('asdasdasd')
+            })*/
+        }
     }
 }
 

@@ -1,0 +1,18 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+#grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+#paper {
+    margin-top: 15px;
+    margin-left: 80px;
+}
+
+#grid, #paper {
+    zoom: 0.75
+}

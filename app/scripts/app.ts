@@ -201,17 +201,25 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
     .state('networking-map', {
       parent: "networking",
       url: "/map",
+      params: {
+        type: 'map'
+      },
       views: {
         '': {
           templateUrl: "views/sections/networking.html",
           controller: 'NetworkingCtrl',
-          controllerAs: 'netView'
+          controllerAs: 'vm'
         },
-        'content@networking-floating-ips': {
+        'content@networking-map': {
           templateUrl: 'views/partials/networking.map.html',
           controller: 'NetworkingCtrl',
-          controllerAs: 'netView'
+          controllerAs: 'vm'
         }
+      },
+      resolve: {
+        data: ['ApiService', (apiService) => {
+          return apiService.queryServers()
+        }]
       }
     })
     .state('networking-floating-ips', {
@@ -358,7 +366,25 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           positionX: 'right',
           positionY: 'top'
       });
-  });
+  }).config(['JointGraphConfigProvider',
+  function(JointGraphConfigProvider) {
+    JointGraphConfigProvider.init({
+      entityModelProperties: {
+        firstEntity: ['property1', 'property2'],
+        secondEntity: ['property3', 'property4']
+      },
+      entityCreationCallbacks: {
+        firstEntity: 'FirstEntityCallbacks',
+        secondEntity: 'SecondEntityCallbacks'
+      },
+      modelIdKey: 'uuId',
+      linkModelProperties: [],
+      linkCreationCallbacks: 'LinkCallbacks',
+      entityMarkupParams: 'EntityMarkup',
+      linkMarkupParams: 'LinkMarkup'
+    });
+  }
+]);
 
 app.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'

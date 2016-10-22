@@ -29,6 +29,7 @@ declare module auroraApp.Services {
 	interface IApiService {
 		authCredentials(user:string, pass:string):ng.IPromise< string >
 		queryServers(useCache?:boolean):ng.IPromise< any >
+		processData():ng.IPromise< any >
 		serverAction(id:string, action:string):ng.IPromise< any >
 		setVmProperty(id:string, properties:IVmProperty[]):ng.IPromise< any >
 		insertVm(obj:IVmItem)

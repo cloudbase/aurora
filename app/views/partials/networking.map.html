@@ -1,3 +1,45 @@
-<div class='table'>
+<div class="main-list">
+    <div class='list-header'>
+        <h1>Network Map</h1>
 
+    </div>
+    <div id="vm-map">
+        <svg class="background" width="1210px" height="728px" viewBox="228 259 1168 728" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+                <pattern id="pattern-1" width="4.8" height="4.8" x="201.2" y="254.2" patternUnits="userSpaceOnUse">
+                    <use xlink:href="#image-2" transform="scale(0.1,0.1)"></use>
+                </pattern>
+                <image id="image-2" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAMFJREFUaAXtl0EOgCAMBInxVz5f/6VwqCEeCAg9bDMkBBVY2ykFTYnSJHDk3lLdyuamjDAElhAgB5ZgRESYADkgHDxMX0KAHFiCERFhAle2/RS2P93Z+FLdivwPDQ64rY1O4TAR+J6Yo/dlp7GErVvjWD+z63p3Gn3fO14+AkbIqzXaXvpJPgI44LY2OoXlI7B3Ovp3WPmYo0BggsB7Yk5oNKfKJ3HTOzoDECAHAgQRF6YIkANT+JgcgAA5ECCIbRceibcZTFMf7ZUAAAAASUVORK5CYII="></image>
+            </defs>
+            <rect id="Rectangle" stroke="none" fill-opacity="0.189999998" fill="url(#pattern-1)" fill-rule="evenodd" x="206" y="259" width="1210" height="728"></rect>
+        </svg>
+        <div class="controls">
+            <div class="control zoom-in">
+                <svg width="18px" height="18px" viewBox="10 10 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Plus-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(11.000000, 11.000000)" stroke-linecap="square">
+                        <path d="M8,0 L8,16" id="Line" stroke="#354052"></path>
+                        <path d="M16,8 L0,8" id="Line" stroke="#354052"></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="control zoom-out">
+                <svg width="18px" height="5px" viewBox="10 40 18 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Plus-Copy-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(11.000000, 41.640640)" stroke-linecap="square">
+                        <path d="M16,1 L0,1" id="Line" stroke="#354052"></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="control rearrange">
+                <svg width="17px" height="15px" viewBox="11 58 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M27.3794249,72.0544481 C27.3794249,72.5388447 26.9864497,72.9318199 26.5020532,72.9318199 L23.5765711,72.9318199 C23.0921746,72.9318199 22.6991994,72.5388447 22.6991994,72.0544481 L22.6991994,69.128966 C22.6991994,68.6445695 23.0921746,68.2515943 23.5765711,68.2515943 L24.4539428,68.2515943 L24.4539428,66.4968509 L19.7750818,66.4968509 L19.7750818,68.2515943 L20.6524535,68.2515943 C21.13685,68.2515943 21.5298253,68.6445695 21.5298253,69.128966 L21.5298253,72.0544481 C21.5298253,72.5388447 21.13685,72.9318199 20.6524535,72.9318199 L17.7269714,72.9318199 C17.2425749,72.9318199 16.8495997,72.5388447 16.8495997,72.0544481 L16.8495997,69.128966 C16.8495997,68.6445695 17.2425749,68.2515943 17.7269714,68.2515943 L18.6043432,68.2515943 L18.6043432,66.4968509 L13.9254821,66.4968509 L13.9254821,68.2515943 L14.8028538,68.2515943 C15.2872503,68.2515943 15.6802256,68.6445695 15.6802256,69.128966 L15.6802256,72.0544481 C15.6802256,72.5388447 15.2872503,72.9318199 14.8028538,72.9318199 L11.8773717,72.9318199 C11.3929752,72.9318199 11,72.5388447 11,72.0544481 L11,69.128966 C11,68.6445695 11.3929752,68.2515943 11.8773717,68.2515943 L12.7547435,68.2515943 L12.7547435,66.4968509 C12.7547435,65.8569016 13.2855329,65.3274767 13.9254821,65.3274767 L18.6043432,65.3274767 L18.6043432,63.5727333 L17.7269714,63.5727333 C17.2425749,63.5727333 16.8495997,63.1797581 16.8495997,62.6953615 L16.8495997,59.7698794 C16.8495997,59.2854829 17.2425749,58.8925077 17.7269714,58.8925077 L20.6524535,58.8925077 C21.13685,58.8925077 21.5298253,59.2854829 21.5298253,59.7698794 L21.5298253,62.6953615 C21.5298253,63.1797581 21.13685,63.5727333 20.6524535,63.5727333 L19.7750818,63.5727333 L19.7750818,65.3274767 L24.4539428,65.3274767 C25.0938921,65.3274767 25.6246815,65.8569016 25.6246815,66.4968509 L25.6246815,68.2515943 L26.5020532,68.2515943 C26.9864497,68.2515943 27.3794249,68.6445695 27.3794249,69.128966 L27.3794249,72.0544481 Z" id="Fill-1" stroke="none" fill="#354052" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+        </div>
+        <div id="paper"></div>
+    </div>
+    <script type="text/javascript">
+        var cellWidth = 50;
+    </script>
+    <script type="text/javascript" src="vendor/map/script/routing.js"></script>
 </div>
