@@ -190,6 +190,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       abstract: true,
       url: "/networking",
       templateUrl: "views/main.html",
+      controller: "NetworkingCtrl",
       controllerAs: 'vm',
       resolve: {
         data: ['ApiService', (apiService) => {
@@ -197,28 +198,22 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
         }]
       }
     })
-    // NETWORKING
-    /*.state('networking', {
-      //abstract: true,
-      url: "/networking",
+    .state('networking-map', {
+      parent: "networking",
+      url: "/map",
       views: {
         '': {
           templateUrl: "views/sections/networking.html",
           controller: 'NetworkingCtrl',
           controllerAs: 'netView'
         },
-        'content@networking': {
+        'content@networking-floating-ips': {
           templateUrl: 'views/partials/networking.map.html',
           controller: 'NetworkingCtrl',
-          controllerAs: 'netView' 
+          controllerAs: 'netView'
         }
-      },
-      resolve: {
-        project: ['ApiService', (apiService) => {
-          return apiService.queryServers()
-        }]
       }
-    }) */
+    })
     .state('networking-floating-ips', {
       parent: "networking",
       url: "/floating-ips",
@@ -232,6 +227,38 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           templateUrl: 'views/partials/networking.floating-ips.html',
           controller: 'NetworkingCtrl',
           controllerAs: 'netView' 
+        }
+      }
+    })
+    .state('networking-list', {
+      parent: "networking",
+      url: "/list-networks",
+      views: {
+        '': {
+          templateUrl: "views/sections/networking.html",
+          controller: 'NetworkingCtrl',
+          controllerAs: 'netView'
+        },
+        'content@networking-list': {
+          templateUrl: 'views/partials/networking.list.html',
+          controller: 'NetworkingCtrl',
+          controllerAs: 'vm'
+        }
+      }
+    })
+    .state('networking-routers', {
+      parent: "networking",
+      url: "/routers",
+      views: {
+        '': {
+          templateUrl: "views/sections/networking.html",
+          controller: 'NetworkingCtrl',
+          controllerAs: 'netView'
+        },
+        'content@networking-routers': {
+          templateUrl: 'views/partials/networking.routers.html',
+          controller: 'NetworkingCtrl',
+          controllerAs: 'vm'
         }
       }
     })

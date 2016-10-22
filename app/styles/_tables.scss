@@ -855,9 +855,87 @@
     margin-top: -10px;
   }
 }
+.table-network-list {
+  .item-icon {
+    float: left
+  }
+  .name {
+    float: left;
+    margin-top: 15px;
+    margin-left: 20px;
+    font-family: "geomanist_book";
+    font-size: 18px;
+    color: #354052;
+  }
+  .cell{
+    &:first-child {
+      width: 25%;
+    }
+    &:nth-child(2) {
+      width: 20%;
+      span {
+        font-family: "geomanist-book";
+        display: inline-block;;
+        width: 75px;
+      }
+    }
+    &:nth-child(3) {width: 15%}
+    &:nth-child(4) {width: 15%}
+    &:nth-child(5) {width: 15%}
+    &:nth-child(6) {width: 10%}
+  }
+}
+.table-routers-list {
+  .item-icon {
+    float: left
+  }
+  .name {
+    float: left;
+    margin-top: 15px;
+    margin-left: 20px;
+    font-family: "geomanist_book";
+    font-size: 18px;
+    color: #354052;
+  }
+
+  .cell{
+    &:first-child {
+      width: 20%;
+    }
+    &:nth-child(2) {
+      width: 20%;
+      span {
+        font-family: "geomanist-book";
+        display: inline-block;;
+        width: 75px;
+      }
+    }
+    &:nth-child(3) {width: 20%}
+    &:nth-child(4) {width: 10%}
+    &:nth-child(5) {width: 10%}
+    &:nth-child(6) {width: 10%}
+    &:nth-child(7) {width: 10%}
+  }
+  .table-row {
+    .cell:nth-child(4) {
+      padding-top: 17px;
+    }
+    .cell:nth-child(3) {
+      &>div {
+        @include clearfix()
+      }
+      span {
+        float: left;
+        &:nth-child(2) {
+          margin: 3px 3px 0 3px;
+        }
+      }
+    }
+  }
+}
 .table-snapshots {
   .table-row {
-    padding-left: 20px;
+    padding-left: 18px;
   }
   .cell {
     width: 20%;

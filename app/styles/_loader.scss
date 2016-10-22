@@ -154,16 +154,209 @@ $color-end: darken(#354052, 10%);
         -webkit-box-shadow: 0 20px 3px rgba(0,0,0,0.05);
         -moz-box-shadow: 0 20px 3px rgba(0,0,0,0.05);
     }
-} 
+}
+
+
+.uil-cube-css {
+    background: none;
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+@-webkit-keyframes uil-cube-css {
+    0% {
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        transform: scale(1.4);
+    }
+    100% {
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@-webkit-keyframes uil-cube-css {
+    0% {
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        transform: scale(1.4);
+    }
+    100% {
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@-moz-keyframes uil-cube-css {
+    0% {
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        transform: scale(1.4);
+    }
+    100% {
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@-ms-keyframes uil-cube-css {
+    0% {
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        transform: scale(1.4);
+    }
+    100% {
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@-moz-keyframes uil-cube-css {
+    0% {
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        transform: scale(1.4);
+    }
+    100% {
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@-webkit-keyframes uil-cube-css {
+    0% {
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        transform: scale(1.4);
+    }
+    100% {
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@-o-keyframes uil-cube-css {
+    0% {
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        transform: scale(1.4);
+    }
+    100% {
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@keyframes uil-cube-css {
+    0% {
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        transform: scale(1.4);
+    }
+    100% {
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+.uil-cube-css > div {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    -ms-animation: uil-cube-css 1s cubic-bezier(0.2, 0.8, 0.2, 0.8) infinite;
+    -moz-animation: uil-cube-css 1s cubic-bezier(0.2, 0.8, 0.2, 0.8) infinite;
+    -webkit-animation: uil-cube-css 1s cubic-bezier(0.2, 0.8, 0.2, 0.8) infinite;
+    -o-animation: uil-cube-css 1s cubic-bezier(0.2, 0.8, 0.2, 0.8) infinite;
+    animation: uil-cube-css 1s cubic-bezier(0.2, 0.8, 0.2, 0.8) infinite;
+}
+.uil-cube-css > div:nth-of-type(1) {
+    top: 10px;
+    left: 10px;
+    background: #4CD964;
+    opacity: 0.9;
+    -ms-animation-delay: 0s;
+    -moz-animation-delay: 0s;
+    -webkit-animation-delay: 0s;
+    -o-animation-delay: 0s;
+    animation-delay: 0s;
+}
+.uil-cube-css > div:nth-of-type(2) {
+    top: 10px;
+    left: 110px;
+    background: #4CD964;
+    opacity: 0.8;
+    -ms-animation-delay: 0.1s;
+    -moz-animation-delay: 0.1s;
+    -webkit-animation-delay: 0.1s;
+    -o-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+}
+.uil-cube-css > div:nth-of-type(3) {
+    top: 110px;
+    left: 10px;
+    background: #4CD964;
+    opacity: 0.7;
+    -ms-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+    -webkit-animation-delay: 0.3s;
+    -o-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+.uil-cube-css > div:nth-of-type(4) {
+    top: 110px;
+    left: 110px;
+    background: #4CD964;
+    opacity: 0.6;
+    -ms-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
+    -webkit-animation-delay: 0.2s;
+    -o-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+
+
 #loader {
-  position: absolute;
-  z-index: 10;
-  top: 80px;
-  left: 50%;
-  margin-left: -80px;
-  opacity: 0;
-  transition: opacity 0.2ms ease-in;
+    position: absolute;
+    z-index: 10;
+    top: 53px;
+    left: 50%;
+    margin-left: -25px;
+    opacity: 0;
   &.loading {
     opacity: 1;
   }
 }
+
+

@@ -582,7 +582,9 @@
             "shared": true,
             "allocation_pools": [{
                 "start": "10.0.0.2",
-                "end": "10.0.0.254"
+                "end": "10.0.0.254",
+                "subnet" : "10.0.0.4/24",
+                "name": "subnet_1"
             }]
         },
         {
@@ -595,7 +597,9 @@
             "shared": true,
             "allocation_pools": [{
                 "start": "10.1.1.2",
-                "end": "10.0.1.254"
+                "end": "10.0.1.254",
+                "subnet" : "10.0.0.4/24",
+                "name": "subnet_1"
             }]
         },
         {
@@ -608,7 +612,9 @@
             "shared": false,
             "allocation_pools": [{
                 "start": "10.2.2.2",
-                "end": "10.0.2.254"
+                "end": "10.0.2.254",
+                "subnet" : "10.0.0.4/24",
+                "name": "subnet_1"
             }]
         },
         {
@@ -621,7 +627,20 @@
             "shared": false,
             "allocation_pools": [{
                 "start": "10.4.0.2",
-                "end": "10.0.4.254"
+                "end": "10.0.4.254",
+                "subnet" : "10.0.0.4/24",
+                "name": "subnet_1"
+            }]
+        }
+    ],
+    "routers": [
+        {
+            "name": "Router-1",
+            "interfaces": [{
+                "name": "subnet1",
+                "ip": "192.168.1.1",
+                "route1": "10.7.1.10",
+                "route2": "192.168.1.10"
             }]
         }
     ],

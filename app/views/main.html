@@ -1,11 +1,4 @@
-<div id="loader">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    </div>
+<div class='uil-cube-css' id="loader" style='-webkit-transform:scale(0.25)'><div></div><div></div><div></div><div></div></div>
 <!-- Add your site or application content here -->
 <div class="header">
     <div class="navbar navbar-default" role="navigation">
@@ -53,10 +46,10 @@
                     <div class='submenu'>
                         <ul>
                             <li>
-                                <a ui-sref-active="active" ui-sref="/">Map</a>
+                                <a ui-sref-active="active" ui-sref="networking-map">Map</a>
                             </li>
                             <li class="with-counter">
-                                <a ui-sref-active="active" ui-sref="/">Networks</a>
+                                <a ui-sref-active="active" ui-sref="networking-list">Networks</a>
                                 <span class="count">{{vm.apiService.networkList.length}}</span>
                             </li>
                             <li class="with-counter">
@@ -64,8 +57,8 @@
                                 <span class="count">{{vm.apiService.project.floating_ips.length}}</span>
                             </li>
                             <li class="with-counter">
-                                <a ui-sref-active="active" ui-sref="/">Routers</a>
-                                <span class="count">0</span>
+                                <a ui-sref-active="active" ui-sref="networking-routers">Routers</a>
+                                <span class="count">{{vm.apiService.networkRouters.length}}</span>
                             </li>
                         </ul>
                     </div>

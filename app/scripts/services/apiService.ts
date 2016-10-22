@@ -19,6 +19,7 @@ module auroraApp.Services {
 		vmSnapshots: VmSnapshot[] = []
 		vmImagesList:string[]
 		vmNetworks:VmNetwork[] = []
+		networkRouters:NetworkRouter[] = []
 		networkList:VmNetwork[] = []
 		project:Project
 		queried:boolean = false
@@ -29,13 +30,15 @@ module auroraApp.Services {
 			"$http",
 			"$q",
 			"$cookies",
-			"$location"
+			"$location",
+			"$timeout"
 		]
 		
 		constructor(private $http:ng.IHttpService,
 		            private $q:ng.IQService,
 		            private $cookies:Services.ICookiesService,
-		            private $location:ng.ILocationService) {
+		            private $location:ng.ILocationService,
+								private $timeout:ng.ITimeoutService) {
 			this.processData();
 		}
 		
@@ -94,6 +97,12 @@ module auroraApp.Services {
 				angular.forEach(response.networks, (value:any):void => {
 					self.addNetwork(value)
 				});
+				
+				// routers
+				angular.forEach(response.routers, (value:any):void => {
+					self.addRouter(value)
+				});
+				console.log(response.routers)
 				
 				// VMs
 				angular.forEach(response.servers, (value:any):void => {
@@ -260,6 +269,19 @@ module auroraApp.Services {
 			this.networkList.push(newNetwork)
 		}
 		
+		addRouter(obj:any) {
+			let routerInterfaces:IRouterInterface[] = []
+			obj.interfaces.forEach(routerInterface => {
+				routerInterfaces.push({
+					name: routerInterface.name,
+					ip: routerInterface.ip,
+					route1: routerInterface.route1,
+					route2: routerInterface.route2
+				})
+			})
+			var newRouter = new NetworkRouter(obj.name, routerInterfaces)
+			this.networkRouters.push(newRouter)
+		}
 		insertVm(vm:VmItem) {
 			this.listItems.push(vm);
 		}
@@ -381,7 +403,9 @@ module auroraApp.Services {
 		queryServers(useCache:boolean = true):ng.IPromise< any > {
 			let deferred = this.$q.defer()
 			if (this.queried) {
-				deferred.resolve(this.cache)
+				this.$timeout(() => {
+					deferred.resolve(this.cache)
+				}, 1000)
 			}
 			// REMOVE
 			this._get("data/servers.json").then((response) => {

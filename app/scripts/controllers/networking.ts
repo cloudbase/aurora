@@ -16,7 +16,6 @@ module auroraApp {
             public $uibModal: any
         )
         {
-            apiService.project.floating_ips.forEach(ip => console.log(ip))
         }
 
         getInterfaceVm(networkInterface: INetworkInterface) {

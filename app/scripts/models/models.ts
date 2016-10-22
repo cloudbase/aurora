@@ -185,10 +185,12 @@ module auroraApp {
         shared: string
         allocation_pools: IAllocationPool[]
         selected: boolean
+        admin_state: boolean
         allocateIp: Function
     }
     export class VmNetwork implements IVmNetwork {
         allocated_ips: string[] = []
+        admin_state = true
         constructor(
             public name: string,
             public type: string,
@@ -212,6 +214,22 @@ module auroraApp {
                 }
             }
         }
+    }
+    
+    export interface IRouterInterface {
+        name: string
+        ip: string
+        route1: string
+        route2: string
+    }
+    
+    export interface IRouter {
+        name: string
+        interfaces: IRouterInterface[]
+    }
+    
+    export class NetworkRouter implements IRouter {
+        constructor(public name, public interfaces) {}
     }
 
     export interface IZone {

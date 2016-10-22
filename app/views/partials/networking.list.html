@@ -1,0 +1,73 @@
+<div class="main-list">
+    <div class='list-header'>
+        <h1>Networks</h1>
+        <a class="btn btn-primary btn-add">
+            Create Network
+        </a>
+    </div>
+    <div class='table table-network-list'>
+        <div class='table-header'>
+            <div class='cell'>Name</div>
+            <div class='cell'>Subnets Associated</div>
+            <div class='cell'>Shared</div>
+            <div class='cell'>Admin state</div>
+            <div class='cell'>Status</div>
+            <div class='cell'>Actions</div>
+        </div>
+        <div  class='table-row' ng-repeat="item in netView.apiService.networkList">
+            <div class='cell'>
+                <svg class="item-icon" width="56px" height="57px">
+                    <use xlink:href="images/icons.svg#logo-network" />
+                </svg>
+                <div class='name'>
+                    {{item.name}}
+                </div>
+            </div>
+            <div class='cell'>
+                <div ng-repeat="subnet in item.allocation_pools">
+                    <span>{{subnet.name}}</span> {{subnet.subnet}}
+                </div>
+            </div>
+            <div class="cell">
+                Yes
+            </div>
+            <div class='cell'>
+                <label><input type="checkbox" ng-model="item.admin_state" class="ios-switch green bigswitch" checked /><div><div></div></div></label>
+            </div>
+            <div class='cell'>
+                <div class="label label-success">ACTIVE</div>
+            </div>
+            <div class='cell'>
+                <ul class="vm-actions">
+                    <li data-toggle="confirmation" title="Release Floating IP" onmouseenter="$(this).tooltip('show')" data-placement="top" mwl-confirm message="Are you sure you want to release this floating ip?" title="Delete" onmouseenter="$(this).tooltip('show')" on-confirm="netView.releaseFloatingIp(item)" ng-class="{disabled: item.assigned_to == null}">
+                        <svg width="19px" height="18px" viewBox="-2 -1 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs>
+                                <path d="M0,8.50049421 C0,13.1876272 3.81313953,17 8.5,17 C13.1868605,17 17,13.1876272 17,8.50049421 C17,3.81237281 13.1868605,0 8.5,0 C3.81313953,0 0,3.81237281 0,8.50049421 Z" id="path-1"></path>
+                                <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="17" height="17" fill="white">
+                                    <use xlink:href="#path-1"></use>
+                                </mask>
+                                <path d="M4.57142857,3.42857143 L4.57142857,0 L3.42857143,0 L3.42857143,3.42857143 L-7.78044296e-13,3.42857143 L-7.78044296e-13,4.57142857 L3.42857143,4.57142857 L3.42857143,8 L4.57142857,8 L4.57142857,4.57142857 L8,4.57142857 L8,3.42857143 L4.57142857,3.42857143 Z" id="path-3"></path>
+                                <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-1" y="-1" width="10" height="10">
+                                    <rect x="-1" y="-1" width="10" height="10" fill="white"></rect>
+                                    <use xlink:href="#path-3" fill="black"></use>
+                                </mask>
+                            </defs>
+                            <use id="Fill-1-Copy" stroke="#7F8FA4" mask="url(#mask-2)" stroke-width="2.8" fill="none" xlink:href="#path-1"></use>
+                            <rect id="Rectangle" stroke="none" fill="#FFFFFF" fill-rule="evenodd" x="0" y="0" width="8" height="8"></rect>
+                            <g id="Combined-Shape" stroke="none" fill="none">
+                                <use fill="#7F8FA4" fill-rule="evenodd" xlink:href="#path-3"></use>
+                                <use stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="2" xlink:href="#path-3"></use>
+                            </g>
+                        </svg>
+                    </li>
+                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="Are you sure you want to remove this network?" title="Delete" onmouseenter="$(this).tooltip('show')" on-confirm="vm.removeInterface(network_interface)">
+                        <svg width="15px" height="17px" viewBox="46 0 15 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M58.147,15.0543634 C58.143,15.4132469 57.834,15.7022426 57.458,15.6984649 L49.285,15.6115773 C48.909,15.6077996 48.607,15.3121929 48.611,14.9533093 L48.724,5.19262105 L52.207,5.22945384 C52.294,5.23984258 52.38,5.25684232 52.47,5.25873118 L54.514,5.27950865 C54.604,5.28045308 54.69,5.26439777 54.779,5.25589789 L58.26,5.29367511 L58.147,15.0543634 Z M51.51,2.33949679 C51.516,1.79078272 51.967,1.34784486 52.516,1.35351144 L54.559,1.37523334 C55.108,1.38089992 55.548,1.83328209 55.542,2.38294059 L55.539,2.66154756 L51.506,2.61904819 L51.51,2.33949679 Z M60.319,4.01302747 L60.326,3.36231492 C60.33,3.0043758 60.028,2.70876908 59.653,2.70499136 L56.956,2.67571402 L56.958,2.39710704 C56.974,1.10229295 55.905,0.0360310226 54.575,0.0218645665 L52.531,0.000142667074 C51.202,-0.0140237891 50.108,1.02862738 50.093,2.3243859 L50.089,2.6039373 L47.393,2.57560439 C47.017,2.57088224 46.708,2.85987794 46.704,3.2187615 L46.696,3.86947405 L46.015,3.86191861 L46,5.16334371 L47.362,5.1784546 L47.249,14.9391429 C47.237,16.0157935 48.143,16.9007248 49.27,16.9130024 L57.443,16.99989 C58.57,17.0112232 59.497,16.1451805 59.509,15.0685298 L59.622,5.30784156 L60.985,5.32200802 L61,4.02058292 L60.319,4.01302747 Z M52.7058,14.3457572 L54.0678,14.3608681 L54.1578,6.55137308 L52.7968,6.53720663 L52.7058,14.3457572 Z M49.9811,14.3170466 L51.3431,14.331213 L51.4341,6.5226624 L50.0721,6.50849594 L49.9811,14.3170466 Z M56.8827,6.58074487 L55.5207,6.56563398 L55.4297,14.375129 L56.7917,14.3892955 L56.8827,6.58074487 Z" id="Combined-Shape-Copy-3" stroke="none" fill="#7F8FA4" fill-rule="evenodd"></path>
+                        </svg>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
