@@ -24,28 +24,49 @@
                             <a ui-sref="compute" style="display:none" > </a>
                             <div class='submenu'>
                                 <ul>
-                                    <li ui-sref-active="active">
-                                        <a ui-sref="vm-list">Virtual Machines</a>
+                                    <li ui-sref-active="active" class="with-counter">
+                                        <a ui-sref="vm-list">Virtual Machines
+                                        </a>
+                                        <span class="count">{{vm.apiService.listItems.length}}</span>
                                         <a ui-sref="vm" style="display:none" > </a>
                                     </li>
-                                    <li>
-                                        <a ui-sref-active="active" ui-sref="volumes-list">Volumes</a>
-                                        <a ui-sref="vm" style="display:none" > </a>
+                                    <li ui-sref-active="active" class="with-counter">
+                                        <a ui-sref="volumes-list">
+                                            Volumes
+                                        </a>
+                                        <span class="count">{{vm.apiService.vmVolumes.length}}</span>
+                                        <a ui-sref="volumes" style="display:none" > </a>
                                     </li>
-                                    <li><a ui-sref-active="active" ui-sref="/">Templates</a></li>
-                                    <li><a ui-sref-active="active" ui-sref="/">Snapshots</a></li>
+                                    <li ui-sref-active="active" class="with-counter">
+                                        <a ui-sref="snapshot-list">
+                                            Snapshots
+                                        </a>
+                                        <span class="count">{{vm.apiService.vmSnapshots.length}}</span>
+                                        <a ui-sref="snapshots" style="display:none" > </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="networking-floating-ips"  ui-sref-active="active" href="#">Networking</a>
+                            <a ui-sref="networking-map"  ui-sref-active="active" href="#">Networking</a>
                             <a ui-sref="networking" style="display:none" > </a>
                             <div class='submenu'>
                                 <ul>
-                                    <li><a ui-sref-active="active" ui-sref="/">Map</a></li>
-                                    <li><a ui-sref-active="active" ui-sref="/">Networks</a></li>
-                                    <li><a ui-sref-active="active" ui-sref="networking-floating-ips">Floating IPs</a></li>
-                                    <li><a ui-sref-active="active" ui-sref="/">Routers</a></li>
+                                    <li>
+                                        <a ui-sref-active="active" ui-sref="networking-map">Map</a>
+                                    </li>
+                                    <li class="with-counter">
+                                        <a ui-sref-active="active" ui-sref="networking-list">Networks</a>
+                                        <span class="count">{{vm.apiService.networkList.length}}</span>
+                                    </li>
+                                    <li class="with-counter">
+                                        <a ui-sref-active="active" ui-sref="networking-floating-ips">Floating IPs</a>
+                                        <span class="count">{{vm.apiService.project.floating_ips.length}}</span>
+                                    </li>
+                                    <li class="with-counter">
+                                        <a ui-sref-active="active" ui-sref="networking-routers">Routers</a>
+                                        <span class="count">{{vm.apiService.networkRouters.length}}</span>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
