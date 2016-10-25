@@ -23,7 +23,7 @@ var elements_types_style = {
             "xlink:href" : 'images/network.png',
             width : 54,
             height : 54,
-            position: {x: '.1', y: '.1'}
+            position: {x: '.1', y: '.2'}
         }
     },
     vm: {
@@ -116,7 +116,7 @@ for (var i in def_links) {
         attrs: {
             '.connection': {
                 stroke: '#333333',
-                'stroke-width': 3
+                'stroke-width': 1
             },
             '.marker-target': {
                 fill: '#333333',

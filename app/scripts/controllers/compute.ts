@@ -189,11 +189,12 @@ module auroraApp {
 
         pauseVm(obj: VmItem)
         {
-            console.log(obj);
             if (obj.host_status == "paused" || obj.host_status == "stopped") {
                 obj.host_status = "running";
+                this.Notification.info("VM: " + obj.name + " is running")
             } else {
                 obj.host_status = "paused";
+                this.Notification.info("VM: " + obj.name + " is paused")
             }
 
         }
@@ -201,6 +202,7 @@ module auroraApp {
         startVm(obj: VmItem)
         {
             obj.host_status = "running";
+            this.Notification.info("Starting VM: " + obj.name)
         }
 
         restartVm(obj: VmItem)
@@ -398,8 +400,10 @@ module auroraApp {
 
         haltVm(vm: VmItem) 
         {
-            vm.host_status = "stopped"
-            this.Notification.info("Stopped VM: " + vm.name)
+            if (vm.host_status != "stopped") {
+                vm.host_status = "stopped"
+                this.Notification.info("Stopped VM: " + vm.name)
+            }
         } 
 
         selectImage(obj: IVmImage) {
