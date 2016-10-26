@@ -719,6 +719,52 @@
       }
     }
   }
+  &.vm-tags-widget {
+    .add-tag {
+      float: right;
+    }
+    input[type="text"] {
+      height: 25px;
+      width: 120px;
+    }
+    .btn {
+      height: 24px;
+      line-height: 23px;
+      padding: 0 10px;
+      margin: 3px 4px 0 4px;
+      border-radius: 2px;
+      float: right;
+    }
+    .vm-widget-content {
+      padding: 5px 0 7px 7px;
+    }
+    .tags {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+      max-height: 80px;
+      overflow-y: scroll;
+      li {
+        font-size: 12px;
+        line-height: 17px;
+        margin-right: 10px;
+        margin-bottom: 3px;
+        display: inline-block;
+        padding-right: .3em;
+        svg {
+          float: right;
+          cursor: pointer;
+          margin-left: 2px;
+          &:hover {
+            path {
+              fill: #333;
+            }
+          }
+        }
+      }
+    }
+
+  }
 }
 
 .network-table {

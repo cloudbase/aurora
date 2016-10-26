@@ -226,6 +226,64 @@ module auroraApp.Directives {
             `
          }
      }
+  
+  /**
+   * VM plugin to show VM field
+   */
+  export function vmTagsWidget() {
+    return {
+      restrict: "AE",
+      transclude: true,
+      replace: true,
+      scope: {
+        vm: "=",
+        widget: "="
+      },
+      controller: ($scope, $element) => {
+        $scope.tag_name = ""
+        $scope.addTag = (tagName: string) => {
+          if ($scope.vm.tags.indexOf(tagName) == -1)
+            $scope.vm.tags.push(tagName.toLowerCase())
+          $scope.tag_name = ""
+        }
+        $scope.removeTag = (tagName: string) => {
+          let index = $scope.vm.tags.indexOf(tagName)
+          if (index > -1)
+            $scope.vm.tags.splice(index, 1)
+        }
+      },
+      link: ($scope, $element) => {
+        
+      },
+      template: `
+            <div class="vm-widget size-{{ widget.size }} vm-tags-widget">
+                <div class='vm-widget-container'>
+                    <div class='vm-widget-header'>
+                        {{ widget.label }}
+                        <div class="add-tag">
+                          <input type="text" ng-model="tag_name" on-enter="addTag(tag_name)"/> 
+                          <a class="btn btn-sm btn-add" ng-click="addTag(tag_name)">Add</a>
+                        </div>
+                    </div>
+                    <div class='vm-widget-content'>
+                        <ul class="tags">
+                            <li class='label label-success' ng-repeat="tag in vm.tags">
+                                {{tag}}
+                                <svg ng-click='removeTag(tag)' width="18px" height="18px" viewBox="570 3 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                  <path d="M578.10303,10.94248 L573.094004,10.94248 L573.094004,12.9320218 L578.10303,12.9320218 L578.10303,17.9410484 L580.092572,17.9410484 L580.092572,12.9320218 L585.101599,12.9320218 L585.101599,10.94248 L580.092572,10.94248 L580.092572,5.93345343 L578.10303,5.93345343 L578.10303,10.94248 Z" id="Close-Button" stroke="none" fill="#FFF" fill-rule="evenodd" transform="translate(579.097801, 11.937251) rotate(-315.000000) translate(-579.097801, -11.937251) "></path>
+                              </svg>
+                            </li>
+                            <li ng-if="vm.tags.length == 0">No tags</li>
+                        </ul>
+                    </div>
+                </div>
+                <ng-transclude></ng-transclude>
+            </div>
+            `
+    }
+  }
+  
+  
      
      export function resourceConsumptionWidget() {
          return {
@@ -320,3 +378,4 @@ angular.module('auroraApp')
   .directive('resourceConsumptionWidget', auroraApp.Directives.resourceConsumptionWidget)
   .directive('securityGroupsWidget', auroraApp.Directives.securityGroupsWidget)
   .directive('vmWidgetsEditable', auroraApp.Directives.vmWidgetsEditable)
+  .directive('vmTagsWidget', auroraApp.Directives.vmTagsWidget)

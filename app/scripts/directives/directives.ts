@@ -260,6 +260,20 @@ module auroraApp.Directives {
 		}
 	}
 	
+	export function onEnter() {
+		return function (scope, element, attrs) {
+			element.bind("keydown keypress", function (event) {
+				if(event.which === 13) {
+					scope.$apply(function (){
+						scope.$eval(attrs.onEnter)
+					});
+					
+					event.preventDefault()
+				}
+			})
+		}
+	}
+	
 	export function sticky() {
 		return {
 			restrict: "AE",
@@ -342,4 +356,5 @@ angular.module('auroraApp')
 	.directive('volumeDisplay', auroraApp.Directives.volumeDisplay)
 	.directive('snapshotDisplay', auroraApp.Directives.snapshotDisplay)
 	.directive('sticky', auroraApp.Directives.sticky)
+	.directive('onEnter', auroraApp.Directives.onEnter)
 	.directive('notifications', auroraApp.Directives.Notifications.factory());

@@ -191,6 +191,7 @@ module auroraApp.Services {
 				obj["OS-EXT-AZ:availability_zone"],
 				snapshots,
 				networkInterfaces,
+				obj.tags,
 				started
 			);
 			

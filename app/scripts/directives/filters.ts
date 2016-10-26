@@ -31,6 +31,20 @@ module auroraApp.Filters {
                         })
                              
                     }
+                    if (filter.type == "tags") {
+                        let selectedTag = false
+                        filter.options.forEach((option) => {
+                            if (option.selected)
+                                selectedTag = true
+                            if (option.selected == true && item[filter.id].indexOf(option.term.toLowerCase()) == -1) {
+                                pass = false
+                            }
+                                
+                        })
+                        if (!selectedTag)
+                            pass = true
+    
+                    }
                     if (filter.type == "text") {
                         if (item[filter.id].toLowerCase().indexOf(filter.term.toLowerCase()) == -1)
                             pass = false

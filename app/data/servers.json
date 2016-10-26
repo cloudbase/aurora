@@ -75,7 +75,8 @@
                     "size": 1.2
                 }
             ],
-            "networks": [{"network": "private_01", "floating_ip": "2"}]
+            "networks": [{"network": "private_01", "floating_ip": "2"}],
+            "tags": ["windows", "production"]
         },
         {
             "addresses": {
@@ -91,7 +92,7 @@
             "created": "2013-09-23T13:53:12Z",
             "flavor": "M1-LARGE",
             "hostId": "f1e160ad2bf07084f3d3e0dfdd0795d80da18a60825322c15775c0dd",
-            "id": "5q1234c35-d372-40c5-88e2-9fda1b6ea12c",
+            "id": "5q1234c3j-d372-40c5-88e2-9fda1b6ea12c",
             "key_name": null,
             "links": [
                 {
@@ -106,9 +107,9 @@
             "metadata": {
                 "My Server Name": "Apache1"
             },
-            "name": "new-centos",
+            "name": "CoreOS m245",
             "details": "2 Cores | 1GB | 30 GB Disk",
-            "os_type": "ubuntu",
+            "os_type": "coreos",
             "ip_addr": "192.168.56.13",
             "accessIPv4": "",
             "accessIPv6": "",
@@ -135,7 +136,8 @@
             "updated": "2016-08-21T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": [{"network": "private_02", "floating_ip": "3"}]
+            "networks": [{"network": "private_02", "floating_ip": "3"}],
+            "tags": ["coreos", "staging"]
         },
         {
             "addresses": {
@@ -195,7 +197,8 @@
             "updated": "2016-08-21T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": [{"network": "private_02", "floating_ip": "3"}]
+            "networks": [{"network": "private_02", "floating_ip": "3"}],
+            "tags": ["ubuntu", "staging"]
         },
         {
             "addresses": {
@@ -264,7 +267,8 @@
             "updated": "2016-09-01T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": [{"network": "public_01", "floating_ip": "1"}]
+            "networks": [{"network": "public_01", "floating_ip": "1"}],
+            "tags": ["cirros", "staging"]
         },
         {
             "addresses": {
@@ -333,7 +337,8 @@
             "updated": "2016-06-22T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": [{"network": "private_02", "floating_ip": "4"}]
+            "networks": [{"network": "private_02", "floating_ip": "4"}],
+            "tags": ["ubuntu", "production"]
         },
         {
             "addresses": {
@@ -402,7 +407,8 @@
             "updated": "2016-06-11T06:32:32Z",
             "user_id": "fake",
             "snapshots": [],
-            "networks": [{"network": "private_03", "floating_ip": "5"}]
+            "networks": [{"network": "private_03", "floating_ip": "5"}],
+            "tags": ["centos", "production"]
         },
         {
             "addresses": [{
@@ -475,7 +481,8 @@
             "networks": [
                 {"network": "private_01", "floating_ip": ""},
                 {"network": "private_03", "floating_ip": ""}
-            ]
+            ],
+            "tags": ["windows", "staging"]
         },
         {
             "addresses": {
@@ -547,7 +554,8 @@
             "networks": [
                 {"network": "private_01", "floating_ip": ""},
                 {"network": "public_01", "floating_ip": ""}
-            ]
+            ],
+            "tags": ["ubuntu", "staging"]
         }
     ],
     "images": [

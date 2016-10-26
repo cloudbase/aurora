@@ -55,7 +55,6 @@ joint.shapes.basic.DecoratedRect = joint.shapes.basic.Generic.extend({
 var graph = new joint.dia.Graph();
 var paper = new joint.dia.Paper({el: $('#paper'), width: 1210, height: 728, gridSize: cellWidth, model: graph});
 function createObj(def) {
-    console.log(def.type)
     var source = new joint.shapes.basic.DecoratedRect({
         position: {x: def.x * cellWidth, y: def.y * cellWidth},
         size: {width: elements_types_style[def.type].image.width, height: elements_types_style[def.type].image.height},

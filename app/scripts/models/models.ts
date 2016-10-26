@@ -15,6 +15,7 @@ module auroraApp {
         snapshots: IVmSnapshot[]
         network_interfaces: INetworkInterface[]
         started: Date
+        tags: string[]
     }
     export class VmItem implements IVmItem {
         prev_name: string
@@ -32,6 +33,7 @@ module auroraApp {
             public zone,
             public snapshots,
             public network_interfaces,
+            public tags,
             public started = new Date()
         ) {}
     }

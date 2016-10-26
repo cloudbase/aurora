@@ -39,7 +39,7 @@
             {{ filterField.name }}:
           </div>
           <div class='filter-options'>
-            <div ng-if='filterField.type=="options"'>
+            <div ng-if='filterField.type=="options" || filterField.type == "tags"'>
               <ul>
                 <li ng-repeat='option in filterField.options' ng-click='vm.filterTable(option, filterField)' ng-class="{selected: option.selected}">
                   

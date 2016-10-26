@@ -55,6 +55,14 @@ module auroraApp {
                 position: {x:0, y:0}, 
                 size: "2x2",
                 default_settings: {}
+            },
+            {
+                id: "vm-tags",
+                name: "vm-tags",
+                label: "Tags",
+                position: {x:0, y:0},
+                size: "3x2",
+                default_settings: {}
             }
         ]
         vmWidgets: IVmWidget[] = []
@@ -62,6 +70,7 @@ module auroraApp {
             {id: 'host_status', name: "Status", type: "options", options: [], term: ""},
             {id: 'name', name: "Name", type: "text", options: false, term: ""},
             {id: 'zone', name: "Zone", type: "options", options: [], term: ""},
+            {id: 'tags', name: "Tags", type: "tags", options: [], term: ""},
         ]
         bulkActions: IVmAction[] = [
             {id: "stop", name: "Stop", action: this.haltVm, available: true},
@@ -259,6 +268,25 @@ module auroraApp {
 
         selectFilter(item) 
         {
+            if (item.id == "tags") {
+                this.apiService.listItems.forEach((vm: VmItem) => {
+        
+                    if (vm.tags.length) {
+                        vm.tags.forEach((tag) => {
+                            let found = false
+                            item.options.forEach((option) => {
+                    
+                                if (option.term == tag)
+                                    found = true
+                            })
+                            if (!found)
+                                item.options.push({term: tag, selected: false})
+                        })
+                    }
+        
+                })
+            }
+            console.log(item)
             let exists = false
             this.currentFilters.forEach((filter) => {
                 if (filter.id == item.id)
@@ -266,6 +294,7 @@ module auroraApp {
             })
             if (exists) 
                 return
+            
             
             this.currentFilters.push(item);
             if (item.type == "options") {
@@ -346,6 +375,7 @@ module auroraApp {
                 })
     
                 rand = Math.floor((Math.random() * 100) + 1)
+                
     
                 newVm = new VmItem(
                     "machine-" + rand + _i,
@@ -357,7 +387,8 @@ module auroraApp {
                     flavor,
                     this.zone.value.name,
                     [],
-                    network_interfaces
+                    network_interfaces,
+                    []
                 )
     
                 this.$timeout(() => {
