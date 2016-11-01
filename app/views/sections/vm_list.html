@@ -157,7 +157,7 @@
               </ul>
             </div>
           </div>
-          <div class='vm-detail-row'>
+          <div class='vm-detail-row height-{{vm.linesOfWidgets()}}'>
             <div class='vm-widgets-container'>
               <vm-widgets ng-if="vm.reloadDirectives" vm="item" widgets="vm.vmWidgets" avialablewidgets="vm.vmAvailableWidgets"></vm-widgets>
               <vm-widgets ng-if="!vm.reloadDirectives" vm="item" widgets="vm.vmWidgets" avialablewidgets="vm.vmAvailableWidgets"></vm-widgets>

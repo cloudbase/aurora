@@ -523,6 +523,9 @@
           @include clearfix(); 
           height: $widget-container-height;
           display: block;
+          &.height-2 {
+            height: calc(2 * #{$widget-container-height});
+          }
         }
         .vm-caret {
           svg {

@@ -95,12 +95,66 @@
     .vm-widgets-container {
         background-color: #E6EAEE;
         zoom: 0.9;
+        padding-top: 10px;
         .empty-row {
             height: $widget-row-height;
             clear: both;
             background-color: lighten(#E6EAEE, 5%);
             margin-right: 10px;
             border-radius: 4px;
+        }
+        .vm-widget {
+            float: none;
+            width: 100%;
+            padding: 0;
+        }
+        .widget-container {
+            @include clearfix();
+            position: relative;
+            padding: 0px 10px 10px 0;
+            float: left;
+            margin-bottom: 10px;
+            .widget-overlay {
+                position: absolute;
+                min-width: 97%;
+                height: 100%;
+                background-color: rgba(255,255,255, 0.5);
+                top: 0;
+                left: 0;
+                cursor: move;
+                &:hover {
+                    .remove-widget {
+                        border-color: #000;
+                        svg {
+                            path {
+                                fill: #000;
+                            }
+                        }
+                    }
+                }
+            }
+            .remove-widget {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                border: 1px solid #7F8FA4;
+                background-color: #FFF;
+                border-radius: 4px;
+                padding: 2px 3px 0px;
+                cursor: pointer;
+                &:hover {
+                    background-color: lighten(#7F8FA4, 25%);
+                }
+            }
+            @for $i from 1 through 4 {
+                @for $j from 1 through 4 {
+                    &.size-#{$i}x#{$j} {
+                        width: calc(100% / #{$widget-cols} * #{$i});
+                        height: calc((#{$widget-row-height} * #{$j}) + (10px * #{$j}));
+                    }
+                }
+            }
+
         }
     }
     .all-widgets {

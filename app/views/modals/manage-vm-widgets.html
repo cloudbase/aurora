@@ -4,10 +4,10 @@
     </div>
     <div class="modal-body" id="modal-body">
         <div class='vm-widgets-container' ng-if="show">
-            <vm-widgets-editable ng-if="widgets" vm="vm" widgets="widgets"></vm-widgets-editable>
+            <vm-widgets-editable ng-if="widgets" vm="vm" widgets="tempWidgets"></vm-widgets-editable>
         </div>
         <div class='vm-widgets-container' ng-if="!show">
-            <vm-widgets-editable ng-if="widgets" vm="vm" widgets="widgets"></vm-widgets-editable>
+            <vm-widgets-editable ng-if="widgets" vm="vm" widgets="tempWidgets"></vm-widgets-editable>
         </div>
         <div class='all-widgets'>
             <ui-select ng-model="selected.value" search-enabled="false" on-select="selectWidget($item, $model)">

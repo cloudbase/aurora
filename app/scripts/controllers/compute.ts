@@ -150,6 +150,7 @@ module auroraApp {
                 controller: ($scope, $uibModalInstance, vm, widgets, all_widgets) => {
                     $scope.vm = vm
                     $scope.widgets = widgets
+                    $scope.tempWidgets = angular.copy(widgets)
                     $scope.show = true
                     $scope.selected = null
                     $scope.all_widgets = all_widgets
@@ -157,7 +158,8 @@ module auroraApp {
                         $uibModalInstance.dismiss('cancel')
                     }
                     $scope.save = () => {
-                        self.vmWidgets = widgets
+                        self.vmWidgets = $scope.tempWidgets
+                        
                         self.reloadDirectives = !self.reloadDirectives
                         $uibModalInstance.close(true);
                     }
@@ -172,7 +174,7 @@ module auroraApp {
                             let rand = Math.floor((Math.random() * 100) + 1)
                             
                             new_Item.id = new_Item.id + "_" + rand
-                            $scope.widgets.push(new_Item)
+                            $scope.tempWidgets.push(new_Item)
                         }
                     }
                 },
@@ -194,6 +196,23 @@ module auroraApp {
             }, function () {
                 
             });
+        }
+        
+        linesOfWidgets()
+        {
+            let widgetCols = 10
+            let widthTotal = 0
+            this.vmWidgets.forEach(widget => {
+                let sizes = widget.size.split("x")
+                widthTotal +=  parseInt(sizes[0])
+            })
+            let lines = ((widthTotal - (widthTotal % widgetCols)) / widgetCols) + 1
+            
+            if (widthTotal % widgetCols == widthTotal)
+                lines = 1
+            if (widthTotal % widgetCols == 0)
+                lines--
+            return lines
         }
 
         pauseVm(obj: VmItem)
