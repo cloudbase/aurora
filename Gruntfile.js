@@ -21,11 +21,20 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var serveStatic = require('serve-static');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
     // Project settings
     yeoman: appConfig,
+
+    forever: {
+      server1: {
+        index: appConfig.app,
+        logdir: "logs"
+      }
+    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -43,7 +52,7 @@ module.exports = function (grunt) {
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
+        tasks: ['compass:server']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -74,16 +83,16 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
+              serveStatic('.tmp'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                serveStatic('./bower_components')
               ),
               connect().use(
                 '/app/styles',
-                connect.static('./app/styles')
+                serveStatic('./app/styles')
               ),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -193,7 +202,7 @@ module.exports = function (grunt) {
         ignorePath: /(\.\.\/){1,2}bower_components\//,
         sourcemap: true
       }
-    }, 
+    },
     // Compiles TypeScript to JavaScript
     typescript: {
       base: {
@@ -229,7 +238,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
 
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
@@ -483,7 +492,6 @@ module.exports = function (grunt) {
       'wiredep',
       'tsd:refresh',
       'concurrent:server',
-      'autoprefixer:server',
       'connect:livereload',
       'watch'
     ]);
@@ -499,11 +507,10 @@ module.exports = function (grunt) {
     'wiredep',
     'tsd:refresh',
     'concurrent:test',
-    'autoprefixer',
     'connect:test',
     'karma'
   ]);
-  
+
   //grunt.registerTask('karma', ['karma:unit']);
 
   grunt.registerTask('build', [
@@ -512,7 +519,6 @@ module.exports = function (grunt) {
     'tsd:refresh',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
     'ngtemplates',
     'concat',
     'ngAnnotate',
@@ -524,8 +530,9 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin'
   ]);
-  
+
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-forever');
 
   grunt.registerTask('default', [
     'newer:jshint',
