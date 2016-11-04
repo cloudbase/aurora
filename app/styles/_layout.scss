@@ -96,6 +96,7 @@ body {
 }
 
 .main-pane {
+  @include clearfix();
   h1 {
     @include clearfix();
     margin-bottom: 30px;
@@ -105,7 +106,73 @@ body {
       margin-right: 10px;
     }
   }
-
+  .main {
+    width: 910px;
+    float: left;
+  }
+  .sidebar {
+    width: 280px;
+    float: left;
+    background-color: #FFF;
+    border-radius: 4px;
+    padding: 20px;
+    margin-right: 20px;
+    border: 1px solid #B7C0CD;
+    &.is-menu {
+      background-color: transparent;
+      padding-left: 0;
+      padding-top: 0;
+      border: 0;
+    }
+    span.sidebar-title {
+      font-size: 12px;
+      display: block;
+      color: #9FA9BA;
+      text-transform: uppercase;
+      padding-left: 43px;
+      margin-bottom: 6px;
+    }
+    .sidebar-menu {
+      list-style: none;
+      padding-left: 0;
+      li {
+        list-style-image: none;
+        font-family: "geomanist_book";
+        font-size: 14px;
+        color: #354052;
+        line-height: 30px;
+        padding-left: 35px;
+        border-radius: 4px;
+        position: relative;
+        svg {
+          position: absolute;
+          left: 10px;
+          top: 7px;
+        }
+        &:hover {
+          background-color: lighten(#30AD63, 35%);
+        }
+        &.active {
+          color: #FFF;
+          background-color: #30AD63;
+          svg path {
+            fill: #FFF;
+          }
+          a {
+            text-decoration: none;
+          }
+        }
+        a {
+          color: inherit;
+          display: inline-block;
+          width: 100%;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
   &.one-col-right-sidebar {
     .sidebar {
       margin-right: 0;

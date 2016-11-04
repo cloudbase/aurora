@@ -6,12 +6,13 @@ module auroraApp {
     export class VmCtrl  {
         item: VmItem
         volumes: VmVolume[] = []
-        
+        currentSection: any = {}
+    
         static $inject = [
             "ApiService",
             "$state",
             "$stateParams",
-            "$timeout",
+            "$timeout"
         ]
         actions: IVmAction[] = [
             {id: "stop", name: "Stop", action: this.haltVm, available: true},

@@ -1,0 +1,8 @@
+@media (max-width: 1210px) {
+  body {
+    min-width: $site-width;
+  }
+  .header .navbar .logo-container .navbar-brand {
+    left: 35px;
+  }
+}

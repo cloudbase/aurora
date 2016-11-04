@@ -8,9 +8,6 @@
 /// <reference path='controllers/compute.ts' />
 /// <reference path='controllers/compute.d.ts' />
 
-/// <reference path='controllers/vm-details.ts' />
-/// <reference path='controllers/vm-details.d.ts' />
-
 /// <reference path='controllers/vm.ts' />
 /// <reference path='controllers/vm.d.ts' />
 

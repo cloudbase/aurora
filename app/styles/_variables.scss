@@ -1,3 +1,6 @@
+// Layout
+$site-width: 1210px;
+
 $base_color: #f8f8f8;
 $menu-hover-color: #39CA74;
 $dark-blue: #354052;
@@ -6,14 +9,6 @@ $font-size-menu: 20px;
 $line-height-menu: 24px;
 $font-color-label: #7F8FA4;
 $pad: 15px; // general padding
-
-$status-running: #30AD63;
-$status-deploying: #FD9727;
-$status-paused: #7F8FA4;
-$status-stopped: #BE3A31;
-
-$image-bg-color: #C4C9D2;
-$image-bg-color-dark: #354052;
 
 $widget-container-height: 136px;
 $widget-cols: 10;
@@ -25,3 +20,23 @@ $light-grey: #C4C9D2;
 
 $btn-default-color: #4CD964;
 $bg-default-color: #D6D9E0;
+
+
+// Typography
+$primary-font: "geomanist_regular";
+$primary-font-bold: "geomanist_book";
+$secondary-font: "Open Sans";
+
+
+
+///// COLORS /////
+
+// Vm Statuses
+$status-running: #30AD63;
+$status-deploying: #FD9727;
+$status-paused: #7F8FA4;
+$status-stopped: #BE3A31;
+
+// Icon Bg Colors
+$image-bg-color: #C4C9D2;
+$image-bg-color-dark: #354052;

@@ -130,8 +130,8 @@ module auroraApp.Directives {
 					});
 					output += "</div>"
 					
-					
-					$element.html($compile(output)($scope))
+					$element.html('')
+					$element.append($compile(output)($scope))
 				}
 				renderWidgets()
 				$scope.$watch('widgets', () => {
@@ -175,7 +175,8 @@ module auroraApp.Directives {
 					});
 					output += "</div>"
 					
-					$element.html($compile(output)($scope))
+					$element.html('')
+					$element.append($compile(output)($scope))
 					
 					let el = <any> $($element).find('.sortable')
 					el.sortable()

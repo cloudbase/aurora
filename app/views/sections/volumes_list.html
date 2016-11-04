@@ -40,7 +40,7 @@
                         <div class='cell'>
                           <volume-display volume="item"></volume-display>
                         </div>
-                        <div class='cell'>
+                        <div class='cell' ng-class="{empty: !item.attached_to}">
                             <div ng-if="item.attached_to">
                                 <vm-display vm="item.attached_to.vm"></vm-display>
                             </div>

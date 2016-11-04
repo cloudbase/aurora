@@ -61,11 +61,12 @@ module auroraApp.Directives {
 				opened: "@",
 				valid: "="
 			},
-			controller: ($scope, $element) => {
+			link: ($scope, $element) => {
 				$scope.toggle = () => {
 					$scope.opened = !$scope.opened
 				}
-				$element.find('header h2').click(() => {
+				
+				$($element).find('header h2').click(() => {
 					if ($scope.opened) {
 						$element.addClass('collapsed')
 					} else {
@@ -122,19 +123,19 @@ module auroraApp.Directives {
 				//if (angular.isUndefined($scope.min))
 				$scope.checkLimits = () => {
 					if (typeof $scope.min !== "undefined" && $scope.value - $scope.min == 0) {
-						$element.find('.btn-subtract').addClass('disabled')
+						$($element).find('.btn-subtract').addClass('disabled')
 					} else {
-						$element.find('.btn-subtract').removeClass('disabled')
+						$($element).find('.btn-subtract').removeClass('disabled')
 					}
 					if (typeof $scope.max !== "undefined" && $scope.value - $scope.max == 0) {
-						$element.find('.btn-add').addClass('disabled')
+						$($element).find('.btn-add').addClass('disabled')
 					} else {
-						$element.find('.btn-add').removeClass('disabled')
+						$($element).find('.btn-add').removeClass('disabled')
 					}
 				}
 				$scope.checkLimits()
 				
-				$element.find('.btn-add').click(() => {
+				$($element).find('.btn-add').click(() => {
 					if (typeof $scope.max !== "undefined") {
 						if ($scope.max - $scope.value > 0)
 							$scope.value++
@@ -144,7 +145,7 @@ module auroraApp.Directives {
 					$scope.$apply()
 					$scope.checkLimits()
 				})
-				$element.find('.btn-subtract').click(() => {
+				$($element).find('.btn-subtract').click(() => {
 					if (typeof $scope.min !== "undefined") {
 						if ($scope.value - $scope.min > 0)
 							$scope.value--
@@ -181,18 +182,18 @@ module auroraApp.Directives {
 			transclude: true,
 			scope: {
 				vm: "=",
-				link: "@"
-			},
-			link: ($scope, $element) => {
+				link: "@",
+				iconSuffix: "@?",
+				onIconClick: "&"
 			},
 			template: `
-                <div class='vm-details status-{{ vm.host_status }}' ui-sref="vm-view-overview({vm_id: vm.id})">
-            <span class="icon {{ vm.image.os }}">
+                <div class='vm-details status-{{ vm.host_status }}' >
+            <span class="icon {{ vm.image.os }}" ng-click="onIconClick()">
                 <svg class="icon-{{ vm.image.os }}">
-                    <use xlink:href="{{'images/icons.svg#logo-' + vm.image.os}}" />
+                    <use xlink:href="" ng-attr-xlink:href="{{'images/icons.svg#logo-' + vm.image.os + iconSuffix}}" />
                 </svg>
             </span>
-            <div class="info">
+            <div class="info" ui-sref="vm-view-overview({vm_id: vm.id})">
                 <span class='vm-status status-circle'> </span>
                 <span class="name">{{ vm.name }}</span>
                 <span class="details">{{ vm.flavor.vCpu }} vCPU | {{vm.flavor.ram}} GB RAM | {{ vm.flavor.ssd}} GB SSD</span>

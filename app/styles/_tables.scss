@@ -583,13 +583,15 @@
       }
     }
     .ui-select-container .ui-select-toggle {
-     width: 90%;
-      margin-top: 10px;
+      width: 90%;
     }
   }
   .table-row {
-    .cell:nth-child(2) {
-      padding-top: 0px;
+    .cell:nth-child(2){
+      padding-top: 0;
+      &.empty {
+        padding-top: 10px;
+      }
     }
   }
   .vm-details {

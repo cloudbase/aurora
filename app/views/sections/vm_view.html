@@ -1,15 +1,17 @@
-<div class='main-pane vm-view-details'>
+<div class='main-pane vm-view-details' id="vm-view">
     <div class='row'>
-        <div class='vm-details status-{{ vmView.item.host_status }}'>
-            <span class="icon icon-dark {{ vmView.item.image.id }}">
-                <svg class="icon-{{ vmView.item.image.id }}">
-                    <use xlink:href="{{'images/icons.svg#logo-' + vmView.item.image.id}}" />
-                </svg>
-            </span>
-            <div class="info">
-                <span class='vm-status status-circle'> </span>
-                <span class="name" editable-text="vmView.item.name">{{ vmView.item.name }}</span> <i class='glyphicon glyphicon-pencil'></i>
-                <span class="details">{{ vmView.item.flavor.vCpu }} vCPU | {{vmView.item.flavor.ram}} GB RAM | {{ vmView.item.flavor.ssd}} GB SSD</span>
+        <div class='vm-details-panel status-{{ vmView.item.host_status }}'>
+            <div class="vm-details">
+                <span class="icon icon-dark {{ vmView.item.image.id }}">
+                    <svg class="icon-{{ vmView.item.image.id }}">
+                        <use xlink:href="{{'images/icons.svg#logo-' + vmView.item.image.id}}" />
+                    </svg>
+                </span>
+                <div class="info">
+                    <span class='vm-status status-circle'> </span>
+                    <span class="name" editable-text="vmView.item.name">{{ vmView.item.name }}</span> <i class='glyphicon glyphicon-pencil'></i>
+                    <span class="details">{{ vmView.item.flavor.vCpu }} vCPU | {{vmView.item.flavor.ram}} GB RAM | {{ vmView.item.flavor.ssd}} GB SSD</span>
+                </div>
             </div>
             <div class='controls pull-right'>
                 <a class='btn btn-primary btn-snapshot' ng-click="vmView.createSnapshot()">

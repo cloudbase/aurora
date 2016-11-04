@@ -135,7 +135,6 @@ module auroraApp {
         ) {}
         
         attachVm(vm:VmItem):void {
-            
             this.attached_to= {
                 vm: vm,
                 path: "/dev/sdb"
