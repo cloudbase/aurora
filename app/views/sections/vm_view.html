@@ -1,4 +1,4 @@
-<div class='main-pane vm-view-details' id="vm-view">
+<div class='main-pane vm-view-details row' id="vm-view">
     <div class="sidebar is-menu">
         <div class='vm-details-panel status-{{ vmView.item.host_status }}'>
             <div class="vm-details">
@@ -26,8 +26,7 @@
                     Snapshot
                 </a>
                 <a class='btn btn-primary btn-xs btn-shutoff' data-toggle="confirmation" data-placement="bottom" mwl-confirm
-                   message="Are you sure you want to stop this VM?" title="Shut Down"
-                   onmouseenter="$(this).tooltip('show')">
+                   message="Are you sure you want to stop this VM?" title="Shut Down">
                     <svg width="16px" height="16px" viewBox="128 10 16 16" version="1.1"
                          xmlns="http://www.w3.org/2000/svg"
                          xmlns:xlink="http://www.w3.org/1999/xlink">

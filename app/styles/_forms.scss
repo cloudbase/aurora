@@ -124,36 +124,37 @@
     background: #30AD63;
     color: #FFFFFF;
   }
-  &.btn-login {
-    width: 100%;
-    padding: 13px 0px;
-  }
   &:hover {
     background-color: $dark-blue;
     color: #FFF;
   }
-  &.btn-snapshot {
-    font-size: 14px;
-    color: #FFFFFF;
-    line-height: 24px;
-    background: #54B87E;
-    border: 1px solid #30AD63;
-    svg {
-      float: left;
-      margin-top: 3px;
-      margin-right: 5px;
-    }
+}
+.btn-login {
+  width: 100%;
+  padding: 13px 0px;
+}
+
+.btn-snapshot {
+  font-size: 14px;
+  color: #FFFFFF;
+  line-height: 24px;
+  background: #54B87E;
+  border: 1px solid #30AD63;
+  svg {
+    float: left;
+    margin-top: 3px;
+    margin-right: 5px;
   }
-  &.btn-shutoff {
-    color: #FFFFFF;
-    line-height: 24px;
-    background: rgba(255,59,48,0.76);
-    border: 1px solid #FF3B30;
-    svg {
-      float: left;
-      margin-top: 3px;
-      margin-right: 5px;
-    }
+}
+.btn-shutoff {
+  color: #FFFFFF;
+  line-height: 24px;
+  background: rgba(255,59,48,0.76);
+  border: 1px solid #FF3B30;
+  svg {
+    float: left;
+    margin-top: 3px;
+    margin-right: 5px;
   }
 }
 
