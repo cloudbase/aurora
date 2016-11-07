@@ -245,6 +245,8 @@
     &.selected {
       border-color:#54B87E;
       background-color: #E7E9ED;
+      margin-left: -1px;
+      margin-right: -1px;
       .checkable {
         svg {
           opacity: 1;
@@ -458,9 +460,6 @@
       padding-left: 0px;
       padding-bottom: 0px;
       transition: background 0.2s ease-in;
-
-      $start: lighten(#30ad63, 50%);
-      $end: #FFF;
       .icon {
         cursor: pointer;
         &:hover {
@@ -553,80 +552,6 @@
   }
 }
 
-.volumes-list-table {
-
-  .cell {
-    &:first-child {
-      width: 26%;
-    }
-    &:nth-child(2) {
-      width: 26%;
-    }
-    &:nth-child(3) {
-      width: 18%;
-    }
-    &:nth-child(4) {
-      width: 5%;
-    }
-    &:nth-child(5) {
-      width: 5%;
-    }
-    &:nth-child(6) {
-      width: 6%;
-    }
-    &:nth-child(7) {
-      width: 14%;
-    }
-    .vm-actions {
-      li {
-        margin-right: 15px;
-      }
-    }
-    .ui-select-container .ui-select-toggle {
-      width: 90%;
-    }
-  }
-  .table-row {
-    .cell:nth-child(2){
-      padding-top: 0;
-      &.empty {
-        padding-top: 10px;
-      }
-    }
-  }
-  .vm-details {
-    margin-bottom: 0;
-  }
-  .icon-volume {
-    background-color: #FFF;
-    cursor: pointer;
-    &:hover {
-      background-color: #FFF;
-    }
-  }
-  .table-content .table-row {
-    .volume-details {
-      .info {
-        padding-left: 5px;
-        .name {
-          margin-left: 0;
-        }
-      }
-    }
-  }
-}
-.table-vm-volumes {
-  .cell {
-    &:first-child { width: 30%; }
-    &:nth-child(2) { width: 50%; }
-    &:nth-child(3) { width: 10%; }
-    &:nth-child(4) { width: 10%; }
-  }
-}
-
-.list-volumes {
-  margin-bottom: -10px;
-}
 .vm-widgets-container {
   @include clearfix();
   padding: 0px 10px 10px 20px;

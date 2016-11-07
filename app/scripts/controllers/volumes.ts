@@ -161,9 +161,9 @@ module auroraApp {
 		
 		attachVm(volume)
 		{
-			console.log(volume, volume.selectedVm.value)
 			volume.attachVm(volume.selectedVm.value)
-			this.notifications.info("Attached volume " + volume.name + " to VM:" + volume.selectedVm.value.name)
+			//this.notifications.info("Attached volume " + volume.name + " to VM:" + volume.selectedVm.value.name)
+			console.log(volume, volume.selectedVm.value)
 		}
 		
 		discardVm(volume:IVmVolume)

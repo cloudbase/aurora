@@ -32,7 +32,7 @@
                     <div class='cell'>eth{{key}}</div>
                     <div class='cell'>{{ network_interface.ip_addr }}&nbsp;</div>
                     <div class='cell'>
-                        <div ng-if="network_interface.floating_ip">
+                        <div ng-if="network_interface.floating_ip && network_interface.network.type != 'public'">
                             {{ network_interface.floating_ip.ip }}&nbsp;
                         </div>
                         <div ng-if="network_interface.network.type == 'public'">

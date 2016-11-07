@@ -12,7 +12,7 @@
 
             </a>
         </div>
-        <div class="table vm-table volumes-list-table">
+        <div class="table vm-table volumes-table">
             <div class="table-header">
                 <div class="cell">
                     <div class='cell-text'>Name</div>
@@ -41,7 +41,7 @@
                           <volume-display volume="item"></volume-display>
                         </div>
                         <div class='cell' ng-class="{empty: !item.attached_to}">
-                            <div ng-if="item.attached_to">
+                            <div ng-if="item.attached_to != null">
                                 <vm-display vm="item.attached_to.vm"></vm-display>
                             </div>
                             <div ng-if="!item.attached_to">
