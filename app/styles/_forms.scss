@@ -4,17 +4,12 @@
   margin: 0 auto;
   box-radius: 4px;
   .logo-login {
-    background-color: $dark-blue;
     border-radius: 50%;
     width:90px;
     height: 90px;
     margin: 0 auto;
     position: relative;
-    bottom: -45px;
-    img {
-      margin-left: 20px;
-      margin-top: 25px;
-    }
+    bottom: -39px;
   }
   label {
     font-size: 14px;
@@ -26,19 +21,18 @@
     padding: 0 10px;
     border-radius: 4px;
     height: 46px;
-
   }
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
   }
   .top {
-    background: #7F8FA4;
+    background: #dde0e5;
     border: 1px solid #E6EAEE;
     border-radius: 4px 4px 0px 0px;
     width: 100%;
     padding: 50px 0 20px;
     h3 {
-      color: #FFF;
+      color: $color-text-primary;
       text-align: center;
       font-weight: normal;
     }

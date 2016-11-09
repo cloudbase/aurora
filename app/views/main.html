@@ -2,10 +2,11 @@
 <!-- Add your site or application content here -->
 <div class="header">
     <div class="navbar navbar-default" role="navigation">
-    <div class="navbar-inner">
+    <div class="navbar-inner" ng-class="{not_logged: !vm.apiService.loggedIn}">
         <div class='container logo-container'>
-            <a class="navbar-brand" href="#/">
-                <img src="images/LogAuroraFlatWhite.svg" />
+            <a class="navbar-brand" ui-sref="main">
+                <img src="images/logo.svg" />
+                <span class="dewpoint">dewpoint</span>
             </a>
         </div>
         <div class='container'>

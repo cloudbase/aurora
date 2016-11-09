@@ -3,11 +3,24 @@ body .header {
   padding-right: 0;
   text-align: center;
 }
+.header {
+  .navbar-header {
+    opacity: 1;
+    animation: logo_animation 1s;
+
+  }
+  .not_logged {
+    .navbar-header {
+      display: none;
+
+    }
+  }
+}
 .header .navbar {
   @include clearfix();
-  height: 69px;
-  background: #354052;
-  box-shadow: 0px -1px 0px 0px #E6EAEE;
+  height: 60px;
+  border: 0;
+  background: $color-header-primary;
   .navbar-brand {
     float: left;
     padding: 0;
@@ -21,25 +34,53 @@ body .header {
   .logo-container {
     position: relative;
     .navbar-brand {
+      @include clearfix();
       position: absolute;
       left: 15px;
+      margin-left: 0px;
+      transition: all 0.1s ease-out;
+      img {
+        width: 34px;
+        float: left;
+      }
+      .dewpoint {
+        width: 117px;
+        height: 35px;
+        font-family: WorkSans;
+        font-size: 30px;
+        font-weight: 300;
+        letter-spacing: -2.1px;
+        color: #ffffff;
+        float: left;
+        margin: 7px 0 0 9px;
+      }
+    }
+  }
+  .not_logged {
+    .logo-container .navbar-brand {
+      left: 50%;
+      margin-left: -80px;
     }
   }
   .navbar-menu {
     @include clearfix();
-    padding-top: $pad;
+    padding-top: 10px;
     float: none;
     display: inline-block;
     list-style: none;
     li {
       float: left;
-      padding: 8px 15px;
+      padding: 8px 15px 5px;
       a {
         font-family: "geomanist_book";
         font-size: $font-size-menu;
         line-height: $line-height-menu;
         color: #D8D8D8;
         position: relative;
+        font-family: WorkSans;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.4px;
         &:after {
           content: " ";
           display: block;
@@ -50,7 +91,7 @@ body .header {
           &:after {
             width: 100%;
             height: 2px;
-            margin-top: 18px;
+            margin-top: 15px;
             background-color: $menu-hover-color;
           }
         }
@@ -75,12 +116,14 @@ body .header {
                  border-right: 0;
                }
                a {
-                   font-size: 18px;
-                   font-family: "geomanist_regular";
+                   font-family: WorkSans;
+                   font-size: 17px;
+                   font-weight: 400;
+                   letter-spacing: -0.4px;
                    color: #354052;
                    line-height: 38px;
                    &:after {
-                     margin-top: 7px;
+                     margin-top: 9px;
                      background-color: #354052;
                    }
                    &.active {
@@ -114,7 +157,7 @@ body .header {
                 &:after {
                     width: 100%;
                     height: 2px;
-                    margin-top: 18px;
+                    margin-top: 15px;
                     background-color: $menu-hover-color;
                 }
             } 

@@ -2,6 +2,8 @@
 /// <reference path="../../typings/angularjs/angular-route.d.ts" />
 
 // ## CONTROLLERS ##
+/// <reference path='controllers/main.ts' />
+
 /// <reference path='controllers/login.ts' />
 /// <reference path='controllers/login.d.ts' />
 

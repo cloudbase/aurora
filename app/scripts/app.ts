@@ -23,23 +23,32 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
   //
   // Now set up the states
   $stateProvider
-    .state('login', {
+    .state('main', {
       url: "/",
+      templateUrl: "views/main.html",
+      controller: "MainCtrl",
+      controllerAs: 'vm'
+    })
+    .state('login', {
+      url: "login",
+      parent: "main",
       templateUrl: 'views/sections/login.html',
       controller: 'LoginCtrl',
       controllerAs: 'login'
     })
     .state('dashboard', {
-      url: "/dashboard",
+      url: "dashboard",
+      parent: "main",
       templateUrl: 'views/sections/dashboard.html',
       controller: 'DashboardCtrl',
       controllerAs: 'vm'
     })
     // COMPUTE
     .state('compute', {
-      url: "/compute",
+      url: "compute",
+      parent: "main",
       abstract: true,
-      templateUrl: "views/main.html",
+      templateUrl: "views/abstract.html",
       controller: "ComputeCtrl",
       controllerAs: 'vm'
     })

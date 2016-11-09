@@ -41,6 +41,7 @@ declare module auroraApp.Services {
 		vmSnapshots:IVmSnapshot[]
 		networkList:IVmNetwork[]
 		project:Project
+		loggedIn: boolean
 		//handlerResponded(response: any, params: any): any
 		//_wrapUrl(url: string, type: string): string
 		//_get(url: string): ng.IPromise< any >

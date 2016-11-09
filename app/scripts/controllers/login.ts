@@ -7,7 +7,6 @@ module auroraApp {
         username: string
         password: string
         status: string = "Not logged"
-        apiService: Services.IApiService
         state: any
         // @ngInject
         static $inject = [
@@ -15,11 +14,8 @@ module auroraApp {
             "ApiService",
             "$state"
         ];
-        constructor (private $scope: IVmDetailsScope, apiService: Services.IApiService, $state: any) 
-        {
-            this.apiService = apiService
-            this.state = $state
-        }
+        constructor (private $scope: IVmDetailsScope, private apiService: Services.IApiService, private $state: any)
+        { }
         
         /**
          * Used to call the service for auth
@@ -27,7 +23,8 @@ module auroraApp {
         auth()
         {
            this.apiService.authCredentials(this.username, this.password).then((response: string) => {
-               this.state.go("dashboard")
+               this.apiService.loggedIn = true
+               this.$state.go("dashboard")
            }, (reason: any) => {
                console.log("ERROR : " + reason);
                this.status = "Login failed"
