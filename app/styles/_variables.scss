@@ -30,9 +30,10 @@ $secondary-font: "Open Sans";
 
 
 ///// COLORS /////
+$color-primary: #353746;
 $color-site-bg: #57596c;
-$color-header-primary: #353746;
-$color-text-primary: #353746;
+$color-header-primary: $color-primary;
+$color-text-primary: $color-primary;
 
 // Vm Statuses
 $status-running: #30AD63;

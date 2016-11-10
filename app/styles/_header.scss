@@ -3,6 +3,7 @@ body .header {
   padding-right: 0;
   text-align: center;
 }
+
 .header {
   .navbar-header {
     opacity: 1;
@@ -16,6 +17,7 @@ body .header {
     }
   }
 }
+
 .header .navbar {
   @include clearfix();
   height: 60px;
@@ -98,77 +100,95 @@ body .header {
       }
 
       .submenu {
-          @include clearfix();
-          display: none;
-          text-align: center;
-          background-color: #C4C9D2;
-          width: 100%;
-          height: 58px;
-          z-index: 10;
-          ul {
-            list-style: none;
-            display: inline-block;
-            padding: 10px 0;
-            li {
-               padding: 0px 30px;
-               border-right: 1px solid #FFF;
-               &:last-child {
-                 border-right: 0;
-               }
-               a {
-                   font-family: WorkSans;
-                   font-size: 17px;
-                   font-weight: 400;
-                   letter-spacing: -0.4px;
-                   color: #354052;
-                   line-height: 38px;
-                   &:after {
-                     margin-top: 9px;
-                     background-color: #354052;
-                   }
-                   &.active {
-                     font-family: "geomanist_book";
-                   }                
-               }
-               &.active {
-                 a {
-                   font-family: "geomanist_medium";
-                 }
-               }
-              &.with-counter {
-                span.count {
-                  font-size: 14px;
-                  color: #7F8FA4;
-                  position: absolute;
-                  margin-left: 25px;
-                  right: 33px;
-                  top: 10px;
+        @include clearfix();
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: opacity 0.2s ease-out;
+        text-align: center;
+        background-color: #C4C9D2;
+        display: block;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+
+        ul {
+          list-style: none;
+          display: inline-block;
+          padding: 14px 0;
+          li {
+            padding: 0px 30px;
+            border-right: 1px solid $color-primary;
+            height: 30px;
+            &:last-child {
+              border-right: 0;
+            }
+            a {
+              font-family: WorkSans;
+              font-size: 17px;
+              font-weight: 400;
+              letter-spacing: -0.4px;
+              color: #354052;
+              line-height: 30px;
+              &:after {
+                margin-top: 12px;
+                background-color: transparent;
+              }
+              &.active {
+                font-weight: 600;
+                &:after {
+                  background-color: #354052;
                 }
-                padding-right: 70px;
-                position: relative;
+              }
+              &:hover {
+                &:after {
+                  background-color: #354052;
+                }
               }
             }
-          }
-      }
-      &.active {
-            &>a {
-                color: $menu-hover-color;
-                text-decoration: none;
-                &:after {
-                    width: 100%;
-                    height: 2px;
-                    margin-top: 15px;
-                    background-color: $menu-hover-color;
-                }
-            } 
-            .submenu {
-                display: block;
+            &.with-counter {
+              span.count {
+                font-size: 14px;
+                color: #7F8FA4;
                 position: absolute;
-                left: 0;
-                width: 100%;
+                margin-left: 25px;
+                right: 33px;
+                top: 6px;
+              }
+              padding-right: 70px;
+              position: relative;
             }
+          }
+        }
       }
-      
+      & > a {
+        &:after {
+          width: 100%;
+          height: 2px;
+          margin-top: 15px;
+          background-color: transparent;
+        }
+      }
+      &.active, &:hover {
+        & > a {
+          color: $menu-hover-color;
+          text-decoration: none;
+          &:after {
+            background-color: $menu-hover-color;
+          }
+        }
+        .submenu {
+          opacity: 1;
+          height: 58px;
+        }
+      }
+      &:hover {
+        .submenu {
+          z-index: 100;
+        }
+      }
+
     }
   }
 }

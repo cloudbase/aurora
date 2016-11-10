@@ -197,8 +197,9 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
     })
     .state('networking', {
       abstract: true,
-      url: "/networking",
-      templateUrl: "views/main.html",
+      url: "networking",
+      parent: "main",
+      templateUrl: "views/abstract.html",
       controller: "NetworkingCtrl",
       controllerAs: 'vm',
       resolve: {

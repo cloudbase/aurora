@@ -18,25 +18,25 @@
                     <a ui-sref="compute" style="display:none" > </a>
                     <div class='submenu'>
                             <ul>
-                                <li ui-sref-active="active" class="with-counter">
-                                    <a ui-sref="vm-list">Virtual Machines
+                                <li class="with-counter">
+                                    <a ui-sref-active="active" ui-sref="vm-list">
+                                        Virtual Machines
+                                        <a ui-sref="vm" style="display:none" > </a>
                                     </a>
                                     <span class="count">{{vm.apiService.listItems.length}}</span>
-                                    <a ui-sref="vm" style="display:none" > </a>
                                 </li>
-                                <li ui-sref-active="active" class="with-counter">
-                                    <a ui-sref="volumes-list">
+                                <li class="with-counter">
+                                    <a ui-sref-active="active" ui-sref="volumes-list">
                                         Volumes
                                     </a>
                                     <span class="count">{{vm.apiService.vmVolumes.length}}</span>
-                                    <a ui-sref="volumes" style="display:none" > </a>
+
                                 </li>
-                                <li ui-sref-active="active" class="with-counter">
-                                    <a ui-sref="snapshot-list">
+                                <li class="with-counter">
+                                    <a ui-sref-active="active" ui-sref="snapshot-list">
                                         Snapshots
                                     </a>
                                     <span class="count">{{vm.apiService.vmSnapshots.length}}</span>
-                                    <a ui-sref="snapshots" style="display:none" > </a>
                                 </li>
                             </ul>
                     </div>
