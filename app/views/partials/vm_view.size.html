@@ -1,12 +1,12 @@
 <div class='section' id='flavor-section'>
     <div ng-if="flavorView.resize" class='section-header'>
-        <h3>Resize</h3>
+        <h3>{{ 'RESIZE' | translate }}</h3>
     </div>
     <div class='section-body'>
         <div class='list-filters'>
             <div class='filter'>
-                <a ng-repeat="list in flavorView.tags" ng-class="{active: list == flavorView.activeList}" ng-click="flavorView.changeCategory(list)">{{list}}</a>
-                <a ng-click="flavorView.changeCategory('all')" ng-class="{active: flavorView.activeList == 'all'}">All</a>
+                <a ng-repeat="list in flavorView.tags" ng-class="{active: list == flavorView.activeList}" ng-click="flavorView.changeCategory(list)">{{list | translate }}</a>
+                <a ng-click="flavorView.changeCategory('all')" ng-class="{active: flavorView.activeList == 'all'}">{{ 'ALL' | translate }}</a>
             </div>
         </div>
         <div class="list list-flavors">
@@ -39,7 +39,7 @@
                 </div>
                 <div class='price'>
                     <span class='value'>{{ flavor.price | number : 2}}</span>
-                    <span class='label-value'> Eur/Month (EST)</span>
+                    <span class='label-value'> {{ 'PRICE_MONTH' | translate }} (EST)</span>
                 </div>
             </div>
         </div>
@@ -47,5 +47,5 @@
 </div>
 
 <a ng-if="flavorView.resize" class="btn btn-primary btn-launch" ng-click="flavorView.resizeFlavor()">
-    Resize Virtual Machine
+    {{ 'RESIZE_VM' | translate }}
 </a>

@@ -1,18 +1,18 @@
 <div class='row'>
     <div class="main-list">
         <div class='list-header'>
-            <h1>Snapshots</h1>
+            <h1>{{ 'SNAPSHOTS' | translate }}</h1>
         </div>
         <div class='table table-snapshots table-main-snapshots'>
             <div class='table-header'>
-                <div class='cell'>Name</div>
-                <div class='cell'>Region</div>
-                <div class='cell'>Date</div>
-                <div class='cell'>Size</div>
-                <div class='cell'>Action</div>
+                <div class='cell'>{{ 'NAME' | translate }}</div>
+                <div class='cell'>{{ 'REGION' | translate }}</div>
+                <div class='cell'>{{ 'DATE' | translate }}</div>
+                <div class='cell'>{{ 'SIZE' | translate }}</div>
+                <div class='cell'>{{ 'ACTIONS' | translate }}</div>
             </div>
             <div ng-if='vm.snapshots.length == 0' class='empty-table'>
-                <h3>No snapshots</h3>
+                <h3>{{ 'NO_SNAPSHOTS' | translate }}</h3>
             </div>
             <div  class='table-row' ng-repeat="snapshot in vm.snapshots">
                 <div class='cell'>
@@ -46,11 +46,7 @@
                 <div class='cell'>
                     <ul class="vm-actions">
                         <li>
-
                             <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
-                                <desc>Created with Sketch.</desc>
-                                <defs></defs>
                                 <path d="M14.1035,4.00203459 C13.5325,3.41503459 12.9495,2.84103459 12.3535,2.27803459 C11.8305,1.78303459 11.2975,1.29503459 10.7545,0.817034593 C10.3635,0.473034593 9.8925,0.238034593 9.3935,0.111034593 C8.3125,-0.163965407 7.0945,0.0720345927 6.2465,0.817034593 C5.0675,1.85503459 3.9335,2.93603459 2.8415,4.05903459 C2.1505,4.77003459 1.4755,5.49903459 0.8175,6.24703459 C-0.2725,7.48503459 -0.2725,9.51503459 0.8175,10.7540346 C2.5135,12.6810346 4.3195,14.4870346 6.2465,16.1830346 C7.4865,17.2730346 9.5165,17.2730346 10.7545,16.1830346 C10.8485,16.1000346 10.9415,16.0160346 11.0345,15.9320346 C12.5025,14.6250346 13.8985,13.2520346 15.2295,11.8100346 C15.5515,11.4610346 15.8705,11.1100346 16.1835,10.7540346 C16.6465,10.2280346 16.9115,9.56003459 16.9815,8.87003459 C17.0765,7.93403459 16.8105,6.95903459 16.1835,6.24703459 C16.0825,6.13103459 15.9795,6.01803459 15.8765,5.90303459 C15.2985,5.25603459 14.7075,4.62203459 14.1035,4.00203459 Z M15.6075,8.73103459 C15.5645,9.15903459 15.4005,9.55303459 15.1475,9.84103459 L15.1445,9.84203459 C14.8395,10.1910346 14.5285,10.5320346 14.2145,10.8730346 C12.9215,12.2750346 11.5425,13.6300346 10.1185,14.8980346 L9.8425,15.1470346 C9.1275,15.7740346 7.8735,15.7740346 7.1595,15.1470346 C5.2865,13.4980346 3.5015,11.7130346 1.8545,9.84103459 C1.2265,9.12703459 1.2265,7.87303459 1.8545,7.15903459 C2.4925,6.43403459 3.1585,5.71503459 3.8325,5.02103459 C4.8985,3.92503459 6.0175,2.85903459 7.1595,1.85403459 C7.5075,1.54803459 7.9985,1.38103459 8.5025,1.38103459 C8.6865,1.38103459 8.8715,1.40303459 9.0525,1.44903459 C9.3555,1.52703459 9.6285,1.66703459 9.8415,1.85403459 C10.3715,2.32103459 10.8925,2.79703459 11.4055,3.28203459 C11.9865,3.83203459 12.5565,4.39203459 13.1145,4.96503459 C13.7045,5.57003459 14.2815,6.19003459 14.8815,6.86203459 L15.1465,7.15803459 C15.4945,7.55503459 15.6675,8.14203459 15.6075,8.73103459 Z M9,8 L9,5 L8,5 L8,8 L5,8 L5,9 L8,9 L8,12 L9,12 L9,9 L12,9 L12,8 L9,8 Z" id="Combined-Shape" stroke="none" fill="#7F8FA4" fill-rule="evenodd"></path>
                             </svg>
                         </li>
@@ -62,7 +58,7 @@
                         </li>
                         <li class="deleteVM" ng-class="{disabled: item.attached_to}">
                             <a uib-tooltip="Delete snapshot" data-toggle="confirmation" data-placement="top" mwl-confirm
-                               message="Are you sure you want to delete this Snapshot? This action is undoable."
+                               message="{{ 'SNAPSHOT_DELETE_CONFIRM' | translate }}"
                                on-confirm="vm.deleteSnapshot(item)">
 
                                 <svg width="16px" height="19px" viewBox="136 -1 16 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

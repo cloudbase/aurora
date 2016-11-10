@@ -1,5 +1,5 @@
 <div class='project-stats'>
-    <h4>Project Limits</h4>
+    <h4>{{ 'PROJECT_LIMITS' | translate }}</h4>
     <div class='graphs'>
         <div class='graph'>
             <round-progress
@@ -77,15 +77,15 @@
     </div>
     
     <div class='stat-section'>
-        <h4>Estimated Costs</h4>
+        <h4>{{ 'ESTIMATED_COSTS' | translate }}</h4>
         <div class='monthly-cost'>
-            <span class='stat-label'>Monthly cost/instance</span>
+            <span class='stat-label'>{{ 'MONTHLY_COST_INSTANCE' | translate }}</span>
             <span class='price price-instance'>
                 &euro; {{ ((view.apiService.project.current_cost + view.apiService.project.additional_cost) / view.apiService.project.current_vm) | number : 2 }}
             </span>
         </div>
         <div class='monthly-cost'>
-            <span class='stat-label'>Monthly cost/project</span>
+            <span class='stat-label'>{{ 'MONTHLY_COST_PROJECT' | translate }}</span>
             <span class='price'>
                 &euro; {{ view.apiService.project.current_cost + view.apiService.project.additional_cost | number : 2 }}
             </span>
@@ -104,7 +104,7 @@
         </div>
     </div>
     <div class='stat-section'>
-        <h4>Summary</h4>
+        <h4>{{ 'SUMMARY' | translate }}</h4>
 
     </div>
 </div>

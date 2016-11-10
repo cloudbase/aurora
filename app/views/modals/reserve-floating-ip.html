@@ -1,10 +1,10 @@
 <div class='reserve-floating-ip-modal'>
     <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Reserve floating ip</h3>
+        <h3 class="modal-title" id="modal-title">{{ 'RESERVE_FLOATING_IP' | translate }}</h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div class='project-limits'>
-            <div class='project-label'>Your project limits</div>
+            <div class='project-label'>{{ 'PROJECT_LIMITS' | translate }}</div>
             <div class='item'>Floating IP's</div>
             <uib-progressbar max="project.floating_ip_limit" value="project.floating_ips.length"<i>{{ project.floating_ips.length }} / {{ project.floating_ip_limit }}</i></uib-progressbar>
         </div>
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-warning btn-cancel pull-left" type="button" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="ok()" >Allocate IP</button>
+        <button class="btn btn-warning btn-cancel pull-left" type="button" ng-click="cancel()">{{ 'CANCEL' | translate }}</button>
+        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="ok()" >{{ 'ALLOCATE_IP' | translate }}</button>
     </div>
 </div>

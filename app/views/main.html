@@ -1,40 +1,39 @@
 <div class='uil-cube-css' id="loader" style='-webkit-transform:scale(0.25)'><div></div><div></div><div></div><div></div></div>
-<!-- Add your site or application content here -->
 <div class="header">
     <div class="navbar navbar-default" role="navigation">
     <div class="navbar-inner" ng-class="{not_logged: !vm.apiService.loggedIn}">
         <div class='container logo-container'>
             <a class="navbar-brand" ui-sref="main">
                 <img src="images/logo.svg" />
-                <span class="dewpoint">dewpoint</span>
+                <span class="dewpoint">{{ 'APP_NAME' | translate }}</span>
             </a>
         </div>
         <div class='container'>
             <div class="navbar-header">
                 <ul class="navbar-menu">
-                <li ui-sref-active="active"><a ui-sref="dashboard">Dashboard</a></li>
+                <li ui-sref-active="active"><a ui-sref="dashboard">{{ 'DASHBOARD' | translate }}</a></li>
                 <li ui-sref-active="active">
-                    <a ui-sref="vm-list">Compute</a>
+                    <a ui-sref="vm-list">{{ 'COMPUTE' | translate }}</a>
                     <a ui-sref="compute" style="display:none" > </a>
                     <div class='submenu'>
                             <ul>
                                 <li class="with-counter">
                                     <a ui-sref-active="active" ui-sref="vm-list">
-                                        Virtual Machines
+                                        {{ 'VIRTUAL_MACHINES' | translate }}
                                         <a ui-sref="vm" style="display:none" > </a>
                                     </a>
                                     <span class="count">{{vm.apiService.listItems.length}}</span>
                                 </li>
                                 <li class="with-counter">
                                     <a ui-sref-active="active" ui-sref="volumes-list">
-                                        Volumes
+                                        {{ 'VOLUMES' | translate }}
                                     </a>
                                     <span class="count">{{vm.apiService.vmVolumes.length}}</span>
 
                                 </li>
                                 <li class="with-counter">
                                     <a ui-sref-active="active" ui-sref="snapshot-list">
-                                        Snapshots
+                                        {{ 'SNAPSHOTS' | translate }}
                                     </a>
                                     <span class="count">{{vm.apiService.vmSnapshots.length}}</span>
                                 </li>
@@ -42,30 +41,30 @@
                     </div>
                 </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="networking-map"  ui-sref-active="active" href="#">Networking</a>
+                    <a ui-sref="networking-map"  ui-sref-active="active" href="#">{{ 'NETWORKING' | translate }}</a>
                     <a ui-sref="networking" style="display:none" > </a>
                     <div class='submenu'>
                         <ul>
                             <li>
-                                <a ui-sref-active="active" ui-sref="networking-map">Map</a>
+                                <a ui-sref-active="active" ui-sref="networking-map">{{ 'MAP' | translate }}</a>
                             </li>
                             <li class="with-counter">
-                                <a ui-sref-active="active" ui-sref="networking-list">Networks</a>
+                                <a ui-sref-active="active" ui-sref="networking-list">{{ 'NETWORKS' | translate }}</a>
                                 <span class="count">{{vm.apiService.networkList.length}}</span>
                             </li>
                             <li class="with-counter">
-                                <a ui-sref-active="active" ui-sref="networking-floating-ips">Floating IPs</a>
+                                <a ui-sref-active="active" ui-sref="networking-floating-ips">{{ 'FLOATING_IPS' | translate }}</a>
                                 <span class="count">{{vm.apiService.project.floating_ips.length}}</span>
                             </li>
                             <li class="with-counter">
-                                <a ui-sref-active="active" ui-sref="networking-routers">Routers</a>
+                                <a ui-sref-active="active" ui-sref="networking-routers">{{ 'ROUTERS' | translate }}</a>
                                 <span class="count">{{vm.apiService.networkRouters.length}}</span>
                             </li>
                         </ul>
                     </div>
                 </li>
                 <li ui-sref-active="active">
-                    <a href="#">Extra</a>
+                    <a href="#">{{ 'EXTRA' | translate }}</a>
                 </li>
                 </ul>
             </div>

@@ -1,7 +1,7 @@
 <div class="container main-body dashboard">
     <div class="header">
-        <h1>Get started with Aurora</h1>
-        <h3>Get insights into Aurora activities using graphs and vizualization tools.</h3>
+        <h1>{{ 'DASHBOARD_TITLE' | translate }}</h1>
+        <h3>{{ 'DASHBOARD_SECONDARY_TITLE' | translate }}</h3>
     </div>
     <div class="widgets">
         <div class="row">
@@ -16,25 +16,21 @@
                         </g>
                     </svg>
 
-                    <p>Easily deploy new <br />
-                        virtual machines</p>
+                    <p>{{ 'DASHBOARD_NEWVM_MSG' | translate }}</p>
                     <a class="btn btn-primary btn-new-vm" ui-sref="vm-create">
                         <svg width="23px" height="22px" viewBox="42 11 23 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-                            <desc>Created with Sketch.</desc>
-                            <defs></defs>
                             <text id="add---material" stroke="none" fill="none" font-family="LastResort, .LastResort" font-size="20" font-weight="normal">
                                 <tspan x="42.2180544" y="28.4116743" fill="#FAFAFB"></tspan>
                             </text>
                         </svg>
-                        New VM
+                        {{ 'DASHBOARD_NEWVM_CTA' | translate }}
                     </a>
                 </div>
             </div>
             <div class="widget size-third newsFeedWidget">
                 <div class="widget-container">
-                    <h2>Notifications</h2>
-                    <h4>News from above</h4>
+                    <h2>{{ 'NOTIFICATIONS' | translate }}</h2>
+                    <h4>{{ 'NOTIFICATIONS_ALT' | translate }}</h4>
                     <ul>
                         <li>
                             <div class="head">
@@ -70,8 +66,8 @@
             </div>
             <div class="widget size-third allWidgetsWidget">
                 <div class="widget-container">
-                    <h2>Widgets</h2>
-                    <h4>Drag and drop widgets to the canvas</h4>
+                    <h2>{{ 'WIDGETS' | translate }}</h2>
+                    <h4>{{ 'WIDGETS_DRAGDROP' | translate }}</h4>
                     <ul>
                         <li>
                             <svg class="widget-icon" width="56px" height="56px" viewBox="10 10 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -92,8 +88,8 @@
                                     </g>
                                 </g>
                             </svg>
-                            <div class="widget-title">Charts</div>
-                            <div class="widget-description">Add any chart to the dashboard.</div>
+                            <div class="widget-title">{{ 'CHARTS' | translate }}</div>
+                            <div class="widget-description">{{ 'CHARTS_MSG' | translate }}</div>
                             <div class="widget-overlay">
                                 <svg width="43px" height="102px" viewBox="59 9 43 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <text id="+" stroke="none" fill="none" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="75" font-weight="normal">
@@ -121,8 +117,8 @@
                                     </text>
                                 </g>
                             </svg>
-                            <div class="widget-title">Gauges</div>
-                            <div class="widget-description">Add and configure any number of gauges.</div>
+                            <div class="widget-title">{{ 'GAUGES' | translate }}</div>
+                            <div class="widget-description">{{ 'GAUGES_MSG' | translate }}</div>
                             <div class="widget-overlay">
                                 <svg width="43px" height="102px" viewBox="59 9 43 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <text id="+" stroke="none" fill="none" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="75" font-weight="normal">
@@ -146,8 +142,8 @@
                                     <path d="M22.64111,7 L6.35889,7 C5.61014161,7 5,7.59866667 5,8.33333333 L5,9.66666667 C5,10.4013333 5.61014161,11 6.35889,11 L22.64111,11 C23.3898584,11 24,10.4013333 24,9.66666667 L24,8.33333333 C24,7.59866667 23.3898584,7 22.64111,7" id="Fill-10" fill="#FAFAFB"></path>
                                 </g>
                             </svg>
-                            <div class="widget-title">Billing</div>
-                            <div class="widget-description">The main billing and expences widget.</div>
+                            <div class="widget-title">{{ 'BILLING' | translate }}</div>
+                            <div class="widget-description">{{ 'BILLING_MSG' | translate }}</div>
                             <div class="widget-overlay">
                                 <svg width="43px" height="102px" viewBox="59 9 43 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <text id="+" stroke="none" fill="none" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="75" font-weight="normal">
@@ -158,17 +154,14 @@
                         </li>
                         <li>
                             <svg class="widget-icon" width="56px" height="56px" viewBox="10 10 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-                                <desc>Created with Sketch.</desc>
-                                <defs></defs>
                                 <rect id="Rectangle-Copy-2" stroke="none" fill="#354052" fill-rule="evenodd" x="10" y="10" width="56" height="56" rx="8"></rect>
                                 <text id="$❚" stroke="none" fill="none" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal">
                                     <tspan x="19" y="36" fill="#4CD964">$</tspan>
                                     <tspan x="30.8378906" y="36" font-family="ZapfDingbatsITC, Zapf Dingbats" fill="#FAFAFB">❚</tspan>
                                 </text>
                             </svg>
-                            <div class="widget-title">Console</div>
-                            <div class="widget-description">Quick SSH Console to any VM.</div>
+                            <div class="widget-title">{{ 'CONSOLE' | translate }}</div>
+                            <div class="widget-description">{{ 'CONSOLE_MSG' | translate }}</div>
                             <div class="widget-overlay">
                                 <svg width="43px" height="102px" viewBox="59 9 43 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <text id="+" stroke="none" fill="none" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="75" font-weight="normal">

@@ -1,25 +1,25 @@
 <div class='edit-volume-details'>
     <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Edt volume details</h3>
+        <h3 class="modal-title" id="modal-title">{{ 'EDIT_VOLUME_DETAILS' | translate }}</h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div class="form">
             <div class="form-group">
-                <label>Name</label>
+                <label>{{ 'NAME' | translate }}</label>
                 <input type="text" ng-model="volumeName" class="form-control"/>
             </div>
             <div class="form-group">
-                <label>Description</label>
+                <label>{{ 'DESCRIPTION' | translate }}</label>
                 <textarea  class="form-control" ng-model="volumeDescription"></textarea>
             </div>
 
             <div class='project-limits'>
                 <div class="form-group">
-                    <label>Increase storoage (GB)</label>
+                    <label>{{ 'INCREASE_STORAGE' | translate }} (GB)</label>
                     <plus-minus min="0" max="{{project.storage_limit - project.current_storage}}" value="0" ng-model="increaseStorage"></plus-minus>
                 </div>
                 <div class="storage-limit">
-                    <div class='item'>Volume Storage Project Limit (GB)</div>
+                    <div class='item'>{{ 'VOLUME_PROJECT_LIMIT' | translate }} (GB)</div>
                     <uib-progressbar max="project.storage_limit" value="project.current_storage">{{ project.current_storage }} / {{ project.storage_limit }}</uib-progressbar>
                 </div>
             </div>
@@ -28,7 +28,7 @@
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-warning btn-cancel pull-left" type="button" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="ok()" >Save</button>
+        <button class="btn btn-warning btn-cancel pull-left" type="button" ng-click="cancel()">{{ 'CANCEL' | translate }}</button>
+        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="ok()" >{{ 'SAVE' | translate }}</button>
     </div>
 </div>

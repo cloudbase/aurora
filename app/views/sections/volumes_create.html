@@ -11,18 +11,18 @@
                     </g>
                 </g>
             </svg>
-            New Volume
+            {{ 'NEW_VOLUME' | translate }}
             </h1>
         <div class='main'>
             <div id="create-vm">
-                <collapse class="panel" title="General" valid="valid">
+                <collapse class="panel" title="{{ 'GENERAL' | translate }}" valid="valid">
                     <div class='form'>
                         <div class='general-field name'>
-                            <label for="vm-name">Name</label>
+                            <label for="vm-name">{{ 'NAME' | translate }}</label>
                             <input type="text" id="vm-name" class='form-control' ng-model="vm.newVolumeName"/>
                         </div>
                         <div class='general-field zone'>
-                            <label for="vm-zone">Region</label>
+                            <label for="vm-zone">{{ 'REGION' | translate }}</label>
                             <ui-select ng-model="vm.region.value" class='zone' search-enabled="false">
                                 <ui-select-match placeholder='Zone' class='select-choice'>
                                     <span ng-bind="$select.selected.name"></span>
@@ -33,21 +33,21 @@
                             </ui-select>
                         </div>
                         <div class='general-field count'>
-                            <label for="vm-count">Size (GB)</label>
+                            <label for="vm-count">{{ 'SIZE' | translate }} (GB)</label>
                             <plus-minus id="vm-count" ng-model='vm.size' value="vm.size" class='form-input-number' readonly="false" min="1"></plus-minus>
                         </div>
                         <div class="general-field description">
-                            <label for="volume-description">Description</label>
+                            <label for="volume-description">{{ 'DESCRIPTION' | translate }}</label>
                             <textarea ng-model="vm.volumeDescription" id="volume-description"></textarea>
                         </div>
                     </div>
                 </collapse>
-                <collapse class="panel sources-panel" title="Choose Source" valid="valid">
+                <collapse class="panel sources-panel" title="{{ 'CHOOSE_SOURCE' | translate }}" valid="valid">
                     <uib-accordion close-others="true">
                         <div uib-accordion-group class="panel-default" ng-class="{active: vm.category_selected == 'empty'}" is-open="true">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
-                                Empty
+                                {{ 'EMPTY' | translate }}
                             </uib-accordion-heading>
 
                             <div ng-class="{selected: vm.category_selected == 'empty'}" class="option" ng-click="vm.selectEmpty()">
@@ -57,13 +57,13 @@
                                 <svg class='radio-btn radio-inactive' width="21px" height="20px">
                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#check-inactive"></use>
                                 </svg>
-                                No source, empty volume
+                                {{ 'NO_SOURCE' | translate }}
                             </div>
                         </div>
                         <div ng-class="{active: vm.category_selected == 'images'}" uib-accordion-group class="panel-default" is-open="false">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
-                                Images
+                                {{ 'IMAGES' | translate }}
                             </uib-accordion-heading>
 
                             <div ui-view="images"></div>
@@ -71,7 +71,7 @@
                         <div ng-class="{active: vm.category_selected == 'volumes'}" uib-accordion-group class="panel-default">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
-                                Volumes
+                                {{ 'VOLUMES' | translate }}
                             </uib-accordion-heading>
                             <div class="list-volumes">
                                 <div ng-repeat="volume in vm.volumes"  class="volume-wrapper" ng-class="{selected: volume.selected}" ng-click="vm.selectVolume(volume)">
@@ -82,14 +82,14 @@
                     </uib-accordion>
                 </collapse>
                 <a class="btn btn-primary btn-launch" ng-click="vm.createVolume()">
-                    Create Volume
+                    {{ 'CREATE_VOLUME' | translate }}
                 </a>
             </div>
         </div>
         <div class='sidebar' sticky offset="175">
             <div ui-view="sidebar"></div>
             <a class="btn btn-primary btn-launch" ng-click="vm.createVolume()">
-                Create Volume
+                {{ 'CREATE_VOLUME' | translate }}
             </a>
         </div>
     </div>

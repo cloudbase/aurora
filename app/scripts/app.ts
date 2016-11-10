@@ -11,10 +11,11 @@ var app = angular.module('auroraApp', [
     'ui.bootstrap',
     'angular-svg-round-progressbar',
     'xeditable',
-    'yaru22.angular-timeago',
     'ui.select',
     'ui-notification',
-    'ui.router.modal'
+    'ui.router.modal',
+    'pascalprecht.translate',
+    'angularMoment'
 ]);
 app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
   //

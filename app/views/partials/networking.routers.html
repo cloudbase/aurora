@@ -1,19 +1,19 @@
 <div class="main-list">
     <div class='list-header'>
-        <h1>Routers</h1>
+        <h1>{{ 'ROUTERS' | translate }}</h1>
         <a class="btn btn-primary btn-add">
-            Create Router
+            {{ 'CREATE_ROUTER' | translate }}
         </a>
     </div>
     <div class='table table-routers-list'>
         <div class='table-header'>
-            <div class='cell'>Name</div>
-            <div class='cell'>Interfaces</div>
-            <div class='cell'>Static Routes</div>
-            <div class='cell'>Admin state</div>
-            <div class='cell'>External Network</div>
-            <div class='cell'>Status</div>
-            <div class='cell'>Actions</div>
+            <div class='cell'>{{ 'NAME' | translate }}</div>
+            <div class='cell'>{{ 'INTERFACES' | translate }}</div>
+            <div class='cell'>{{ 'STATIC_ROUTES' | translate }}</div>
+            <div class='cell'>{{ 'ADMIN_STATE' | translate }}</div>
+            <div class='cell'>{{ 'EXTERNAL_NETWORK' | translate }}</div>
+            <div class='cell'>{{ 'STATUS' | translate }}</div>
+            <div class='cell'>{{ 'ACTIONS' | translate }}</div>
         </div>
         <div  class='table-row' ng-repeat="item in netView.apiService.networkRouters">
             <div class='cell'>
@@ -52,7 +52,7 @@
             </div>
             <div class='cell'>
                 <ul class="vm-actions">
-                    <li data-toggle="confirmation" title="Release Floating IP" onmouseenter="$(this).tooltip('show')" data-placement="top" mwl-confirm message="Are you sure you want to release this floating ip?" title="Delete" onmouseenter="$(this).tooltip('show')" on-confirm="netView.releaseFloatingIp(item)" ng-class="{disabled: item.assigned_to == null}">
+                    <li data-toggle="confirmation" uib-tooltip="Release Floating IP" data-placement="top" mwl-confirm message="{{ 'RELEASE_FLOATING_IP_CONFIRM' | translate }}" uib-tooltip="{{ 'RELEASE' | translate }}" title="{{ 'RELEASE' | translate }}" on-confirm="netView.releaseFloatingIp(item)" ng-class="{disabled: item.assigned_to == null}">
                         <svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <g id="Group-3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <g id="Page-1" fill="#7F8FA4">
@@ -78,7 +78,7 @@
                             </g>
                         </svg>
                     </li>
-                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="Are you sure you want to remove this network?" title="Delete" onmouseenter="$(this).tooltip('show')" on-confirm="vm.removeInterface(network_interface)">
+                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'NETWORK_DELETE_CONFIRM' | translate }}" title="{{ 'DELETE' | translate }}" on-confirm="vm.removeInterface(network_interface)">
                         <svg width="15px" height="17px" viewBox="46 0 15 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <path d="M58.147,15.0543634 C58.143,15.4132469 57.834,15.7022426 57.458,15.6984649 L49.285,15.6115773 C48.909,15.6077996 48.607,15.3121929 48.611,14.9533093 L48.724,5.19262105 L52.207,5.22945384 C52.294,5.23984258 52.38,5.25684232 52.47,5.25873118 L54.514,5.27950865 C54.604,5.28045308 54.69,5.26439777 54.779,5.25589789 L58.26,5.29367511 L58.147,15.0543634 Z M51.51,2.33949679 C51.516,1.79078272 51.967,1.34784486 52.516,1.35351144 L54.559,1.37523334 C55.108,1.38089992 55.548,1.83328209 55.542,2.38294059 L55.539,2.66154756 L51.506,2.61904819 L51.51,2.33949679 Z M60.319,4.01302747 L60.326,3.36231492 C60.33,3.0043758 60.028,2.70876908 59.653,2.70499136 L56.956,2.67571402 L56.958,2.39710704 C56.974,1.10229295 55.905,0.0360310226 54.575,0.0218645665 L52.531,0.000142667074 C51.202,-0.0140237891 50.108,1.02862738 50.093,2.3243859 L50.089,2.6039373 L47.393,2.57560439 C47.017,2.57088224 46.708,2.85987794 46.704,3.2187615 L46.696,3.86947405 L46.015,3.86191861 L46,5.16334371 L47.362,5.1784546 L47.249,14.9391429 C47.237,16.0157935 48.143,16.9007248 49.27,16.9130024 L57.443,16.99989 C58.57,17.0112232 59.497,16.1451805 59.509,15.0685298 L59.622,5.30784156 L60.985,5.32200802 L61,4.02058292 L60.319,4.01302747 Z M52.7058,14.3457572 L54.0678,14.3608681 L54.1578,6.55137308 L52.7968,6.53720663 L52.7058,14.3457572 Z M49.9811,14.3170466 L51.3431,14.331213 L51.4341,6.5226624 L50.0721,6.50849594 L49.9811,14.3170466 Z M56.8827,6.58074487 L55.5207,6.56563398 L55.4297,14.375129 L56.7917,14.3892955 L56.8827,6.58074487 Z" id="Combined-Shape-Copy-3" stroke="none" fill="#7F8FA4" fill-rule="evenodd"></path>
                         </svg>

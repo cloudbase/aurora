@@ -11,18 +11,18 @@
                     </g>
                 </g>
             </svg>
-            New Virtual Machine
+            {{ 'NEW_VIRTUAL_MACHINE' | translate }}
             </h1>
         <div class='main'>
             <div id="create-vm">
-                <collapse class="panel" title="General" valid="valid">
+                <collapse class="panel" title="{{ 'GENERAL' | translate }}" valid="valid">
                     <div class='form'>
                         <div class='general-field name'>
-                            <label for="vm-name">Name</label>
+                            <label for="vm-name">{{ 'NAME' | translate }}</label>
                             <input type="text" id="vm-name" class='form-control' ng-model="vm.newVmName"/>
                         </div>
                         <div class='general-field zone'>
-                            <label for="vm-zone">Region</label>
+                            <label for="vm-zone">{{ 'REGION' | translate }}</label>
                             <ui-select ng-model="vm.zone.value" class='zone' search-enabled="false">
                                 <ui-select-match placeholder='Zone' class='select-choice'>
                                     <span ng-bind="$select.selected.name"></span>
@@ -33,17 +33,17 @@
                             </ui-select>
                         </div>
                         <div class='general-field count'>
-                            <label for="vm-count">Count</label>
+                            <label for="vm-count">{{ 'COUNT' | translate }}</label>
                             <plus-minus id="vm-count" ng-model='vm.count' value="vm.count" class='form-input-number' min="1" max="5" readonly="true"></plus-minus>
                         </div>
                     </div>
                 </collapse>
-                <collapse class="panel sources-panel" title="Choose Source" valid="valid">
+                <collapse class="panel sources-panel" title="{{ 'CHOOSE_SOURCE' | translate }}" valid="valid">
                     <uib-accordion close-others="true">
                         <div ng-class="{active: vm.src_category_selected == 'images'}" uib-accordion-group class="panel-default" is-open="true">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
-                                Images
+                                {{ 'IMAGES' | translate }}
                             </uib-accordion-heading>
 
                             <div ui-view="images"></div>
@@ -51,7 +51,7 @@
                         <div ng-class="{active: vm.src_category_selected == 'volumes'}" uib-accordion-group class="panel-default">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
-                                Volumes
+                                {{ 'VOLUMES' | translate }}
                             </uib-accordion-heading>
                             <div class="list-volumes">
                                 <div ng-repeat="volume in vm.apiService.vmVolumes"  class="volume-wrapper" ng-class="{selected: volume.selected}" ng-click="vm.selectVolume(volume)">
@@ -62,29 +62,29 @@
                         <div ng-class="{active: vm.src_category_selected == 'snapshots'}" uib-accordion-group class="panel-default">
                             <uib-accordion-heading>
                                 <i class="glyphicon glyphicon-ok"></i>
-                                Snapshot
+                                {{ 'SNAPSHOT' | translate }}
                             </uib-accordion-heading>
                             <div class="list-volumes">
                                 <div ng-repeat="snapshot in vm.apiService.vmSnapshots"  class="volume-wrapper" ng-class="{selected: snapshot.selected}" ng-click="vm.selectSnapshot(snapshot)">
                                     <snapshot-display  selectable="true" snapshot="snapshot"></snapshot-display>
                                 </div>
                             </div>
-                            <h4 ng-if="!vm.apiService.vmSnapshots.length">No snapshots available</h4>
+                            <h4 ng-if="!vm.apiService.vmSnapshots.length">{{ 'NO_SNAPSHOTS' | translate }}</h4>
                         </div>
                     </uib-accordion>
                 </collapse>
-                <collapse class="panel" title="Size" valid="valid">
+                <collapse class="panel" title="{{ 'SIZE' | translate }}" valid="valid">
                     <div ui-view="flavors"></div>
                 </collapse>
-                <collapse class="panel panel-networks" title="Network" valid="valid">
+                <collapse class="panel panel-networks" title="{{ 'NETWORK' | translate }}" valid="valid">
                     <div class="list list-networks">
                         <div class='table network-table'>
                             <div class='table-header'>
                                 <div class='cell'>&nbsp;</div>
-                                <div class='cell'>Name</div>
-                                <div class='cell'>Subnet</div>
-                                <div class='cell'>State</div>
-                                <div class='cell'>Shared</div>
+                                <div class='cell'>{{ 'NAME' | translate }}</div>
+                                <div class='cell'>{{ 'SUBNET' | translate }}</div>
+                                <div class='cell'>{{ 'STATE' | translate }}</div>
+                                <div class='cell'>{{ 'SHARED' | translate }}</div>
                             </div>
                             
                             <div class='table-row' ng-repeat="network in vm.apiService.networkList" ng-class="{active: network.selected}" ng-click="vm.selectNetwork(network);">

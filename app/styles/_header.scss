@@ -129,7 +129,7 @@ body .header {
               font-size: 17px;
               font-weight: 400;
               letter-spacing: -0.4px;
-              color: #354052;
+              color: $color-primary;
               line-height: 30px;
               &:after {
                 margin-top: 12px;
@@ -138,12 +138,12 @@ body .header {
               &.active {
                 font-weight: 600;
                 &:after {
-                  background-color: #354052;
+                  background-color: $color-primary;
                 }
               }
               &:hover {
                 &:after {
-                  background-color: #354052;
+                  background-color: $color-primary;
                 }
               }
             }
