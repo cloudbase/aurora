@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class='table-filter'>
+    <div class='table-filter' ng-class="{ has_filter: vm.currentFilters.length}">
       <div class='filter-details'>
         <div class='filter-row' ng-repeat="filterField in vm.currentFilters">
           <div class='filter-name'>
@@ -82,7 +82,7 @@
               <vm-display vm="item" on-icon-click="vm.checkVm(item)" icon-suffix="-dark"></vm-display>
               <div class='vm-caret' ng-click="vm.detailVm(item)">
                 <svg class='' width="22px" height="13px" viewBox="19 25 22 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <polyline id="Page-1" stroke="#C4C9D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(30.000000, 31.500000) rotate(-180.000000) translate(-30.000000, -31.500000) " points="21 35.7167956 29.8567242 27 39 36"></polyline>
+                    <polyline id="Page-1" stroke="#dde0e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(30.000000, 31.500000) rotate(-180.000000) translate(-30.000000, -31.500000) " points="21 35.7167956 29.8567242 27 39 36"></polyline>
                 </svg>
               </div>
             </div>

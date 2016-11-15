@@ -1,8 +1,11 @@
 .main-pane {
   h1 {
-    font-family: "geomanist_light";
-    font-size: 39px;
-    color: #354052;
+    font-family: WorkSans;
+    font-size: 36px;
+    line-height: 48px;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    color: #FFF;
     margin-top: 0;
   }
   .list-images {
@@ -198,16 +201,17 @@
     }
   }
   .list-security-groups {
-
     .cell {
-      &:first-child {
-        width: 5%;
-      }
     }
     .table-row {
       line-height: 35px;
       .cell {
         padding-top: 0;
+        &:first-child {
+          padding-top: 7px;
+          height: 35px;
+          width: 8%;
+        }
       }
       .cell .radio-btn.radio-inactive {
         display: block;
@@ -322,6 +326,7 @@
     padding: 0;
     border: 0;
     margin-top: 4px;
+    margin-bottom: 0;
     .section-body {
       padding: 0;
     }

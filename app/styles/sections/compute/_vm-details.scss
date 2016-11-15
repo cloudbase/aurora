@@ -9,6 +9,9 @@
   }
   .controls {
     padding-top: 11px;
+    a:first-child, a:nth-child(2) {
+      width: 83px;
+    }
   }
   &.status-running {
     .cell .info .vm-status {
@@ -75,7 +78,7 @@
 .vm-details {
   .icon {
     display: inline-block;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 5px;
     width: 60px;
     height: 60px;

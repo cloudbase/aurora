@@ -39,7 +39,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 
 .btn-launch {
-  font-family: "geomanist_book";
   width: 100%;
   line-height: 30px;
   font-size: 18px;
@@ -52,9 +51,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 .form {
   label {
-    font-family: "geomanist-book";
     font-size: 14px;
-    font-weight: normal;
     display: block;
     color: #354052;
   }
@@ -72,7 +69,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // Project Costs
 .project-stats {
   h4 {
-    margin: 0 0 20px;
+    margin: 0 0 25px;
+    font-size: 24px;
+    font-weight: 400;
   }
   .graphs {
     @include clearfix();
@@ -97,14 +96,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     padding-top: 30px;
     border-top: 1px solid #B7C0CD;
     .stat-label {
-      font-family: Geomanist-Regular;
-      font-size: 14px;
-      color: #7F8FA4;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: $color-text-primary;
       display: block;
       margin-top: 20px;
     }
     .price {
-      font-family: "geomanist_book";
       font-size: 18px;
       color: #354052;
       &.price-instance {

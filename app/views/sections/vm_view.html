@@ -16,24 +16,10 @@
             </div>
             <div class='controls pull-right'>
                 <a class='btn btn-primary btn-xs btn-snapshot' ng-click="vmView.createSnapshot()">
-                    <svg width="15px" height="15px" viewBox="10 11 15 15" version="1.1"
-                         xmlns="http://www.w3.org/2000/svg"
-                         xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path d="M18.6895536,16.9526844 L18.6895536,11 L15.8799999,11 L15.8799999,16.9526844 L10,16.9526844 L10,19.762238 L15.8799999,19.762238 L15.8799999,25.8812697 L18.6895536,25.8812697 L18.6895536,19.762238 L24.6999998,19.762238 L24.6999998,16.9526844 L18.6895536,16.9526844 Z"
-                              id="Plus-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd"
-                              opacity="0.695079291"></path>
-                    </svg>
                     {{ 'Snapshot' | translate }}
                 </a>
                 <a class='btn btn-primary btn-xs btn-shutoff' data-toggle="confirmation" data-placement="bottom" mwl-confirm
                    message="Are you sure you want to stop this VM?" title="Shut Down">
-                    <svg width="16px" height="16px" viewBox="128 10 16 16" version="1.1"
-                         xmlns="http://www.w3.org/2000/svg"
-                         xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path d="M136,10 C131.582,10 128,13.582 128,18 C128,22.418 131.582,26 136,26 C140.418,26 144,22.418 144,18 C144,13.582 140.418,10 136,10 Z M136,24 C132.692,24 130,21.308 130,18 C130,14.692 132.692,12 136,12 C139.308,12 142,14.692 142,18 C142,21.308 139.308,24 136,24 Z M138.2948,15.1484 L134.0938,15.1484 C133.6788,15.1484 133.3428,15.4844 133.3428,15.8994 L133.3428,20.1004 C133.3428,20.5154 133.6788,20.8514 134.0938,20.8514 L138.2948,20.8514 C138.7098,20.8514 139.0458,20.5154 139.0458,20.1004 L139.0458,15.8994 C139.0458,15.4844 138.7098,15.1484 138.2948,15.1484 Z"
-                              id="Combined-Shape" stroke="none" fill="#FFFFFF" fill-rule="evenodd"
-                              opacity="0.799848414"></path>
-                    </svg>
                     {{ 'SHUTOFF' | translate }}
                 </a>
                 <div class='action-dropdown vm-actions'>

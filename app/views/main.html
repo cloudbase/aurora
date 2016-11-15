@@ -13,7 +13,11 @@
                 <ul class="navbar-menu">
                 <li ui-sref-active="active"><a ui-sref="dashboard">{{ 'DASHBOARD' | translate }}</a></li>
                 <li ui-sref-active="active">
-                    <a ui-sref="vm-list">{{ 'COMPUTE' | translate }}</a>
+                    <a ui-sref="vm-list">{{ 'COMPUTE' | translate }}
+                        <svg class='menu-caret' width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
+                        </svg>
+                    </a>
                     <a ui-sref="compute" style="display:none" > </a>
                     <div class='submenu'>
                             <ul>
@@ -40,8 +44,19 @@
                             </ul>
                     </div>
                 </li>
+                    <li>
+                        <a>{{ 'STORAGE' | translate }}
+                            <svg class='menu-caret' width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
+                            </svg>
+                        </a>
+                    </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="networking-map"  ui-sref-active="active" href="#">{{ 'NETWORKING' | translate }}</a>
+                    <a ui-sref="networking-map"  ui-sref-active="active" href="#">{{ 'NETWORKING' | translate }}
+                        <svg class="menu-caret" width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
+                        </svg>
+                    </a>
                     <a ui-sref="networking" style="display:none" > </a>
                     <div class='submenu'>
                         <ul>
@@ -64,7 +79,11 @@
                     </div>
                 </li>
                 <li ui-sref-active="active">
-                    <a href="#">{{ 'EXTRA' | translate }}</a>
+                    <a href="#">{{ 'MORE' | translate }}
+                        <svg class="menu-caret" width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
+                        </svg>
+                    </a>
                 </li>
                 </ul>
             </div>

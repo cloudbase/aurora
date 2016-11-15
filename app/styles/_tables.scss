@@ -8,12 +8,14 @@
     padding: 20px 20px 20px 0px;
     @include clearfix();
     h1 {
-      font-family: "geomanist_light";
-      font-size: 39px;
       color: #354052;
       margin: 0;
       float: left;
       margin-left: 20px;
+      font-family: WorkSans;
+	  font-size: 36px;
+	  font-weight: 300;
+	  letter-spacing: -0.5px;
     }
     .btn-add {
       float: right;
@@ -83,27 +85,30 @@
 }
 .ui-select-container {
   .ui-select-toggle {
-    background-color: #FFF;
+    background-color: $color-bg-secondary;
     border: 1px solid #C4C9D2;
     color: #354052;
+    transition: background 0.2s ease-out;
   } 
   .ui-select-toggle {
     &:hover {
-      background-color: #EFEFF4;
-      color: #333333
+      background-color: lighten($color-bg-secondary, 10%);
+      color: #333333;
     }
   }
 }
 .ui-select-bootstrap .ui-select-toggle > .caret {
   color: #B7C0CD;
   pointer-events: none;
+  background: url('data:image/svg+xml;utf8,<svg width="12px" height="20px" viewBox="142 9 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Group-2" stroke="#000" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(142.000000, 10.000000)"></g></svg>') no-repeat;
 }
 .table-filter {
   @include clearfix();
-  border-top: 1px solid #B7C0CD;
-  background-color: #E7E9ED;
-  border-bottom: 1px solid #B7C0CD;
 
+  background-color: #E7E9ED;
+  &.has_filter {
+    border-bottom: 1px solid #B7C0CD;
+  }
   .text-muted {
     color: #354052;
   }
@@ -128,12 +133,12 @@
     font-size: 16px;
     float: left;
     margin-right: 0px;
-    font-weight: bold;
+    font-weight: 400;
     min-width: 80px;
     svg {
       float: left;
-      margin-top: 3px;
-      margin-right: 5px;
+      margin-top: 1px;
+      margin-right: 1px;
       cursor: pointer;
     }
   }
@@ -147,6 +152,7 @@
         float: left;
         margin-right: 10px;
         font-size: 16px;
+        font-weight: 300;
         text-transform: capitalize;
         cursor: pointer;
         &.selected {
@@ -191,13 +197,17 @@
     border-top: 1px solid darken(#E7E9ED, 20%);
     @include clearfix();
     .cell {
+      height: 15px;
       font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
       color: $font-default-color;
+      text-transform: uppercase;
     }
   }
   .table-row {
     @include clearfix();
-    padding: 15px 0 15px 20px;
+    padding: 10px 0 10px 20px;
     border: 1px solid transparent;
     border-bottom: 1px solid #EFEFF4;
     &:last-child {
@@ -313,6 +323,7 @@
         margin-right: 5px;
         min-width: 38px;
         text-align: center;
+        font-weight: 300;
         &.label-pub {
           background-color: #1EAAF1;
         }
@@ -431,7 +442,8 @@
           position: relative;
           .name {
             display: block;
-            font-size: 18px;
+            font-size: 17px;
+            font-weight: 500;
             margin-left: 20px;
             cursor: pointer;
           }
@@ -486,10 +498,10 @@
       .vm-excerpt {
         @include clearfix();
         padding-left: 20px;
-        padding-bottom: 20px;
+        padding-bottom: 10px;
       }
       .vm-detail-row {
-        background-color: $bg-default-color;
+        background-color: #d2d6dc;
         transition: all 0.1s ease-in;
         overflow: hidden;
         height: 0;
@@ -508,7 +520,7 @@
         
       }
       &.detailView {
-        background: $bg-default-color;
+        background: #d2d6dc;
         .cell .info .details{
           color: #354052;
         }
@@ -568,9 +580,11 @@
     background-color: #FFF;
   }
   .vm-widget-header {
-      font-family: "geomanist_book";
+      font-family: WorkSans;
       font-size: 14px;
-      color: $font-default-color;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      color: $color-text-primary;
       background-color: #FFF;
       line-height: 30px;
       padding-left: 7px;
@@ -691,7 +705,7 @@
       overflow-y: scroll;
       li {
         font-size: 12px;
-        line-height: 17px;
+        line-height: 18px;
         margin-right: 10px;
         margin-bottom: 3px;
         display: inline-block;
@@ -715,10 +729,10 @@
 .network-table {
   .cell {
     &:first-child {
-      width: 5%;
+      width: 8%;
     }
     &:nth-child(2) {
-      width: 25%;
+      width: 22%;
     }
     &:nth-child(3) {
       width: 40%;
@@ -746,6 +760,10 @@
   .table-row {
     line-height: 35px;
     .cell {
+      &:first-child {
+        padding-top: 7px;
+        height: 35px;
+      }
       padding-top: 0;
       .radio-btn{
         margin-top: 10px;
@@ -775,6 +793,7 @@
   .cell {
     &:first-child {
       width: 12%;
+      padding-top: 0;
     }
     &:nth-child(2) {
       width: 22%;

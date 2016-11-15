@@ -13,17 +13,28 @@
   }
   label {
     font-size: 14px;
-    color: $font-color-label;
+    color: $color-text-primary;
+    font-weight: 500;
+  }
+  .form-group {
+    margin-bottom: 20px;
   }
   input.form-control {
-    line-height: 46px;
-    border: 1px solid #B7C0CD;
+    line-height: 40px;
     padding: 0 10px;
     border-radius: 4px;
-    height: 46px;
+    height: 40px;
+    background-color: #f1f3f8;
+    border: solid 1px #d2d6dc;
+    font-size: 16px;
   }
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+  .btn-login {
+    font-size: 16px;
+    color: #fafafb;
+    margin-top: 25px;
   }
   .top {
     background: #dde0e5;
@@ -40,7 +51,7 @@
   .body {
     background: #FFFFFF;
     border: 1px solid #E6EAEE;
-    padding: 15px 30px;
+    padding: 30px 20px;
     width: 100%;
   }
   .bottom {
@@ -54,6 +65,7 @@
       top: -28px;
       background-color: #FFF;
       padding: 0 15px;
+      font-size: 14px;
     }
     .social-icons {
       @include clearfix();
@@ -104,16 +116,19 @@
     }
   }
 }
+.label {
+  font-weight: 400;
+}
 
 .btn {
   background: $btn-default-color;
   border-radius: 4px;
-  font-family: "geomanist_book";
+  font-family: WorkSans;
+  letter-spacing: -0.2px;
   font-size: 14px;
   color: #FFFFFF;
   line-height: 20px;
   border: none;
-  border: 1px solid #54B87E;
   &:focus {
     background: #30AD63;
     color: #FFFFFF;
@@ -290,9 +305,6 @@ input[type="checkbox"].green.ios-switch:checked + div > div {
 }
 
 .action-dropdown {
-  .ui-select-container .ui-select-toggle {
-    background-color: #FFF;
-  }
   .action-dropdown .ui-select-container .ui-select-toggle {
     
   }

@@ -2,7 +2,8 @@
 body {
   padding: 0;
   background-color: $color-site-bg;
-  font-family: 'geomanist_regular';
+  font-family: $primary-font;
+  letter-spacing: -0.4px;
   padding-bottom: 150px;
 }
 .container {
@@ -24,7 +25,6 @@ body {
     }
     .section-body {
       padding: 18px 20px;
-      margin-bottom: 20px;
       &.no-padding {
         padding: 0  
       }
@@ -62,6 +62,7 @@ body {
     h2 {
       padding: 0;
       margin: 0;
+      font-weight: 400;
     }
     header {
         height: 60px;
@@ -103,7 +104,7 @@ body {
     svg {
       float: left;
       margin-top: -5px;
-      margin-right: 10px;
+      margin-right: 20px;
     }
   }
   .main {
@@ -180,7 +181,7 @@ body {
       margin-left: 20px;
       &.fixed {
         position: fixed;
-        margin-left: 930px;
+        margin-left: 888px;
         top: 20px;
       }
     }

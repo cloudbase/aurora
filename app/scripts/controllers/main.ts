@@ -17,7 +17,7 @@ module auroraApp {
 		            public $stateParams) {
 			if (!this.apiService.loggedIn && this.$state.current.name != "login") {
 				// TODO: Remove redirect comment when needed
-				//this.$state.go("login")
+				this.$state.go("login")
 			}
 			$rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {
 				console.log(toState.name)

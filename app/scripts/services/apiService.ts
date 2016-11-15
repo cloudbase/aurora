@@ -5,7 +5,7 @@ module auroraApp.Services {
 	export class ApiService implements IApiService {
 		httpService:ng.IHttpService;
 		cache:VmItem[] = []
-		loggedIn = true // TODO: loggedIn - false
+		loggedIn = false // TODO: loggedIn - false
 		token:string
 		tenant_name:string = 'admin'
 		tenant_id:string

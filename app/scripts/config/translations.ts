@@ -2,13 +2,16 @@
 
 app.config(['$translateProvider', function ($translateProvider) {
 	$translateProvider.translations('en', {
-		'APP_NAME': 'dewopoint',
+		'APP_NAME': 'dewpoint',
 		'COMPUTE': 'Compute',
 		'NETWORKING': 'Networking',
+		'NETWORK': 'Network',
 		'VOLUME': 'Volume',
 		'VOLUMES': 'Volumes',
 		'SNAPSHOT': 'Snapshot',
 		'SNAPSHOTS': 'Snapshots',
+		'STORAGE': "Storage",
+		'MORE': "More",
 		'MAP': "Map",
 		'NETWORKS': 'Networks',
 		'FLOATING_IPS': "Floating IPs",
@@ -26,7 +29,7 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'LOGIN_REGISTER_MSG': "Don't have an account? Get Started",
 		'LOGIN_FORGOT_PASSWORD': 'Forgot Password?',
 		'DASHBOARD': "Dashboard",
-		'DASHBOARD_TITLE': 'Get started with Aurora',
+		'DASHBOARD_TITLE': 'Get started with Dewpoint',
 		'DASHBOARD_SECONDARY_TITLE': 'Get insights into Aurora activities using graphs and vizualization tools.',
 		'DASHBOARD_NEWVM_MSG': 'Easily deploy new \n virtual machines',
 		'DASHBOARD_NEWVM_CTA': 'New VM',

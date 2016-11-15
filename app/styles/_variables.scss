@@ -23,8 +23,7 @@ $bg-default-color: #D6D9E0;
 
 
 // Typography
-$primary-font: "geomanist_regular";
-$primary-font-bold: "geomanist_book";
+$primary-font: WorkSans;
 $secondary-font: "Open Sans";
 
 
@@ -34,6 +33,7 @@ $color-primary: #353746;
 $color-site-bg: #57596c;
 $color-header-primary: $color-primary;
 $color-text-primary: $color-primary;
+$color-bg-secondary: #dde0e5;
 
 // Vm Statuses
 $status-running: #30AD63;
@@ -42,5 +42,5 @@ $status-paused: #7F8FA4;
 $status-stopped: #BE3A31;
 
 // Icon Bg Colors
-$image-bg-color: #C4C9D2;
+$image-bg-color: #dde0e5;
 $image-bg-color-dark: #354052;

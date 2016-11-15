@@ -214,7 +214,7 @@ module auroraApp.Directives {
 								field.value = $scope.vm[field.field].toISOString().substring(0, 19).replace("T", " ")
 								break;
 							case "time_since":
-								field.value = $filter("timeAgo")($scope.vm[field.field])
+								//field.value = $filter("timeAgo")($scope.vm[field.field])
 								break;
 							
 						}
