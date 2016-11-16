@@ -22,3 +22,6 @@ grunt serve
 
 ## Current UI Design
 https://marvelapp.com/1fai4ah/screen/16826137
+
+## Slack Channel
+https://aurora-devteam.slack.com
