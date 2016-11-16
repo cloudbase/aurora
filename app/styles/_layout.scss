@@ -96,7 +96,7 @@ body {
     }  
 }
 
-.main-pane {
+.create-pane {
   @include clearfix();
   h1 {
     @include clearfix();
@@ -146,6 +146,7 @@ body {
         padding-left: 35px;
         border-radius: 4px;
         position: relative;
+        margin-bottom: 1px;
         svg {
           position: absolute;
           left: 10px;

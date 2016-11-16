@@ -116,7 +116,7 @@
     }
   }
 }
-.label {
+label, .label {
   font-weight: 400;
 }
 
@@ -129,6 +129,7 @@
   color: #FFFFFF;
   line-height: 20px;
   border: none;
+  transition: background $animation-duration ease-out;
   &:focus {
     background: #30AD63;
     color: #FFFFFF;
@@ -199,6 +200,7 @@ input[type="checkbox"].ios-switch + div {
   -webkit-transition-duration: .4s;
   -webkit-transition-property: background-color, box-shadow;
   box-shadow: inset 0 0 0 0px rgba(0,0,0,0.4);
+  cursor: pointer;
 }
 
 /* Checked Track (Blue) */
@@ -241,7 +243,7 @@ input[type="checkbox"].ios-switch + div > div {
   -moz-transition-property: transform, background-color;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(0, 0, 0, 0.4);
   pointer-events: none;
-  margin-top: 1px;
+  margin-top: 0px;
   margin-left: 1px;
 }
 
@@ -304,6 +306,16 @@ input[type="checkbox"].green.ios-switch:checked + div > div {
   }
 }
 
+.checker {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background: url('data:image/svg+xml;utf8,<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><circle id="path-1" cx="9" cy="9" r="9"></circle><mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="18" height="18" fill="white"><use xlink:href="#path-1"></use></mask></defs><use id="Oval-2" stroke="#57596C" mask="url(#mask-2)" stroke-width="2.8" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use><path d="M14.171579,9.0002 L3.828021,9.0002" id="Stroke-3" stroke="#57596C" stroke-width="1.4" fill="none"></path></svg>')  no-repeat;
+  &.checked {
+    background: url('data:image/svg+xml;utf8,<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><circle id="path-1" cx="9" cy="9" r="9"></circle><mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="18" height="18" fill="white"><use xlink:href="#path-1"></use></mask></defs><use id="Oval-2" stroke="#4CD964" mask="url(#mask-2)" stroke-width="2.8" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use><polyline id="Stroke-3" stroke="#4CD964" stroke-width="1.446" fill="none" points="13.6378 6.396 8.1038 11.93 4.6338 8.614"></polyline></svg>') no-repeat;
+  }
+}
+
 .action-dropdown {
   .action-dropdown .ui-select-container .ui-select-toggle {
     
@@ -319,7 +331,7 @@ input[type="checkbox"].green.ios-switch:checked + div > div {
     width: 155px;
     position: relative;
   }
-  &.vm-actions {
+  &.table-actions {
     float: right;
     width: 107px;
     position: relative;

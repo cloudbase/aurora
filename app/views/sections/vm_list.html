@@ -53,10 +53,11 @@
         </div>
       </div>
     </div>
-    <div class="table vm-table vm-list-table">
+    <div class="table vm-table">
       <div class="table-header">
         <div class="cell sortable" ng-click="vm.sortTable('name')"  ng-class="{sortUp: (vm.sortType == 'name' && vm.sortReverse == false), sortDown: (vm.sortType == 'name' && vm.sortReverse == true)}">
           <div class='cell-text'>{{ 'NAME' | translate }}</div>
+
           <div class='sort'>
             <div class='up'></div>
             <div class='down'></div>
@@ -106,10 +107,10 @@
               <span class="zone">{{ item.zone }}</span>
             </div>
             <div class='cell'>
-              <span class="status">{{ item.host_status }}</span>
+              <span class="status-pill">{{ item.host_status }}</span>
             </div>
             <div class='cell'>
-              <ul class="vm-actions">
+              <ul class="table-actions">
                 <li class="pauseVM" ng-click="vm.pauseVm(item)">
                   <svg uib-tooltip="{{ 'PAUSE' | translate }}" class="icon-pause" width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  data-placement="top" title="Pause">
                     <defs></defs>

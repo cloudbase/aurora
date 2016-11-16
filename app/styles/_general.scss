@@ -14,22 +14,18 @@
     }
     &.sortUp {
       .cell-text {
-        color: #30AD63;
+        color: $color-active;
       }
-      .sort {
-        .up {
-          border-bottom-color: #30AD63;
-        }
+      .sort .up {
+        border-color: transparent transparent $color-active $color-active;
       }
     }
     &.sortDown {
       .cell-text {
-        color: #30AD63;
+        color: $color-active;
       }
-      .sort {
-        .down {
-          border-top-color: #30AD63;
-        }
+      .sort .down {
+        border-color: transparent transparent $color-active $color-active;
       }
     }
   }
@@ -38,27 +34,25 @@
     margin-left: 5px;
     margin-top: 5px;
     .up {
-      width: 0; 
-      height: 0; 
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      
-      border-bottom: 5px solid #7F8FA4;
+      width: 8px;
+      height: 8px;
+      border: 2px solid transparent;
+      border-color: transparent transparent #7F8FA4 #7F8FA4;
+      transform: rotate(135deg);
       &.bottom {
-        border-bottom-color: #30AD63;
+        border-color: $color-active;
       }
     }
 
     .down {
-      margin-top: 2px;
-      width: 0; 
-      height: 0; 
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      
-      border-top: 5px solid #7F8FA4;
+      margin-top: -6px;
+      width: 8px;
+      height: 8px;
+      border: 2px solid transparent;
+      border-color: transparent transparent $color-inactive $color-inactive;
+      transform: rotate(-45deg);
       &.active {
-        border-top-color: #30AD63;
+        border-color: $color-active;
       }
     }
     &.sortUp {

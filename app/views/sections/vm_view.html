@@ -1,4 +1,4 @@
-<div class='main-pane vm-view-details row' id="vm-view">
+<div class='create-pane vm-view-details row' id="vm-view">
     <div class="sidebar is-menu">
         <div class='vm-details-panel status-{{ vmView.item.host_status }}'>
             <div class="vm-details">
@@ -22,7 +22,7 @@
                    message="Are you sure you want to stop this VM?" title="Shut Down">
                     {{ 'SHUTOFF' | translate }}
                 </a>
-                <div class='action-dropdown vm-actions'>
+                <div class='action-dropdown table-actions'>
                     <ui-select ng-model="vmView.selected.value" search-enabled="false"
                                on-select="vmView.selectAction($item, vmView.item)">
                         <ui-select-match placeholder="{{ 'ALL_ACTIONS' | translate }}" class='select-choice'>

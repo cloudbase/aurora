@@ -1,0 +1,188 @@
+// ----------- //
+// SECTION: Map
+#vm-map {
+  border-top: 2px solid #B7C0CD;
+  width: 1210px;
+  height: 728px;
+  position: relative;
+  .controls {
+    background: #FFFFFF;
+    border: 1px solid #B7C0CD;
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.40);
+    border-radius: 4px;
+    width: 40px;
+    height: 85px;
+    position: absolute;
+    top: 22px;
+    left: 25px;
+    .control {
+      cursor: pointer;
+      &.zoom-in {
+        padding: 8px 10px 0px;
+      }
+      &.zoom-out {
+        padding: 0px 10px 4px;
+      }
+      &.rearrange {
+        padding: 0px 10px;
+      }
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+  #paper {
+    position: absolute;
+    top: 0;
+  }
+}
+.link-tools .tool-remove { display: none }
+.link-tools .tool-options { display: none }
+.link.joint-theme-default .marker-arrowhead {
+  display: none;
+}
+
+// ----------- //
+// SECTION: Routers
+
+$routersColSizes: (
+        1 20% "0", // name
+        2 20% "default", // interfaces
+        3 20% "default", // static routes
+        4 9% "17px 0 0 0", // admin state
+        5 12% "default", // external network
+        6 9% "default", // status
+        7 10% "default" // actions
+);
+
+@include generateTable("routers", $routersColSizes);
+
+.routers-table {
+  .item-icon {
+    float: left
+  }
+  .name {
+    float: left;
+    margin-top: 12px;
+    margin-left: 20px;
+    font-weight: 500;
+    font-size: 18px;
+    color: #354052;
+  }
+  .cell{
+    &:nth-child(2) {
+      span {
+        font-weight: 500;
+        display: inline-block;
+        width: 75px;
+      }
+    }
+  }
+  .table-row {
+    .cell:nth-child(3) {
+      &>div {
+        @include clearfix()
+      }
+      span {
+        float: left;
+        &:nth-child(2) {
+          margin: 3px 3px 0 3px;
+        }
+      }
+    }
+  }
+}
+
+// -------------- //
+// SECTION: Networking
+
+
+$networksColSizes: (
+        1 25% "0", // name
+        2 20% "default", // subnets
+        3 15% "19px 0 0 0", // shared
+        4 15% "19px 0 0 0", // admin state
+        5 15% "default", // status
+        6 10% "default", // actions
+);
+
+@include generateTable("networks", $networksColSizes);
+
+.networks-table {
+  .item-icon {
+    float: left
+  }
+  .name {
+    float: left;
+    margin-top: 15px;
+    margin-left: 27px;
+    font-weight: 500;
+    font-size: 18px;
+    color: #354052;
+  }
+  .cell{
+    &:nth-child(2) {
+      span {
+        font-weight: 500;
+        display: inline-block;;
+        width: 75px;
+      }
+    }
+  }
+}
+
+
+
+// ----------- //
+// SECTION: Floating IPs
+
+
+$floatingIpsColSizes: (
+        1 20% "0", // name
+        2 32% "0", // VM
+        3 18% "default", // interface
+        4 10% "default", // pool
+        5 10% "14px 0 0 0", // status
+        6 10% "default", // actions
+);
+
+@include generateTable("floating-ips", $floatingIpsColSizes);
+
+.floating-ips-table {
+  .cell {
+    &:first-child {
+      @include clearfix();
+      position: relative;
+      .item-icon {
+        float: left
+      }
+      .name {
+        float: left;
+        margin-top: 15px;
+        margin-left: 10px;
+        font-weight: 500;
+        font-size: 18px;
+        color: $color-text-primary;
+      }
+    }
+    &:nth-child(2) {
+      .ui-select-container {
+        margin-top: 10px;
+        width: 300px;
+      }
+    }
+  }
+  .vm-details {
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+  .connector {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+  }
+  .network_interface {
+    width: 200px;
+    margin-top: -10px;
+  }
+}

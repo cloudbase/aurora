@@ -2,17 +2,9 @@
     <div class="main-list">
         <div class='list-header'>
             <h1>{{ 'VOLUMES' | translate }}</h1>
-            <a class="btn btn-primary btn-add" ui-sref="volumes-create">
-                <svg width="17px" height="17px" viewBox="16 18 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                     xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <path d="M26.2483151,24.6949934 L26.2483151,18.3388048 L23.2483151,18.3388048 L23.2483151,24.6949934 L16.9697379,24.6949934 L16.9697379,27.6949934 L23.2483151,27.6949934 L23.2483151,34.2288052 L26.2483151,34.2288052 L26.2483151,27.6949934 L32.6661809,27.6949934 L32.6661809,24.6949934 L26.2483151,24.6949934 Z"
-                          id="Plus-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
-                </svg>
-                {{ 'NEW_VOLUME' | translate }}
-
-            </a>
+            <a class="btn btn-primary btn-add" ui-sref="volumes-create">{{ 'NEW_VOLUME' | translate }}</a>
         </div>
-        <div class="table vm-table volumes-table">
+        <div class="table volumes-table">
             <div class="table-header">
                 <div class="cell">
                     <div class='cell-text'>{{ 'NAME' | translate }}</div>
@@ -62,13 +54,13 @@
                             <div>{{ item.region.name }}</div>
                         </div>
                         <div class='cell'>
-                            <div class='label' ng-class="{'label-success': !item.attached_to, 'label-purple': item.attached_to}">{{ item.attached_to ? "IN-USE" : "READY" }}</div>
+                            <div class='status-pill' ng-class="{'green': !item.attached_to, 'purple': item.attached_to}">{{ item.attached_to ? "IN-USE" : "READY" }}</div>
                         </div>
                         <div class='cell'>
-                            <div>{{ item.bootable ? "YES" : "NO" | translate }}</div>
+                            <div class="checker" ng-class="{checked: item.bootable}"></div>
                         </div>
                         <div class='cell'>
-                            <ul class="vm-actions">
+                            <ul class="table-actions">
                                 <li uib-tooltip="{{ 'EDIT' | translate }}" ng-click="vm.editVolume(item)">
                                     <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

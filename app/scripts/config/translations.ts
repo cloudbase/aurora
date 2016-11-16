@@ -126,6 +126,7 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'ADMIN_STATE': 'Admin State',
 		'STATIC_ROUTES': 'Static Routes',
 		'CREATE_NETWORK': 'Create Network',
+		'ADD_NETWORK': 'Add Network',
 		'CREATE_ROUTER': 'Create Router',
 		'POOL': 'Pool',
 		'RESERVE_IP': 'Reserve IP',

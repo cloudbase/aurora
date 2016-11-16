@@ -2,6 +2,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
+
 @import 'fonts';
 @import 'variables';
 @import 'animations';
@@ -9,13 +10,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import 'layout';
 @import 'tables';
 @import 'forms';
-@import 'sections/compute/create-vm';
-@import 'sections/compute/vm-details';
-@import 'sections/dashboard';
-@import 'sections/networking/map';
 @import 'icons';
 @import 'header';
-@import 'sections/compute/volumes';
+@import 'sections/compute';
+@import 'sections/create';
+@import 'sections/networking';
+@import 'sections/dashboard';
 
 .browsehappy {
   margin: 0.2em 0;
@@ -167,4 +167,5 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import 'loader';
 @import 'general';
 @import 'modals';
+@import 'widgets';
 @import 'tablet';

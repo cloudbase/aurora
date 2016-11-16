@@ -218,11 +218,11 @@ module auroraApp.Directives {
 			template: `
                 <div class='vm-details volume-details '>
             <span class="icon icon-volume">
-                <svg ng-if="!volume.attached_to" width="40px" height="54px" viewBox="7 0 40 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg ng-if="volume.attached_to" width="40px" height="54px" viewBox="7 0 40 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#logo-volume"></use>
                 </svg>
 
-                <svg ng-if="volume.attached_to" width="40px" height="55px" viewBox="7 0 40 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg ng-if="!volume.attached_to" width="40px" height="55px" viewBox="7 0 40 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     							<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#logo-volume-empty"></use>
 								</svg>
             </span>

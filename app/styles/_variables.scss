@@ -35,6 +35,15 @@ $color-header-primary: $color-primary;
 $color-text-primary: $color-primary;
 $color-bg-secondary: #dde0e5;
 
+
+// Statuses colors
+$color-status-purple: #9a5cb4;
+$color-status-green: #4cd964;
+$color-status-grey: #8b8ea1;
+$color-status-red: #ff2d55;
+$color-active: #353746;
+$color-inactive: #9ea0b0;
+
 // Vm Statuses
 $status-running: #30AD63;
 $status-deploying: #FD9727;
@@ -44,3 +53,6 @@ $status-stopped: #BE3A31;
 // Icon Bg Colors
 $image-bg-color: #dde0e5;
 $image-bg-color-dark: #354052;
+
+// Animations
+$animation-duration: 0.2s;

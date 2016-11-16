@@ -1,0 +1,162 @@
+
+.vm-widgets-container {
+  @include clearfix();
+  padding: 0px 10px 10px 20px;
+}
+.vm-widget {
+  padding: 0px 10px 10px 0;
+  float: left;
+  .vm-widget-container {
+    border-radius: 4px;
+    overflow: hidden;
+    height: 100%;
+    @include clearfix();
+    padding: 0;
+    background-color: #FFF;
+  }
+  .vm-widget-header {
+    font-family: WorkSans;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.4px;
+    color: $color-text-primary;
+    background-color: #FFF;
+    line-height: 30px;
+    padding-left: 7px;
+    border-bottom: 1px solid $light-grey;
+  }
+  @for $i from 1 through 4 {
+    @for $j from 1 through 4 {
+      &.size-#{$i}x#{$j} {
+        width: calc(100% / #{$widget-cols} * #{$i});
+        height: calc((#{$widget-row-height} * #{$j}) + (10px * #{$j}));
+      }
+    }
+  }
+  &.vm-field-widget {
+    .vm-widget-container{
+
+      position: relative;
+      .vm-widget-content {
+        font-size: 13px;
+      }
+      .field-container {
+        @include clearfix();
+        position: relative;
+        line-height: 22px;
+      }
+      span.field-label {
+        height: 100%;
+        min-width: 70px;
+        color: $font-default-color;
+        background-color: #FFF;
+        border-right: 1px solid $light-grey;
+        text-align: right;
+        padding-right: 10px;
+        display: block;
+        float: left;
+        font-family: "geomanist_medium";
+      }
+      span.field-value {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        float: left;
+        text-overflow: ellipsis;
+        padding: 0 5px 0 10px;
+      }
+      .clipboard {
+        position: absolute;
+        right: 5px;
+        top: 0px;
+        cursor: pointer;
+      }
+    }
+  }
+  &.resource-consumption-widget {
+    .col {
+      width: 28%;
+      float: left;
+      text-align: center;
+      span {
+        display: block;
+        &.resource-label {
+          font-size: 16px;
+          font-family: "geomanist_book";
+          color: $font-default-color;
+          background-color: #FFF;
+          border-right: 1px solid $light-grey;
+          border-bottom: 1px solid $light-grey;
+          padding: 5px 0;
+        }
+        &.resource-value {
+          font-family: "geomanist_book";
+          font-size: 14px;
+          padding-top: 10px;
+        }
+      }
+      &:last-child {
+        width: 44%;
+        .resource-label {
+          border-right: 0;
+        }
+      }
+    }
+  }
+  &.security-groups-widget {
+    @extend .vm-field-widget;
+    font-size: 13px;
+    .vm-widget-container {
+      span.field-label {
+        text-align: center;
+        padding-right: 0;
+      }
+    }
+  }
+  &.vm-tags-widget {
+    .add-tag {
+      float: right;
+    }
+    input[type="text"] {
+      height: 25px;
+      width: 120px;
+    }
+    .btn {
+      height: 24px;
+      line-height: 23px;
+      padding: 0 10px;
+      margin: 3px 4px 0 4px;
+      border-radius: 2px;
+      float: right;
+    }
+    .vm-widget-content {
+      padding: 5px 0 7px 7px;
+    }
+    .tags {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+      max-height: 80px;
+      overflow-y: scroll;
+      li {
+        font-size: 12px;
+        line-height: 18px;
+        margin-right: 10px;
+        margin-bottom: 3px;
+        display: inline-block;
+        padding-right: .3em;
+        svg {
+          float: right;
+          cursor: pointer;
+          margin-left: 2px;
+          &:hover {
+            path {
+              fill: #333;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

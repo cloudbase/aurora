@@ -1,4 +1,4 @@
-<div class='main-pane one-col-right-sidebar'>
+<div class='create-pane one-col-right-sidebar'>
     <div class='row'>
         <h1>
             <svg width="54px" height="54px">
@@ -71,7 +71,7 @@
                 </collapse>
                 <collapse class="panel panel-networks" title="{{ 'NETWORK' | translate }}" valid="valid">
                     <div class="list list-networks">
-                        <div class='table network-table'>
+                        <div class='table vm-create-networks-table'>
                             <div class='table-header'>
                                 <div class='cell'>&nbsp;</div>
                                 <div class='cell'>{{ 'NAME' | translate }}</div>
@@ -87,7 +87,9 @@
                                 <div class='cell'>{{ network.name }}</div>
                                 <div class='cell'>{{ network.subnet }}</div>
                                 <div class='cell'><span class='network-state state-{{ network.state }}'>{{ network.state }}</span></div>
-                                <div class='cell'>{{ network.shared ? "Yes" : "No"}}</div>
+                                <div class='cell'>
+                                    <div class="checker" ng-class="{checked: network.shared}"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
