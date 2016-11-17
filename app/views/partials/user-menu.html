@@ -1,0 +1,32 @@
+<div id="user-menu">
+    <div class="user-btn">
+        <svg width="36px" height="38px" viewBox="0 0 36 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+                <path d="M18,36 C27.9411255,36 36,27.9411255 36,18 C36,8.0588745 27.9411255,0 18,0 C8.0588745,0 0,8.0588745 0,18 C0,27.9411255 8.0588745,36 18,36 Z" id="path-1"></path>
+                <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="36" height="36" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="36" height="36" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+            </defs>
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Pat-Benetar" stroke-opacity="0.947888361" stroke="#B9BAC4" mask="url(#mask-2)" stroke-width="2" fill="#F1F2F5" fill-rule="evenodd">
+                <use mask="url(#mask-4)" xlink:href="#path-1"></use>
+            </g>
+            <path d="M24.3114196,28.0807292 C23.0562113,27.3177083 22.2098571,26.0325521 22.004128,24.5794271 L21.8869405,23.75 C21.7502217,23.1783854 21.958555,22.6002604 22.3856384,22.1966146 C23.629128,21.0182292 25.1590759,17.8554688 25.1590759,13.5494792 C25.1590759,7.53385417 21.6213155,5 17.9038675,5 C14.1877217,5 10.6486592,7.56640625 10.6486592,13.5494792 C10.6486592,17.8385417 12.1851175,21.0117188 13.426003,22.1966146 C13.8504821,22.6015625 14.0575134,23.1783854 13.9207946,23.75 L13.8036071,24.578125 C13.59918,26.0325521 12.7515238,27.3177083 11.4963155,28.0807292 L6.13694046,31.3372396 C4.79579462,32.1510417 3.98459671,33.6106771 4.00022171,35.1796875 C4.00803421,35.9466146 4.57574254,36.5859375 5.33746129,36.6770833 C7.69423212,36.9609375 12.8452738,37.5 17.9038675,37.5 C22.9624613,37.5 28.114805,36.9609375 30.4715759,36.6770833 C31.2319925,36.5859375 31.801003,35.9466146 31.8088155,35.1796875 C31.8244405,33.6106771 31.0119405,32.1510417 29.6707946,31.3372396 L24.3114196,28.0807292 Z" id="Mask" stroke="none" fill-opacity="0.947888361" fill="#B9BAC4" fill-rule="evenodd" mask="url(#mask-3)"></path>
+        </svg>
+    </div>
+    <ul class="menu">
+        <li ng-repeat="menuItem in menuItems" ng-click="menuItem.action()" ng-class="{withSubmenu: menuItem.children}">
+            {{ menuItem.label }}
+            <ul class="submenu" ng-if="menuItem.children">
+                <li ng-repeat="subItem in menuItem.children" ng-click="subItem.action()">
+                    {{ subItem.label }}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

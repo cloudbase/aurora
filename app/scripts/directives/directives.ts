@@ -275,6 +275,19 @@ module auroraApp.Directives {
 		}
 	}
 	
+	export function userMenu() {
+		return {
+			restrict: "AE",
+			scope: {
+				menuItems: "="
+			},
+			link: ($scope, $element) => {
+				
+			},
+			templateUrl: 'views/partials/user-menu.html'
+		}
+	}
+	
 	export function sticky() {
 		return {
 			restrict: "AE",
@@ -358,4 +371,5 @@ angular.module('auroraApp')
 	.directive('snapshotDisplay', auroraApp.Directives.snapshotDisplay)
 	.directive('sticky', auroraApp.Directives.sticky)
 	.directive('onEnter', auroraApp.Directives.onEnter)
+	.directive('userMenu', auroraApp.Directives.userMenu)
 	.directive('notifications', auroraApp.Directives.Notifications.factory());

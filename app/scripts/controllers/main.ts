@@ -4,6 +4,38 @@
 
 module auroraApp {
 	export class MainCtrl {
+		userMenuItems: IUserMenuItem[] = [
+			{
+				label: "Switch Project",
+				children: [
+					{
+						label: "aurora",
+						action: () => {
+							alert('heyho')
+						}
+					},
+					{
+						label: "nova",
+						action: () => {
+							alert('heyho nova')
+						}
+					}
+				]
+			},
+			{
+				label: "Preferences",
+				action: () => {
+					
+				}
+			},
+			{
+				label: "Log out",
+				action: () => {
+					this.apiService.loggedIn = false;
+					this.redirect();
+				}
+			}
+		]
 		static $inject = [
 			"$rootScope",
 			"$state",
@@ -17,7 +49,7 @@ module auroraApp {
 		            public $stateParams) {
 			if (!this.apiService.loggedIn && this.$state.current.name != "login") {
 				// TODO: Remove redirect comment when needed
-				this.$state.go("login")
+				//this.$state.go("login")
 			}
 			$rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {
 				console.log(toState.name)
@@ -26,6 +58,8 @@ module auroraApp {
 					this.redirect()
 				}
 			})
+			
+			
 		}
 		
 		redirect()

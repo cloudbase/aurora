@@ -3,6 +3,7 @@
 
 // ## CONTROLLERS ##
 /// <reference path='controllers/main.ts' />
+/// <reference path='controllers/main.d.ts' />
 
 /// <reference path='controllers/login.ts' />
 /// <reference path='controllers/login.d.ts' />
