@@ -18,90 +18,93 @@
                 </a>
             </div>
             <div class='container'>
-                <div class="navbar-header">
-                    <ul class="navbar-menu">
-                    <li ui-sref-active="active"><a ui-sref="dashboard">{{ 'DASHBOARD' | translate }}</a></li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="vm-list">{{ 'COMPUTE' | translate }}
-                            <svg class='menu-caret' width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
-                            </svg>
-                        </a>
-                        <a ui-sref="compute" style="display:none" > </a>
-                        <div class='submenu'>
-                                <ul>
-                                    <li class="with-counter">
-                                        <a ui-sref-active="active" ui-sref="vm-list">
-                                            {{ 'VIRTUAL_MACHINES' | translate }}
-                                            <a ui-sref="vm" style="display:none" > </a>
-                                        </a>
-                                        <span class="count">{{vm.apiService.listItems.length}}</span>
-                                    </li>
-                                    <li class="with-counter">
-                                        <a ui-sref-active="active" ui-sref="volumes-list">
-                                            {{ 'VOLUMES' | translate }}
-                                        </a>
-                                        <span class="count">{{vm.apiService.vmVolumes.length}}</span>
-
-                                    </li>
-                                    <li class="with-counter">
-                                        <a ui-sref-active="active" ui-sref="snapshot-list">
-                                            {{ 'SNAPSHOTS' | translate }}
-                                        </a>
-                                        <span class="count">{{vm.apiService.vmSnapshots.length}}</span>
-                                    </li>
-                                </ul>
-                        </div>
-                    </li>
-                        <li>
-                            <a>{{ 'STORAGE' | translate }}
+                <div class="row">
+                    <div class="navbar-header">
+                        <ul class="navbar-menu">
+                        <li ui-sref-active="active"><a ui-sref="dashboard">{{ 'DASHBOARD' | translate }}</a></li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="vm-list">{{ 'COMPUTE' | translate }}
                                 <svg class='menu-caret' width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
                                 </svg>
                             </a>
+                            <a ui-sref="compute" style="display:none" > </a>
+                            <div class='submenu'>
+                                    <ul>
+                                        <li class="with-counter">
+                                            <a ui-sref-active="active" ui-sref="vm-list">
+                                                {{ 'VIRTUAL_MACHINES' | translate }}
+                                                <a ui-sref="vm" style="display:none" > </a>
+                                            </a>
+                                            <span class="count">{{vm.apiService.listItems.length}}</span>
+                                        </li>
+                                        <li class="with-counter">
+                                            <a ui-sref-active="active" ui-sref="volumes-list">
+                                                {{ 'VOLUMES' | translate }}
+                                            </a>
+                                            <span class="count">{{vm.apiService.vmVolumes.length}}</span>
+
+                                        </li>
+                                        <li class="with-counter">
+                                            <a ui-sref-active="active" ui-sref="snapshot-list">
+                                                {{ 'SNAPSHOTS' | translate }}
+                                            </a>
+                                            <span class="count">{{vm.apiService.vmSnapshots.length}}</span>
+                                        </li>
+                                    </ul>
+                            </div>
                         </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="networking-map"  ui-sref-active="active" href="#">{{ 'NETWORKING' | translate }}
-                            <svg class="menu-caret" width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
-                            </svg>
-                        </a>
-                        <a ui-sref="networking" style="display:none" > </a>
-                        <div class='submenu'>
-                            <ul>
-                                <li>
-                                    <a ui-sref-active="active" ui-sref="networking-map">{{ 'MAP' | translate }}</a>
-                                </li>
-                                <li class="with-counter">
-                                    <a ui-sref-active="active" ui-sref="networking-list">{{ 'NETWORKS' | translate }}</a>
-                                    <span class="count">{{vm.apiService.networkList.length}}</span>
-                                </li>
-                                <li class="with-counter">
-                                    <a ui-sref-active="active" ui-sref="networking-floating-ips">{{ 'FLOATING_IPS' | translate }}</a>
-                                    <span class="count">{{vm.apiService.project.floating_ips.length}}</span>
-                                </li>
-                                <li class="with-counter">
-                                    <a ui-sref-active="active" ui-sref="networking-routers">{{ 'ROUTERS' | translate }}</a>
-                                    <span class="count">{{vm.apiService.networkRouters.length}}</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a href="#">{{ 'MORE' | translate }}
-                            <svg class="menu-caret" width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
-                            </svg>
-                        </a>
-                    </li>
-                    </ul>
+                            <li>
+                                <a>{{ 'STORAGE' | translate }}
+                                    <svg class='menu-caret' width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
+                                    </svg>
+                                </a>
+                            </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="networking-map"  ui-sref-active="active" href="#">{{ 'NETWORKING' | translate }}
+                                <svg class="menu-caret" width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
+                                </svg>
+                            </a>
+                            <a ui-sref="networking" style="display:none" > </a>
+                            <div class='submenu'>
+                                <ul>
+                                    <li>
+                                        <a ui-sref-active="active" ui-sref="networking-map">{{ 'MAP' | translate }}</a>
+                                    </li>
+                                    <li class="with-counter">
+                                        <a ui-sref-active="active" ui-sref="networking-list">{{ 'NETWORKS' | translate }}</a>
+                                        <span class="count">{{vm.apiService.networkList.length}}</span>
+                                    </li>
+                                    <li class="with-counter">
+                                        <a ui-sref-active="active" ui-sref="networking-floating-ips">{{ 'FLOATING_IPS' | translate }}</a>
+                                        <span class="count">{{vm.apiService.project.floating_ips.length}}</span>
+                                    </li>
+                                    <li class="with-counter">
+                                        <a ui-sref-active="active" ui-sref="networking-routers">{{ 'ROUTERS' | translate }}</a>
+                                        <span class="count">{{vm.apiService.networkRouters.length}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a href="#">{{ 'MORE' | translate }}
+                                <svg class="menu-caret" width="10px" height="6px" viewBox="1 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <polyline id="Page-1-Copy" stroke="#FFF" stroke-width="2" fill="none" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="2 5 6 1 10 5"></polyline>
+                                </svg>
+                            </a>
+                        </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <search-box ng-if="vm.apiService.loggedIn"></search-box>
     <user-menu ng-if="vm.apiService.loggedIn" menu-items="vm.userMenuItems"></user-menu>
 </div>
 
 <div class="container main-body">
-<div ui-view=""></div>
+    <div class="row" ui-view=""></div>
 </div>

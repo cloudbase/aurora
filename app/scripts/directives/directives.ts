@@ -284,7 +284,26 @@ module auroraApp.Directives {
 			link: ($scope, $element) => {
 				
 			},
-			templateUrl: 'views/partials/user-menu.html'
+			templateUrl: 'views/directives/user-menu.html'
+		}
+	}
+	
+	export function searchBox() {
+		return {
+			restrict: "AE",
+			scope: {
+				searchTerm: "="
+			},
+			link: ($scope, $element) => {
+				$scope.isOpen = false;
+				$scope.toggle = () => {
+					$scope.isOpen = !$scope.isOpen
+					if ($scope.isOpen) {
+						$element.find('.search-input').triggerHandler('focus');
+					}
+				}
+			},
+			templateUrl: 'views/directives/search-box.html'
 		}
 	}
 	
@@ -372,4 +391,5 @@ angular.module('auroraApp')
 	.directive('sticky', auroraApp.Directives.sticky)
 	.directive('onEnter', auroraApp.Directives.onEnter)
 	.directive('userMenu', auroraApp.Directives.userMenu)
+	.directive('searchBox', auroraApp.Directives.searchBox)
 	.directive('notifications', auroraApp.Directives.Notifications.factory());
