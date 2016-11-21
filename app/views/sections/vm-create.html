@@ -1,128 +1,126 @@
 <div class='create-pane one-col-right-sidebar'>
-    <div class='row'>
-        <h1>
-            <svg width="54px" height="54px">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#icon-new-vm"></use>
-            </svg>
-            {{ 'NEW_VIRTUAL_MACHINE' | translate }}
-            </h1>
-        <div class='main'>
-            <div id="create-vm">
-                <collapse class="panel" title="{{ 'GENERAL' | translate }}" valid="valid">
-                    <div class='form'>
-                        <div class='general-field name'>
-                            <label for="vm-name">{{ 'NAME' | translate }}</label>
-                            <input type="text" id="vm-name" class='form-control' ng-model="vm.newVmName"/>
-                        </div>
-                        <div class='general-field zone'>
-                            <label for="vm-zone">{{ 'REGION' | translate }}</label>
-                            <ui-select ng-model="vm.zone.value" class='zone' search-enabled="false">
-                                <ui-select-match placeholder='Zone' class='select-choice'>
-                                    <span ng-bind="$select.selected.name"></span>
-                                </ui-select-match>
-                                <ui-select-choices repeat="item in (vm.apiService.project.zones | filter: $select.search) track by item.id" class='select-choice'>
-                                    <span ng-bind="item.name"></span>
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
-                        <div class='general-field count'>
-                            <label for="vm-count">{{ 'COUNT' | translate }}</label>
-                            <plus-minus id="vm-count" ng-model='vm.count' value="vm.count" class='form-input-number' min="1" max="5" readonly="true"></plus-minus>
-                        </div>
+    <h1>
+        <svg width="54px" height="54px">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/icons.svg#icon-new-vm"></use>
+        </svg>
+        {{ 'NEW_VIRTUAL_MACHINE' | translate }}
+        </h1>
+    <div class='main'>
+        <div id="create-vm">
+            <collapse class="panel" title="{{ 'GENERAL' | translate }}" valid="valid">
+                <div class='form'>
+                    <div class='general-field name'>
+                        <label for="vm-name">{{ 'NAME' | translate }}</label>
+                        <input type="text" id="vm-name" class='form-control' ng-model="vm.newVmName"/>
                     </div>
-                </collapse>
-                <collapse class="panel sources-panel" title="{{ 'CHOOSE_SOURCE' | translate }}" valid="valid">
-                    <uib-accordion close-others="true">
-                        <div ng-class="{active: vm.src_category_selected == 'images'}" uib-accordion-group class="panel-default" is-open="true">
-                            <uib-accordion-heading>
-                                <i class="glyphicon glyphicon-ok"></i>
-                                {{ 'IMAGES' | translate }}
-                            </uib-accordion-heading>
+                    <div class='general-field zone'>
+                        <label for="vm-zone">{{ 'REGION' | translate }}</label>
+                        <ui-select ng-model="vm.zone.value" class='zone' search-enabled="false">
+                            <ui-select-match placeholder='Zone' class='select-choice'>
+                                <span ng-bind="$select.selected.name"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (vm.apiService.project.zones | filter: $select.search) track by item.id" class='select-choice'>
+                                <span ng-bind="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class='general-field count'>
+                        <label for="vm-count">{{ 'COUNT' | translate }}</label>
+                        <plus-minus id="vm-count" ng-model='vm.count' value="vm.count" class='form-input-number' min="1" max="5" readonly="true"></plus-minus>
+                    </div>
+                </div>
+            </collapse>
+            <collapse class="panel sources-panel" title="{{ 'CHOOSE_SOURCE' | translate }}" valid="valid">
+                <uib-accordion close-others="true">
+                    <div ng-class="{active: vm.src_category_selected == 'images'}" uib-accordion-group class="panel-default" is-open="true">
+                        <uib-accordion-heading>
+                            <i class="glyphicon glyphicon-ok"></i>
+                            {{ 'IMAGES' | translate }}
+                        </uib-accordion-heading>
 
-                            <div ui-view="images"></div>
-                        </div>
-                        <div ng-class="{active: vm.src_category_selected == 'volumes'}" uib-accordion-group class="panel-default">
-                            <uib-accordion-heading>
-                                <i class="glyphicon glyphicon-ok"></i>
-                                {{ 'VOLUMES' | translate }}
-                            </uib-accordion-heading>
-                            <div class="list-volumes">
-                                <div ng-repeat="volume in vm.apiService.vmVolumes"  class="volume-wrapper" ng-class="{selected: volume.selected}" ng-click="vm.selectVolume(volume)">
-                                    <volume-display  selectable="true" volume="volume"></volume-display>
-                                </div>
-                            </div>
-                        </div>
-                        <div ng-class="{active: vm.src_category_selected == 'snapshots'}" uib-accordion-group class="panel-default">
-                            <uib-accordion-heading>
-                                <i class="glyphicon glyphicon-ok"></i>
-                                {{ 'SNAPSHOT' | translate }}
-                            </uib-accordion-heading>
-                            <div class="list-volumes">
-                                <div ng-repeat="snapshot in vm.apiService.vmSnapshots"  class="volume-wrapper" ng-class="{selected: snapshot.selected}" ng-click="vm.selectSnapshot(snapshot)">
-                                    <snapshot-display  selectable="true" snapshot="snapshot"></snapshot-display>
-                                </div>
-                            </div>
-                            <h4 ng-if="!vm.apiService.vmSnapshots.length">{{ 'NO_SNAPSHOTS' | translate }}</h4>
-                        </div>
-                    </uib-accordion>
-                </collapse>
-                <collapse class="panel" title="{{ 'SIZE' | translate }}" valid="valid">
-                    <div ui-view="flavors"></div>
-                </collapse>
-                <collapse class="panel panel-networks" title="{{ 'NETWORK' | translate }}" valid="valid">
-                    <div class="list list-networks">
-                        <div class='table vm-create-networks-table'>
-                            <div class='table-header'>
-                                <div class='cell'>&nbsp;</div>
-                                <div class='cell'>{{ 'NAME' | translate }}</div>
-                                <div class='cell'>{{ 'SUBNET' | translate }}</div>
-                                <div class='cell'>{{ 'STATE' | translate }}</div>
-                                <div class='cell'>{{ 'SHARED' | translate }}</div>
-                            </div>
-                            
-                            <div class='table-row' ng-repeat="network in vm.apiService.networkList" ng-class="{active: network.selected}">
-                                <div class='cell'>
-                                    <label><input type="checkbox" class="ios-switch green " checked ng-model="network.selected"/><div><div></div></div></label>
-                                </div>
-                                <div class='cell'>{{ network.name }}</div>
-                                <div class='cell'>{{ network.subnet }}</div>
-                                <div class='cell'><span class='network-state state-{{ network.state }}'>{{ network.state }}</span></div>
-                                <div class='cell'>
-                                    <div class="checker" ng-class="{checked: network.shared}"></div>
-                                </div>
+                        <div ui-view="images"></div>
+                    </div>
+                    <div ng-class="{active: vm.src_category_selected == 'volumes'}" uib-accordion-group class="panel-default">
+                        <uib-accordion-heading>
+                            <i class="glyphicon glyphicon-ok"></i>
+                            {{ 'VOLUMES' | translate }}
+                        </uib-accordion-heading>
+                        <div class="list-volumes">
+                            <div ng-repeat="volume in vm.apiService.vmVolumes"  class="volume-wrapper" ng-class="{selected: volume.selected}" ng-click="vm.selectVolume(volume)">
+                                <volume-display  selectable="true" volume="volume"></volume-display>
                             </div>
                         </div>
                     </div>
-                </collapse>
-                <collapse class="panel panel-security-groups" title="Security Groups" opened="true" valid="vm.validation.security_groups" ng-model="validation.security_groups">
-                    <div class="list list-security-groups">
-                        <div class='table'>
-                            <div class='table-header'>
-                                <div class='cell'> </div>
-                                <div class='cell'>Name</div>
+                    <div ng-class="{active: vm.src_category_selected == 'snapshots'}" uib-accordion-group class="panel-default">
+                        <uib-accordion-heading>
+                            <i class="glyphicon glyphicon-ok"></i>
+                            {{ 'SNAPSHOT' | translate }}
+                        </uib-accordion-heading>
+                        <div class="list-volumes">
+                            <div ng-repeat="snapshot in vm.apiService.vmSnapshots"  class="volume-wrapper" ng-class="{selected: snapshot.selected}" ng-click="vm.selectSnapshot(snapshot)">
+                                <snapshot-display  selectable="true" snapshot="snapshot"></snapshot-display>
                             </div>
+                        </div>
+                        <h4 ng-if="!vm.apiService.vmSnapshots.length">{{ 'NO_SNAPSHOTS' | translate }}</h4>
+                    </div>
+                </uib-accordion>
+            </collapse>
+            <collapse class="panel" title="{{ 'SIZE' | translate }}" valid="valid">
+                <div ui-view="flavors"></div>
+            </collapse>
+            <collapse class="panel panel-networks" title="{{ 'NETWORK' | translate }}" valid="valid">
+                <div class="list list-networks">
+                    <div class='table vm-create-networks-table'>
+                        <div class='table-header'>
+                            <div class='cell'>&nbsp;</div>
+                            <div class='cell'>{{ 'NAME' | translate }}</div>
+                            <div class='cell'>{{ 'SUBNET' | translate }}</div>
+                            <div class='cell'>{{ 'STATE' | translate }}</div>
+                            <div class='cell'>{{ 'SHARED' | translate }}</div>
+                        </div>
 
-                            <div class='table-row' ng-repeat="group in vm.apiService.project.security_groups" ng-class="{active: group.selected}">
-                                <div class='cell'>
-                                    <label><input type="checkbox" class="ios-switch green " checked ng-model="group.selected"/><div><div></div></div></label>
-                                </div>
-                                <div class="cell">
-                                    {{ group.name }}
-                                </div>
+                        <div class='table-row' ng-repeat="network in vm.apiService.networkList" ng-class="{active: network.selected}">
+                            <div class='cell'>
+                                <label><input type="checkbox" class="ios-switch green " checked ng-model="network.selected"/><div><div></div></div></label>
+                            </div>
+                            <div class='cell'>{{ network.name }}</div>
+                            <div class='cell'>{{ network.subnet }}</div>
+                            <div class='cell'><span class='network-state state-{{ network.state }}'>{{ network.state }}</span></div>
+                            <div class='cell'>
+                                <div class="checker" ng-class="{checked: network.shared}"></div>
                             </div>
                         </div>
                     </div>
-                </collapse>
-                <a class="btn btn-primary btn-launch" ng-click="vm.createVm()">
-                    Launch Virtual Machine
-                </a>
-            </div>
-        </div>
-        <div class='sidebar' sticky offset="200">
-            <div ui-view="sidebar"></div>
+                </div>
+            </collapse>
+            <collapse class="panel panel-security-groups" title="Security Groups" opened="true" valid="vm.validation.security_groups" ng-model="validation.security_groups">
+                <div class="list list-security-groups">
+                    <div class='table'>
+                        <div class='table-header'>
+                            <div class='cell'> </div>
+                            <div class='cell'>Name</div>
+                        </div>
+
+                        <div class='table-row' ng-repeat="group in vm.apiService.project.security_groups" ng-class="{active: group.selected}">
+                            <div class='cell'>
+                                <label><input type="checkbox" class="ios-switch green " checked ng-model="group.selected"/><div><div></div></div></label>
+                            </div>
+                            <div class="cell">
+                                {{ group.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </collapse>
             <a class="btn btn-primary btn-launch" ng-click="vm.createVm()">
                 Launch Virtual Machine
             </a>
         </div>
+    </div>
+    <div class='sidebar' sticky offset="200">
+        <div ui-view="sidebar"></div>
+        <a class="btn btn-primary btn-launch" ng-click="vm.createVm()">
+            Launch Virtual Machine
+        </a>
     </div>
 </div>

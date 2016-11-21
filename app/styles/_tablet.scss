@@ -1,8 +1,8 @@
-@media (max-width: 1210px) {
+@media (max-width: #{$site-width}) {
   body {
     min-width: $site-width;
   }
   .header .navbar .logo-container .navbar-brand {
-    left: 35px;
+    left: 20px;
   }
 }
