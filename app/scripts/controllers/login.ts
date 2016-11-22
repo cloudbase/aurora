@@ -11,10 +11,10 @@ module auroraApp {
         // @ngInject
         static $inject = [
             "$scope",
-            "ApiService",
+            "IdentityService",
             "$state"
         ];
-        constructor (private $scope: IVmDetailsScope, private apiService: Services.IApiService, private $state: any)
+        constructor (private $scope: IVmDetailsScope, private identity: Services.IIdentityService, private $state: any)
         { }
         
         /**
@@ -22,8 +22,8 @@ module auroraApp {
          */
         auth()
         {
-           this.apiService.authCredentials(this.username, this.password).then((response: string) => {
-               this.apiService.loggedIn = true
+           this.identity.authCredentials(this.username, this.password).then((response: string) => {
+               this.identity.loggedIn = true
                this.$state.go("dashboard")
            }, (reason: any) => {
                console.log("ERROR : " + reason);
