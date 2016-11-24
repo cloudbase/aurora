@@ -7,7 +7,6 @@ var app = angular.module('auroraApp', [
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'mwl.confirm',
     'ui.bootstrap',
     'angular-svg-round-progressbar',
     'xeditable',

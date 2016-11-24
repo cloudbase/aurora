@@ -84,7 +84,6 @@ module auroraApp {
             "$state",
             "$timeout",
             "Notification",
-            "NotificationService",
             "$uibModal"
         ];
 
@@ -94,7 +93,6 @@ module auroraApp {
             private $state: any,
             private $timeout: ng.ITimeoutService,
             private Notification: any,
-            private notificationService: Services.INotificationService,
             private $uibModal: any)
         {
             let rand = Math.floor((Math.random() * 100) + 1)
