@@ -71,7 +71,7 @@
         <div class="cell">{{ 'ACTIONS' | translate }}</div>
       </div>
       <div class='table-content'>
-        <div ng-repeat="item in vm.apiService.listItems | orderBy:vm.sortType:vm.sortReverse | vmFilter: {filters: vm.currentFilters}" ng-class="{detailView: item.detail_view, selected: item.checked}" class='table-row status-{{ item.host_status }}'  ng-class='{checked : item.checked}'>
+        <div ng-repeat="item in vm.compute.listItems | orderBy:vm.sortType:vm.sortReverse | vmFilter: {filters: vm.currentFilters}" ng-class="{detailView: item.detail_view, selected: item.checked}" class='table-row status-{{ item.host_status }}'  ng-class='{checked : item.checked}'>
           <div class='vm-excerpt'>
             <div class='cell'>
               <span class='checkable' ng-click="vm.checkVm(item)">
@@ -107,7 +107,7 @@
               <span class="zone">{{ item.zone }}</span>
             </div>
             <div class='cell'>
-              <span class="status-pill">{{ item.host_status }}</span>
+              <span class="status-pill status-{{ item.host_status }}">{{ item.host_status }}</span>
             </div>
             <div class='cell'>
               <ul class="table-actions">
@@ -127,9 +127,11 @@
                       <path d="M49,1 C44.582,1 41,4.582 41,9 C41,13.418 44.582,17 49,17 C53.418,17 57,13.418 57,9 C57,4.582 53.418,1 49,1 Z M49,15 C45.692,15 43,12.308 43,9 C43,5.692 45.692,3 49,3 C52.308,3 55,5.692 55,9 C55,12.308 52.308,15 49,15 Z M51.2948,6.1484 L47.0938,6.1484 C46. 428,6.8994 L46.3428,11.1004 C46.3428,11.5154 46.6788,11.8514 47.0938,11.8514 L51.2948,11.8514 C51.7098,11.8514 52.0458,11.5154 52.0458,11.1004 L52.0458,6.8994 C52.0458,6.4844 51.7098,6.1484 51.2948,6.1484 Z" id="Combined-Shape" stroke="none" fill="#7F8FA4" fill-rule="evenodd"></path>
                   </svg>
                 </li>
-                <svg uib-tooltip="{{ 'SNAPSHOT' | translate }}" uib-tooltip="Start" class="icon-play" width="24px" height="24px" viewBox="0 0 18 18" >
-                  <use xlink:href="images/icons.svg#icon-action-snapshot" />
+                <li uib-tooltip="{{ 'SNAPSHOT' | translate }}" uib-tooltip="Start">
+                <svg class="icon-play" width="24px" height="24px" viewBox="0 0 18 18" >
+                  <use xlink:href="images/icons.svg#icon-action-snapshot" />git
                 </svg>
+                </li>
                 <li uib-tooltip="{{ 'CONSOLE' | translate }}" class="infoVM" ng-click="vm.selectVm(item)">
                   <svg width="18px" height="17px" viewBox="121 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <path d="M133.419906,13.214 C133.419906,13.767 132.969906,14.217 132.416906,14.217 L124.422906,14.217 C123.869906,14.217 123.419906,13.767 123.419906,13.214 L123.419906,6.201 C123.419906,5.648 123.869906,5.198 124.422906,5.198 L132.416906,5.198 C132.969906,5.198 133.419906,5.648 133.419906,6.201 L133.419906,13.214 Z M132.416906,3.198 L124.422906,3.198 C122.764906,3.198 121.419906,4.542 121.419906,6.201 L121.419906,13.214 C121.419906,14.873 122.761906,16.217 124.422906,16.217 L132.416906,16.217 C134.074906,16.217 135.419906,14.873 135.419906,13.214 L135.419906,6.201 C135.419906,4.543 134.077906,3.198 132.416906,3.198 Z M133.060706,0 L130.504706,0 C129.952706,0 129.504706,0.447 129.504706,1 C129.504706,1.553 129.952706,2 130.504706,2 L133.060706,2 C134.959706,2 136.504706,3.545 136.504706,5.444 L136.504706,8 C136.504706,8.553 136.952706,9 137.504706,9 C138.057706,9 138.504706,8.553 138.504706,8 L138.504706,5.444 C138.504706,2.442 136.062706,0 133.060706,0 Z" id="SSH" stroke="none" fill="#7F8FA4" fill-rule="evenodd"></path>

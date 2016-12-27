@@ -326,57 +326,6 @@ module auroraApp.Directives {
 		}
 	}
 	
-	/*export function tooltip() {
-	 return {
-	 restrict: 'A',
-	 link: function(scope, element, attrs){
-	 $(element).hover(function(){
-	 // on mouseenter
-	 $(element).tooltip('show');
-	 }, function(){
-	 // on mouseleave
-	 $(element).tooltip('hide');
-	 });
-	 }
-	 }
-	 }*/
-	
-	
-	export class Notifications implements ng.IDirective {
-		restrict = 'EA'
-		templateUrl = 'views/partials/notifications.html'
-		replace = true
-		transclude = true
-		notifications:Services.INotification[]
-		scope:any = {
-			notifications: "@"
-		}
-		
-		constructor(private $location:ng.ILocationService, private notificationService:Services.INotificationService, private $scope:any) {
-			$scope.notifications = notificationService.notifications
-		}
-		
-		link(scope:any, element:ng.IAugmentedJQuery, attrs:ng.IAttributes, ctrl:any) {
-			console.log(this.$location)
-			console.log(this.notificationService)
-			console.log(scope)
-			let self = this
-			this.notificationService.registerObserverCallback(() => {
-				self.$scope.notifications = self.notificationService.notifications
-				console.log(self.$scope.notifications)
-				setTimeout(function () {
-					self.$scope.$apply();
-				});
-			})
-		}
-		
-		static factory():ng.IDirectiveFactory {
-			const directive = ($location:ng.ILocationService, notificationService:Services.INotificationService, $scope:ng.IScope) => new Notifications($location, notificationService, $scope);
-			directive.$inject = ['$location', 'NotificationService', '$rootScope'];
-			return directive;
-		}
-	}
-	
 }
 
 
@@ -392,4 +341,3 @@ angular.module('auroraApp')
 	.directive('onEnter', auroraApp.Directives.onEnter)
 	.directive('userMenu', auroraApp.Directives.userMenu)
 	.directive('searchBox', auroraApp.Directives.searchBox)
-	.directive('notifications', auroraApp.Directives.Notifications.factory());

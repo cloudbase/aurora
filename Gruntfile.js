@@ -460,7 +460,8 @@ module.exports = function (grunt) {
       ],
       test: [
         'typescript',
-        'compass'
+        'compass',
+        'karma'
       ],
       dist: [
         'typescript',

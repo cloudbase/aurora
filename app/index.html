@@ -57,11 +57,13 @@
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
+    <script src="bower_components/jasmine-jquery/lib/jasmine-jquery.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <script src="vendor/bootstrap-confirmation.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/config/config.js"></script>
         <script src="scripts/config/translations.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/login.js"></script>
@@ -75,8 +77,11 @@
         <script src="scripts/controllers/volumes.js"></script>
         <script src="scripts/controllers/snapshots.js"></script>
         <script src="scripts/controllers/graph.js"></script>
+        <script src="scripts/services/http-service.js"></script>
+        <script src="scripts/services/identity-service.js"></script>
+        <script src="scripts/services/compute-service.js"></script>
         <script src="scripts/services/apiService.js"></script>
-        <script src="scripts/services/notificationService.js"></script>
+        <script src="scripts/services/local-storage-service.js"></script>
         <script src="scripts/directives/directives.js"></script>
         <script src="scripts/directives/widgets.js"></script>
         <script src="scripts/directives/filters.js"></script>

@@ -36,7 +36,7 @@ describe('Controller: MainCtrl', () => {
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
   });
-  
+  /*
   it("Should Call API", function () {
 
         spyOn(apiService, "queryServers").and.callFake((response):ng.IPromise< any > => {
@@ -75,5 +75,5 @@ describe('Controller: MainCtrl', () => {
         expect(apiService.queryServers).toHaveBeenCalled(); 
         $httpBackend.flush(); 
 
-    });
+    }); */
 });

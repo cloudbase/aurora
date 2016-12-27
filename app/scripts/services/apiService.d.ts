@@ -12,14 +12,14 @@ declare module auroraApp.Services {
 	}
 	
 	interface IAuthCredentials {
-		tenantName:string
+		tenantName?:string
 		passwordCredentials:IPasswordCredentials
 	}
 	interface IToken {
 		id:string
 	}
 	interface IAuthTokenRequest {
-		tenantName:string
+		tenantName?:string
 		token:IToken
 	}
 	interface IAuth {

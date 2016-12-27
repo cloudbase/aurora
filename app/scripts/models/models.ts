@@ -151,6 +151,7 @@ module auroraApp {
     }
 
     export interface IVmFlavor {
+        id: string
         name: string
         vCpu: number
         ram: number
@@ -161,6 +162,7 @@ module auroraApp {
     }
     export class VmFlavor implements IVmFlavor {
         constructor(
+            public id: string,
             public name: string,
             public vCpu: number,
             public ram: number,

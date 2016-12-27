@@ -10,7 +10,7 @@
 </div>
 <div class="header">
     <div class="navbar navbar-default" role="navigation">
-        <div class="navbar-inner" ng-class="{not_logged: !vm.apiService.loggedIn}">
+        <div class="navbar-inner" ng-class="{not_logged: !vm.identity.loggedIn}">
             <div class='container logo-container'>
                 <a class="navbar-brand" ui-sref="main">
                     <img src="images/logo.svg" />
@@ -101,8 +101,8 @@
             </div>
         </div>
     </div>
-    <search-box ng-if="vm.apiService.loggedIn"></search-box>
-    <user-menu ng-if="vm.apiService.loggedIn" menu-items="vm.userMenuItems"></user-menu>
+    <search-box ng-if="vm.identity.loggedIn"></search-box>
+    <user-menu ng-if="vm.identity.loggedIn" menu-items="vm.userMenuItems"></user-menu>
 </div>
 
 <div class="container main-body">

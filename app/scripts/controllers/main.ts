@@ -31,28 +31,33 @@ module auroraApp {
 			{
 				label: "Log out",
 				action: () => {
-					this.apiService.loggedIn = false;
-					this.redirect();
+					this.identity.logout()
+					this.$state.go("login")
 				}
 			}
 		]
 		static $inject = [
 			"$rootScope",
 			"$state",
-			"ApiService",
+			"IdentityService",
 			"$stateParams"
 		]
 		
 		constructor(public $rootScope:ng.IScope,
 		            public $state:any,
-		            public apiService:Services.IApiService,
-		            public $stateParams) {
-			if (!this.apiService.loggedIn && this.$state.current.name != "login") {
-				// TODO: Remove redirect comment when needed
-				this.$state.go("login")
-			}
+		            public identity:Services.IdentityService,
+		            public $stateParams)
+		{
+			console.log('main')
+			this.identity.isAuthenticated().then(authenticated => {
+				console.log(authenticated)
+				if (!authenticated) {
+					this.$state.go("login")
+				}
+			})
+			
+			
 			$rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {
-				console.log(toState.name)
 				if (toState.name == "main") {
 					event.preventDefault()
 					this.redirect()
@@ -64,7 +69,7 @@ module auroraApp {
 		
 		redirect()
 		{
-			if (this.apiService.loggedIn) {
+			if (this.identity.loggedIn) {
 				this.$state.go("dashboard")
 			} else {
 				this.$state.go("login")

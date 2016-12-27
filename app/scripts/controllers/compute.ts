@@ -81,6 +81,7 @@ module auroraApp {
         static $inject = [
             "$scope",
             "ApiService",
+            "ComputeService",
             "$state",
             "$timeout",
             "Notification",
@@ -90,16 +91,18 @@ module auroraApp {
         constructor(
             private $scope: ng.IScope,
             public apiService: Services.IApiService,
+            public compute: Services.ComputeService,
             private $state: any,
             private $timeout: ng.ITimeoutService,
             private Notification: any,
             private $uibModal: any)
         {
+            console.log('COMPUTE LALALALALA')
             let rand = Math.floor((Math.random() * 100) + 1)
             this.newVmName = "machine-" + rand;
 
-            this.zone = {}
-            this.zone.value = this.apiService.project.zones[0]
+            /*this.zone = {}
+            this.zone.value = this.apiService.project.zones[0]*/
     
             $scope.$on("select_image", () => {
                 this.resetSourceSelection()
@@ -121,10 +124,11 @@ module auroraApp {
                                 filterItem.options.push({term: vm.host_status, selected: true})
                         })
                         break
-                    case "zone":
+                    /*case "zone":
                         this.apiService.project.zones.forEach((zone) => {
                             filterItem.options.push({term: zone.name, selected: true})
                         });
+                        break*/
                 }
                     
             })

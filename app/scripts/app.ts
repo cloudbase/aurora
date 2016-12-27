@@ -27,7 +27,12 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       url: "/",
       templateUrl: "views/main.html",
       controller: "MainCtrl",
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: {
+        identityService: ['IdentityService', (identity) => {
+          return identity.init()
+        }]
+      }
     })
     .state('login', {
       url: "login",
@@ -64,12 +69,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       parent: "vm",
       templateUrl: 'views/sections/vm_list.html',
       controller: 'ComputeCtrl',
-      controllerAs: 'vm',
-      resolve: {
-        data: ['ApiService', (apiService) => {
-          return apiService.queryServers()
-        }]
-      }
+      controllerAs: 'vm'
     })
     .state('vm-create', {
       url: "/create",

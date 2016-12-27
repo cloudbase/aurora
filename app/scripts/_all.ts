@@ -12,7 +12,6 @@
 /// <reference path='controllers/compute.d.ts' />
 
 /// <reference path='controllers/vm.ts' />
-/// <reference path='controllers/vm.d.ts' />
 
 /// <reference path='controllers/project.ts' />
 
@@ -31,8 +30,16 @@
 /// <reference path='services/apiService.ts' />
 /// <reference path='services/apiService.d.ts' />
 
-/// <reference path='services/notificationService.ts' />
-/// <reference path='services/notificationService.d.ts' />
+/// <reference path='services/identity-service.ts' />
+/// <reference path='services/identity-service.d.ts' />
+
+/// <reference path='services/http-service.ts' />
+/// <reference path='services/http-service.d.ts' />
+
+/// <reference path='services/local-storage-service.ts' />
+
+/// <reference path='services/compute-service.ts' />
+/// <reference path='services/compute-service.d.ts' />
 
 // ## DIRECTIVES ##
 /// <reference path='directives/directives.ts' />

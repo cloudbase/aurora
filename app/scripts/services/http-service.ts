@@ -10,7 +10,7 @@ module auroraApp.Services {
 			"$q"
 		]
 		
-		constructor(private $http:ng.IHttpService,
+		constructor(public $http:ng.IHttpService,
 		            private $q:ng.IQService,
 		            private $cookies
 		) {
@@ -25,14 +25,22 @@ module auroraApp.Services {
 			this.$http.defaults.headers.put["X-Auth-Token"] = token
 		}
 		
+		
 		/**
 		 * GET call function wrapper
 		 */
-		get(url:string):ng.IPromise< any > {
+		get(url:string, headers: any = null):ng.IPromise< any > {
 			$("#loader").addClass('loading');
+			
 			url = this._wrapUrl(url, "GET");
 			
-			var result:ng.IPromise< any > = this.$http.get(url)
+			let req = {
+				method: "GET",
+				url: url,
+				headers: headers
+			}
+			
+			var result:ng.IPromise< any > = this.$http(req)
 				.then((response:any):ng.IPromise< any > => this.handleResponse(response, null))
 			
 			return result
@@ -68,7 +76,7 @@ module auroraApp.Services {
 		 * Wrapper function for URL, here we change the url if we have to relay the request
 		 */
 		private _wrapUrl(url:string, type:string):string {
-			url = this.bridge_url + "?type=" + type + "&url=" + encodeURIComponent(url)
+			//url = this.bridge_url + "?type=" + type + "&url=" + encodeURIComponent(url)
 			return url
 		}
 		

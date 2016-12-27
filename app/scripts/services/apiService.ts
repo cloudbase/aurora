@@ -5,13 +5,14 @@ module auroraApp.Services {
 	export class ApiService implements IApiService {
 		httpService:ng.IHttpService;
 		cache:VmItem[] = []
-		loggedIn = true // TODO: loggedIn - false
+		loggedIn = false // TODO: loggedIn - false
 		token:string
 		tenant_name:string = 'admin'
 		tenant_id:string
-		os_url:string = "http://192.168.0.103:35357/v2.0" //35357
+		os_url:string = "http://10.7.12.17:35357/v2.0" //35357
+		
 		compute_url:string
-		bridge_url:string = "http://localhost/bridge.php"
+		bridge_url:string = "http://localhost/bridge/bridge.php"
 		listItems:VmItem[] = []
 		vmFlavors:VmFlavor[] = []
 		vmFlavorsList:string[] = []
@@ -263,14 +264,14 @@ module auroraApp.Services {
 		}
 		
 		addFlavor(obj:any) {
-			var newFlavor = new VmFlavor(obj.name, obj.vCpu, obj.ram, obj.ssd, obj.price, obj.lists);
+			/*var newFlavor = new VmFlavor(obj.name, obj.vCpu, obj.ram, obj.ssd, obj.price, obj.lists);
 			obj.lists.forEach((item) => {
 				if (this.vmFlavorsList.indexOf(item) == -1) {
 					this.vmFlavorsList.push(item)
 				}
 			})
 			
-			this.vmFlavors.push(newFlavor)
+			this.vmFlavors.push(newFlavor)*/
 		}
 		
 		addNetwork(obj:any, length: number, index: number) {
@@ -349,9 +350,9 @@ module auroraApp.Services {
 			deferred.notify("Logging in..")
 			
 			// REMOVE
-			this.authenticated = true;
-			deferred.resolve("Success")
-			return deferred.promise
+			//this.authenticated = true;
+			//deferred.resolve("Success")
+			//return deferred.promise
 			// END REMOVE
 			
 			let credentials:IPasswordCredentials = {
@@ -443,14 +444,6 @@ module auroraApp.Services {
 				}, 1000)
 			}
 			// REMOVE
-			this._get("data/servers.json").then((response) => {
-				deferred.resolve(response)
-				this.cache = response
-				this.queried = true
-			})
-			
-			return deferred.promise
-			// END REMOVE
 			
 			this.isAuthenticated().then(() => {
 				let url:string = this.compute_url + "/servers/detail"
@@ -543,7 +536,7 @@ module auroraApp.Services {
 		 * Wrapper function for URL, here we change the url if we have to relay the request
 		 */
 		private _wrapUrl(url:string, type:string):string {
-			//url = this.bridge_url + "?type=" + type + "&url=" + encodeURIComponent(url)
+			url = this.bridge_url + "?type=" + type + "&url=" + encodeURIComponent(url)
 			return url
 		}
 		

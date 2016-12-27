@@ -251,6 +251,9 @@
         &.red {
           background-color: $color-status-red;
         }
+        &.status-ERROR {
+          background-color: $color-status-red;
+        }
       }
       &.column-actions {
         padding-top: 20px;
