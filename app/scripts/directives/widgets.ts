@@ -59,7 +59,7 @@ module auroraApp.Directives {
 	export function virtualMachinesWidget($compile) {
 		return {
 			restrict: "EA",
-			controller: ["$scope", "$element", "ApiService", ($scope, $element, apiService:IApiService) => {
+			controller: ["$scope", "$element", "ComputeService", ($scope, $element, apiService:IApiService) => {
 				$scope.virtualMachines = apiService.listItems.slice(0, 5)
 			}],
 			templateUrl: "views/widgets/virtualMachinesWidget.html"
@@ -69,24 +69,24 @@ module auroraApp.Directives {
 	export function projectLimitsWidget($compile) {
 		return {
 			restrict: "EA",
-			controller: ["$scope", "$element", "ApiService", ($scope, $element, apiService:IApiService) => {
-				$scope.apiService = apiService
+			controller: ["$scope", "$element", "ComputeService", ($scope, $element, compute) => {
+				$scope.compute = compute
 				
-				apiService.project.current_cost = 0
-				apiService.project.current_vm = 0
-				apiService.project.current_vcpu = 0
-				apiService.project.current_vram = 0
-				apiService.project.current_storage = 0
-				apiService.project.current_volumes = apiService.vmVolumes.length
+				compute.project.current_cost = 0
+				compute.project.current_vm = 0
+				compute.project.current_vcpu = 0
+				compute.project.current_vram = 0
+				compute.project.current_storage = 0
+				compute.project.current_volumes = compute.vmVolumes.length
 				
-				apiService.listItems.forEach((item:VmItem) => {
-					apiService.project.current_cost += item.flavor.price
-					apiService.project.current_vm++
-					apiService.project.current_vcpu += item.flavor.vCpu
-					apiService.project.current_vram += item.flavor.ram
-					apiService.project.current_storage += item.flavor.ssd
+				compute.listItems.forEach((item:VmItem) => {
+					compute.project.current_cost += item.flavor.price
+					compute.project.current_vm++
+					compute.project.current_vcpu += item.flavor.vCpu
+					compute.project.current_vram += item.flavor.ram
+					compute.project.current_storage += item.flavor.ssd
 				})
-				apiService.vmVolumes.forEach(volume => apiService.project.current_storage += volume.size)
+				compute.vmVolumes.forEach(volume => compute.project.current_storage += volume.size)
 				
 			}],
 			link: ($scope, $element) => {

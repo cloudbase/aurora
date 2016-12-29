@@ -1,6 +1,8 @@
 /// <reference path="_all.ts" />
 
 'use strict';
+import IIdentityService = auroraApp.Services.IIdentityService;
+import IComputeService = auroraApp.Services.IComputeService;
 var app = angular.module('auroraApp', [
     'ngCookies',
     'ngResource',
@@ -20,6 +22,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
   //
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/");
+  
   //
   // Now set up the states
   $stateProvider
@@ -29,9 +32,20 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controller: "MainCtrl",
       controllerAs: 'vm',
       resolve: {
-        identityService: ['IdentityService', (identity) => {
-          return identity.init()
-        }]
+        services: [
+          'IdentityService', 'ComputeService', '$q',
+          (identity: IIdentityService, compute: IComputeService, q:ng.IQService) => {
+            
+            let deferred = q.defer()
+            identity.init().then(response => {
+              if (response) {
+                compute.init().then(response => deferred.resolve(true))
+              } else {
+                deferred.resolve(true)
+              }
+            })
+            return deferred.promise
+          }]
       }
     })
     .state('login', {
@@ -46,7 +60,14 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       parent: "main",
       templateUrl: 'views/sections/dashboard.html',
       controller: 'DashboardCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: {
+        compute: [
+          'ComputeService', (compute: IComputeService) => {
+            return compute.init()
+          }
+        ]
+      }
     })
     // COMPUTE
     .state('compute', {
@@ -128,11 +149,6 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controllerAs: 'vmView',
       params: {
         type: 'edit'
-      },
-      resolve: {
-        project: ['ApiService', (apiService) => {
-          return apiService.queryServers()
-        }]
       }
     })
     .state('vm-view-overview', {
@@ -163,7 +179,6 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           templateUrl: "views/partials/project_costs.html",
           controller: "ProjectCtrl",
           controllerAs: "view",
-          
         }
       }
     })
@@ -201,12 +216,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       parent: "main",
       templateUrl: "views/abstract.html",
       controller: "NetworkingCtrl",
-      controllerAs: 'vm',
-      resolve: {
-        data: ['ApiService', (apiService) => {
-          return apiService.queryServers()
-        }]
-      }
+      controllerAs: 'vm'
     })
     .state('networking-map', {
       parent: "networking",
@@ -225,11 +235,6 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           controller: 'NetworkingCtrl',
           controllerAs: 'vm'
         }
-      },
-      resolve: {
-        data: ['ApiService', (apiService) => {
-          return apiService.queryServers()
-        }]
       }
     })
     .state('networking-floating-ips', {
@@ -295,12 +300,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       },
       templateUrl: 'views/sections/volumes_list.html',
       controller: 'VolumesCtrl',
-      controllerAs: 'vm',
-      resolve: {
-        data: ['ApiService', (apiService) => {
-          return apiService.queryServers()
-        }]
-      }
+      controllerAs: 'vm'
     })
     .state('volumes-create', {
       url: "/create",
@@ -359,12 +359,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       },
       templateUrl: 'views/sections/snapshot_list.html',
       controller: 'SnapshotsCtrl',
-      controllerAs: 'vm',
-      resolve: {
-        data: ['ApiService', (apiService) => {
-          return apiService.queryServers()
-        }]
-      }
+      controllerAs: 'vm'
     })
 }]).config(function(NotificationProvider) {
       NotificationProvider.setOptions({

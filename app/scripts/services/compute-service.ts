@@ -14,12 +14,15 @@ module auroraApp.Services {
 		vmNetworks:VmNetwork[] = []
 		networkRouters:NetworkRouter[] = []
 		networkList:VmNetwork[] = []
-		project:Project
+		project: Project
 		queried:boolean = false
+		os_url: string
+		initialized: boolean = false
 		
 		private authenticated:boolean = false
 		
 		static $inject = [
+			"config",
 			"HttpWrapService",
 			"IdentityService",
 			"$q",
@@ -29,7 +32,8 @@ module auroraApp.Services {
 			"LocalStorage"
 		]
 		
-		constructor(private http:Services.IHttpWrapperService,
+		constructor(private config,
+		            private http:Services.IHttpWrapperService,
 		            private identity: Services.IIdentityService,
 		            private $q:ng.IQService,
 		            private $cookies:Services.ICookiesService,
@@ -37,23 +41,35 @@ module auroraApp.Services {
 		            private $timeout:ng.ITimeoutService,
 								public localStorage: LocalStorage) {
 			
-			this.loadFlavors()
-			this.$q.all([this.loadImages(), this.loadFlavors()]).then(response => {
-				this.loadServers()
-			})
-			this.loadImages()
-			this.processData()
-			console.log(this.vmImages, this.vmFlavors)
+			this.os_url = config.OS_URL
+		}
+		
+		init(force = false):ng.IPromise< any >
+		{
+			let deferred = this.$q.defer()
+			if (this.initialized && !force){
+				deferred.resolve(true)
+			} else {
+				this.$q.all([this.loadImages(), this.loadFlavors()]).then(response => {
+					this.$q.all([this.loadServers(), this.getTenantQuota()]).then(res => {
+						this.initialized = true
+						deferred.resolve(true)
+					})
+				})
+			}
+			return deferred.promise
 		}
 		
 		loadFlavors():ng.IPromise< VmFlavor[] >
 		{
 			let deferred = this.$q.defer()
-			let endpoint = this.compute_url()
-			let url = endpoint.url + "/flavors/detail"
 			
-			this.http.get(url, {"Enpoint-ID": endpoint.id}).then(response => {
+			let endpoint = this.compute_url()
+			let url = this.os_url + "/nova/flavors/detail"
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id}).then(response => {
 				if (response.flavors) {
+					this.vmFlavors = []
 					angular.forEach(response.flavors, item => {
 						let flavor = new VmFlavor(
 							item.id,
@@ -74,6 +90,41 @@ module auroraApp.Services {
 			return deferred.promise;
 		}
 		
+		getTenantQuota():ng.IPromise< Project >
+		{
+			let deferred = this.$q.defer()
+			
+			let endpoint = this.compute_url()
+			let url = this.os_url + "/nova/os-quota-sets/" + this.identity.tenant_id
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id}).then(response => {
+				if (response.quota_set) {
+					let quota = response.quota_set
+					this.project = new Project(
+						quota.id,
+						quota.instances,
+						quota.cores,
+						quota.ram,
+						-1,
+						128000,
+						12000,
+						"EUR",
+						[],
+						[],
+						quota.floating_ips,
+						[],
+						quota.security_groups,
+						[],
+						quota.server_groups
+					)
+					deferred.resolve(this.project)
+					console.log("Project:", this.project)
+				}
+				
+			})
+			return deferred.promise
+		}
+		
 		getFlavor(id: string): VmFlavor
 		{
 			let flavor: VmFlavor = null
@@ -86,11 +137,12 @@ module auroraApp.Services {
 		
 		loadImages():ng.IPromise< VmImage[] >
 		{
-			
-			let url = this.images_url() + "/v2/images"
+			let endpoint = this.images_url()
+			let url = this.os_url + "/glance/v2/images"
 			let deferred = this.$q.defer()
-			this.http.get(url).then(response => {
+			this.http.get(url, {"Endpoint-ID": endpoint.id}).then(response => {
 				if (response.images) {
+					this.vmImages = []
 					angular.forEach(response.images, item => {
 						let image = new VmImage(
 							item.id,
@@ -110,6 +162,8 @@ module auroraApp.Services {
 			return deferred.promise;
 		}
 		
+		
+		
 		getImage(id: string): VmImage
 		{
 			let image: VmImage = null
@@ -123,13 +177,14 @@ module auroraApp.Services {
 		loadServers():ng.IPromise< VmItem[] >
 		{
 			let deferred = this.$q.defer()
+			let endpoint = this.compute_url()
+			let url:string = this.os_url + "/nova/servers/detail"
 			
-			let url:string = this.compute_url() + "/servers/detail"
-			
-			this.http.get(url).then((response):void => {
+			this.http.get(url, {"Endpoint-ID": endpoint.id}).then((response):void => {
 				this.cache = response
 				
 				if (response.servers) {
+					this.listItems = []
 					angular.forEach(response.servers, server => {
 						let started:Date = new Date(Date.parse(server.updated));
 						let vm = new VmItem(
@@ -159,6 +214,7 @@ module auroraApp.Services {
 		}
 		
 		processData():ng.IPromise< any > {
+			console.log("PROCESS DATA")
 			let deferred = this.$q.defer()
 			var self = this
 			
@@ -188,55 +244,6 @@ module auroraApp.Services {
 					else
 						security_groups.push({name: value, rules: null, selected: false})
 				})
-				
-				this.project = new Project(
-					projectData.vm_limit,
-					projectData.vcpu_limit,
-					projectData.vram_limit,
-					projectData.storage_limit,
-					projectData.volumes_limit,
-					projectData.monthly_budget,
-					projectData.currency,
-					zones,
-					projectData.floating_ips,
-					projectData.floating_ip_limit,
-					security_groups
-				)
-				
-				// Images
-				angular.forEach(response.images, (value:any):void => {
-					self.addImage(value)
-				});
-				
-				// Volumes
-				angular.forEach(response.volumes, (value:any):void => {
-					self.addVolume(value)
-				});
-				
-				// Flavors
-				angular.forEach(response.flavors, (value:any):void => {
-					self.addFlavor(value)
-				});
-				
-				// Networks
-				let networkCount = 0;
-				angular.forEach(response.networks, (value:any):void => {
-					//self.addNetwork(value, response.networks.length, networkCount)
-					networkCount++
-				});
-				
-				// routers
-				angular.forEach(response.routers, (value:any):void => {
-					//self.addRouter(value)
-				});
-				
-				// VMs
-				let vmCount = 0;
-				angular.forEach(response.servers, (value:any):void => {
-					self.addVm(value, vmCount);
-					vmCount++
-				});
-				deferred.resolve()
 				
 			});
 			return deferred.promise
@@ -339,13 +346,6 @@ module auroraApp.Services {
 			return vm
 		}
 		
-		addImage(obj:any) {
-			var newImage = new VmImage(obj.id, obj.name, obj.os, obj.version, 2, "image", new Date(), obj.tags);
-			
-			this.vmImages.push(newImage)
-			
-		}
-		
 		addVolume(obj:any) {
 			let region:IZone = null
 			
@@ -374,17 +374,6 @@ module auroraApp.Services {
 				if (vm.id == obj.id)
 					vm = obj
 			})
-		}
-		
-		addFlavor(obj:any) {
-			/*var newFlavor = new VmFlavor(obj.name, obj.vCpu, obj.ram, obj.ssd, obj.price, obj.lists);
-			obj.lists.forEach((item) => {
-				if (this.vmFlavorsList.indexOf(item) == -1) {
-					this.vmFlavorsList.push(item)
-				}
-			})
-			
-			this.vmFlavors.push(newFlavor)*/
 		}
 		
 		insertVm(vm:VmItem) {
@@ -422,26 +411,9 @@ module auroraApp.Services {
 		 * Returns the list of servers from API
 		 */
 		queryServers(useCache:boolean = true):ng.IPromise< any > {
+			console.log('CALL: query servers')
 			let deferred = this.$q.defer()
-			if (this.queried) {
-				this.$timeout(() => {
-					deferred.resolve(this.cache)
-				}, 1000)
-			}
-			
-			this.identity.isAuthenticated().then(() => {
-				let url:string = this.compute_url() + "/servers/detail"
-				
-				if (this.cache.length == 0 || !useCache) {
-					this.http.get(url).then((response):void => {
-						this.cache = response
-						deferred.resolve(response)
-					});
-				} else {
-					console.log('cache');
-					deferred.resolve(this.cache)
-				}
-			})
+			deferred.resolve(true)
 			
 			return deferred.promise
 		}
@@ -454,7 +426,7 @@ module auroraApp.Services {
 		{
 			let endpoints = this.localStorage.get('endpoints')
 			let url = endpoints.compute.publicURL
-			let id = endpoints.compute.publicURL
+			let id = endpoints.compute.id
 			
 			if (!url) {
 				console.log("Compute url not valid!", endpoints.compute.publicURL)
@@ -467,17 +439,18 @@ module auroraApp.Services {
 		 * Retrieves compute url
 		 * @returns {any}
 		 */
-		private images_url():string|boolean
+		private images_url():any
 		{
 			let endpoints = this.localStorage.get('endpoints')
 			let url = endpoints.image.publicURL
+			let id = endpoints.image.id
 			
 			//return "http://10.7.12.21:8774/v2/2e811ac45e548959bed63f7fbe32804"
 			if (!url) {
 				console.log("Compute url not valid!", endpoints.compute.publicURL)
 				return false
 			}
-			return url
+			return {url: url, id: id}
 		}
 	}
 }

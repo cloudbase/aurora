@@ -6,15 +6,17 @@ module auroraApp.Services {
 		cache:VmItem[] = []
 		loggedIn = false // TODO: loggedIn - false
 		token:string
-		tenants: any[]
 		tenant_name:string
+		tenants: any[]
 		tenant_id:string
 		user: any
 		auth_url:string
-		os_url:string
+		public os_url:string
 		bridge_url:string
 		endpoints: any
 		services: any
+		project: Project
+		project_id: string
 		
 		private authenticated:boolean = false
 		
@@ -43,11 +45,10 @@ module auroraApp.Services {
 		
 		init():ng.IPromise< any >
 		{
-			
 			let deferred = this.$q.defer()
 			// if there is token, attempt to login
 			this.token = this.$cookies.get('token')
-			if (this.token) {
+			if (this.token || false) {
 				this.authWithToken(this.token).then(authenticated => {
 					console.log(authenticated)
 					if (authenticated) {
@@ -179,13 +180,18 @@ module auroraApp.Services {
 		
 		private handleAuthSuccess(response)
 		{
+			//this.compute.init()
+			
 			this.token = response.access.token.id
 			this.user = response.access.user
+			
 			this.loggedIn = true
+			
 			this.handleServices(response)
+			this.handleTenants(response)
 			
 			this.http.setToken(this.token)
-			this.$cookies.put("token", this.token)
+			//this.$cookies.put("token", this.token)
 			
 			this.authenticated = true
 		}
@@ -194,6 +200,20 @@ module auroraApp.Services {
 		{
 			this.loggedIn = false;
 			this.$cookies.remove("token")
+		}
+		
+		handleTenants(response: any)
+		{
+			if (response.tenants.tenants.length) {
+				response.tenants.tenants.forEach(tenant => {
+					let newTenant:ITenant = {
+						name: tenant.name,
+						id: tenant.id
+					}
+					this.tenant_id = tenant.id
+					this.tenants.push(newTenant)
+				})
+			}
 		}
 		
 		private getTenants():ng.IPromise< string >
@@ -249,13 +269,19 @@ module auroraApp.Services {
 			this.endpoints = {}
 			
 			this.services = response.access.serviceCatalog
+			this.tenants = response.tenants.tenants
 			
 			response.access.serviceCatalog.forEach(service => {
 				this.endpoints[service.type] = service.endpoints[0]
 			})
-			console.log(this.endpoints);
+			this.localStorage.set('tenant', angular.copy(this.tenants[0]))
 			this.localStorage.set('endpoints', angular.copy(this.endpoints))
 			console.log(this.endpoints)
+		}
+		
+		getTenantId()
+		{
+			return this.tenant_id
 		}
 		
 		/**

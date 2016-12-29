@@ -247,6 +247,7 @@ module auroraApp {
     }
 
     export interface IProject {
+        id: string
         vm_limit: number
         vcpu_limit: number
         vram_limit: number
@@ -259,17 +260,21 @@ module auroraApp {
         floating_ips: IFloatingIp[]
         floating_ip_limit: number
         security_groups: ISecurityGroup[]
+        security_group_limit: number
+        server_groups: ISecurityGroup[]
+        server_group_limit: number
     }
     export class Project implements IProject {
-        current_vm: number
-        current_vcpu: number
-        current_vram: number
-        current_cost: number
-        current_volumes: number
-        current_storage: number
+        current_vm: number = 0
+        current_vcpu: number = 0
+        current_vram: number = 0
+        current_cost: number = 0
+        current_volumes: number = 0
+        current_storage: number = 0
         additional_cost: number = 0
         inital_cost: number = 0
         constructor(
+            public id,
             public vm_limit,
             public vcpu_limit,
             public vram_limit,
@@ -280,7 +285,10 @@ module auroraApp {
             public zones,
             public floating_ips,
             public floating_ip_limit,
-            public security_groups
+            public security_groups,
+            public security_group_limit,
+            public server_groups,
+            public server_group_limit
         ) {}
     }
     

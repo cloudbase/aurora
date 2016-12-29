@@ -2,6 +2,7 @@
 
 declare module auroraApp.Services {
 	interface IComputeService {
-		
+		init():ng.IPromise< any >
+		project: Project
 	}
 }

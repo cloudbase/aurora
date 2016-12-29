@@ -97,7 +97,6 @@ module auroraApp {
             private Notification: any,
             private $uibModal: any)
         {
-            console.log('COMPUTE LALALALALA')
             let rand = Math.floor((Math.random() * 100) + 1)
             this.newVmName = "machine-" + rand;
 
@@ -107,14 +106,13 @@ module auroraApp {
             $scope.$on("select_image", () => {
                 this.resetSourceSelection()
                 this.src_category_selected = "images"
-                
             })
 
             // populate filter with terms
             this.filters.forEach((filterItem) => {
                 switch (filterItem.id) {
                     case "host_status": 
-                        this.apiService.listItems.forEach((vm: VmItem) => {
+                        this.compute.listItems.forEach((vm: VmItem) => {
                             let found = false
                             filterItem.options.forEach((option) => {
                                 if (option.term == vm.host_status)
@@ -290,7 +288,7 @@ module auroraApp {
         selectFilter(item) 
         {
             if (item.id == "tags") {
-                this.apiService.listItems.forEach((vm: VmItem) => {
+                this.compute.listItems.forEach((vm: VmItem) => {
         
                     if (vm.tags.length) {
                         vm.tags.forEach((tag) => {
@@ -480,9 +478,9 @@ module auroraApp {
         
         resetSourceSelection()
         {
-            angular.forEach(this.apiService.vmSnapshots, snapshot => snapshot.selected = false)
-            angular.forEach(this.apiService.vmVolumes, volume => volume.selected = false)
-            angular.forEach(this.apiService.vmImages, flavor => flavor.selected = false)
+            angular.forEach(this.compute.vmSnapshots, snapshot => snapshot.selected = false)
+            angular.forEach(this.compute.vmVolumes, volume => volume.selected = false)
+            angular.forEach(this.compute.vmImages, flavor => flavor.selected = false)
         }
 
         selectFlavor(obj: IVmFlavor) 

@@ -76,19 +76,7 @@ module auroraApp.Services {
 						security_groups.push({name: value, rules: null, selected: false})
 				})
 				
-				this.project = new Project(
-					projectData.vm_limit,
-					projectData.vcpu_limit,
-					projectData.vram_limit,
-					projectData.storage_limit,
-					projectData.volumes_limit,
-					projectData.monthly_budget,
-					projectData.currency,
-					zones,
-					projectData.floating_ips,
-					projectData.floating_ip_limit,
-					security_groups
-				)
+				
 				
 				// Images
 				angular.forEach(response.images, (value:any):void => {

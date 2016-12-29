@@ -6,7 +6,14 @@ declare module auroraApp.Services {
 		authCredentials(user:string, pass:string):ng.IPromise< string >
 		authWithToken(token: string):ng.IPromise< any >
 		getEndpoint(service: string)
+		init():ng.IPromise< any >
 		loggedIn: boolean
+		tenant_id: string
 		endpoints: any
+	}
+	
+	interface ITenant {
+		name: string
+		id: string
 	}
 }
