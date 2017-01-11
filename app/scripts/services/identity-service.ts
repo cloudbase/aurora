@@ -122,7 +122,7 @@ module auroraApp.Services {
 			
 			let url:string = this.auth_url + "/tokens"
 			
-			this.http.post(url, credentials).then((response) => {
+			this.http.post(url, credentials, {withCredentials:true}).then((response) => {
 				if (response.access) {
 					this.handleAuthSuccess(response)
 					deferred.resolve(true)

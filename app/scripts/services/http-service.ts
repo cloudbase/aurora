@@ -49,11 +49,11 @@ module auroraApp.Services {
 		/**
 		 * POST call function wrapper
 		 */
-		post(url, payload):ng.IPromise< any > {
+		post(url, payload, config = null):ng.IPromise< any > {
 			$("#loader").addClass('loading');
 			url = this._wrapUrl(url, "POST");
 			
-			var result:ng.IPromise< any > = this.$http.post(url, payload)
+			var result:ng.IPromise< any > = this.$http.post(url, payload, config)
 				.then((response:any):ng.IPromise< any > => this.handleResponse(response, null))
 			
 			return result
