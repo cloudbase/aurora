@@ -11,11 +11,11 @@ module auroraApp {
         images: IVmImage[]
         static $inject = [
             "$scope",
-            "ApiService",
+            "ComputeService",
             "$stateParams"
         ]
-        constructor(public $scope: ng.IScope, public apiService: Services.IApiService, public $stateParams) {
-            let flavor = this.apiService.vmImages.filter((vmFlavor:IVmImage):boolean => {
+        constructor(public $scope: ng.IScope, public compute: Services.IComputeService, public $stateParams) {
+            let flavor = this.compute.vmImages.filter((vmFlavor:IVmImage):boolean => {
                 return vmFlavor.selected == true
             })[0]
             
@@ -24,7 +24,7 @@ module auroraApp {
             let firstSelected = false
             
             
-            apiService.vmImages.forEach((image:VmImage) => {
+            compute.vmImages.forEach((image:VmImage) => {
                 image.selected = false
                 image.tags.forEach((tag) => {
                     if (this.tags.indexOf(tag) == -1)
@@ -39,9 +39,9 @@ module auroraApp {
                 image.tags.push(image.os)
             })
             
-            this.images = this.apiService.vmImages
+            this.images = this.compute.vmImages
             
-            apiService.listItems.forEach((vm:VmItem) => {
+            compute.listItems.forEach((vm:VmItem) => {
                 vm.snapshots.forEach((snapshot:VmImage) => {
                     this.images.push(snapshot)
                 })
@@ -49,7 +49,7 @@ module auroraApp {
         }
 
         selectImage(obj: IVmImage) {
-            angular.forEach(this.apiService.vmImages, (image:IVmFlavor) => {
+            angular.forEach(this.compute.vmImages, (image:IVmFlavor) => {
                 image.selected = false;
             })
     

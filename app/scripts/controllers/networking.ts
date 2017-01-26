@@ -22,7 +22,6 @@ module auroraApp {
             public data: any
         )
         {
-            
             if ($stateParams.type == "map") {
                 this.mapInit(data)
             }

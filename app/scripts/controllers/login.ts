@@ -17,6 +17,7 @@ module auroraApp {
 		
 		constructor(private $scope:ng.IScope, private identity:Services.IIdentityService, private $state:any) {
 			this.identity.isAuthenticated().then(authenticated => {
+				console.log("AUTH", authenticated)
 				if (authenticated) {
 					this.$state.go('dashboard')
 				}

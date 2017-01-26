@@ -48,14 +48,11 @@ module auroraApp {
 		            public identity:Services.IdentityService,
 		            public $stateParams)
 		{
-			console.log('main')
 			this.identity.isAuthenticated().then(authenticated => {
-				console.log(authenticated)
-				if (!authenticated) {
+				if (!authenticated && $state.name != 'login') {
 					this.$state.go("login")
 				}
 			})
-			
 			
 			$rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {
 				if (toState.name == "main") {

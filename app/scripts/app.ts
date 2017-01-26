@@ -16,7 +16,8 @@ var app = angular.module('auroraApp', [
     'ui-notification',
     'ui.router.modal',
     'pascalprecht.translate',
-    'angularMoment'
+    'angularMoment',
+    'mwl.confirm'
 ]);
 app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
   //
@@ -33,15 +34,15 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controllerAs: 'vm',
       resolve: {
         services: [
-          'IdentityService', 'ComputeService', '$q',
-          (identity: IIdentityService, compute: IComputeService, q:ng.IQService) => {
+          'IdentityService', 'ComputeService', '$q', '$state',
+          (identity: IIdentityService, compute: IComputeService, q:ng.IQService, $state:any) => {
             
             let deferred = q.defer()
             identity.init().then(response => {
               if (response) {
                 compute.init().then(response => deferred.resolve(true))
               } else {
-                deferred.resolve(true)
+                deferred.resolve(false)
               }
             })
             return deferred.promise
@@ -50,7 +51,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
     })
     .state('login', {
       url: "login",
-      parent: "main",
+      parent: 'main',
       templateUrl: 'views/sections/login.html',
       controller: 'LoginCtrl',
       controllerAs: 'login'
@@ -120,24 +121,6 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           controller: "ProjectCtrl",
           controllerAs: "view",
         }
-      },
-      resolve: {
-        project: ['ApiService', (apiService) => {
-          this.apiService = apiService
-          return apiService.queryServers().then(()=>{
-            angular.forEach(this.apiService.vmImages, (flavor) => {
-                flavor.selected = false;
-            })
-            this.apiService.vmImages[0].selected = true
-            angular.forEach(this.apiService.vmFlavors, (flavor) => {
-                flavor.selected = false;
-            })
-            this.apiService.vmFlavors[0].selected = true
-            this.apiService.project.additional_cost = this.apiService.vmFlavors[0].price 
-
-            this.apiService.vmNetworks[Object.keys(this.apiService.vmNetworks)[0]].selected = true
-          })
-        }]
       }
     })
     .state('vm-view', {

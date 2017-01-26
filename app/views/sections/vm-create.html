@@ -19,7 +19,7 @@
                             <ui-select-match placeholder='Zone' class='select-choice'>
                                 <span ng-bind="$select.selected.name"></span>
                             </ui-select-match>
-                            <ui-select-choices repeat="item in (vm.apiService.project.zones | filter: $select.search) track by item.id" class='select-choice'>
+                            <ui-select-choices repeat="item in (vm.compute.project.zones | filter: $select.search) track by item.id" class='select-choice'>
                                 <span ng-bind="item.name"></span>
                             </ui-select-choices>
                         </ui-select>
@@ -46,7 +46,7 @@
                             {{ 'VOLUMES' | translate }}
                         </uib-accordion-heading>
                         <div class="list-volumes">
-                            <div ng-repeat="volume in vm.apiService.vmVolumes"  class="volume-wrapper" ng-class="{selected: volume.selected}" ng-click="vm.selectVolume(volume)">
+                            <div ng-repeat="volume in vm.compute.vmVolumes"  class="volume-wrapper" ng-class="{selected: volume.selected}" ng-click="vm.selectVolume(volume)">
                                 <volume-display  selectable="true" volume="volume"></volume-display>
                             </div>
                         </div>
@@ -57,11 +57,11 @@
                             {{ 'SNAPSHOT' | translate }}
                         </uib-accordion-heading>
                         <div class="list-volumes">
-                            <div ng-repeat="snapshot in vm.apiService.vmSnapshots"  class="volume-wrapper" ng-class="{selected: snapshot.selected}" ng-click="vm.selectSnapshot(snapshot)">
+                            <div ng-repeat="snapshot in vm.compute.vmSnapshots"  class="volume-wrapper" ng-class="{selected: snapshot.selected}" ng-click="vm.selectSnapshot(snapshot)">
                                 <snapshot-display  selectable="true" snapshot="snapshot"></snapshot-display>
                             </div>
                         </div>
-                        <h4 ng-if="!vm.apiService.vmSnapshots.length">{{ 'NO_SNAPSHOTS' | translate }}</h4>
+                        <h4 ng-if="!vm.compute.vmSnapshots.length">{{ 'NO_SNAPSHOTS' | translate }}</h4>
                     </div>
                 </uib-accordion>
             </collapse>
@@ -79,13 +79,13 @@
                             <div class='cell'>{{ 'SHARED' | translate }}</div>
                         </div>
 
-                        <div class='table-row' ng-repeat="network in vm.apiService.networkList" ng-class="{active: network.selected}">
+                        <div class='table-row' ng-repeat="network in vm.compute.networks" ng-class="{active: network.selected}">
                             <div class='cell'>
                                 <label><input type="checkbox" class="ios-switch green " checked ng-model="network.selected"/><div><div></div></div></label>
                             </div>
                             <div class='cell'>{{ network.name }}</div>
-                            <div class='cell'>{{ network.subnet }}</div>
-                            <div class='cell'><span class='network-state state-{{ network.state }}'>{{ network.state }}</span></div>
+                            <div class='cell'>{{ network.subnets.length }}</div>
+                            <div class='cell'><span class='network-state state-{{ network.status }}'>{{ network.status }}</span></div>
                             <div class='cell'>
                                 <div class="checker" ng-class="{checked: network.shared}"></div>
                             </div>
@@ -101,7 +101,7 @@
                             <div class='cell'>Name</div>
                         </div>
 
-                        <div class='table-row' ng-repeat="group in vm.apiService.project.security_groups" ng-class="{active: group.selected}">
+                        <div class='table-row' ng-repeat="group in vm.compute.project.security_groups" ng-class="{active: group.selected}">
                             <div class='cell'>
                                 <label><input type="checkbox" class="ios-switch green " checked ng-model="group.selected"/><div><div></div></div></label>
                             </div>

@@ -80,7 +80,6 @@ module auroraApp {
 
         static $inject = [
             "$scope",
-            "ApiService",
             "ComputeService",
             "$state",
             "$timeout",
@@ -90,7 +89,6 @@ module auroraApp {
 
         constructor(
             private $scope: ng.IScope,
-            public apiService: Services.IApiService,
             public compute: Services.ComputeService,
             private $state: any,
             private $timeout: ng.ITimeoutService,
@@ -101,7 +99,7 @@ module auroraApp {
             this.newVmName = "machine-" + rand;
 
             /*this.zone = {}
-            this.zone.value = this.apiService.project.zones[0]*/
+            this.zone.value = this.compute.project.zones[0]*/
     
             $scope.$on("select_image", () => {
                 this.resetSourceSelection()
@@ -123,7 +121,7 @@ module auroraApp {
                         })
                         break
                     /*case "zone":
-                        this.apiService.project.zones.forEach((zone) => {
+                        this.compute.project.zones.forEach((zone) => {
                             filterItem.options.push({term: zone.name, selected: true})
                         });
                         break*/
@@ -217,14 +215,14 @@ module auroraApp {
 
         pauseVm(obj: VmItem)
         {
-            if (obj.host_status == "paused" || obj.host_status == "stopped") {
+            /*if (obj.host_status == "paused" || obj.host_status == "stopped") {
                 obj.host_status = "running";
                 this.Notification.info("VM: " + obj.name + " is running")
             } else {
                 obj.host_status = "paused";
                 this.Notification.info("VM: " + obj.name + " is paused")
-            }
-
+            }*/
+            this.compute.setVmState(obj, "PAUSE").then(response => obj.host_status = "PAUSED")
         }
 
         startVm(obj: VmItem)
@@ -235,14 +233,20 @@ module auroraApp {
 
         restartVm(obj: VmItem)
         {
-            obj.host_status = "restarting";
-            this.$timeout(() => {
-                obj.host_status = "running"
-            }, 7000)
-
+            this.compute.setVmState(obj, "REBOOT").then(response => obj.host_status = "STARTING")
+            
             this.Notification.info("Rebooting VM: " + obj.name)
         }
+        resetVm(obj: VmItem)
+        {
+            this.Notification.info("Resetting VM: " + obj.name)
+            this.compute.setVmState(obj, "REBOOT").then(response => {
+                obj.host_status = "RESET"
+                this.Notification.info("Vm resetted: " + obj.name)
+            })
         
+            
+        }
         editName(obj: VmItem)
         {
             obj.edit_state = true
@@ -255,9 +259,6 @@ module auroraApp {
                 name: 'name',
                 value: obj.name
             }
-            this.apiService.setVmProperty(obj.id, [vmProperty]).then(() => {
-                obj.edit_state = false  
-            })
         }
 
         sortTable(column: string) 
@@ -331,20 +332,21 @@ module auroraApp {
 
         createVm() 
         {
-            let newVm: IVmItem
+            let newVm: VmItem
             let network_interfaces: INetworkInterface[]
             let rand: number
 
             for (let _i = 1; _i <= this.count; _i++) {
                 let image = null
+                console.log(this.src_category_selected)
                 switch (this.src_category_selected) {
                     case "images":
-                        image = this.apiService.vmImages.filter((vmImage:IVmImage):boolean => {
+                        image = this.compute.vmImages.filter((vmImage:IVmImage):boolean => {
                             return vmImage.selected == true
                         })[0]
                         break;
                     case "volumes":
-                        let volume = this.apiService.vmVolumes.filter((vmVolume:VmVolume):boolean => {
+                        let volume = this.compute.vmVolumes.filter((vmVolume:VmVolume):boolean => {
                             return vmVolume.selected == true
                         })[0]
                         image = new VmImage(
@@ -359,7 +361,7 @@ module auroraApp {
                           {source: volume})
                         break;
                     case "snapshots":
-                        let snapshot = this.apiService.vmSnapshots.filter((vmSnapshot:VmSnapshot):boolean => {
+                        let snapshot = this.compute.vmSnapshots.filter((vmSnapshot:VmSnapshot):boolean => {
                             return vmSnapshot.selected == true
                         })[0]
                         image = new VmImage(
@@ -376,11 +378,11 @@ module auroraApp {
                 }
                 console.log(image)
     
-                let flavor = this.apiService.vmFlavors.filter((vmFlavor:IVmFlavor):boolean => {
+                let flavor = this.compute.vmFlavors.filter((vmFlavor:IVmFlavor):boolean => {
                     return vmFlavor.selected == true
                 })[0]
     
-                let networks = this.apiService.networkList.filter((vmNetwork:IVmNetwork):boolean => {
+                let networks = this.compute.networks.filter((vmNetwork:INetwork):boolean => {
                     return vmNetwork.selected == true
                 })
     
@@ -389,7 +391,7 @@ module auroraApp {
                 networks.forEach((network) => {
                     network_interfaces.push({
                         network: network,
-                        ip_addr: network.allocateIp()
+                        ip_addr: "127.0.0.1"
                     })
                 })
     
@@ -399,23 +401,18 @@ module auroraApp {
                 newVm = new VmItem(
                     "machine-" + rand + _i,
                      this.newVmName, //image.name + "-" + flavor.name + "-" + rand,
-                    "deploying",
+                    "BUILD",
                     new Date(),
                     image,
                     networks,
                     flavor,
-                    this.zone.value.name,
+                    null,
                     [],
                     network_interfaces,
                     []
                 )
-    
-                this.$timeout(() => {
-                    newVm.host_status = "running"
-                    this.Notification.success("VM '" + newVm.name +  "' is running")
-                }, 10000)
-    
-                this.apiService.insertVm(newVm);
+                
+                this.compute.insertVm(newVm);
 
                 this.Notification.primary("Deploying VM: " + "machine-" + rand + _i, " - status: deploying")
             }
@@ -426,26 +423,28 @@ module auroraApp {
 
         newVm() 
         {
-            angular.forEach(this.apiService.vmFlavors, (flavor:IVmFlavor) => {
+            
+            angular.forEach(this.compute.vmFlavors, (flavor:IVmFlavor) => {
                 flavor.selected = false;
             })
-            this.apiService.vmFlavors[0].selected = true
+            this.compute.vmFlavors[0].selected = true
             
-            this.apiService.project.additional_cost = this.apiService.vmFlavors[0].price 
-
-            this.apiService.vmNetworks[Object.keys(this.apiService.vmNetworks)[0]].selected = true
-
+            this.compute.project.additional_cost = this.compute.vmFlavors[0].price
+            
+            if (this.compute.vmNetworks.length)
+                this.compute.vmNetworks[Object.keys(this.compute.vmNetworks)[0]].selected = true
+            
             this.$state.go("vm-create");
         }
 
         deleteVm(vm: VmItem) 
         {
-            let index = this.apiService.listItems.indexOf(vm);
+            let index = this.compute.listItems.indexOf(vm);
             
-            this.apiService.listItems.splice(index, 1); 
+            this.compute.listItems.splice(index, 1); 
             
             this.Notification.info("Deleted VM: " + vm.name)
-            //this.apiService.updateVm(this.item)
+            //this.compute.updateVm(this.item)
         }
 
         haltVm(vm: VmItem) 
@@ -485,10 +484,10 @@ module auroraApp {
 
         selectFlavor(obj: IVmFlavor) 
         {
-            angular.forEach(this.apiService.vmFlavors, (flavor:IVmFlavor) => {
+            angular.forEach(this.compute.vmFlavors, (flavor:IVmFlavor) => {
                 flavor.selected = false;
             })
-            this.apiService.project.additional_cost = obj.price
+            this.compute.project.additional_cost = obj.price
             obj.selected = true
         }
         
@@ -516,7 +515,7 @@ module auroraApp {
         bulkAction(action: IVmAction) 
         {
             let selected = 0
-            this.apiService.listItems.forEach((item: VmItem) => {
+            this.compute.listItems.forEach((item: VmItem) => {
                 if (item.checked) {
                     action.action(item)
                     item.checked = false

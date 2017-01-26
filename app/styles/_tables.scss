@@ -254,6 +254,12 @@
         &.status-ERROR {
           background-color: $color-status-red;
         }
+        &.status-BUILD {
+          background-color: $color-status-purple;
+        }
+        &.status-ACTIVE {
+          background-color: $color-status-green;
+        }
       }
       &.column-actions {
         padding-top: 20px;

@@ -46,7 +46,7 @@ module auroraApp {
     }
 
     export interface INetworkInterface {
-        network: IVmNetwork
+        network: IVmNetwork|INetwork
         ip_addr: string
         floating_ip?: IFloatingIp
     }
@@ -176,6 +176,30 @@ module auroraApp {
     export interface IAllocationPool {
         start: string
         end: string
+    }
+    
+    export interface INetwork {
+        admin_state_up: boolean
+        availability_zone_hints: any
+        availability_zones: any
+        created_at: string
+        description: string
+        id: string
+        ipv4_address_scope: string
+        ipv6_address_scope: string
+        mtu: number
+        name: string
+        "provider:network_type": number
+        "provider:physical_network": string
+        "provider:segmentation_id": number
+        "router:external": boolean
+        shared: boolean
+        status: string
+        subnets: any[]
+        tags: any[]
+        tenant_id: string
+        updated_at: string
+        selected: boolean
     }
 
     export interface IVmNetwork {

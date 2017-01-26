@@ -12,6 +12,7 @@ module auroraApp.Services {
 		vmSnapshots: VmSnapshot[] = []
 		vmImagesList:string[]
 		vmNetworks:VmNetwork[] = []
+		networks: INetwork[] = []
 		networkRouters:NetworkRouter[] = []
 		networkList:VmNetwork[] = []
 		project: Project
@@ -57,6 +58,7 @@ module auroraApp.Services {
 					})
 				})
 			}
+			this.loadNetworks()
 			return deferred.promise
 		}
 		
@@ -64,10 +66,10 @@ module auroraApp.Services {
 		{
 			let deferred = this.$q.defer()
 			
-			let endpoint = this.compute_url()
+			let endpoint = this.compute_endpoint()
 			let url = this.os_url + "/nova/flavors/detail"
 			
-			this.http.get(url, {"Endpoint-ID": endpoint.id}).then(response => {
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
 				if (response.flavors) {
 					this.vmFlavors = []
 					angular.forEach(response.flavors, item => {
@@ -94,10 +96,10 @@ module auroraApp.Services {
 		{
 			let deferred = this.$q.defer()
 			
-			let endpoint = this.compute_url()
+			let endpoint = this.compute_endpoint()
 			let url = this.os_url + "/nova/os-quota-sets/" + this.identity.tenant_id
 			
-			this.http.get(url, {"Endpoint-ID": endpoint.id}).then(response => {
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
 				if (response.quota_set) {
 					let quota = response.quota_set
 					this.project = new Project(
@@ -125,6 +127,24 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		getZones():ng.IPromise< any >
+		{
+			let deferred = this.$q.defer()
+			
+			let endpoint = this.compute_endpoint()
+			let url = this.os_url + "/os-availability-zone"
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
+				if (response.availabilityZoneInfo) {
+					angular.forEach(response.availabilityZoneInfo, item => {
+						this.project.zones.push({id: item.zoneName, name: item.zoneName})
+					})
+				}
+			});
+			
+			return deferred.promise
+		}
+		
 		getFlavor(id: string): VmFlavor
 		{
 			let flavor: VmFlavor = null
@@ -140,7 +160,7 @@ module auroraApp.Services {
 			let endpoint = this.images_url()
 			let url = this.os_url + "/glance/v2/images"
 			let deferred = this.$q.defer()
-			this.http.get(url, {"Endpoint-ID": endpoint.id}).then(response => {
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
 				if (response.images) {
 					this.vmImages = []
 					angular.forEach(response.images, item => {
@@ -177,10 +197,10 @@ module auroraApp.Services {
 		loadServers():ng.IPromise< VmItem[] >
 		{
 			let deferred = this.$q.defer()
-			let endpoint = this.compute_url()
+			let endpoint = this.compute_endpoint()
 			let url:string = this.os_url + "/nova/servers/detail"
 			
-			this.http.get(url, {"Endpoint-ID": endpoint.id}).then((response):void => {
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
 				this.cache = response
 				
 				if (response.servers) {
@@ -209,6 +229,21 @@ module auroraApp.Services {
 				deferred.resolve(response)
 			});
 		
+			
+			return deferred.promise
+		}
+		
+		
+		loadNetworks():ng.IPromise< any > {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/networks"
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
+				if (response.networks)
+					this.networks = response.networks
+			})
 			
 			return deferred.promise
 		}
@@ -376,35 +411,45 @@ module auroraApp.Services {
 			})
 		}
 		
-		insertVm(vm:VmItem) {
+		insertVm(vm:VmItem):ng.IPromise< boolean > {
 			this.listItems.push(vm);
 			let index = this.listItems.length
 			
 			let vm_pos_y = index * 2 - 1
 			let vm_pos_x = 15
-			window['mapDetails']['elements']['vm' + '_' + vm.id] = {x: vm_pos_x, y: vm_pos_y, type: 'vm'}
+			/*window['mapDetails']['elements']['vm' + '_' + vm.id] = {x: vm_pos_x, y: vm_pos_y, type: 'vm'}
 			vm.network_interfaces.forEach((networkInterface:INetworkInterface) => {
 				let newLink = {from: "network_" + networkInterface.network.name, to: 'vm' + '_' + vm.id, type: "uni", connector: "metro"}
 				if (window['mapDetails']['links'].indexOf(newLink) == -1)
 					window['mapDetails']['links'].push(newLink)
-			})
-		}
-		
-		
-		setVmProperty(id:string, properties:IVmProperty[]):ng.IPromise< any > {
-			//let url:string = this.compute_url + "/servers/" + id
-			let deferred = this.$q.defer();
-			this.identity.isAuthenticated().then(() => {
-				deferred.notify("Starting request")
-				let payload:{} = {}
-				angular.forEach(properties, (property:IVmProperty) => {
-					payload[property.name] = property.value
-				})
-				/*this.http.put(url, {server: payload}).then((response) => {
-					deferred.resolve();
-				});*/
+			})*/
+			
+			var networks = []
+			angular.forEach(vm.networks, network => networks.push({uuid: network.id}))
+			
+			var payload = {
+				server: {
+					name: vm.name,
+					imageRef: vm.image.id,
+					flavorRef: vm.flavor.id,
+					networks: networks
+				}
+			}
+			console.log("Payload", payload)
+			
+			let deferred = this.$q.defer()
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/servers"
+			
+			this.http.post(
+				url,
+				payload,
+				{"headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then((response):void => {
+				deferred.resolve(true)
 			});
 			return deferred.promise
+			
 		}
 		
 		/**
@@ -422,11 +467,28 @@ module auroraApp.Services {
 		 * Retrieves compute url
 		 * @returns {any}
 		 */
-		private compute_url():any
+		private compute_endpoint():any
 		{
 			let endpoints = this.localStorage.get('endpoints')
 			let url = endpoints.compute.publicURL
 			let id = endpoints.compute.id
+			
+			if (!url) {
+				console.log("Compute url not valid!", endpoints.compute.publicURL)
+				return false
+			}
+			return {url: url, id: id}
+		}
+		
+		/**
+		 * Retrieves compute url
+		 * @returns {any}
+		 */
+		private network_endpoint():any
+		{
+			let endpoints = this.localStorage.get('endpoints')
+			let url = endpoints.network.publicURL
+			let id = endpoints.network.id
 			
 			if (!url) {
 				console.log("Compute url not valid!", endpoints.compute.publicURL)
@@ -451,6 +513,43 @@ module auroraApp.Services {
 				return false
 			}
 			return {url: url, id: id}
+		}
+		
+		/**
+		 * Set state of VM
+		 */
+		setVmState(vm:VmItem, state:string):ng.IPromise< boolean > {
+			let payload
+			switch (state) {
+				case "REBOOT":
+					payload = {"reboot": {"type": "HARD"}}
+					break;
+				case "PAUSE":
+					payload = {"pause": null}
+					break;
+				case "UNPAUSE":
+					payload = {"unpause": null}
+					break;
+				case "START":
+					payload = {"os-start" : null}
+					break;
+				case "RESET":
+					payload = {"os-resetState": {"state": "active"}}
+					break;
+			}
+			
+			let deferred = this.$q.defer()
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/servers/" + vm.id + "/action"
+			
+			this.http.post(
+				url,
+				payload,
+				{"headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then((response):void => {
+				deferred.resolve(true)
+			});
+			return deferred.promise
 		}
 	}
 }

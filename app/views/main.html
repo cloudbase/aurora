@@ -36,20 +36,20 @@
                                                 {{ 'VIRTUAL_MACHINES' | translate }}
                                                 <a ui-sref="vm" style="display:none" > </a>
                                             </a>
-                                            <span class="count">{{vm.apiService.listItems.length}}</span>
+                                            <span class="count">{{vm.compute.listItems.length}}</span>
                                         </li>
                                         <li class="with-counter">
                                             <a ui-sref-active="active" ui-sref="volumes-list">
                                                 {{ 'VOLUMES' | translate }}
                                             </a>
-                                            <span class="count">{{vm.apiService.vmVolumes.length}}</span>
+                                            <span class="count">{{vm.compute.vmVolumes.length}}</span>
 
                                         </li>
                                         <li class="with-counter">
                                             <a ui-sref-active="active" ui-sref="snapshot-list">
                                                 {{ 'SNAPSHOTS' | translate }}
                                             </a>
-                                            <span class="count">{{vm.apiService.vmSnapshots.length}}</span>
+                                            <span class="count">{{vm.compute.vmSnapshots.length}}</span>
                                         </li>
                                     </ul>
                             </div>
@@ -75,15 +75,15 @@
                                     </li>
                                     <li class="with-counter">
                                         <a ui-sref-active="active" ui-sref="networking-list">{{ 'NETWORKS' | translate }}</a>
-                                        <span class="count">{{vm.apiService.networkList.length}}</span>
+                                        <span class="count">{{vm.compute.networkList.length}}</span>
                                     </li>
                                     <li class="with-counter">
                                         <a ui-sref-active="active" ui-sref="networking-floating-ips">{{ 'FLOATING_IPS' | translate }}</a>
-                                        <span class="count">{{vm.apiService.project.floating_ips.length}}</span>
+                                        <span class="count">{{vm.compute.project.floating_ips.length}}</span>
                                     </li>
                                     <li class="with-counter">
                                         <a ui-sref-active="active" ui-sref="networking-routers">{{ 'ROUTERS' | translate }}</a>
-                                        <span class="count">{{vm.apiService.networkRouters.length}}</span>
+                                        <span class="count">{{vm.compute.networkRouters.length}}</span>
                                     </li>
                                 </ul>
                             </div>

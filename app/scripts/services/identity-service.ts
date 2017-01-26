@@ -25,7 +25,6 @@ module auroraApp.Services {
 			"HttpWrapService",
 			"$q",
 			"$cookies",
-			"$location",
 			"$timeout",
 			"LocalStorage"
 		]
@@ -34,7 +33,6 @@ module auroraApp.Services {
 								private http:Services.IHttpWrapperService,
 		            private $q:ng.IQService,
 		            private $cookies:Services.ICookiesService,
-		            private $location:ng.ILocationService,
 		            private $timeout:ng.ITimeoutService,
 		            public localStorage: LocalStorage
 		) {
@@ -48,7 +46,8 @@ module auroraApp.Services {
 			let deferred = this.$q.defer()
 			// if there is token, attempt to login
 			this.token = this.$cookies.get('token')
-			if (this.token || false) {
+			
+			if (this.token) {
 				this.authWithToken(this.token).then(authenticated => {
 					console.log(authenticated)
 					if (authenticated) {
@@ -122,7 +121,7 @@ module auroraApp.Services {
 			
 			let url:string = this.auth_url + "/tokens"
 			
-			this.http.post(url, credentials, {withCredentials:true}).then((response) => {
+			this.http.post(url, credentials).then((response) => {
 				if (response.access) {
 					this.handleAuthSuccess(response)
 					deferred.resolve(true)
@@ -176,6 +175,13 @@ module auroraApp.Services {
 			});
 			
 			return deferred.promise
+		}
+		
+		getTenantInfo() {
+			let url:string = this.auth_url + "/tokens"
+			this.http.get(url).then(response => {
+				console.log("GET TENANT INFO", response)
+			})
 		}
 		
 		private handleAuthSuccess(response)
@@ -237,6 +243,7 @@ module auroraApp.Services {
 		/**
 		 * Sets the data necessary for the specified tenant. Function should be called after authentication and tenant query
 		 * @param tenant
+		 * @param cache
 		 */
 		private handleUserData(tenant: string, cache = true):ng.IPromise< any >
 		{

@@ -10,43 +10,45 @@ module auroraApp {
         activeList: string = "recommended"
         static $inject = [
             "$scope",
-            "ApiService",
+            "ComputeService",
             "$stateParams"
         ]
-        constructor(isolateScope: Directives.IVmListScope, public apiService: Services.IApiService, public $stateParams) {
-            let flavor = this.apiService.vmFlavors.filter((vmFlavor:IVmFlavor):boolean => {
+        constructor(isolateScope: Directives.IVmListScope, public compute: Services.IComputeService, public $stateParams) {
+            let flavor = this.compute.vmFlavors.filter((vmFlavor:IVmFlavor):boolean => {
                 return vmFlavor.selected == true
             })[0]
-            
+            console.log(this.compute)
             if ($stateParams.type == 'edit') {
                 this.initialCost = flavor.price
                 this.resize = true
             }
 
-            apiService.vmFlavors.forEach((flavor:VmFlavor) => {
-                flavor.tags.forEach((list) => {
-                    if (this.tags.indexOf(list) == -1)
-                        this.tags.push(list)
-                })
+            this.compute.vmFlavors.forEach((flavor:VmFlavor) => {
+                if (flavor.tags) {
+                    flavor.tags.forEach((list) => {
+                        if (this.tags.indexOf(list) == -1)
+                            this.tags.push(list)
+                    })
+                }
             })
         }
 
         selectFlavor(obj: IVmFlavor) {
-            angular.forEach(this.apiService.vmFlavors, (flavor:IVmFlavor) => {
+            angular.forEach(this.compute.vmFlavors, (flavor:IVmFlavor) => {
                 flavor.selected = false;
             })
             // get the difference from the previously selected with the newly selected
-            this.apiService.project.additional_cost = obj.price - this.initialCost
+            this.compute.project.additional_cost = obj.price - this.initialCost
             obj.selected = true
         }
 
         resizeFlavor() {
             let flavor: IVmFlavor = null
-            this.apiService.vmFlavors.forEach((vmFlavor:IVmFlavor) => {
+            this.compute.vmFlavors.forEach((vmFlavor:IVmFlavor) => {
                 if (vmFlavor.selected == true)
                     flavor = vmFlavor
             })
-            this.apiService.listItems.forEach((vmItem:VmItem) => {
+            this.compute.listItems.forEach((vmItem:VmItem) => {
               if (vmItem.id == this.$stateParams.vm_id) {
                 vmItem.flavor = flavor
               }
