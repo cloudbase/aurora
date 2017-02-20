@@ -106,16 +106,23 @@ module auroraApp {
     }
     
     export interface IVmVolume {
+        migration_status: string
+        attachments: any[]
+        links: any[]
+        availability_zone: IZone
+        snapshot_id: string
+        metadata: any
         id: string
         name: string
         description: string
         size: number
         attached_to: IVolumeAttachment
         status: string
-        type: string
-        region: IZone
+        volume_type: string
         bootable: boolean
         encrypted: boolean
+        user_id: string,
+        tags: string[]
     }
     
     export class VmVolume implements IVmVolume {
@@ -126,12 +133,20 @@ module auroraApp {
           public name,
           public description,
           public size,
+          public snapshot_id,
+          public user_id,
+          public attachments,
           public attached_to,
           public status,
-          public type,
+          public volume_type,
+          public links,
+          public migration_status,
           public region,
           public bootable,
-          public encrypted
+          public encrypted,
+          public availability_zone,
+          public metadata,
+          public tags
         ) {}
         
         attachVm(vm:VmItem):void {

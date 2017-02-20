@@ -335,8 +335,8 @@ module auroraApp {
             let newVm: VmItem
             let network_interfaces: INetworkInterface[]
             let rand: number
-
-            for (let _i = 1; _i <= this.count; _i++) {
+            let _i = 1;
+            for (_i = 1; _i <= this.count; _i++) {
                 let image = null
                 console.log(this.src_category_selected)
                 switch (this.src_category_selected) {
@@ -412,13 +412,14 @@ module auroraApp {
                     []
                 )
                 
-                this.compute.insertVm(newVm);
+                this.compute.insertVm(newVm).then((response:any) => {
+                    if (!response.error) {
+                        this.Notification.primary("Deploying VM: " + "machine-" + rand + _i, " - status: deploying")
+                        this.$state.go("vm-list");
+                    }
+                });
 
-                this.Notification.primary("Deploying VM: " + "machine-" + rand + _i, " - status: deploying")
             }
-
-            this.$state.go("vm-list");
-
         }
 
         newVm() 
@@ -431,8 +432,10 @@ module auroraApp {
             
             this.compute.project.additional_cost = this.compute.vmFlavors[0].price
             
-            if (this.compute.vmNetworks.length)
-                this.compute.vmNetworks[Object.keys(this.compute.vmNetworks)[0]].selected = true
+            if (this.compute.networks.length) {
+                this.compute.networks[Object.keys(this.compute.networks)[0]].selected = true
+                console.log("NETWORKS", this.compute.networks)
+            }
             
             this.$state.go("vm-create");
         }

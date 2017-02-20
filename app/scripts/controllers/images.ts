@@ -7,7 +7,7 @@ module auroraApp {
         initialCost = 0
         resize = false
         tags: string[] = []
-        activeList: string = "recommended"
+        activeList: string = "generic"
         images: IVmImage[]
         static $inject = [
             "$scope",

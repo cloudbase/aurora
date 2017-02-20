@@ -107,6 +107,11 @@ body {
       margin-right: 20px;
     }
   }
+  &.vm-view-details {
+    .main {
+      width: 868px;
+    }
+  }
   .main {
     width: 910px;
     float: left;

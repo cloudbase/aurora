@@ -16,7 +16,7 @@
             <div class="cell">{{ 'ACTIONS' | translate }}</div>
         </div>
         <div class='table-content'>
-            <div ng-if='!vm.apiService.vmVolumes' class='empty-table'>
+            <div ng-if='vm.apiService.vmVolumes.length == 0' class='empty-table'>
                 <h3>{{ 'NO_VOLUMES' | translate }}</h3>
                 <a class='btn btn-primary btn-snapshot btn-jumbo' ui-sref="volumes-create">
                     <svg width="15px" height="15px" viewBox="10 11 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

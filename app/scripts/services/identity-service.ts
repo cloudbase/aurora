@@ -39,6 +39,7 @@ module auroraApp.Services {
 			this.auth_url = config.AUTH_URL
 			this.os_url = config.OS_URL
 			this.bridge_url = config.BRIDGE_URL
+			
 		}
 		
 		init():ng.IPromise< any >

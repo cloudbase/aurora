@@ -9,21 +9,21 @@ module auroraApp {
 		size = 1
 		static $inject = [
 			"$scope",
-			"ApiService",
+			"ComputeService",
 			"$stateParams",
 			"$uibModal",
 			"Notification"
 		]
 		
 		constructor(isolateScope:Directives.IVmListScope,
-		            public apiService:Services.IApiService,
+		            public apiService:Services.ComputeService,
 		            public $stateParams,
 		            public $uibModal,
 		            public notification) {
 			this.snapshots = apiService.vmSnapshots
 		}
 		
-		deleteSnapshot(obj:IVmSnapshot) {
+		deleteSnapshot(obj:VmSnapshot) {
 			let index = this.apiService.vmSnapshots.indexOf(obj)
 			this.apiService.vmSnapshots.splice(index, 1)
 			this.notification.info("Snapshot " + obj.name + " deleted")

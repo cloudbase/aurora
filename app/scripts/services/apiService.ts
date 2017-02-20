@@ -222,7 +222,7 @@ module auroraApp.Services {
 		}
 		
 		addVolume(obj:any) {
-			let region:IZone = null
+			/*let region:IZone = null
 			
 			this.project.zones.forEach((zone:IZone) => {
 				if (zone.name == obj.region)
@@ -241,7 +241,7 @@ module auroraApp.Services {
 				obj.encrypted
 			)
 			
-			this.vmVolumes.push(newVolume)
+			this.vmVolumes.push(newVolume)*/
 		}
 		
 		updateVm(obj:VmItem) {

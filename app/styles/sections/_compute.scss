@@ -337,6 +337,7 @@
     margin-bottom: 0;
     background-color: #E7E9ED;
     border-radius: 4px;
+    @include clearfix();
   }
   .icon-volume, .icon-snapshot {
     float: right;

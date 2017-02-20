@@ -28,7 +28,6 @@ module auroraApp.Services {
 			"IdentityService",
 			"$q",
 			"$cookies",
-			"$location",
 			"$timeout",
 			"LocalStorage"
 		]
@@ -38,7 +37,6 @@ module auroraApp.Services {
 		            private identity: Services.IIdentityService,
 		            private $q:ng.IQService,
 		            private $cookies:Services.ICookiesService,
-		            private $location:ng.ILocationService,
 		            private $timeout:ng.ITimeoutService,
 								public localStorage: LocalStorage) {
 			
@@ -55,6 +53,8 @@ module auroraApp.Services {
 					this.$q.all([this.loadServers(), this.getTenantQuota()]).then(res => {
 						this.initialized = true
 						deferred.resolve(true)
+						this.loadVolumes()
+						this.loadSnapshots()
 					})
 				})
 			}
@@ -102,6 +102,7 @@ module auroraApp.Services {
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
 				if (response.quota_set) {
 					let quota = response.quota_set
+					let zone:IZone = {id: "nova", name: "nova"}
 					this.project = new Project(
 						quota.id,
 						quota.instances,
@@ -111,7 +112,7 @@ module auroraApp.Services {
 						128000,
 						12000,
 						"EUR",
-						[],
+						[zone],
 						[],
 						quota.floating_ips,
 						[],
@@ -182,6 +183,178 @@ module auroraApp.Services {
 			return deferred.promise;
 		}
 		
+		loadSnapshots():ng.IPromise< VmImage[] >
+		{
+			let endpoint = this.cinder_url()
+			let url = this.os_url + "/cinder/snapshots/detail"
+			let deferred = this.$q.defer()
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
+				/*if (response.images) {
+					this.vmImages = []
+					angular.forEach(response.images, item => {
+						let image = new VmImage(
+							item.id,
+							item.name,
+							'generic',
+							'1.0',
+							item.size,
+							'image',
+							item.created_at,
+							item.tags
+						)
+						this.vmImages.push(image)
+					})*/
+					console.log("SNAPSHOTS RESPONSE", response)
+					deferred.resolve(this.vmImages)
+				
+			})
+			return deferred.promise;
+		}
+		
+		loadVolumes():ng.IPromise< VmImage[] >
+		{
+			let endpoint = this.cinder_url()
+			let url = this.os_url + "/cinder/volumes/detail"
+			let deferred = this.$q.defer()
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
+				console.log(response)
+				deferred.resolve(response)
+				if (response.volumes) {
+					this.vmVolumes = []
+					angular.forEach(response.volumes, item => {
+						this.addVolume(item)
+					})
+					deferred.resolve(this.vmVolumes)
+					console.log(this.vmVolumes)
+				}
+			})
+			return deferred.promise;
+		}
+		
+		addVolume(item) {
+			let region:IZone = null
+			this.project.zones.forEach((zone:IZone) => {
+				if (zone.name == item.availability_zone)
+					region = zone
+			})
+			let newVolume = new VmVolume(
+				item.id,
+				item.display_name,
+				item.description,
+				item.size,
+				item.snapshot_id,
+				item.user_id,
+				item.attachments,
+				null,
+				item.status,
+				item.volume_type,
+				item.links,
+				item.migration_status,
+				item.region,
+				item.bootable,
+				item.encrypted,
+				region,
+				item.metadata,
+				[]
+			)
+			let updated = false
+			this.vmVolumes.forEach(volume => {
+				if (volume.id == newVolume.id) {
+					volume = newVolume
+					updated = true
+				}
+			})
+			if (!updated) {
+				this.vmVolumes.push(newVolume)
+			}
+		}
+		
+		insertVolume(volumeData) {
+			let endpoint = this.cinder_url()
+			let url = this.os_url + "/cinder/volumes"
+			let deferred = this.$q.defer()
+			var payload = { volume: {
+				size: volumeData.size,
+				display_description: volumeData.description,
+				display_name: volumeData.name
+			}}
+			this.http.post(
+				url,
+				payload,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}).then(response => {
+					this.addVolume(response.volume)
+					deferred.resolve(response)
+			})
+			return deferred.promise
+		}
+		
+		removeVolume(volume_id) {
+			let deleteIndex = null
+			this.vmVolumes.forEach((volume, index) => {
+				if (volume.id == volume_id) {
+					deleteIndex = index
+				}
+			})
+			if (deleteIndex != null) {
+				this.vmVolumes.splice(deleteIndex, 1)
+			}
+		}
+		
+		deleteVolume(volume_id) {
+			let endpoint = this.cinder_url()
+			let url = this.os_url + "/cinder/volumes/" + volume_id
+			let deferred = this.$q.defer()
+			
+			this.http.delete(
+				url,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				console.log("Volume delete response", response)
+				this.removeVolume(volume_id)
+				deferred.resolve(response)
+			})
+			return deferred.promise
+		}
+		
+		updateVolume(newVolumeData) {
+			let endpoint = this.cinder_url()
+			let url = this.os_url + "/cinder/volumes/" + newVolumeData.id
+			let deferred = this.$q.defer()
+			let payload = {
+				volume:{
+					display_name: newVolumeData.name,
+					display_description: newVolumeData.description,
+				}
+			}
+			this.http.put(
+				url,
+				payload,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				console.log("Volume edit response", response)
+				this.addVolume(response.volume)
+				deferred.resolve(response)
+			})
+			return deferred.promise
+		}
+		
+		attachVolume(volume_id, instance_uuid) {
+			let endpoint = this.cinder_url()
+			let url = this.os_url + "/cinder/volumes/" + volume_id + "/action"
+			let deferred = this.$q.defer()
+			let payload = {
+				"os-attach": {instance_uuid: instance_uuid}
+			}
+			this.http.post(
+				url,
+				payload,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				console.log("Volume attach response", response)
+				deferred.resolve(response)
+			})
+			return deferred.promise
+		}
 		
 		
 		getImage(id: string): VmImage
@@ -243,6 +416,7 @@ module auroraApp.Services {
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
 				if (response.networks)
 					this.networks = response.networks
+				console.log(this.networks)
 			})
 			
 			return deferred.promise
@@ -381,29 +555,6 @@ module auroraApp.Services {
 			return vm
 		}
 		
-		addVolume(obj:any) {
-			let region:IZone = null
-			
-			this.project.zones.forEach((zone:IZone) => {
-				if (zone.name == obj.region)
-					region = zone
-			})
-			let newVolume = new VmVolume(
-				obj.id,
-				obj.name,
-				obj.description,
-				obj.size,
-				null,
-				obj.status,
-				obj.type,
-				region,
-				obj.bootable,
-				obj.encrypted
-			)
-			
-			this.vmVolumes.push(newVolume)
-		}
-		
 		updateVm(obj:VmItem) {
 			this.listItems.forEach((vm:VmItem) => {
 				if (vm.id == obj.id)
@@ -412,7 +563,6 @@ module auroraApp.Services {
 		}
 		
 		insertVm(vm:VmItem):ng.IPromise< boolean > {
-			this.listItems.push(vm);
 			let index = this.listItems.length
 			
 			let vm_pos_y = index * 2 - 1
@@ -446,12 +596,15 @@ module auroraApp.Services {
 				payload,
 				{"headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
 			).then((response):void => {
+				console.log(response);
+				if (!response.error) {
+					this.listItems.push(vm);
+				}
 				deferred.resolve(true)
 			});
 			return deferred.promise
-			
 		}
-		
+		 
 		/**
 		 * Returns the list of servers from API
 		 */
@@ -506,6 +659,24 @@ module auroraApp.Services {
 			let endpoints = this.localStorage.get('endpoints')
 			let url = endpoints.image.publicURL
 			let id = endpoints.image.id
+			
+			//return "http://10.7.12.21:8774/v2/2e811ac45e548959bed63f7fbe32804"
+			if (!url) {
+				console.log("Compute url not valid!", endpoints.compute.publicURL)
+				return false
+			}
+			return {url: url, id: id}
+		}
+		
+		/**
+		 * Retrieves compute url
+		 * @returns {any}
+		 */
+		private cinder_url():any
+		{
+			let endpoints = this.localStorage.get('endpoints')
+			let url = endpoints.volume.publicURL
+			let id = endpoints.volume.id
 			
 			//return "http://10.7.12.21:8774/v2/2e811ac45e548959bed63f7fbe32804"
 			if (!url) {

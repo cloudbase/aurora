@@ -14,7 +14,7 @@ module auroraApp {
 		static $inject = [
 			"$scope",
 			"$state",
-			"ApiService",
+			"ComputeService",
 			"$stateParams",
 			"$uibModal",
 			"Notification"
@@ -23,7 +23,7 @@ module auroraApp {
 		constructor(
 			public $scope: ng.IScope,
 			public $state: any,
-			public apiService:Services.IApiService,
+			public apiService:Services.ComputeService,
 			public $stateParams,
 			public $uibModal,
 		  public notifications
@@ -65,11 +65,9 @@ module auroraApp {
 		
 		deleteVolume(volume: VmVolume)
 		{
-			let index = this.volumes.indexOf(volume)
-			this.volumes.splice(index, 1)
-			
-			index = this.apiService.vmVolumes.indexOf(volume)
-			this.apiService.vmVolumes.splice(index, 1)
+			this.apiService.deleteVolume(volume.id).then(response => {
+				this.notifications.info("Volume deleted.");
+			})
 		}
 		
 		manageAttachment(volume: VmVolume)
@@ -161,9 +159,13 @@ module auroraApp {
 		
 		attachVm(volume)
 		{
-			volume.attachVm(volume.selectedVm.value)
+			console.log(volume)
+			this.apiService.attachVolume(volume.id, volume.selectedVm.value.id).then(response => {
+				volume.attached_to = volume.selectedVm.value
+			})
+			//volume.attachVm(volume.selectedVm.value)
 			//this.notifications.info("Attached volume " + volume.name + " to VM:" + volume.selectedVm.value.name)
-			console.log(volume, volume.selectedVm.value)
+			console.log(volume, volume.selectedVm)
 		}
 		
 		discardVm(volume:IVmVolume)
@@ -207,7 +209,13 @@ module auroraApp {
 						volume.name = $scope.volumeName
 						volume.description = $scope.volumeDescription
 						volume.size += $scope.increaseStorage
-						this.notifications.info("Saved changes")
+						this.apiService.updateVolume({
+							id: volume.id,
+							name: $scope.volumeName,
+							description: $scope.volumeDescription
+						}).then(response => {
+							this.notifications.info("Saved changes")
+						})
 						$uibModalInstance.close(true);
 					}
 				},
@@ -227,7 +235,14 @@ module auroraApp {
 		
 		createVolume()
 		{
-			let newVolume = new VmVolume(
+			this.apiService.insertVolume({
+				name: this.newVolumeName,
+				description: this.volumeDescription,
+				size: this.size
+			}).then(response => {
+				this.$state.go("volumes-list");
+			})
+			/*let newVolume = new VmVolume(
 				this.newVolumeName,
 				this.newVolumeName,
 				this.volumeDescription,
@@ -236,7 +251,7 @@ module auroraApp {
 			)
 			this.apiService.vmVolumes.push(newVolume)
 			this.$state.go("volumes-list");
-			this.notifications.info("Volume " + this.newVolumeName + " created")
+			this.notifications.info("Volume " + this.newVolumeName + " created")*/
 		}
 	}
 	

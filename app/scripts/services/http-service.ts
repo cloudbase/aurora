@@ -7,12 +7,13 @@ module auroraApp.Services {
 		
 		static $inject = [
 			"$http",
-			"$q"
+			"$q",
+			"Notification",
 		]
 		
 		constructor(public $http:ng.IHttpService,
 		            private $q:ng.IQService,
-		            private $cookies
+		            private Notification:any
 		) {
 			$http.defaults.withCredentials = true;
 		}
@@ -52,12 +53,37 @@ module auroraApp.Services {
 		 */
 		post(url, payload, config = null):ng.IPromise< any > {
 			$("#loader").addClass('loading');
+			let deferred = this.$q.defer()
 			url = this._wrapUrl(url, "POST");
 			
-			var result:ng.IPromise< any > = this.$http.post(url, payload, config)
-				.then((response:any):ng.IPromise< any > => this.handleResponse(response, null))
 			
-			return result
+			var result:ng.IPromise< any > = this.$http.post(url, payload, config)
+				.error((response: any) => {
+					this.handleResponse(response, null)
+					deferred.reject(response)
+				})
+				.then((response:any) => deferred.resolve(this.handleResponse(response, null)))
+			
+			return deferred.promise
+		}
+		
+		/**
+		 * DELETE call function wrapper
+		 */
+		delete(url, config = null):ng.IPromise< any > {
+			$("#loader").addClass('loading');
+			let deferred = this.$q.defer()
+			url = this._wrapUrl(url, "POST");
+			
+			
+			var result:ng.IPromise< any > = this.$http.delete(url, config)
+				.error((response: any) => {
+					this.handleResponse(response, null)
+					deferred.reject(response)
+				})
+				.then((response:any) => deferred.resolve(this.handleResponse(response, null)))
+			
+			return deferred.promise
 		}
 		
 		/**
@@ -67,7 +93,7 @@ module auroraApp.Services {
 			$("#loader").addClass('loading');
 			url = this._wrapUrl(url, "PUT");
 			// PUT request will be relayed:
-			var result:ng.IPromise< any > = this.$http.post(url, payload, config)
+			var result:ng.IPromise< any > = this.$http.put(url, payload, config)
 				.then((response:any):ng.IPromise< any > => this.handleResponse(response, null))
 			
 			return result
@@ -82,10 +108,19 @@ module auroraApp.Services {
 		}
 		
 		private handleResponse(response:any, params:any):any {
-			// TODO: Add error cases
-			response.data.requestParams = params
+			console.log("HANDLE RESPONSE", response)
 			$("#loader").removeClass('loading');
-			return response.data
+			if (response.error) {
+				if (response.error.code == 400) {
+					this.Notification.error(response.error.message.badRequest.message)
+				} else {
+					this.Notification.error("Unhandled error")
+				}
+				return false
+			} else {
+				response.data.requestParams = params
+				return response.data
+			}
 		}
 	}
 }

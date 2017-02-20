@@ -9,7 +9,7 @@ module auroraApp {
         currentSection: any = {}
     
         static $inject = [
-            "ApiService",
+            "ComputeService",
             "$state",
             "$stateParams",
             "$timeout"
@@ -21,11 +21,12 @@ module auroraApp {
         ]
 
         constructor(
-            public apiService: Services.ApiService,
+            public apiService: Services.ComputeService,
             private $state,
             private $stateParams,
             private $timeout: ng.ITimeoutService
         ) {
+            
             this.item = <VmItem> apiService.getVm($stateParams.vm_id)
             apiService.vmFlavors.forEach((flavor) => {
                 flavor.selected = false

@@ -309,9 +309,9 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
         }
       },
       resolve: {
-        project: ['ApiService', (apiService) => {
+        project: ['ComputeService', (apiService) => {
           this.apiService = apiService
-          return apiService.queryServers().then(()=>{
+          
             angular.forEach(this.apiService.vmImages, (flavor) => {
               flavor.selected = false;
             })
@@ -322,8 +322,8 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
             this.apiService.vmFlavors[0].selected = true
             this.apiService.project.additional_cost = this.apiService.vmFlavors[0].price
           
-            this.apiService.vmNetworks[Object.keys(this.apiService.vmNetworks)[0]].selected = true
-          })
+            this.apiService.networks[Object.keys(this.apiService.networks)[0]].selected = true
+          
         }]
       }
     })

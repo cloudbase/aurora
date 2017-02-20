@@ -6,24 +6,22 @@ module auroraApp {
     export class NetworkingCtrl {
         static $inject = [
             "$scope",
-            "ApiService",
+            "ComputeService",
             "$state",
             "$uibModal",
-            "$stateParams",
-            "data"
+            "$stateParams"
         ];
 
         constructor(
             public $scope: ng.IScope,
-            public apiService: Services.IApiService,
+            public apiService: Services.ComputeService,
             private $state: any,
             public $uibModal: any,
-            public $stateParams,
-            public data: any
+            public $stateParams
         )
         {
             if ($stateParams.type == "map") {
-                this.mapInit(data)
+                this.mapInit()
             }
         }
 
@@ -95,7 +93,7 @@ module auroraApp {
             floating_ip.assigned_to = item
         }
         
-        mapInit(data)
+        mapInit()
         {
             let self = this
             
