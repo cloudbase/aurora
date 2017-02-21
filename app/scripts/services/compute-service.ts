@@ -13,8 +13,8 @@ module auroraApp.Services {
 		vmImagesList:string[]
 		vmNetworks:VmNetwork[] = []
 		networks: INetwork[] = []
-		networkRouters:NetworkRouter[] = []
 		networkList:VmNetwork[] = []
+		routers: IRouter[]
 		project: Project
 		queried:boolean = false
 		os_url: string
@@ -55,6 +55,8 @@ module auroraApp.Services {
 						deferred.resolve(true)
 						this.loadVolumes()
 						this.loadSnapshots()
+						this.loadFloatingIps()
+						this.loadRouters()
 					})
 				})
 			}
@@ -417,6 +419,37 @@ module auroraApp.Services {
 				if (response.networks)
 					this.networks = response.networks
 				console.log(this.networks)
+			})
+			
+			return deferred.promise
+		}
+		
+		loadFloatingIps():ng.IPromise< any > {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/floatingips"
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
+				if (response.floatingips) {
+					this.project.floating_ips = response.floatingips
+				}
+				console.log("FIPS", response)
+			})
+			
+			return deferred.promise
+		}
+		
+		loadRouters():ng.IPromise< any > {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/routers"
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
+				if (response.routers) {
+					this.routers = response.routers
+				}
 			})
 			
 			return deferred.promise

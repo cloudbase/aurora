@@ -40,9 +40,29 @@ module auroraApp {
 
     export interface IFloatingIp {
         id: string
-        ip: string
+        floating_ip_address: string
+        fixed_ip_address: string
+        status: string
+        port_id: string
+        router_id: string
         assigned_to?: INetworkInterface
         assigned_vm?: VmItem
+    }
+    
+    export interface IRouter {
+        admin_state_up: boolean
+        availability_zone_hints: any[]
+        availability_zones: IZone
+        description: string
+        distributed: boolean
+        external_gateway_info: any
+        ha: boolean
+        id: string
+        name: string
+        routes: any[]
+        status: string
+        tenant_id: string
+        interfaces: IRouterInterface[]
     }
 
     export interface INetworkInterface {
@@ -263,15 +283,6 @@ module auroraApp {
         ip: string
         route1: string
         route2: string
-    }
-    
-    export interface IRouter {
-        name: string
-        interfaces: IRouterInterface[]
-    }
-    
-    export class NetworkRouter implements IRouter {
-        constructor(public name, public interfaces) {}
     }
 
     export interface IZone {

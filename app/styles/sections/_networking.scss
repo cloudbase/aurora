@@ -47,12 +47,12 @@
 
 $routersColSizes: (
         1 20% "0", // name
-        2 20% "default", // interfaces
-        3 20% "default", // static routes
+        2 19% "default", // interfaces
+        3 19% "default", // static routes
         4 9% "17px 0 0 0", // admin state
         5 12% "default", // external network
         6 9% "default", // status
-        7 10% "default" // actions
+        7 12% "default" // actions
 );
 
 @include generateTable("routers", $routersColSizes);

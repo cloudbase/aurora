@@ -21,7 +21,6 @@ module auroraApp.Services {
 		vmSnapshots: VmSnapshot[] = []
 		vmImagesList:string[]
 		vmNetworks:VmNetwork[] = []
-		networkRouters:NetworkRouter[] = []
 		networkList:VmNetwork[] = []
 		project:Project
 		queried:boolean = false
@@ -98,11 +97,6 @@ module auroraApp.Services {
 				angular.forEach(response.networks, (value:any):void => {
 					self.addNetwork(value, response.networks.length, networkCount)
 					networkCount++
-				});
-				
-				// routers
-				angular.forEach(response.routers, (value:any):void => {
-					self.addRouter(value)
 				});
 				
 				// VMs
@@ -283,19 +277,6 @@ module auroraApp.Services {
 			window['mapDetails']['links'].push({from: "router", to: 'network' + '_' + obj.name, type: "uni"})
 		}
 		
-		addRouter(obj:any) {
-			let routerInterfaces:IRouterInterface[] = []
-			obj.interfaces.forEach(routerInterface => {
-				routerInterfaces.push({
-					name: routerInterface.name,
-					ip: routerInterface.ip,
-					route1: routerInterface.route1,
-					route2: routerInterface.route2
-				})
-			})
-			var newRouter = new NetworkRouter(obj.name, routerInterfaces)
-			this.networkRouters.push(newRouter)
-		}
 		insertVm(vm:VmItem) {
 			this.listItems.push(vm);
 			let index = this.listItems.length

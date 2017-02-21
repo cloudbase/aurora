@@ -40,13 +40,16 @@ module auroraApp {
 			"$rootScope",
 			"$state",
 			"IdentityService",
-			"$stateParams"
+			"$stateParams",
+			"ComputeService"
 		]
 		
 		constructor(public $rootScope:ng.IScope,
 		            public $state:any,
 		            public identity:Services.IdentityService,
-		            public $stateParams)
+		            public $stateParams,
+		            public compute: Services.ComputeService
+		)
 		{
 			this.identity.isAuthenticated().then(authenticated => {
 				if (!authenticated && $state.name != 'login') {
