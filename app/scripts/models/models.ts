@@ -235,8 +235,28 @@ module auroraApp {
         tenant_id: string
         updated_at: string
         selected: boolean
+        subnetCollection: ISubnet[]
     }
-
+    
+    export interface ISubnet {
+        allocation_pools: any[]
+        cidr: string
+        created_at: string
+        description: string
+        dns_nameservers: any[]
+        enable_dhcp: boolean
+        gateway_ip: string
+        host_routes: any[]
+        id: string
+        ip_version: number
+        ipv6_address_mode: any
+        ipv6_ra_mode: any
+        name: string
+        network_id: string
+        subnetpool_id: string
+        tenant_id: string
+        updated_at: string
+    }
     export interface IVmNetwork {
         name: string
         type: string

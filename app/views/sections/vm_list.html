@@ -114,6 +114,12 @@
                 <li class="pauseVM" ng-click="vm.pauseVm(item)" ng-if="item.host_status == 'ACTIVE'">
                   <div uib-tooltip="{{ 'PAUSE' | translate }}" class="icon-action icon-pause" data-placement="top" title="Pause"></div>
                 </li>
+                <li ng-click="vm.startVm(item)" ng-if="item.host_status == 'SHUTOFF'">
+                  <div uib-tooltip="{{ 'START' | translate }}" class="icon-action icon-play" data-placement="top" title="Start"></div>
+                </li>
+                <li ng-click="vm.resumeVm(item)" ng-if="item.host_status == 'PAUSED'">
+                  <div uib-tooltip="{{ 'RESUME' | translate }}" class="icon-action icon-play" data-placement="top" title="Resume"></div>
+                </li>
                 <li uib-tooltip="{{ 'RESET' | translate }}" ng-click='vm.resetVm(item)' ng-if='item.host_status != "STOPPED"'>
                   <div class="icon-action icon-restart"></div>
                 </li>
@@ -126,7 +132,7 @@
                 <li uib-tooltip="{{ 'CONSOLE' | translate }}" class="infoVM" ng-click="vm.selectVm(item)" ng-if="item.host_status == 'ACTIVE'">
                   <div class="icon-action icon-console"></div>
                 </li>
-                <li  uib-tooltip="{{ 'DELETE' | translate }}" class="deleteVM">
+                <li  uib-tooltip="{{ 'DELETE' | translate }}" class="deleteVM" tooltip-placement="top-right">
                   <a data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'VM_DELETE_CONFIRM' | translate }}" title="{{ 'DELETE' | translate }}"  on-confirm="vm.deleteVm(item)">
                     <div class="icon-action icon-delete"></div>
                   </a>

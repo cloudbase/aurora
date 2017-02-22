@@ -227,8 +227,11 @@ module auroraApp {
 
         startVm(obj: VmItem)
         {
-            obj.host_status = "running";
-            this.Notification.info("Starting VM: " + obj.name)
+            this.compute.setVmState(obj, "START").then(response => {
+                obj.host_status = "STARTING"
+                this.Notification.info("Starting VM: " + obj.name)
+            })
+            
         }
 
         restartVm(obj: VmItem)
@@ -244,23 +247,24 @@ module auroraApp {
                 obj.host_status = "RESET"
                 this.Notification.info("Vm resetted: " + obj.name)
             })
-        
-            
-        }
-        editName(obj: VmItem)
-        {
-            obj.edit_state = true
-            obj.prev_name = obj.name
         }
         
-        saveName(obj:VmItem)
+        haltVm(vm: VmItem)
         {
-            let vmProperty: Services.IVmProperty = {
-                name: 'name',
-                value: obj.name
-            }
+            this.compute.setVmState(vm, "SHUTOFF").then(response => {
+                vm.host_status = "SHUTOFF"
+                this.Notification.info("Stopped VM: " + vm.name)
+            })
         }
-
+    
+        resumeVm(vm: VmItem)
+        {
+            this.compute.setVmState(vm, "RESUME").then(response => {
+                vm.host_status = "ACTIVE"
+                this.Notification.info("Resuming VM: " + vm.name)
+            })
+        }
+    
         sortTable(column: string) 
         {
             if (this.sortType != column) {
@@ -280,11 +284,7 @@ module auroraApp {
             option.selected = !option.selected
         }
         
-        cancelEdit(obj: VmItem) 
-        {
-            obj.edit_state = false
-            obj.name = obj.prev_name
-        }
+        
 
         selectFilter(item) 
         {
@@ -442,21 +442,12 @@ module auroraApp {
 
         deleteVm(vm: VmItem) 
         {
-            let index = this.compute.listItems.indexOf(vm);
-            
-            this.compute.listItems.splice(index, 1); 
-            
-            this.Notification.info("Deleted VM: " + vm.name)
-            //this.compute.updateVm(this.item)
+            this.compute.deleteServer(vm).then(response => {
+                this.Notification.info("Deleted VM: " + vm.name)
+            }, response => {
+                this.Notification.error("Coult not delete VM: " + vm.name)
+            })
         }
-
-        haltVm(vm: VmItem) 
-        {
-            if (vm.host_status != "stopped") {
-                vm.host_status = "stopped"
-                this.Notification.info("Stopped VM: " + vm.name)
-            }
-        } 
 
         selectImage(obj: IVmImage) {
             this.resetSourceSelection()

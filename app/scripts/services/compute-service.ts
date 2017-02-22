@@ -15,6 +15,7 @@ module auroraApp.Services {
 		networks: INetwork[] = []
 		networkList:VmNetwork[] = []
 		routers: IRouter[]
+		subnets: ISubnet[] = []
 		project: Project
 		queried:boolean = false
 		os_url: string
@@ -380,25 +381,7 @@ module auroraApp.Services {
 				
 				if (response.servers) {
 					this.listItems = []
-					angular.forEach(response.servers, server => {
-						let started:Date = new Date(Date.parse(server.updated));
-						let vm = new VmItem(
-							server.id,
-							server.name,
-							server.status,
-							server.created,
-							this.getImage(server.image.id),
-							[],
-							this.getFlavor(server.flavor.id),
-							server["OS-EXT-AZ:availability_zone"],
-							[],
-							[],
-							started
-						)
-						
-						this.listItems.push(vm)
-					})
-					console.log(this.listItems)
+					angular.forEach(response.servers, server => this.addServer(server))
 				}
 				
 				deferred.resolve(response)
@@ -408,6 +391,122 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		/**
+		 * Adds or updates server if already exists
+		 * @param vm
+		 */
+		addServer(server)
+		{
+			let updated = false
+			let started:Date = new Date(Date.parse(server.updated));
+			let newVm = new VmItem(
+				server.id,
+				server.name,
+				server.status,
+				server.created,
+				this.getImage(server.image.id),
+				[],
+				this.getFlavor(server.flavor.id),
+				server["OS-EXT-AZ:availability_zone"],
+				[],
+				[],
+				started
+			)
+			
+			// search if exists, if so -> update
+			this.listItems.forEach(vm => {
+				if (vm.id == newVm.id) {
+					updated = true
+					vm = newVm
+				}
+			})
+			
+			// if not updated, push into the collection
+			if (!updated) {
+				this.listItems.push(newVm)
+			}
+		}
+		
+		deleteServer(vm:VmItem):ng.IPromise< any >
+		{
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/servers/" + vm.id
+			let deferred = this.$q.defer()
+			
+			this.http.delete(
+				url,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				console.log("Volume delete response", response)
+				let index = this.listItems.indexOf(vm)
+				this.listItems.splice(index, 1)
+				deferred.resolve(response)
+			})
+			return deferred.promise
+		}
+		
+		updateServerName(vm: VmItem, name: string):ng.IPromise< boolean >
+		{
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/servers/" + vm.id
+			let deferred = this.$q.defer()
+			let payload = {server: {name: name}}
+			
+			this.http.put(
+				url,
+				payload,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				if (response.server) {
+					this.addServer(response.server)
+				}
+			}, response => deferred.resolve(false))
+			
+			return deferred.promise
+		}
+		
+		/**
+		 * Set state of VM
+		 */
+		setVmState(vm:VmItem, state:string):ng.IPromise< boolean > {
+			let payload
+			switch (state) {
+				case "RESUME":
+					payload = {"resume": null}
+					break;
+				case "REBOOT":
+					payload = {"reboot": {"type": "HARD"}}
+					break;
+				case "PAUSE":
+					payload = {"pause": null}
+					break;
+				case "UNPAUSE":
+					payload = {"unpause": null}
+					break;
+				case "START":
+					payload = {"os-start" : null}
+					break;
+				case "RESET":
+					payload = {"os-resetState": {"state": "active"}}
+					break;
+				case "SHUTOFF":
+					payload = {"os-stop" : null}
+					break;
+			}
+			
+			let deferred = this.$q.defer()
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/servers/" + vm.id + "/action"
+			
+			this.http.post(
+				url,
+				payload,
+				{"headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then((response):void => {
+				deferred.resolve(true)
+			});
+			return deferred.promise
+		}
 		
 		loadNetworks():ng.IPromise< any > {
 			let deferred = this.$q.defer();
@@ -416,9 +515,42 @@ module auroraApp.Services {
 			let url:string = this.os_url + "/neutron/v2.0/networks"
 			
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
-				if (response.networks)
+				if (response.networks) {
 					this.networks = response.networks
-				console.log(this.networks)
+					this.loadSubnets().then(subnets => {
+						subnets.forEach(subnet => {
+							this.networks.forEach((network, index, arr) => {
+								network.subnetCollection = []
+								//console.log(network.subnets, subnet.id, network.subnets.indexOf(subnet.id) > -1)
+								if (network.subnets.indexOf(subnet.id) > -1) {
+									arr[index].subnetCollection.push(subnet)
+									console.log(network.subnetCollection)
+								}
+							})
+						})
+						console.log("NETWORKS", this.networks)
+					})
+					deferred.resolve(response.networks)
+				}
+			})
+			
+			return deferred.promise
+		}
+		
+		loadSubnets():ng.IPromise< any > {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/subnets"
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
+				if (response.subnets) {
+					response.subnets.forEach(subnet => {
+						this.subnets.push(subnet)
+						deferred.resolve(response.subnets)
+					})
+				}
+				console.log("SUBNETS", this.subnets)
 			})
 			
 			return deferred.promise
@@ -717,43 +849,6 @@ module auroraApp.Services {
 				return false
 			}
 			return {url: url, id: id}
-		}
-		
-		/**
-		 * Set state of VM
-		 */
-		setVmState(vm:VmItem, state:string):ng.IPromise< boolean > {
-			let payload
-			switch (state) {
-				case "REBOOT":
-					payload = {"reboot": {"type": "HARD"}}
-					break;
-				case "PAUSE":
-					payload = {"pause": null}
-					break;
-				case "UNPAUSE":
-					payload = {"unpause": null}
-					break;
-				case "START":
-					payload = {"os-start" : null}
-					break;
-				case "RESET":
-					payload = {"os-resetState": {"state": "active"}}
-					break;
-			}
-			
-			let deferred = this.$q.defer()
-			let endpoint = this.compute_endpoint()
-			let url:string = this.os_url + "/nova/servers/" + vm.id + "/action"
-			
-			this.http.post(
-				url,
-				payload,
-				{"headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
-			).then((response):void => {
-				deferred.resolve(true)
-			});
-			return deferred.promise
 		}
 	}
 }

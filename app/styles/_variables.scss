@@ -45,9 +45,10 @@ $color-active: #353746;
 $color-inactive: #9ea0b0;
 
 // Vm Statuses
-$status-running: #30AD63;
+$status-running: $color-status-green;
 $status-deploying: #FD9727;
 $status-paused: #7F8FA4;
+$status-error: $color-status-red;
 $status-stopped: #BE3A31;
 
 // Icon Bg Colors

@@ -12,7 +12,8 @@ module auroraApp {
             "ComputeService",
             "$state",
             "$stateParams",
-            "$timeout"
+            "$timeout",
+            "Notification"
         ]
         actions: IVmAction[] = [
             {id: "stop", name: "Stop", action: this.haltVm, available: true},
@@ -24,7 +25,8 @@ module auroraApp {
             public apiService: Services.ComputeService,
             private $state,
             private $stateParams,
-            private $timeout: ng.ITimeoutService
+            private $timeout: ng.ITimeoutService,
+            private notification: any
         ) {
             
             this.item = <VmItem> apiService.getVm($stateParams.vm_id)
@@ -81,6 +83,10 @@ module auroraApp {
         releaseFloatingIp(network_interface: INetworkInterface) {
             network_interface.floating_ip.assigned_to = null
             network_interface.floating_ip = null
+        }
+    
+        renameVm(data) {
+            this.apiService.updateServerName(this.item, data).then(response => this.notification.info("Name updated"));
         }
 
         createSnapshot() {

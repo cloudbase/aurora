@@ -9,7 +9,7 @@
                 </span>
                 <div class="info">
                     <span class='vm-status status-circle'> </span>
-                    <span class="name" editable-text="vmView.item.name">{{ vmView.item.name }}</span> <i
+                    <span class="name" editable-text="vmView.item.name" onbeforesave="vmView.renameVm($data)">{{ vmView.item.name }}</span> <i
                         class='glyphicon glyphicon-pencil'></i>
                     <span class="details">{{ vmView.item.flavor.vCpu }} vCPU | {{vmView.item.flavor.ram}} GB RAM | {{ vmView.item.flavor.ssd}} GB SSD</span>
                 </div>

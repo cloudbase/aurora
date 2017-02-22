@@ -256,13 +256,19 @@
           background-color: $color-status-red;
         }
         &.status-ERROR {
-          background-color: $color-status-red;
+          background-color: $status-error;
         }
         &.status-BUILD {
-          background-color: $color-status-purple;
+          background-color: $status-deploying;
         }
         &.status-ACTIVE {
-          background-color: $color-status-green;
+          background-color: $status-running;
+        }
+        &.status-PAUSED {
+          background-color: $status-paused;
+        }
+        &.status-SHUTOFF {
+          background-color: $status-stopped;
         }
       }
       &.column-actions {
@@ -346,6 +352,7 @@
       list-style: none;
       padding-left: 0px;
       float: right;
+      margin-right: -12px;
       li {
         float: left;
         list-style-image: none;
@@ -353,9 +360,6 @@
         cursor: pointer;
         &.disabled {
           opacity: 0.4
-        }
-        &:last-child {
-          margin-right: 0;
         }
       }
     }

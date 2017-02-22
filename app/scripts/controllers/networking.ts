@@ -23,6 +23,7 @@ module auroraApp {
             if ($stateParams.type == "map") {
                 this.mapInit()
             }
+            console.log("CONSTRUCTOR NETWORK", apiService.networks)
         }
 
         getInterfaceVm(networkInterface: INetworkInterface) {
