@@ -58,11 +58,13 @@ module auroraApp.Services {
 			
 			
 			var result:ng.IPromise< any > = this.$http.post(url, payload, config)
-				.error((response: any) => {
-					this.handleResponse(response, null)
-					deferred.reject(response)
-				})
-				.then((response:any) => deferred.resolve(this.handleResponse(response, null)))
+				.then(
+					(response:any) => deferred.resolve(this.handleResponse(response, null)),
+					(response: any) => {
+						this.handleResponse(response, null)
+						deferred.reject(response)
+					}
+				)
 			
 			return deferred.promise
 		}
@@ -77,11 +79,12 @@ module auroraApp.Services {
 			
 			
 			var result:ng.IPromise< any > = this.$http.delete(url, config)
-				.error((response: any) => {
-					this.handleResponse(response, null)
-					deferred.reject(response)
-				})
-				.then((response:any) => deferred.resolve(this.handleResponse(response, null)))
+				.then(
+					(response:any) => deferred.resolve(this.handleResponse(response, null)),
+					(response: any) => {
+						this.handleResponse(response, null)
+						deferred.reject(response)
+					})
 			
 			return deferred.promise
 		}
