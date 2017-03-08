@@ -261,7 +261,7 @@
         &.status-BUILD {
           background-color: $status-deploying;
         }
-        &.status-ACTIVE {
+        &.status-ACTIVE, &.status-STARTING  {
           background-color: $status-running;
         }
         &.status-PAUSED {

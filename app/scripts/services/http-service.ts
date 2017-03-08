@@ -120,7 +120,10 @@ module auroraApp.Services {
 					this.Notification.error("Unhandled error")
 				}
 				return false
-			} else {
+			} else if (response.data.error) {
+				var errorKey = Object.keys(response.data.error.message)[0]
+				this.Notification.error(response.data.error.message[errorKey].message)
+			}else {
 				response.data.requestParams = params
 				return response.data
 			}

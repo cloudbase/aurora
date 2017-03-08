@@ -257,6 +257,14 @@ module auroraApp {
             })
         }
     
+        unpauseVm(vm: VmItem)
+        {
+            this.compute.setVmState(vm, "UNPAUSE").then(response => {
+                vm.host_status = "ACTIVE"
+                this.Notification.info("Unpausing VM: " + vm.name)
+            })
+        }
+    
         resumeVm(vm: VmItem)
         {
             this.compute.setVmState(vm, "RESUME").then(response => {

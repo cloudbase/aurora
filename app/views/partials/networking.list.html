@@ -22,8 +22,8 @@
                 </div>
             </div>
             <div class='cell'>
-                <div ng-repeat="subnet in item.allocation_pools">
-                    <span>{{subnet.name}}</span> {{subnet.subnet}}
+                <div ng-repeat="subnet in item.subnetCollection">
+                    <span>{{subnet.name}}</span> {{subnet.cidr}}
                 </div>
             </div>
             <div class="cell">

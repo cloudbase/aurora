@@ -520,11 +520,12 @@ module auroraApp.Services {
 					this.loadSubnets().then(subnets => {
 						subnets.forEach(subnet => {
 							this.networks.forEach((network, index, arr) => {
-								network.subnetCollection = []
-								//console.log(network.subnets, subnet.id, network.subnets.indexOf(subnet.id) > -1)
+								if (!network.subnetCollection) {
+									network.subnetCollection = []
+								}
+								//console.log(subnet.id, network.subnets, network.subnets.indexOf(subnet.id))
 								if (network.subnets.indexOf(subnet.id) > -1) {
-									arr[index].subnetCollection.push(subnet)
-									console.log(network.subnetCollection)
+									network.subnetCollection.push(subnet)
 								}
 							})
 						})
@@ -535,6 +536,16 @@ module auroraApp.Services {
 			})
 			
 			return deferred.promise
+		}
+		
+		getNetwork(network_id: string)
+		{
+			let network: INetwork = null
+			this.networks.forEach(item => {
+				if (item.id == network_id)
+					network = item
+			})
+			return network
 		}
 		
 		loadSubnets():ng.IPromise< any > {
@@ -554,6 +565,16 @@ module auroraApp.Services {
 			})
 			
 			return deferred.promise
+		}
+		
+		getSubnet(subnet_id: string)
+		{
+			let subnet: ISubnet = null
+			this.subnets.forEach(item => {
+				if (item.id == subnet_id)
+					subnet = item
+			})
+			return subnet
 		}
 		
 		loadFloatingIps():ng.IPromise< any > {
@@ -580,7 +601,18 @@ module auroraApp.Services {
 			
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
 				if (response.routers) {
+					response.routers.forEach((router) => {
+						if (router.external_gateway_info.network_id) {
+							router.external_gateway_info.network = this.getNetwork(router.external_gateway_info.network_id)
+						}
+						if (router.external_gateway_info.external_fixed_ips.length) {
+							router.external_gateway_info.external_fixed_ips.forEach((subnet) => {
+								subnet.subnet = this.getSubnet(subnet.subnet_id)
+							})
+						}
+					})
 					this.routers = response.routers
+					console.log("ROUTERS", this.routers)
 				}
 			})
 			
@@ -623,92 +655,6 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
-		/**
-		 * Adds or updates record in list
-		 */
-		addVm(obj:any, index) {
-			let date:Date = new Date(Date.parse(obj.created));
-			
-			let started:Date = new Date(Date.parse(obj.updated));
-			
-			// search if VM already exists
-			let searchVm = this.listItems.filter((vmItem):boolean => {
-				return vmItem.id == obj.id
-			})[0]
-			
-			// get the image object
-			let searchImage = this.vmImages.filter((vmImage):boolean => {
-				return vmImage.id == obj.os_type
-			})[0]
-			
-			// get the flavor object
-			let searchFlavor = this.vmFlavors.filter((vmFlavor):boolean => {
-				return vmFlavor.name == obj.flavor
-			})[0]
-			
-			let networkInterfaces:INetworkInterface[] = []
-			
-			obj.networks.forEach((item) => {
-				let floatingIp:IFloatingIp = null
-				if (item.floating_ip.length > 0) {
-					floatingIp = this.project.floating_ips[item.floating_ip]
-				}
-				
-				let newNetworkInterface = {
-					network: this.vmNetworks[item.network],
-					ip_addr: this.vmNetworks[item.network].allocateIp(),
-					floating_ip: floatingIp
-				}
-				networkInterfaces.push(newNetworkInterface)
-				
-				if (floatingIp != null)
-					floatingIp.assigned_to = newNetworkInterface
-			})
-			
-			let snapshots:VmSnapshot[] = []
-			
-			// obj.snapshots.forEach((snapshot) => {
-			// 	let date:Date = new Date(Date.parse(snapshot.created));
-			// 	snapshots.push(new VmSnapshot(
-			// 		snapshot.name,
-			// 		date,
-			// 		snapshot.size
-			// 	))
-			// })
-			
-			var newItem = new VmItem(
-				obj.id,
-				obj.name,
-				obj.host_status,
-				date,
-				searchImage,
-				obj.ip_addr,
-				searchFlavor,
-				obj["OS-EXT-AZ:availability_zone"],
-				snapshots,
-				networkInterfaces,
-				obj.tags,
-				started
-			);
-			
-			
-			// if exists, update, if not push into array
-			if (angular.isUndefined(searchVm)) {
-				this.insertVm(newItem)
-				
-				//window['mapDetails']['links'].push({from: "router", to: 'network' + '_' + obj.name, type: "uni"})
-			} else {
-				this.listItems[this.listItems.indexOf(searchVm)] = newItem
-			}
-			
-			newItem.network_interfaces.forEach((item:INetworkInterface) => {
-				if (item.floating_ip) {
-					let index = this.project.floating_ips.indexOf(item.floating_ip)
-					this.project.floating_ips[index].assigned_vm = newItem
-				}
-			});
-			
-		}
 		
 		getVm(vmId:string):VmItem {
 			let vm:VmItem
