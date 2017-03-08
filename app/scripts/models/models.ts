@@ -10,6 +10,7 @@ module auroraApp {
         image: IVmImage
         created: Date
         networks: IVmNetwork[]
+        volumes: IVmVolume
         flavor: IVmFlavor
         zone: string
         snapshots: IVmSnapshot[]
@@ -29,6 +30,7 @@ module auroraApp {
             public created,
             public image,
             public networks,
+            public volumes,
             public flavor,
             public zone,
             public snapshots,

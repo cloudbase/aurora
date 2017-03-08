@@ -32,10 +32,10 @@
                       <volume-display volume="item"></volume-display>
                     </div>
                     <div class='cell' ng-class="{empty: !item.attached_to}">
-                        <div ng-if="item.attached_to != null">
-                            <vm-display vm="item.attached_to.vm"></vm-display>
+                        <div ng-if="item.attachments.length">
+                            <vm-display vm="vm.apiService.getVm(item.attachments[0].server_id)"></vm-display>
                         </div>
-                        <div ng-if="!item.attached_to">
+                        <div ng-if="!item.attachments.length">
                             <ui-select ng-model="item.selectedVm.value" on-select="vm.attachVm(item)">
                                 <ui-select-match placeholder="Attach to ..." class='select-choice'>
                                     <span ng-bind="$select.selected.name"></span>
@@ -53,7 +53,9 @@
                         <div>{{ item.region.name }}</div>
                     </div>
                     <div class='cell'>
-                        <div class='status-pill' ng-class="{'green': !item.attached_to, 'purple': item.attached_to}">{{ item.attached_to ? "IN-USE" : "READY" }}</div>
+                        <div class='status-pill' ng-class="{'green': !item.attachments.length, 'purple': item.attachments.length}">
+                            {{ item.attachments.length ? "IN-USE" : "READY" }}
+                        </div>
                     </div>
                     <div class='cell'>
                         <div class="checker" ng-class="{checked: item.bootable}"></div>

@@ -240,6 +240,8 @@ module auroraApp.Services {
 				if (zone.name == item.availability_zone)
 					region = zone
 			})
+			let attached_to = null
+			
 			let newVolume = new VmVolume(
 				item.id,
 				item.display_name,
@@ -260,6 +262,14 @@ module auroraApp.Services {
 				item.metadata,
 				[]
 			)
+			if (newVolume.attachments.length) {
+				newVolume.attachments.forEach(attachment => {
+					let vm = this.getVm(attachment.server_id)
+					attachment.vm = vm
+					vm.volumes.push(newVolume)
+					console.log("PUSHED NEW VOLUME IN VM", vm, newVolume)
+				})
+			}
 			let updated = false
 			this.vmVolumes.forEach(volume => {
 				if (volume.id == newVolume.id) {
@@ -267,6 +277,7 @@ module auroraApp.Services {
 					updated = true
 				}
 			})
+			console.log(newVolume)
 			if (!updated) {
 				this.vmVolumes.push(newVolume)
 			}
@@ -341,19 +352,47 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
-		attachVolume(volume_id, instance_uuid) {
-			let endpoint = this.cinder_url()
-			let url = this.os_url + "/cinder/volumes/" + volume_id + "/action"
+		attachVolume(volume, vm) {
+			let endpoint = this.compute_endpoint()
+			let url = this.os_url + "/nova/servers/" + vm.id + "/os-volume_attachments"
 			let deferred = this.$q.defer()
+			
 			let payload = {
-				"os-attach": {instance_uuid: instance_uuid}
+				"volumeAttachment": {volumeId: volume.id}
 			}
 			this.http.post(
 				url,
 				payload,
 				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
 			).then(response => {
-				console.log("Volume attach response", response)
+				volume.attachments.push({
+					attachment_id: response.volumeAttachment.id,
+					volume_id: response.volumeAttachment.volumeId,
+					server_id: response.volumeAttachment.serverId,
+				})
+				vm.volumes.push(volume)
+				deferred.resolve(response)
+			})
+			return deferred.promise
+		}
+		
+		detachVolume(volume, instance_uuid)
+		{
+			let endpoint = this.compute_endpoint()
+			let url = this.os_url + "/nova/servers/" + instance_uuid + "/os-volume_attachments/" + volume.id
+			let deferred = this.$q.defer()
+			
+			this.http.delete(
+				url,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				let index = 0
+				volume.attachments.forEach((attachment, vIndex) => {
+					if (attachment.server_id == instance_uuid) {
+						index = vIndex
+					}
+				})
+				volume.attachments.splice(index, 1)
 				deferred.resolve(response)
 			})
 			return deferred.promise
@@ -405,7 +444,8 @@ module auroraApp.Services {
 				server.status,
 				server.created,
 				this.getImage(server.image.id),
-				[],
+				[], // networks
+				[], // volumes
 				this.getFlavor(server.flavor.id),
 				server["OS-EXT-AZ:availability_zone"],
 				[],

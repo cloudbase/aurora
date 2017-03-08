@@ -218,8 +218,8 @@ module auroraApp.Directives {
 			template: `
                 <div class='vm-details volume-details '>
             <span class="icon icon-volume">
-                <div ng-if="volume.attached_to" class="icon-table icon-volume"></div>
-                <div ng-if="!volume.attached_to" class="icon-table icon-volume-empty"></div>
+                <div ng-if="volume.attachments.length" class="icon-table icon-volume"></div>
+                <div ng-if="!volume.attachments.length" class="icon-table icon-volume-empty"></div>
             </span>
             <div class="info">
                 <span class="name">{{ volume.name }}</span>

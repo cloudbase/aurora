@@ -160,8 +160,8 @@ module auroraApp {
 		attachVm(volume)
 		{
 			console.log(volume)
-			this.apiService.attachVolume(volume.id, volume.selectedVm.value.id).then(response => {
-				volume.attached_to = volume.selectedVm.value
+			this.apiService.attachVolume(volume, volume.selectedVm.value).then((response:any) => {
+				
 			})
 			//volume.attachVm(volume.selectedVm.value)
 			//this.notifications.info("Attached volume " + volume.name + " to VM:" + volume.selectedVm.value.name)
@@ -172,7 +172,7 @@ module auroraApp {
 		{
 			
 			this.notifications.info("Discarded volume " + volume.name + " from VM:" + volume.attached_to.vm.name)
-			volume.attached_to = null
+			//this.apiService.detachVolume(volume)
 		}
 		
 		selectVolume(volume:VmVolume)

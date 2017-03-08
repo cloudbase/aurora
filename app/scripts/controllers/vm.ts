@@ -37,10 +37,10 @@ module auroraApp {
             })
             apiService.project.additional_cost = 0
             
-            apiService.vmVolumes.forEach(volume => {
+            /*apiService.vmVolumes.forEach(volume => {
                 if (volume.attached_to && volume.attached_to.vm == this.item)
                     this.volumes.push(volume)
-            })
+            })*/
             
         }
 
@@ -87,6 +87,13 @@ module auroraApp {
     
         renameVm(data) {
             this.apiService.updateServerName(this.item, data).then(response => this.notification.info("Name updated"));
+        }
+        
+        detachVolume(volume)
+        {
+            this.apiService.detachVolume(volume, this.item.id)
+            let index = this.item.volumes.indexOf(volume)
+            this.item.volumes.splice(index, 1)
         }
 
         createSnapshot() {

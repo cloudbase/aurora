@@ -75,6 +75,7 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'VM_DELETE_CONFIRM': 'Are you sure you want to delete this VM? This action is undoable.',
 		'SNAPSHOT_DELETE_CONFIRM': 'Are you sure you want to delete this Snapshot? This action is undoable.',
 		'VOLUME_DELETE_CONFIRM': "Are you sure you want to delete this Volume? This action is undoable.",
+		'VOLUME_DETACH_CONFIRM': "Are you sure you want to detach this Volume?",
 		'NETWORK_INT_DELETE_CONFRIM': 'Are you sure you want to remove this network interface?',
 		'NETWORK_DELETE_CONFIRM': '',
 		'NEW_VIRTUAL_MACHINE': 'New Virtual Machine',

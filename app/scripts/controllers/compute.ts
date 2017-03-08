@@ -413,6 +413,7 @@ module auroraApp {
                     new Date(),
                     image,
                     networks,
+                    [],
                     flavor,
                     null,
                     [],
