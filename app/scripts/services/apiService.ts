@@ -164,37 +164,6 @@ module auroraApp.Services {
 			// 	))
 			// })
 			
-			var newItem = new VmItem(
-				obj.id,
-				obj.name,
-				obj.host_status,
-				date,
-				searchImage,
-				obj.ip_addr,
-				searchFlavor,
-				obj["OS-EXT-AZ:availability_zone"],
-				snapshots,
-				networkInterfaces,
-				obj.tags,
-				started
-			);
-			
-			
-			// if exists, update, if not push into array
-			if (angular.isUndefined(searchVm)) {
-				this.insertVm(newItem)
-				
-				//window['mapDetails']['links'].push({from: "router", to: 'network' + '_' + obj.name, type: "uni"})
-			} else {
-				this.listItems[this.listItems.indexOf(searchVm)] = newItem
-			}
-			
-			newItem.network_interfaces.forEach((item:INetworkInterface) => {
-				if (item.floating_ip) {
-					let index = this.project.floating_ips.indexOf(item.floating_ip)
-					this.project.floating_ips[index].assigned_vm = newItem
-				}
-			});
 			
 		}
 		

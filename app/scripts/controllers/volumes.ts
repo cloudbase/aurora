@@ -161,11 +161,8 @@ module auroraApp {
 		{
 			console.log(volume)
 			this.apiService.attachVolume(volume, volume.selectedVm.value).then((response:any) => {
-				
+				this.notifications.info("Volume has been attached to " + volume.selectedVm.value.name)
 			})
-			//volume.attachVm(volume.selectedVm.value)
-			//this.notifications.info("Attached volume " + volume.name + " to VM:" + volume.selectedVm.value.name)
-			console.log(volume, volume.selectedVm)
 		}
 		
 		discardVm(volume:IVmVolume)

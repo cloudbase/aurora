@@ -47,7 +47,7 @@ module auroraApp.Services {
 		init(force = false):ng.IPromise< any >
 		{
 			let deferred = this.$q.defer()
-			if (this.initialized && !force){
+			if (this.initialized && !force) {
 				deferred.resolve(true)
 			} else {
 				this.$q.all([this.loadImages(), this.loadFlavors()]).then(response => {
@@ -57,11 +57,11 @@ module auroraApp.Services {
 						this.loadVolumes()
 						this.loadSnapshots()
 						this.loadFloatingIps()
+						this.loadNetworks()
 						this.loadRouters()
 					})
 				})
 			}
-			this.loadNetworks()
 			return deferred.promise
 		}
 		
@@ -287,11 +287,13 @@ module auroraApp.Services {
 			let endpoint = this.cinder_url()
 			let url = this.os_url + "/cinder/volumes"
 			let deferred = this.$q.defer()
-			var payload = { volume: {
-				size: volumeData.size,
-				display_description: volumeData.description,
-				display_name: volumeData.name
-			}}
+			var payload = {
+				volume: {
+					size: volumeData.size,
+					display_description: volumeData.description,
+					display_name: volumeData.name
+				}
+			}
 			this.http.post(
 				url,
 				payload,
@@ -335,7 +337,7 @@ module auroraApp.Services {
 			let url = this.os_url + "/cinder/volumes/" + newVolumeData.id
 			let deferred = this.$q.defer()
 			let payload = {
-				volume:{
+				volume: {
 					display_name: newVolumeData.name,
 					display_description: newVolumeData.description,
 				}
@@ -430,6 +432,17 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		loadServerDetails(vm_id:string):ng.IPromise< VmItem >
+		{
+			let deferred = this.$q.defer()
+			let vm = this.getVm(vm_id)
+			this.$q.all([this.loadServerPortInterfaces(vm)]).then(response => {
+				deferred.resolve(response)
+			})
+			
+			return deferred.promise
+		}
+		
 		/**
 		 * Adds or updates server if already exists
 		 * @param vm
@@ -439,6 +452,7 @@ module auroraApp.Services {
 			let updated = false
 			let started:Date = new Date(Date.parse(server.updated));
 			let newVm = new VmItem(
+				this,
 				server.id,
 				server.name,
 				server.status,
@@ -499,6 +513,35 @@ module auroraApp.Services {
 			).then(response => {
 				if (response.server) {
 					this.addServer(response.server)
+				}
+			}, response => deferred.resolve(false))
+			
+			return deferred.promise
+		}
+		
+		loadServerPortInterfaces(vm: VmItem):ng.IPromise< any >
+		{
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/servers/" + vm.id + "/os-interface"
+			let deferred = this.$q.defer()
+			
+			this.http.get(
+				url,
+				{"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}
+			).then(response => {
+				let network_interfaces = []
+				if (response.interfaceAttachments.length) {
+					response.interfaceAttachments.forEach(netInterface => {
+						netInterface.network = this.getNetwork(netInterface.net_id)
+						// TODO: Check if this is ok, picking up first fixed ip
+						netInterface.fixed_ips[0].subnet = this.getSubnet(netInterface.fixed_ips[0].subnet_id)
+						network_interfaces.push(netInterface)
+					})
+					vm.ports = network_interfaces
+					console.log(vm.ports)
+					deferred.resolve(vm)
+				} else {
+					deferred.resolve()
 				}
 			}, response => deferred.resolve(false))
 			
@@ -607,6 +650,7 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		
 		getSubnet(subnet_id: string)
 		{
 			let subnet: ISubnet = null
@@ -658,43 +702,6 @@ module auroraApp.Services {
 			
 			return deferred.promise
 		}
-		
-		processData():ng.IPromise< any > {
-			console.log("PROCESS DATA")
-			let deferred = this.$q.defer()
-			var self = this
-			
-			window['mapDetails'] = {
-				elements: {
-					internet: {x: 1, y: 6, type: 'internet'},
-					router: {x: 6, y: 6, type: 'router'}
-				},
-				links: [
-					{from: "internet", to: "router", type: "uni"}
-				]
-			}
-			// query the service for the list
-			this.queryServers().then((response:any):void => {
-				let projectData = response.project
-				
-				let zones:IZone[] = []
-				projectData.zones.forEach((zone) => {
-					zones.push({id: zone, name: zone})
-				})
-				
-				let security_groups:ISecurityGroup[] = []
-				
-				angular.forEach(projectData.security_groups, (value: any) => {
-					if (value == "default")
-						security_groups.push({name: value, rules: null, selected: true})
-					else
-						security_groups.push({name: value, rules: null, selected: false})
-				})
-				
-			});
-			return deferred.promise
-		}
-		
 		
 		getVm(vmId:string):VmItem {
 			let vm:VmItem
@@ -753,17 +760,6 @@ module auroraApp.Services {
 				}
 				deferred.resolve(true)
 			});
-			return deferred.promise
-		}
-		 
-		/**
-		 * Returns the list of servers from API
-		 */
-		queryServers(useCache:boolean = true):ng.IPromise< any > {
-			console.log('CALL: query servers')
-			let deferred = this.$q.defer()
-			deferred.resolve(true)
-			
 			return deferred.promise
 		}
 		

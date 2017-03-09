@@ -632,6 +632,9 @@ $vmVolumesCols: (
 .list-volumes {
   margin-bottom: -10px;
 }
+.table.vm-volumes-table .table-row .cell:first-child{
+  padding-top: 0;
+}
 
 
 // -------------- //

@@ -113,14 +113,7 @@ module auroraApp.Services {
 		private handleResponse(response:any, params:any):any {
 			console.log("HANDLE RESPONSE", response)
 			$("#loader").removeClass('loading');
-			if (response.error) {
-				if (response.error.code == 400) {
-					this.Notification.error(response.error.message.badRequest.message)
-				} else {
-					this.Notification.error("Unhandled error")
-				}
-				return false
-			} else if (response.data.error) {
+			if (response.data.error) {
 				var errorKey = Object.keys(response.data.error.message)[0]
 				this.Notification.error(response.data.error.message[errorKey].message)
 			}else {

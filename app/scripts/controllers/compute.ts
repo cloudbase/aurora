@@ -213,64 +213,38 @@ module auroraApp {
             return lines
         }
 
-        pauseVm(obj: VmItem)
+        pauseVm(vm: VmItem)
         {
-            /*if (obj.host_status == "paused" || obj.host_status == "stopped") {
-                obj.host_status = "running";
-                this.Notification.info("VM: " + obj.name + " is running")
-            } else {
-                obj.host_status = "paused";
-                this.Notification.info("VM: " + obj.name + " is paused")
-            }*/
-            this.compute.setVmState(obj, "PAUSE").then(response => obj.host_status = "PAUSED")
+            vm.pause(() => {this.Notification.info("VM: " + vm.name + " is paused")})
         }
 
-        startVm(obj: VmItem)
+        startVm(vm: VmItem)
         {
-            this.compute.setVmState(obj, "START").then(response => {
-                obj.host_status = "STARTING"
-                this.Notification.info("Starting VM: " + obj.name)
-            })
-            
+            vm.start(() => {this.Notification.info("Starting VM: " + obj.name)})
         }
 
-        restartVm(obj: VmItem)
+        restartVm(vm: VmItem)
         {
-            this.compute.setVmState(obj, "REBOOT").then(response => obj.host_status = "STARTING")
-            
-            this.Notification.info("Rebooting VM: " + obj.name)
+            vm.reboot(() => {this.Notification.info("Vm " + vm.name + " is rebooting")})
         }
-        resetVm(obj: VmItem)
+        resetVm(vm: VmItem)
         {
-            this.Notification.info("Resetting VM: " + obj.name)
-            this.compute.setVmState(obj, "REBOOT").then(response => {
-                obj.host_status = "RESET"
-                this.Notification.info("Vm resetted: " + obj.name)
-            })
+            vm.reboot(() => {this.Notification.info("Vm " + vm.name + " reset signal sent")})
         }
         
         haltVm(vm: VmItem)
         {
-            this.compute.setVmState(vm, "SHUTOFF").then(response => {
-                vm.host_status = "SHUTOFF"
-                this.Notification.info("Stopped VM: " + vm.name)
-            })
+            vm.halt(() => {this.Notification.info("Stopped VM: " + vm.name)})
         }
     
         unpauseVm(vm: VmItem)
         {
-            this.compute.setVmState(vm, "UNPAUSE").then(response => {
-                vm.host_status = "ACTIVE"
-                this.Notification.info("Unpausing VM: " + vm.name)
-            })
+            vm.unpause(() => {this.Notification.info("Unpausing VM: " + vm.name)})
         }
     
         resumeVm(vm: VmItem)
         {
-            this.compute.setVmState(vm, "RESUME").then(response => {
-                vm.host_status = "ACTIVE"
-                this.Notification.info("Resuming VM: " + vm.name)
-            })
+            vm.resume(() => {this.Notification.info("Resuming VM: " + vm.name)})
         }
     
         sortTable(column: string) 
@@ -407,6 +381,7 @@ module auroraApp {
                 
     
                 newVm = new VmItem(
+                    this.compute,
                     "machine-" + rand + _i,
                      this.newVmName, //image.name + "-" + flavor.name + "-" + rand,
                     "BUILD",
@@ -454,7 +429,7 @@ module auroraApp {
             this.compute.deleteServer(vm).then(response => {
                 this.Notification.info("Deleted VM: " + vm.name)
             }, response => {
-                this.Notification.error("Coult not delete VM: " + vm.name)
+                this.Notification.error("Could not delete VM: " + vm.name)
             })
         }
 

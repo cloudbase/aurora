@@ -7,14 +7,16 @@ module auroraApp {
         name: string
         prev_name: string
         host_status: string
+        compute: Services.ComputeService
         image: IVmImage
         created: Date
-        networks: IVmNetwork[]
+        networks: INetwork[]
         volumes: IVmVolume
         flavor: IVmFlavor
         zone: string
         snapshots: IVmSnapshot[]
-        network_interfaces: INetworkInterface[]
+        network_interfaces: any[]
+        ports: any[]
         started: Date
         tags: string[]
     }
@@ -23,7 +25,9 @@ module auroraApp {
         checked = false
         detail_view = false
         edit_state = false
+        ports = []
         constructor(
+            public compute,
             public id,
             public name,
             public host_status,
@@ -38,6 +42,59 @@ module auroraApp {
             public tags,
             public started = new Date()
         ) {}
+        
+        canChangeState(state: string)
+        {
+            switch (state) {
+                case "PAUSE":
+                    break;
+                case "UNPAUSE":
+                    break;
+            }
+        }
+        
+        pause(callback = null)
+        {
+            this.compute.setVmState(this, "PAUSE").then(response => {
+                this.host_status = "PAUSED"
+                if (callback) callback()
+            })
+        }
+        unpause(callback = null)
+        {
+            this.compute.setVmState(this, "UNPAUSE").then(response => {
+                this.host_status = "ACTIVE"
+                if (callback) callback()
+            })
+        }
+        resume(callback = null)
+        {
+            this.compute.setVmState(this, "RESUME").then(response => {
+                this.host_status = "ACTIVE"
+                if (callback) callback()
+            })
+        }
+        reboot(callback = null)
+        {
+            this.compute.setVmState(this, "REBOOT").then(response => {
+                this.host_status = "STARTING"
+                if (callback) callback()
+            })
+        }
+        halt(callback = null)
+        {
+            this.compute.setVmState(this, "SHUTOFF").then(response => {
+                this.host_status = "SHUTOFF"
+                if (callback) callback()
+            })
+        }
+        start(callback = null)
+        {
+            this.compute.setVmState(this, "START").then(response => {
+                this.host_status = "STARTING"
+                if (callback) callback()
+            })
+        }
     }
 
     export interface IFloatingIp {

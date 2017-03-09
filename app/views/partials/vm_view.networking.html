@@ -24,10 +24,10 @@
                     <div class='cell'>{{ 'FLOATING_IP' | translate }}</div>
                     <div class='cell'>{{ 'ACTIONS' | translate }}</div>
                 </div>
-                <div class='table-row state-{{network_interface.network.status}}' ng-repeat="(key, network_interface) in vmView.item.network_interfaces" ng-click="vmView.selectNetwork(network_interface.network);">
+                <div class='table-row state-{{network_interface.network.status}}' ng-repeat="(key, network_interface) in vmView.item.ports" ng-click="vmView.selectNetwork(network_interface.network);">
                     <div class='cell'>
-                        <div class='status-circle network-status {{network_interface.network.state}}'> </div>
-                        {{ network_interface.network.type }}</div>
+                        <div class='status-circle network-status {{network_interface.port_state}}'> </div>
+                        {{ network_interface.network.name }}</div>
                     <div class='cell'>{{ network_interface.network.subnet }}</div>
                     <div class='cell'>eth{{key}}</div>
                     <div class='cell'>{{ network_interface.ip_addr }}&nbsp;</div>

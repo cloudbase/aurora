@@ -37,6 +37,7 @@ module auroraApp {
             })
             apiService.project.additional_cost = 0
             
+            this.item.network_interfaces = []
             /*apiService.vmVolumes.forEach(volume => {
                 if (volume.attached_to && volume.attached_to.vm == this.item)
                     this.volumes.push(volume)
@@ -91,9 +92,11 @@ module auroraApp {
         
         detachVolume(volume)
         {
-            this.apiService.detachVolume(volume, this.item.id)
-            let index = this.item.volumes.indexOf(volume)
-            this.item.volumes.splice(index, 1)
+            this.apiService.detachVolume(volume, this.item.id).then((response) => {
+                this.notification.info("Volume has been detached")
+                let index = this.item.volumes.indexOf(volume)
+                this.item.volumes.splice(index, 1)
+            })
         }
 
         createSnapshot() {

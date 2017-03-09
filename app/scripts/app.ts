@@ -64,10 +64,14 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controllerAs: 'vm',
       resolve: {
         compute: [
-          'ComputeService', (compute: IComputeService) => {
-            return compute.init()
-          }
-        ]
+          'IdentityService', 'ComputeService', '$q',
+          (identity: IIdentityService, compute: IComputeService, q:ng.IQService) => {
+            let deferred = q.defer()
+            identity.init().then(response => {
+              compute.init().then(response => deferred.resolve(response))
+            })
+            return deferred.promise
+          }]
       }
     })
     // COMPUTE
@@ -132,6 +136,11 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       controllerAs: 'vmView',
       params: {
         type: 'edit'
+      },
+      resolve: {
+        vm: ["ComputeService", "$stateParams", (compute:IComputeService, $stateParams) => {
+          return compute.loadServerDetails($stateParams.vm_id)
+        }]
       }
     })
     .state('vm-view-overview', {

@@ -55,10 +55,7 @@ module auroraApp {
 				let newWidget: IVmWidget = widget
 				newWidget.settings = newWidget.default_settings
 				this.widgets.push(newWidget)
-			})
-			computeService.queryServers().then(response => {
-				console.log("COMPUTE SERVICE RESPONSE:", response)
-			})
+			});
 		}
 		
 		

@@ -22,8 +22,13 @@
                 </div>
             </div>
             <div class='cell'>
-                <div ng-repeat="subnet in item.subnetCollection">
-                    <span>{{subnet.name}}</span> {{subnet.cidr}}
+                <div ng-if="item.subnetCollection.length">
+                    <div ng-repeat="subnet in item.subnetCollection">
+                        <span>{{subnet.name}}</span> {{subnet.cidr}}
+                    </div>
+                </div>
+                <div ng-if="!item.subnetCollection.length">
+                    N/A
                 </div>
             </div>
             <div class="cell">
