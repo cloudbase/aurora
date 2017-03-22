@@ -42,7 +42,10 @@
             </div>
             <div class='cell'>
                 <ul class="table-actions">
-                    <li data-toggle="confirmation" title="Release Floating IP" uib-tooltop="{{ 'RELEASE_FLOATING_IP' | translate }}"  data-placement="top" mwl-confirm message="{{ 'RELEASE_FLOATING_IP_CONFIRM' | translate }}" title="Delete" on-confirm="netView.releaseFloatingIp(item)" ng-class="{disabled: item.assigned_to == null}">
+                    <li uib-tooltop="{{ 'ADD_SUBNET' | translate }}" ng-click="netView.addSubnetAction()" data-placement="top">
+                        <div class="icon-action icon-newsubnet"></div>
+                    </li>
+                    <li data-toggle="confirmation" title="Release Floating IP" uib-tooltop="{{ 'RELEASE_FLOATING_IP' | translate }}"  data-placement="top" mwl-confirm message="{{ 'RELEASE_FLOATING_IP_CONFIRM' | translate }}" title="Delete" on-confirm="netView.releaseFloatingIpAction(item)" ng-class="{disabled: item.assigned_to == null}">
                         <div class="icon-action icon-release"></div>
                     </li>
                     <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'NETWORK_DELETE_CONFIRM' | translate }}" title="Delete" on-confirm="vm.removeInterface(network_interface)">

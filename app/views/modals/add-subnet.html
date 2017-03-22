@@ -1,0 +1,72 @@
+<div class='add-subnet-modal'>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">{{ 'ADD_SUBNET' | translate }}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="form">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4>Subnet Properties</h4>
+                    <div class="form-group">
+                        <label>{{ 'NAME' | translate }}</label>
+                        <input type="text" ng-model="subnet.name" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'NETWORK_ADDRESS' | translate }}</label>
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <input placeholder="Eg: 192.168.0.0/24" type="text" ng-model="subnet.networkAddress" class="form-control"/>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="btn-group pull-right">
+                                    <label class="btn btn-primary" ng-model="subnet.ipVersion" uib-btn-radio="'IPv4'">IPv4</label>
+                                    <label class="btn btn-primary" ng-model="subnet.ipVersion" uib-btn-radio="'IPv6'">IPv6</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'GATEWAY_IP' | translate }} </label>
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <input placeholder="Eg: 192.168.0.1" type="text" ng-disabled="subnet.disableGateway" ng-model="subnet.gateway" class="form-control"/>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="btn btn-primary btn-checkbox pull-right" ng-model="subnet.disableGateway" uib-btn-checkbox btn-checkbox-true="0" btn-checkbox-false="1">
+                                    Enable
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <h4>Subnet DHCP
+                        <label class="btn btn-primary btn-checkbox pull-right" ng-model="subnet.enableDHCP" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                            Enable
+                        </label>
+                    </h4>
+
+                    <div class="form-group">
+                        <label>{{ 'ALLOCATION_POOLS' | translate }}</label>
+                        <textarea ng-disabled="!subnet.enableDHCP" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'DNS_NAMESERVERS' | translate }}</label>
+                        <textarea ng-disabled="!subnet.enableDHCP" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'HOST_ROUTES' | translate }}</label>
+                        <textarea ng-disabled="!subnet.enableDHCP" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning btn-cancel pull-left" type="button" ng-click="cancel()">{{ 'CANCEL' | translate }}</button>
+        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="ok()" >{{ 'SAVE' | translate }}</button>
+    </div>
+</div>

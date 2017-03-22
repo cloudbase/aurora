@@ -133,7 +133,7 @@ module auroraApp {
                 newWidget.settings = newWidget.default_settings 
                 this.vmWidgets.push(newWidget)
             })
-            
+            console.log("COMPUTE SERVICE", compute)
         }
 
         manageWidgets(vm: VmItem) {
@@ -220,7 +220,7 @@ module auroraApp {
 
         startVm(vm: VmItem)
         {
-            vm.start(() => {this.Notification.info("Starting VM: " + obj.name)})
+            vm.start(() => {this.Notification.info("Starting VM: " + vm.name)})
         }
 
         restartVm(vm: VmItem)

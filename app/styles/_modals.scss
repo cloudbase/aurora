@@ -62,11 +62,48 @@
         line-height: 19px;
         &:active {
             background: #7F8FA4;
-        } 
+        }
     }
 }
 .modal-xl {
     width: 1200px;
+}
+.modal-l {
+    width: 900px;
+}
+.add-subnet-modal {
+    .modal-body {
+        @include clearfix();
+    }
+    .column {
+        width: 50%;
+        float: left;
+    }
+    h4 {
+        line-height: 32px;
+    }
+}
+.form .btn-checkbox {
+    display: inline-block;
+    padding-left: 20px;
+    position: relative;
+    color: #FFF;
+    &:after {
+        display: block;
+        content: " ";
+        border: 2px solid #FFF;
+        border-radius: 50%;
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        top: 13px;
+        left: 8px;
+    }
+    &.active {
+        &:after {
+            background-color: #FFF;
+        }
+    }
 }
 .manage-widgets-modal {
     .modal-body {

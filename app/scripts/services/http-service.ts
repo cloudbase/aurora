@@ -111,7 +111,6 @@ module auroraApp.Services {
 		}
 		
 		private handleResponse(response:any, params:any):any {
-			console.log("HANDLE RESPONSE", response)
 			$("#loader").removeClass('loading');
 			if (response.data.error) {
 				var errorKey = Object.keys(response.data.error.message)[0]

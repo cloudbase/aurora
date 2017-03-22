@@ -35,8 +35,44 @@ module auroraApp {
             })
             return vm
         }
+    
+        addSubnetAction() {
+            let _this = this
+        
+            var modalInstance = this.$uibModal.open({
+                animation: true,
+                size: "l",
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/modals/add-subnet.html',
+                controller: ($scope, $uibModalInstance, project) => {
+                    $scope.subnet = {
+                        ipVersion: "IPv4",
+                        disableGateway: 0
+                    }
+                    $scope.cancel = () => {
+                        $uibModalInstance.dismiss('cancel')
+                    }
+                    $scope.ok = () => {
+                        $uibModalInstance.close(true);
+                    }
+                },
+                controllerAs: 'ctrl',
+                resolve: {
+                    project: function () {
+                        return _this.apiService.project
+                    }
+                }
+            });
+        
+            modalInstance.result.then(function (selectedItem) {
+                
+            }, function () {
+            
+            });
+        }
 
-        reserveFloatingIp() {
+        reserveFloatingIpAction() {
             let _this = this
 
             var modalInstance = this.$uibModal.open({

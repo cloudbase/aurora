@@ -427,7 +427,6 @@ module auroraApp.Services {
 				
 				deferred.resolve(response)
 			});
-		
 			
 			return deferred.promise
 		}
@@ -538,7 +537,7 @@ module auroraApp.Services {
 						network_interfaces.push(netInterface)
 					})
 					vm.ports = network_interfaces
-					console.log(vm.ports)
+					
 					deferred.resolve(vm)
 				} else {
 					deferred.resolve()
