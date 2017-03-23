@@ -15,12 +15,12 @@
                         <label>{{ 'NETWORK_ADDRESS' | translate }}</label>
                         <div class="row">
                             <div class="col-xs-8">
-                                <input placeholder="Eg: 192.168.0.0/24" type="text" ng-model="subnet.networkAddress" class="form-control"/>
+                                <input placeholder="Eg: 192.168.0.0/24" type="text" ng-model="subnet.cidr" class="form-control"/>
                             </div>
                             <div class="col-xs-4">
                                 <div class="btn-group pull-right">
-                                    <label class="btn btn-primary" ng-model="subnet.ipVersion" uib-btn-radio="'IPv4'">IPv4</label>
-                                    <label class="btn btn-primary" ng-model="subnet.ipVersion" uib-btn-radio="'IPv6'">IPv6</label>
+                                    <label class="btn btn-primary" ng-model="subnet.ipVersion" uib-btn-radio="4">IPv4</label>
+                                    <label class="btn btn-primary" ng-model="subnet.ipVersion" uib-btn-radio="6">IPv6</label>
                                 </div>
                             </div>
                         </div>
@@ -51,15 +51,15 @@
 
                     <div class="form-group">
                         <label>{{ 'ALLOCATION_POOLS' | translate }}</label>
-                        <textarea ng-disabled="!subnet.enableDHCP" class="form-control"></textarea>
+                        <textarea ng-disabled="!subnet.enableDHCP" ng-model="subnet.allocationPools" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <label>{{ 'DNS_NAMESERVERS' | translate }}</label>
-                        <textarea ng-disabled="!subnet.enableDHCP" class="form-control"></textarea>
+                        <textarea ng-disabled="!subnet.enableDHCP" ng-model="subnet.dnsNameservers" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <label>{{ 'HOST_ROUTES' | translate }}</label>
-                        <textarea ng-disabled="!subnet.enableDHCP" class="form-control"></textarea>
+                        <textarea ng-disabled="!subnet.enableDHCP" ng-model="subnet.hostRoutes" class="form-control"></textarea>
                     </div>
                 </div>
             </div>

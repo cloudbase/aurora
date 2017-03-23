@@ -547,6 +547,7 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		
 		/**
 		 * Set state of VM
 		 */
@@ -590,6 +591,33 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		
+		addSubnet(network, subnetData) {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/subnets"
+			
+			this.http.post(
+				url,
+				{ subnet: subnetData },
+				{ "headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id }}
+			).then((response):void => {
+				if (!network.subnets.length) {
+					network.subnets = []
+				}
+				if (!network.subnetCollection.length) {
+					network.subnetCollection = []
+				}
+				network.subnets.push(response.subnet)
+				network.subnetCollection.push(response.subnet)
+				console.log(network)
+				deferred.resolve(response.subnet)
+			});
+			
+			return deferred.promise
+		}
+		
 		loadNetworks():ng.IPromise< any > {
 			let deferred = this.$q.defer();
 			
@@ -620,6 +648,9 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		reloadNetwork(network_id) {
+			
+		}
 		getNetwork(network_id: string)
 		{
 			let network: INetwork = null

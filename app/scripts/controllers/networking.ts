@@ -9,7 +9,8 @@ module auroraApp {
             "ComputeService",
             "$state",
             "$uibModal",
-            "$stateParams"
+            "$stateParams",
+            "Notification"
         ];
 
         constructor(
@@ -17,7 +18,8 @@ module auroraApp {
             public apiService: Services.ComputeService,
             private $state: any,
             public $uibModal: any,
-            public $stateParams
+            public $stateParams,
+            public notification
         )
         {
             if ($stateParams.type == "map") {
@@ -36,7 +38,7 @@ module auroraApp {
             return vm
         }
     
-        addSubnetAction() {
+        addSubnetAction(network: INetwork) {
             let _this = this
         
             var modalInstance = this.$uibModal.open({
@@ -45,24 +47,37 @@ module auroraApp {
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'views/modals/add-subnet.html',
-                controller: ($scope, $uibModalInstance, project) => {
+                controller: ($scope, $uibModalInstance) => {
                     $scope.subnet = {
-                        ipVersion: "IPv4",
-                        disableGateway: 0
+                        ipVersion: 4,
+                        disableGateway: 0,
+                        gateway: null,
+                        allocationPools: null,
+                        dnsNameservers: null,
+                        hostRoutes: null
                     }
                     $scope.cancel = () => {
                         $uibModalInstance.dismiss('cancel')
                     }
                     $scope.ok = () => {
+                        let payload = {
+                            network_id: network.id,
+                            name: $scope.subnet.name,
+                            ip_version: $scope.subnet.ipVersion,
+                            cidr: $scope.subnet.cidr,
+                            gateway_ip: $scope.subnet.gateway,
+                            allocation_pools: $scope.subnet.allocationPools,
+                            dns_nameservers: $scope.subnet.dnsNameservers,
+                            host_routes: $scope.subnet.hostRoutes
+                        }
+                        // TODO: Add allocation pools, dhcp
+                        _this.apiService.addSubnet(network, payload).then(() => {
+                            _this.notification.success("Subnet has been added")
+                        })
                         $uibModalInstance.close(true);
                     }
                 },
-                controllerAs: 'ctrl',
-                resolve: {
-                    project: function () {
-                        return _this.apiService.project
-                    }
-                }
+                controllerAs: 'ctrl'
             });
         
             modalInstance.result.then(function (selectedItem) {
