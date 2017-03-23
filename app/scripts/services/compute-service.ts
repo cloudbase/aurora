@@ -13,6 +13,7 @@ module auroraApp.Services {
 		vmImagesList:string[]
 		vmNetworks:VmNetwork[] = []
 		networks: INetwork[] = []
+		ports: IPort[] = []
 		networkList:VmNetwork[] = []
 		routers: IRouter[]
 		subnets: ISubnet[] = []
@@ -56,7 +57,7 @@ module auroraApp.Services {
 						deferred.resolve(true)
 						this.loadVolumes()
 						this.loadSnapshots()
-						this.loadFloatingIps()
+						this.loadPorts().then(() => this.loadFloatingIps())
 						this.loadNetworks()
 						this.loadRouters()
 					})
@@ -267,7 +268,6 @@ module auroraApp.Services {
 					let vm = this.getVm(attachment.server_id)
 					attachment.vm = vm
 					vm.volumes.push(newVolume)
-					console.log("PUSHED NEW VOLUME IN VM", vm, newVolume)
 				})
 			}
 			let updated = false
@@ -436,7 +436,7 @@ module auroraApp.Services {
 			let deferred = this.$q.defer()
 			let vm = this.getVm(vm_id)
 			this.$q.all([this.loadServerPortInterfaces(vm)]).then(response => {
-				deferred.resolve(response)
+				
 			})
 			
 			return deferred.promise
@@ -547,6 +547,30 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		loadPorts():ng.IPromise< any > {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/ports"
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
+				this.ports = []
+				response.ports.forEach((port:IPort) => {
+					if (port.device_owner.indexOf("compute") > -1) {
+						let vm = this.getVm(port.device_id)
+						if (vm) {
+							vm.ports.push(port)
+						}
+						port.device = vm
+						port.network = this.getNetwork(port.network_id)
+					}
+					this.ports.push(port)
+				}, this)
+				deferred.resolve(this.ports)
+			})
+			
+			return deferred.promise
+		}
 		
 		/**
 		 * Set state of VM
@@ -691,6 +715,10 @@ module auroraApp.Services {
 			return subnet
 		}
 		
+		/**
+		 * Loads/refreshes the list of floating ips
+		 * @returns {IPromise<T>}
+		 */
 		loadFloatingIps():ng.IPromise< any > {
 			let deferred = this.$q.defer();
 			
@@ -699,10 +727,54 @@ module auroraApp.Services {
 			
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
 				if (response.floatingips) {
-					this.project.floating_ips = response.floatingips
+					response.floatingips.forEach(fip => this.addFloatingIp(fip))
 				}
-				console.log("FIPS", response)
 			})
+			return deferred.promise
+		}
+		
+		/**
+		 * Adds or updates floating ip
+		 * @param fipData Floating ip JSON raw data
+		 */
+		addFloatingIp(fipData) {
+			let fip = fipData
+			if (fip.port_id != null) {
+				fip.port = this._filter(this.ports, fip.port_id)
+			}
+			let exists = false
+			// search if floating ip exists in collection
+			this.project.floating_ips.forEach(floatingIp => {
+				if (floatingIp.id == fip.id) {
+					floatingIp = fip
+					exists = true
+				}
+			})
+			if (!exists) {
+				this.project.floating_ips.push(fip)
+			}
+		}
+		
+		/**
+		 * Updates floating ip in API
+		 * @param payload
+		 */
+		updateFloatingIp(fipId, payload) {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/floatingips/" + fipId
+			
+			this.http.put(
+				url,
+				payload,
+				{ "headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id }}
+			).then((response):void => {
+				if (response.floatingip) {
+					this.addFloatingIp(response.floatingip)
+				}
+				deferred.resolve(response.subnet)
+			});
 			
 			return deferred.promise
 		}
@@ -861,6 +933,16 @@ module auroraApp.Services {
 				return false
 			}
 			return {url: url, id: id}
+		}
+		
+		private _filter(list:any[], id) {
+			let el = null
+			list.forEach(item => {
+				if (item.id == id) {
+					el = item
+				}
+			})
+			return el
 		}
 	}
 }

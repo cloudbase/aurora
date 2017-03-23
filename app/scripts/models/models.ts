@@ -95,6 +95,11 @@ module auroraApp {
                 if (callback) callback()
             })
         }
+        addPort(port)
+        {
+            console.log('adding port', port)
+            this.ports.push(port)
+        }
     }
 
     export interface IFloatingIp {
@@ -103,6 +108,7 @@ module auroraApp {
         fixed_ip_address: string
         status: string
         port_id: string
+        port: IPort
         router_id: string
         assigned_to?: INetworkInterface
         assigned_vm?: VmItem
@@ -316,6 +322,30 @@ module auroraApp {
         tenant_id: string
         updated_at: string
     }
+    
+    export interface IPort {
+        name: string
+        admins_state_up: boolean
+        allowed_address_pairs: any[]
+        created_at: Date
+        status: string
+        device_id: string
+        device_owner: string
+        device: any
+        fixed_ips: IFixedIp[]
+        id: string
+        mac_address: string
+        network_id: string
+        network: INetwork
+        security_groups: ISecurityGroup[]
+        updated_at: Date
+    }
+    
+    export interface IFixedIp {
+        ip_address: string
+        subnet_id: string
+    }
+    
     export interface IVmNetwork {
         name: string
         type: string

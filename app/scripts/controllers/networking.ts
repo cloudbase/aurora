@@ -25,7 +25,7 @@ module auroraApp {
             if ($stateParams.type == "map") {
                 this.mapInit()
             }
-            console.log("CONSTRUCTOR NETWORK", apiService.networks)
+            console.log("APISERVICE", apiService)
         }
 
         getInterfaceVm(networkInterface: INetworkInterface) {
@@ -135,14 +135,23 @@ module auroraApp {
             floating_ip.assigned_vm = null
         }
     
-        selectVm(item: VmItem, floatingIp: IFloatingIp)
+        selectVm(item:IPort, floatingIp: IFloatingIp)
         {
-            console.log(item.network_interfaces)
-            floatingIp.assigned_vm = item
+            
+            this.apiService.updateFloatingIp(floatingIp.id, {
+                floatingip: { port_id: item.id }
+            }).then(response => {
+                floatingIp.port = item
+                this.notification.success("Floating IP assigned succesfully")
+            })
+        }
+    
+        selectPort(item: INetworkInterface, floating_ip: IFloatingIp) {
+            floating_ip.assigned_to = item
         }
         
-        selectNetwork(item: INetworkInterface, floating_ip: IFloatingIp) {
-            floating_ip.assigned_to = item
+        groupPorts(item) {
+            return item.device.name
         }
         
         mapInit()

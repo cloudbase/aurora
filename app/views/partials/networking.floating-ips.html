@@ -9,7 +9,7 @@
         <div class='table-header'>
             <div class='cell'>{{ 'IP_ADDRESS' | translate }}</div>
             <div class='cell'>{{ 'VIRTUAL_MACHINE' | translate }}</div>
-            <div class='cell'>{{ 'INTERFACE' | translate }}</div>
+            <div class='cell'>{{ 'MAPPED_FIXED_ADDRESS' | translate }}</div>
             <div class='cell'>{{ 'POOL' | translate }}</div>
             <div class='cell'>{{ 'STATUS' | translate }}</div>
             <div class='cell'>{{ 'ACTIONS' | translate }}</div>
@@ -25,15 +25,15 @@
         </div>
         <div  class='table-row' ng-repeat="item in netView.apiService.project.floating_ips">
             <div class='cell'>
-                <div ng-if="item.assigned_to == null">
+                <div ng-if="item.port == null">
                     <div class='item-icon icon-table icon-fip-empty'></div>
                 </div>
-                <div ng-if="item.assigned_to != null">
+                <div ng-if="item.port != null">
                     <div class='item-icon icon-table icon-fip'></div>
                 </div>
                 <div class='name'>
                     {{ item.floating_ip_address }}
-                    <div ng-if="item.assigned_to != null">
+                    <div ng-if="item.port != null">
                         <svg class='connector' width="28px" height="16px" viewBox="263 21 28 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <g id="Arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(264.000000, 23.000000)">
                                 <polyline id="Line" stroke="#5B6779" stroke-linecap="round" transform="translate(22.415755, 6.438954) rotate(-270.000000) translate(-22.415755, -6.438954) " points="28.8032541 9.69855556 22.2840516 3.17935315 16.0282567 9.43514805"></polyline>
@@ -44,53 +44,53 @@
                 </div>
             </div>
             <div class='cell'>
-                <div ng-if="item.assigned_vm == null">
+                <div ng-if="item.port == null">
                     <ui-select ng-model="item.selected.value" on-select="netView.selectVm($item, item)">
                         <ui-select-match placeholder="Unallocated" class='select-choice'>
                             <span ng-bind="$select.selected.name"></span>
                         </ui-select-match>
-                        <ui-select-choices repeat="item in (netView.apiService.listItems) track by item.id" class='select-choice'>
-                            <span ng-bind="item.name"></span>
+                        <ui-select-choices group-by="netView.groupPorts" repeat="port in (netView.apiService.ports) | filter: { device_owner: 'compute:None'}" class='select-choice'>
+                            Network: <span ng-bind="port.network.name"></span>
                         </ui-select-choices>
                     </ui-select>
                 </div>
-                <div ng-if="item.assigned_vm != null">
-                    <vm-display vm="item.assigned_vm"></vm-display>
+                <div ng-if="item.port != null">
+                    <vm-display vm="item.port.device"></vm-display>
                 </div>
             </div>
             <div class="cell">
-                <div ng-if="item.assigned_vm != null && item.assigned_to == null" class="network_interface">
-                    <ui-select ng-model="item.selectedNetwork.value" on-select="netView.selectNetwork($item, item)">
+                <div ng-if="item.assigned_vm != null && item.port_id == null" class="network_interface">
+                    <ui-select ng-model="item.selectedNetwork.value" on-select="netView.selectPort($item, item)">
                         <ui-select-match placeholder="Network interface" class='select-choice'>
                             <span ng-bind="$select.selected.name"></span>
                         </ui-select-match>
-                        <ui-select-choices repeat="network_interface in item.assigned_vm.network_interfaces" class='select-choice'>
-                            <span ng-bind="network_interface.network.network_interface">eth{{$index}}</span>
+                        <ui-select-choices repeat="port in item.assigned_vm.ports" class='select-choice'>
+                            <span ng-bind="item.assigned_to">{{port.name}} - {{port.network.name}}</span>
                         </ui-select-choices>
                     </ui-select>
                 </div>
-                <div ng-if="item.assigned_to != null">
-                    {{item.assigned_to.network.network_interface}}
+                <div ng-if="item.port != null">
+                    {{item.port.fixed_ips[0].ip_address}}
                 </div>
-                <div ng-if="!item.assigned_to && !item.assigned_vm">
+                <div ng-if="!item.port">
                     --
                 </div>
             </div>
             <div class='cell'>public</div>
             <div class='cell'>
-                <div ng-if="item.assigned_to == null">
+                <div ng-if="item.port_id == null">
                     <div class='status-pill label-danger status-down'>DOWN</div>
                 </div>
-                <div ng-if="item.assigned_to != null">
+                <div ng-if="item.port_id != null">
                     <div class='status-pill label-success status-active'>ACTIVE</div>
                 </div>
             </div>
             <div class='cell'>
                 <ul class="table-actions">
-                    <li data-toggle="confirmation" title="{{ 'RELEASE_FLOATING_IP' | translate }}" data-placement="top" mwl-confirm message="Are you sure you want to release this floating ip?" title="Delete" on-confirm="netView.releaseFloatingIp(item)" ng-class="{disabled: item.assigned_to == null}">
+                    <li data-toggle="confirmation" title="{{ 'RELEASE_FLOATING_IP' | translate }}" data-placement="top" mwl-confirm message="Are you sure you want to release this floating ip?" title="Delete" on-confirm="netView.releaseFloatingIp(item)" ng-class="{disabled: item.port_id == null}">
                         <div class="icon-action icon-release"></div>
                     </li>
-                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'REMOVE_FLOATING_IP_CONFIRM' | translate }}" title="{{ 'DELETE' | translate }}" on-confirm="vmView.removeInterface(network_interface)" ng-class="{disabled: item.assigned_to != null}">
+                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'REMOVE_FLOATING_IP_CONFIRM' | translate }}" title="{{ 'DELETE' | translate }}" on-confirm="vmView.removeInterface(network_interface)" ng-class="{disabled: item.port_id != null}">
                         <div class="icon-action icon-delete"></div>
                     </li>
 
