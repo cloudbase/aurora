@@ -395,13 +395,31 @@ $vmNetworksColSizes: (
   @include clearfix();
   margin-bottom: 20px;
   .editable-input {
-    width: 200px !important;
-    height: 26px;
+    width: 400px !important;
+    margin-left: 0;
+    line-height: 36px;
+    font-size: 36px;
+    height: 36px;
+    color: #FFF;
+    border: 0;
+    padding: 0;
+    background-color: #57596c;
+  }
+  .edtable-buttons {
+    padding-top: 2px;
   }
   .controls {
     padding-top: 11px;
-    a:first-child, a:nth-child(2) {
+    a:nth-child(2) {
       width: 83px;
+      float: left;
+    }
+    .action-dropdown {
+      .ui-select-container .ui-select-toggle {
+        height: 38px;
+        line-height: 25px;
+      }
+      margin-right: 25px;
     }
   }
   &.status-running {
@@ -497,16 +515,19 @@ $vmNetworksColSizes: (
     position: relative;
     .name {
       display: inline-block;
-      font-size: 18px;
       margin-left: 20px;
+      font-size: 36px;
+      color: $base_color;
+      letter-spacing: -0.5px;
     }
     i {
       opacity: 0.5
     }
     .details {
       display: block;
-      font-size: 12px;
-      color: #7F8FA4;
+      font-size: 17px;
+      color: #C4C9D2;
+      letter-spacing: -0.48px;
     }
     .vm-status {
       position: absolute;
@@ -516,13 +537,15 @@ $vmNetworksColSizes: (
 }
 
 .vm-view-details {
-  background: #FFFFFF;
-  border: 1px solid #B7C0CD;
   border-radius: 4px;
-  padding: 20px;
   .vm-details {
     .info {
-      padding-left: 10px;
+      padding-top: 0;
+      .name {
+        color: #FFF;
+        line-height: 1;
+        margin-left: 0;
+      }
     }
   }
 }

@@ -15,7 +15,7 @@ module auroraApp {
 			"$uibModal"
 		]
 		availableWidgets: IVmWidget[] = [
-			{
+			/*{
 				id: "usage",
 				name: "New Vm",
 				label: "Adds a new vm widget button",
@@ -38,7 +38,7 @@ module auroraApp {
 				position: {x:0, y:0},
 				size: "3x2",
 				default_settings: {}
-			},
+			},*/
 			{
 				id: "project-limits",
 				name: "New Vm",

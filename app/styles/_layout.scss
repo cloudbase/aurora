@@ -38,7 +38,7 @@ body {
 #narrow-col {
   @include clearfix();
   .main {
-    width: 568px;
+    width: 610px;
     .list-flavors {
       .item-flavor{
         width: 49%;
@@ -109,7 +109,7 @@ body {
   }
   &.vm-view-details {
     .main {
-      width: 868px;
+      width: 910px;
     }
   }
   .main {
@@ -146,26 +146,24 @@ body {
         list-style-image: none;
         font-family: "geomanist_book";
         font-size: 14px;
-        color: #354052;
         line-height: 30px;
         padding-left: 35px;
         border-radius: 4px;
         position: relative;
         margin-bottom: 1px;
-        svg {
+        color: #FFF;
+        .icon-submenu {
           position: absolute;
-          left: 10px;
-          top: 7px;
+          left: 8px;
+          top: 5px;
         }
         &:hover {
-          background-color: lighten(#30AD63, 35%);
+          background-color: #FFF;
+          color: #343645;
         }
         &.active {
-          color: #FFF;
-          background-color: #30AD63;
-          svg path {
-            fill: #FFF;
-          }
+          color: #343645;
+          background-color: #FFF;
           a {
             text-decoration: none;
           }

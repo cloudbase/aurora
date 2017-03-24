@@ -435,9 +435,10 @@ module auroraApp.Services {
 		{
 			let deferred = this.$q.defer()
 			let vm = this.getVm(vm_id)
-			this.$q.all([this.loadServerPortInterfaces(vm)]).then(response => {
+			/*this.$q.all([this.loadServerPortInterfaces(vm)]).then(response => {
 				
-			})
+			})*/
+			deferred.resolve(vm)
 			
 			return deferred.promise
 		}
@@ -935,7 +936,7 @@ module auroraApp.Services {
 			return {url: url, id: id}
 		}
 		
-		private _filter(list:any[], id) {
+		_filter(list:any[], id) {
 			let el = null
 			list.forEach(item => {
 				if (item.id == id) {

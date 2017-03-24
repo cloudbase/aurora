@@ -332,19 +332,12 @@ input[type="checkbox"].green.ios-switch:checked + div > div {
     position: relative;
   }
   &.table-actions {
-    float: right;
-    width: 107px;
+    float: left;
+    width: 130px;
     position: relative;
-    margin-left: 2px;
     svg {
       top: 12px;
     }
-    .ui-select-container .ui-select-toggle {
-      height: 29px;
-      line-height: 15px;
-      padding-left: 5px;
-    }
-
   }
 }
 .dropdown-header {

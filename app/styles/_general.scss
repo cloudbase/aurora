@@ -78,14 +78,8 @@
 }
 .editable-buttons {
   .btn {
-    line-height: 21px;
-    padding: 3px 4px 2px;
-    margin-left: 0;
     &:first-child {
-      border-radius: 0;
-    }
-    &:last-child {
-      border-radius: 0 4px 4px 0;
+      margin-right: 8px;
     }
   }
 }
