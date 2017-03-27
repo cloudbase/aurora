@@ -42,22 +42,21 @@ module auroraApp {
                 if (volume.attached_to && volume.attached_to.vm == this.item)
                     this.volumes.push(volume)
             })*/
-            
+            console.log(this.item)
         }
 
         // TODO: Put network functions in own controller
 
-        addInterface(network_obj:IVmNetwork) {
-            let network_interface: INetworkInterface
-            network_interface = {
-                network: network_obj,
-                ip_addr: network_obj.allocateIp()
-            }
-            this.item.network_interfaces.push(network_interface)
+        addInterface(network_obj:INetwork) {
+            this.apiService.serverAttachInterface(this.item, network_obj).then(response => {
+                this.notification.success("Network interface has been attached")
+                
+            })
+            
     
-            let newLink = {from: "network_" + network_interface.network.name, to: 'vm' + '_' + this.item.id, type: "uni", connector: "metro"}
+            /*let newLink = {from: "network_" + network_interface.network.name, to: 'vm' + '_' + this.item.id, type: "uni", connector: "metro"}
             if (window['mapDetails']['links'].indexOf(newLink) == -1)
-                window['mapDetails']['links'].push(newLink)
+                window['mapDetails']['links'].push(newLink)*/
         }
 
         removeInterface(networkInterface: INetworkInterface) {

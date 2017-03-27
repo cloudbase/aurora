@@ -551,17 +551,34 @@ $vmNetworksColSizes: (
 }
 
 $vmViewNetworksColSizes: (
-        1 12% "default", // name
-        2 22% "default", // subnets
+        1 30% "default", // name
+        2 15% "default", // subnets
         3 15% "default", // shared
         4 15% "default", // admin state
-        5 25% "default", // status
+        5 15% "default", // status
         6 10% "default", // actions
 );
 
 @include generateTable("vm-view-networks", $vmViewNetworksColSizes);
 
 .vm-view-networks-table {
+  .table-row {
+    .cell {
+      padding-top: 0;
+      &:first-child {
+        .icon-table {
+          float: left;
+        }
+        .name {
+          float: left;
+          margin: 20px 0 0 20px;
+          font-weight: 500;
+          font-size: 17px;
+          letter-spacing: -0.48px;
+        }
+      }
+    }
+  }
   .cell {
     &:nth-child(5) {
       .ui-select-container {

@@ -57,9 +57,10 @@ module auroraApp.Services {
 						deferred.resolve(true)
 						this.loadVolumes()
 						this.loadSnapshots()
-						this.loadPorts().then(() => this.loadFloatingIps())
-						this.loadNetworks()
-						this.loadRouters()
+						this.loadNetworks().then(() => {
+							this.loadPorts().then(() => this.loadFloatingIps())
+							this.loadRouters()
+						})
 					})
 				})
 			}
@@ -557,20 +558,24 @@ module auroraApp.Services {
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then((response):void => {
 				this.ports = []
 				response.ports.forEach((port:IPort) => {
-					if (port.device_owner.indexOf("compute") > -1) {
-						let vm = this.getVm(port.device_id)
-						if (vm) {
-							vm.ports.push(port)
-						}
-						port.device = vm
-						port.network = this.getNetwork(port.network_id)
-					}
-					this.ports.push(port)
+					this.addPort(port)
 				}, this)
 				deferred.resolve(this.ports)
 			})
 			
 			return deferred.promise
+		}
+		
+		addPort(port:IPort) {
+			if (port.device_owner.indexOf("compute") > -1) {
+				let vm = this.getVm(port.device_id)
+				if (vm) {
+					vm.ports.push(port)
+				}
+				port.device = vm
+				port.network = this.getNetwork(port.network_id)
+			}
+			this.ports.push(port)
 		}
 		
 		/**
@@ -611,6 +616,27 @@ module auroraApp.Services {
 				payload,
 				{"headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
 			).then((response):void => {
+				deferred.resolve(true)
+			});
+			return deferred.promise
+		}
+		
+		serverAttachInterface(vm:VmItem, network:INetwork) {
+			let deferred = this.$q.defer()
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/servers/" + vm.id + "/os-interface"
+			
+			let payload = { interfaceAttachment: { net_id: network.id } }
+			
+			this.http.post(
+				url,
+				payload,
+				{"headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then((response):void => {
+				let newInterface = response.interfaceAttachment
+				newInterface.network = this._filter(this.networks, newInterface.net_id)
+				this.ports.push(newInterface)
+				
 				deferred.resolve(true)
 			});
 			return deferred.promise

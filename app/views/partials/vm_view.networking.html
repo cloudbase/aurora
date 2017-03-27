@@ -6,7 +6,7 @@
                 <ui-select-match placeholder="Network" class='select-choice'>
                     <span ng-bind="$select.selected.name"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item in (vmView.compute.networkList | filter: $select.search) track by item.name" class='select-choice'>
+                <ui-select-choices repeat="item in (vmView.apiService.networks | filter: $select.search) track by item.name" class='select-choice'>
                     <span ng-bind="item.name"></span>
                 </ui-select-choices>
             </ui-select>
@@ -19,37 +19,21 @@
                 <div class='table-header'>
                     <div class='cell'>{{ 'NETWORK' | translate }}</div>
                     <div class='cell'>{{ 'SUBNET' | translate }}</div>
-                    <div class='cell'>{{ 'INTERFACE' | translate }}</div>
                     <div class='cell'>{{ 'IP_ADDRESS' | translate }}</div>
+                    <div class='cell'>{{ 'PORT' | translate }}</div>
                     <div class='cell'>{{ 'STATUS' | translate }}</div>
                     <div class='cell'>{{ 'ACTIONS' | translate }}</div>
                 </div>
                 <div class='table-row state-{{network_interface.network.status}}' ng-repeat="(key, network_interface) in vmView.item.ports" ng-click="vmView.selectNetwork(network_interface.network);">
                     <div class='cell'>
                         <div class="icon-table icon-network"></div>
-                        {{ network_interface.network.name }}
+                        <div class="name">{{ network_interface.network.name }}</div>
                     </div>
-                    <div class='cell'>{{ network_interface.network.subnet }}</div>
-                    <div class='cell'>eth{{key}}</div>
-                    <div class='cell'>{{ network_interface.ip_addr }}&nbsp;</div>
+                    <div class='cell'><div>{{ network_interface.network.subnet }}</div></div>
+                    <div class='cell'><div>eth{{key}}</div></div>
+                    <div class='cell'>{{ network_interface.fixed_ips[0].ip_address }}&nbsp;</div>
                     <div class='cell'>
-                        <div ng-if="network_interface.floating_ip && network_interface.network.type != 'public'">
-                            {{ network_interface.floating_ip.ip }}&nbsp;
-                        </div>
-                        <div ng-if="network_interface.network.type == 'public'">
-                            --
-                        </div>
-                        
-                        <div ng-if="(network_interface.floating_ip == null) && (network_interface.network.type != 'public')">
-                            <ui-select ng-model="vmView.selected.value" search-enabled="false" on-select="vmView.selectFloatingIp($item, network_interface)">
-                                <ui-select-match placeholder="{{ 'ASSOCIATE' | translate }}" class='select-choice'>
-                                    <span ng-bind="$select.selected.name"></span>
-                                </ui-select-match>
-                                <ui-select-choices repeat="item in (vmView.compute.project.floating_ips | filter: vmView.availableFloatingIps) track by item.id" class='select-choice'>
-                                    <span ng-bind="item.ip"></span>
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
+
                     </div>
 
                     <div class='cell'>
