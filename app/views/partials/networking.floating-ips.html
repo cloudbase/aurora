@@ -64,7 +64,7 @@
                         <ui-select-match placeholder="Network interface" class='select-choice'>
                             <span ng-bind="$select.selected.name"></span>
                         </ui-select-match>
-                        <ui-select-choices repeat="port in item.assigned_vm.ports" class='select-choice'>
+                        <ui-select-choices repeat="port in item.assigned_vm.ports | filter: {port.network['router:external']: true}" class='select-choice'>
                             <span ng-bind="item.assigned_to">{{port.name}} - {{port.network.name}}</span>
                         </ui-select-choices>
                     </ui-select>

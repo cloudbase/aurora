@@ -78,7 +78,7 @@
 .modal-xs {
     width: 250px;
 }
-.add-subnet-modal, .add-network-modal {
+.add-subnet-modal, .add-network-modal, .edit-network-modal {
     .modal-body {
         @include clearfix();
     }

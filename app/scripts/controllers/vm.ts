@@ -50,7 +50,6 @@ module auroraApp {
         addInterface(network_obj:INetwork) {
             this.apiService.serverAttachInterface(this.item, network_obj).then(response => {
                 this.notification.success("Network interface has been attached")
-                
             })
             
     

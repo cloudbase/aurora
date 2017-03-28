@@ -39,8 +39,8 @@ module auroraApp {
         }
     
         addSubnetAction(network: INetwork) {
-            let _this = this
-        
+            let self = this
+            
             var modalInstance = this.$uibModal.open({
                 animation: true,
                 size: "l",
@@ -66,13 +66,15 @@ module auroraApp {
                             ip_version: $scope.subnet.ipVersion,
                             cidr: $scope.subnet.cidr,
                             gateway_ip: $scope.enableGateway ? $scope.subnet.gateway : null,
-                            allocation_pools: $scope.subnet.allocationPools,
                             dns_nameservers: $scope.subnet.dnsNameservers,
                             host_routes: $scope.subnet.hostRoutes
                         }
-                        // TODO: Add allocation pools, dhcp
-                        _this.apiService.addSubnet(network, payload).then(() => {
-                            _this.notification.success("Subnet has been added")
+                        if ($scope.subnet.allocationPools) {
+                            payload['allocation_pools'] = $scope.subnet.allocationPools
+                        }
+                            
+                        self.apiService.addSubnet(network, payload).then(() => {
+                            self.notification.success("Subnet has been added")
                         })
                         $uibModalInstance.close(true);
                     }
@@ -132,7 +134,7 @@ module auroraApp {
             var modalInstance = this.$uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
-                size: "xs",
+                size: "s",
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'views/modals/add-network.html',
                 controller: ($scope, $uibModalInstance) => {
@@ -154,6 +156,56 @@ module auroraApp {
                             }
                             $uibModalInstance.close(true);
                         })
+                    }
+                },
+                controllerAs: 'ctrl'
+            });
+        }
+    
+        editNetworkAction(network:INetwork) {
+            let self = this
+            
+            console.log("EDIT NETWORK", network)
+        
+            var modalInstance = this.$uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/modals/edit-network.html',
+                controller: ($scope, $uibModalInstance) => {
+                    $scope.network = {
+                        name: network.name,
+                        adminState: network.admin_state_up,
+                        isShared: network.shared,
+                        subnets: network.subnetCollection
+                    }
+                
+                    $scope.cancel = () => {
+                        $uibModalInstance.dismiss('cancel')
+                    }
+                    $scope.ok = () => {
+                        self.apiService.updateNetwork(network, {
+                            name: $scope.network.name,
+                            admin_state_up: $scope.network.adminState,
+                            shared: $scope.network.isShared
+                        }).then((newNetwork:INetwork) => {
+                            self.notification.success("Network edited!")
+                            $uibModalInstance.close(true);
+                        })
+                    }
+                    $scope.deleteSubnet = (subnet:ISubnet) => {
+                        self.apiService.deleteSubnet(subnet).then(response => {
+                            let index = network.subnetCollection.indexOf(subnet)
+                            network.subnetCollection.splice(index, 1)
+                            
+                            index = network.subnets.indexOf(subnet.id)
+                            network.subnets.splice(index, 1)
+                            
+                            this.notification.success("Subnet deleted")
+                        })
+                    }
+                    $scope.addSubnet = () => {
+                        self.addSubnetAction(network)
                     }
                 },
                 controllerAs: 'ctrl'

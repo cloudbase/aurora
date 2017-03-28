@@ -184,3 +184,28 @@ $floatingIpsColSizes: (
     margin-top: -10px;
   }
 }
+
+
+
+$networkSubnetsColSizes: (
+        1 30% "default", // name
+        2 25% "default", // admin state
+        3 25% "default", // status
+        4 20% "default", // actions
+);
+
+@include generateTable("network-subnets", $networkSubnetsColSizes);
+
+.network-subnets {
+  .table-row {
+    .cell {
+      padding-top: 0;
+      &.centered {
+        min-height: 40px;
+      }
+      .table-actions {
+        margin-top: 5px;
+      }
+    }
+  }
+}

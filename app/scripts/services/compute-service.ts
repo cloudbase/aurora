@@ -650,7 +650,9 @@ module auroraApp.Services {
 			).then((response):void => {
 				let newInterface = response.interfaceAttachment
 				newInterface.network = this._filter(this.networks, newInterface.net_id)
+				
 				this.ports.push(newInterface)
+				vm.ports.push(newInterface)
 				
 				deferred.resolve(true)
 			});
@@ -672,12 +674,13 @@ module auroraApp.Services {
 				if (!network.subnets.length) {
 					network.subnets = []
 				}
-				if (!network.subnetCollection.length) {
+				if (!network.subnetCollection) {
 					network.subnetCollection = []
 				}
-				network.subnets.push(response.subnet)
+				network.subnets.push(response.subnet.id)
 				network.subnetCollection.push(response.subnet)
-				console.log(network)
+				this.subnets.push(response.subnet)
+				
 				deferred.resolve(response.subnet)
 			});
 			
@@ -742,7 +745,62 @@ module auroraApp.Services {
 				payload,
 				{ "headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id }}
 			).then((response):void => {
-				this.networks.push(response.network)
+				this.addNetwork(response.network)
+				deferred.resolve(response.network)
+			});
+			
+			return deferred.promise
+		}
+		
+		/**
+		 * Adds or updates floating ip
+		 * @param fipData Floating ip JSON raw data
+		 */
+		addNetwork(networkData:INetwork) {
+			let exists = false
+			
+			if (!networkData.subnetCollection) {
+				networkData.subnetCollection = []
+			}
+			
+			networkData.subnets.forEach(subnet_id => {
+				console.log(subnet_id)
+				networkData.subnetCollection.push(this.getSubnet(subnet_id))
+				console.log(this.getSubnet(subnet_id))
+			})
+			
+			console.log(networkData)
+			// search if network exists in collection
+			this.networks.forEach((network, index) => {
+				if (networkData.id == network.id) {
+					this.networks[index] = networkData
+					exists = true
+				}
+			})
+			console.log(exists, this.networks)
+			if (!exists) {
+				this.networks.push(networkData)
+			}
+		}
+		
+		/**
+		 * Updates floating ip in API
+		 * @param payload
+		 */
+		updateNetwork(network:INetwork, payload) {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/networks/" + network.id
+			
+			this.http.put(
+				url,
+				{network: payload},
+				{ "headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id }}
+			).then((response):void => {
+				if (response.network) {
+					this.addNetwork(response.network)
+				}
 				deferred.resolve(response.network)
 			});
 			
@@ -795,7 +853,11 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
-		
+		/**
+		 * Returns subnet based on ID
+		 * @param subnet_id
+		 * @returns {ISubnet}
+		 */
 		getSubnet(subnet_id: string)
 		{
 			let subnet: ISubnet = null
@@ -804,6 +866,27 @@ module auroraApp.Services {
 					subnet = item
 			})
 			return subnet
+		}
+		
+		/**
+		 * Deletes subnet from API and cache
+		 * @param subnet
+		 * @returns {IPromise<T>}
+		 */
+		deleteSubnet(subnet:ISubnet) {
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/subnets/" + subnet.id
+			let deferred = this.$q.defer()
+			
+			this.http.delete(
+				url,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				let index = this.subnets.indexOf(subnet)
+				this.subnets.splice(index, 1)
+				deferred.resolve(response)
+			})
+			return deferred.promise
 		}
 		
 		/**

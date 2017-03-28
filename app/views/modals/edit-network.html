@@ -1,0 +1,58 @@
+<div class='edit-network-modal'>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">{{ 'CREATE_NETWORK' | translate }}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="form">
+            <h4>Network Properties</h4>
+            <div class="form-group">
+                <input type="text" ng-model="network.name" class="form-control" placeholder="Network name"/>
+            </div>
+            <div class="form-group">
+                <label>
+                    <label class="switch"><input type="checkbox" ng-model="network.adminState" class="ios-switch green tinyswitch" /><div><div></div></div></label>
+                    {{ 'ADMIN_STATE' | translate }}
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <label class="switch"><input type="checkbox" ng-model="network.isShared" class="ios-switch green tinyswitch" /><div><div></div></div></label>
+                    {{ 'SHARED' | translate }}
+                </label>
+            </div>
+            <h4>
+                Subnets
+                <div class="btn btn-primary" ng-click="addSubnet()">+</div>
+            </h4>
+            <div class="table network-subnets-table" ng-if="network.subnets.length > 0">
+                <div class="table-header">
+                    <div class="cell">Name</div>
+                    <div class="cell">Network Address</div>
+                    <div class="cell">Gateway</div>
+                    <div class="cell">Åctions</div>
+                </div>
+                <div class="table-row" ng-repeat="subnet in network.subnets">
+                    <div class="cell centered" ng-bind="subnet.name"></div>
+                    <div class="cell centered">{{subnet.cidr}}</div>
+                    <div class="cell centered" ng-if="subnet.gateway_ip">{{subnet.gateway_ip}}</div>
+                    <div class="cell centered" ng-if="!subnet.gateway_ip">-</div>
+                    <div class="cell centered">
+                        <ul class="table-actions">
+                            <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'REMOVE_SUBNET_CONFIRM' | translate }}" on-confirm="deleteSubnet(subnet)">
+                                <div class="icon-action icon-delete"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="table network-subnets-table" ng-if="network.subnets.length == 0">
+                <h5>N/A</h5>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning btn-cancel pull-left" type="button" ng-click="cancel()">{{ 'CANCEL' | translate }}</button>
+        <button class="btn btn-primary btn-ok pull-right" type="button" ng-click="ok()" >{{ 'SAVE' | translate }}</button>
+    </div>
+</div>
