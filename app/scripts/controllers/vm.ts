@@ -59,16 +59,15 @@ module auroraApp {
                 window['mapDetails']['links'].push(newLink)*/
         }
 
-        removeInterface(networkInterface: INetworkInterface) {
-            networkInterface.floating_ip.assigned_to = null
-
-            let index = this.item.network_interfaces.indexOf(networkInterface)
-            this.item.network_interfaces.splice(index, 1)
-    
-            let newLink = {from: "network_" + networkInterface.network.name, to: 'vm' + '_' + this.item.id, type: "uni", connector: "metro"}
+        removeInterface(port: IPort) {
+            this.apiService.deletePortInterface(this.item, port).then(response => {
+                this.notification.success("Port interface deleted.")
+            })
+            
+            /*let newLink = {from: "network_" + networkInterface.network.name, to: 'vm' + '_' + this.item.id, type: "uni", connector: "metro"}
             index = window['mapDetails']['links'].indexOf(newLink)
             if (index > -1)
-                window['mapDetails']['links'].splice(index, 1)
+                window['mapDetails']['links'].splice(index, 1)*/
         }
 
         availableFloatingIps(floating_ip: IFloatingIp) {

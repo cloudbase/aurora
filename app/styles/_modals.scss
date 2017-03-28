@@ -72,13 +72,15 @@
 .modal-l {
     width: 900px;
 }
-.add-subnet-modal {
+.modal-s {
+    width: 400px;
+}
+.modal-xs {
+    width: 250px;
+}
+.add-subnet-modal, .add-network-modal {
     .modal-body {
         @include clearfix();
-    }
-    .column {
-        width: 50%;
-        float: left;
     }
     h4 {
         line-height: 32px;

@@ -127,41 +127,36 @@ module auroraApp {
         }
     
         addNetworkAction() {
-            let _this = this
+            let self = this
         
             var modalInstance = this.$uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
+                size: "xs",
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/modals/reserve-floating-ip.html',
-                controller: ($scope, $uibModalInstance, project, networks) => {
-                    $scope.project = project
-                    $scope.networks = networks
-                    $scope.selectedNetwork = null
+                templateUrl: 'views/modals/add-network.html',
+                controller: ($scope, $uibModalInstance) => {
+                    $scope.network = {
+                        name: "",
+                        adminState: true,
+                        isShared: false
+                    }
+                    $scope.createSubnet = true
                 
-                    // select first external network
-                    networks.forEach(network => {
-                        if (network['router:external'] && $scope.selectedNetwork == null) {
-                            $scope.selectedNetwork = network
-                        }
-                    })
                     $scope.cancel = () => {
                         $uibModalInstance.dismiss('cancel')
                     }
                     $scope.ok = () => {
-                        _this.apiService.reserveFloatingIp($scope.selectedNetwork).then(response => {
-                            _this.notification.success("Floating ip added!")
+                        self.apiService.createNetwork($scope.network).then((newNetwork:INetwork) => {
+                            self.notification.success("Network added!")
+                            if ($scope.createSubnet) {
+                                this.addSubnetAction(newNetwork)
+                            }
                             $uibModalInstance.close(true);
                         })
                     }
                 },
-                controllerAs: 'ctrl',
-                resolve: {
-                    project: function () {
-                        return _this.apiService.project
-                    },
-                    networks: () => _this.apiService.networks
-                }
+                controllerAs: 'ctrl'
             });
         }
 

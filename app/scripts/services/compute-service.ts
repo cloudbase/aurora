@@ -492,7 +492,6 @@ module auroraApp.Services {
 				url,
 				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
 			).then(response => {
-				console.log("Volume delete response", response)
 				let index = this.listItems.indexOf(vm)
 				this.listItems.splice(index, 1)
 				deferred.resolve(response)
@@ -546,6 +545,22 @@ module auroraApp.Services {
 				}
 			}, response => deferred.resolve(false))
 			
+			return deferred.promise
+		}
+		
+		deletePortInterface(vm:VmItem, port:IPort) {
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/servers/" + vm.id + "/os-interface/" + port.id
+			let deferred = this.$q.defer()
+			
+			this.http.delete(
+				url,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				let index = vm.ports.indexOf(port)
+				vm.ports.splice(index, 1)
+				deferred.resolve(true)
+			})
 			return deferred.promise
 		}
 		
@@ -690,7 +705,6 @@ module auroraApp.Services {
 								}
 							})
 						})
-						console.log("NETWORKS", this.networks)
 					})
 					deferred.resolve(response.networks)
 				}
@@ -712,6 +726,29 @@ module auroraApp.Services {
 			return network
 		}
 		
+		createNetwork(data) {
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/networks"
+			let deferred = this.$q.defer()
+			
+			let payload = { network: {
+				name: data.name,
+				admin_state_up: data.adminState,
+				shared: data.isShared
+			}}
+			
+			this.http.post(
+				url,
+				payload,
+				{ "headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id }}
+			).then((response):void => {
+				this.networks.push(response.network)
+				deferred.resolve(response.network)
+			});
+			
+			return deferred.promise
+		}
+		
 		deleteNetwork(network:INetwork) {
 			let endpoint = this.network_endpoint()
 			let url:string = this.os_url + "/neutron/v2.0/networks/" + network.id
@@ -726,6 +763,7 @@ module auroraApp.Services {
 			})
 			return deferred.promise
 		}
+		
 		removeNetwork(network_id) {
 			let deleteIndex = null
 			this.networks.forEach((network, index) => {

@@ -1,67 +1,31 @@
-<div class='add-subnet-modal'>
+<div class='add-network-modal'>
     <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">{{ 'ADD_SUBNET' | translate }}</h3>
+        <h3 class="modal-title" id="modal-title">{{ 'CREATE_NETWORK' | translate }}</h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div class="form">
-            <div class="row">
-                <div class="col-xs-6">
-                    <h4>Subnet Properties</h4>
-                    <div class="form-group">
-                        <label>{{ 'NAME' | translate }}</label>
-                        <input type="text" ng-model="subnet.name" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label>{{ 'NETWORK_ADDRESS' | translate }}</label>
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <input placeholder="Eg: 192.168.0.0/24" type="text" ng-model="subnet.cidr" class="form-control"/>
-                            </div>
-                            <div class="col-xs-4">
-                                <div class="btn-group pull-right">
-                                    <label class="btn btn-primary" ng-model="subnet.ipVersion" uib-btn-radio="4">IPv4</label>
-                                    <label class="btn btn-primary" ng-model="subnet.ipVersion" uib-btn-radio="6">IPv6</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>{{ 'GATEWAY_IP' | translate }} </label>
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <input placeholder="Eg: 192.168.0.1" type="text" ng-disabled="subnet.disableGateway" ng-model="subnet.gateway" class="form-control"/>
-                            </div>
-                            <div class="col-xs-4">
-                                <label class="btn btn-primary btn-checkbox pull-right" ng-model="subnet.disableGateway" uib-btn-checkbox btn-checkbox-true="0" btn-checkbox-false="1">
-                                    Enable
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
+            <h4>Network Properties</h4>
+            <div class="form-group">
+                <input type="text" ng-model="network.name" class="form-control" placeholder="Network name"/>
+            </div>
+            <div class="form-group">
+                <label>
+                    <label class="switch"><input type="checkbox" ng-model="network.adminState" class="ios-switch green tinyswitch" /><div><div></div></div></label>
+                    {{ 'ADMIN_STATE' | translate }}
+                </label>
+            </div>
 
-                    </div>
-                </div>
-                <div class="col-xs-6">
-                    <h4>Subnet DHCP
-                        <label class="btn btn-primary btn-checkbox pull-right" ng-model="subnet.enableDHCP" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                            Enable
-                        </label>
-                    </h4>
-
-                    <div class="form-group">
-                        <label>{{ 'ALLOCATION_POOLS' | translate }}</label>
-                        <textarea ng-disabled="!subnet.enableDHCP" ng-model="subnet.allocationPools" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>{{ 'DNS_NAMESERVERS' | translate }}</label>
-                        <textarea ng-disabled="!subnet.enableDHCP" ng-model="subnet.dnsNameservers" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>{{ 'HOST_ROUTES' | translate }}</label>
-                        <textarea ng-disabled="!subnet.enableDHCP" ng-model="subnet.hostRoutes" class="form-control"></textarea>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>
+                    <label class="switch"><input type="checkbox" ng-model="network.isShared" class="ios-switch green tinyswitch" /><div><div></div></div></label>
+                    {{ 'SHARED' | translate }}
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <label class="switch"><input type="checkbox" ng-model="createSubnet" class="ios-switch green tinyswitch" /><div><div></div></div></label>
+                    {{ 'CREATE_SUBNET' | translate }}
+                </label>
             </div>
         </div>
     </div>
