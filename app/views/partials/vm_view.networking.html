@@ -29,14 +29,13 @@
                         <div class="icon-table icon-network"></div>
                         <div class="name">{{ network_interface.network.name }}</div>
                     </div>
-                    <div class='cell'><div>{{ network_interface.network.subnet }}</div></div>
-                    <div class='cell'><div>eth{{key}}</div></div>
-                    <div class='cell'>{{ network_interface.fixed_ips[0].ip_address }}&nbsp;</div>
-                    <div class='cell'>
-
+                    <div class='cell centered'><div>{{ vmView.apiService.getSubnet(network_interface.fixed_ips[0].subnet_id).name }}</div></div>
+                    <div class='cell centered'>{{ network_interface.fixed_ips[0].ip_address }}&nbsp;</div>
+                    <div class='cell centered'><div>eth-{{key}}</div></div>
+                    <div class='cell centered'>
+                        <div class="status-pill status-{{network_interface.status}}">{{network_interface.status}}</div>
                     </div>
-
-                    <div class='cell'>
+                    <div class='cell centered'>
                         <ul class="table-actions">
                             <li  data-toggle="confirmation" title="{{ 'RELEASE' | translate }}" data-placement="top" mwl-confirm message="{{ 'RELEASE_FLOATING_IP_CONFIRM' | translate }}" title="Delete" on-confirm="vmView.releaseFloatingIp(network_interface)" ng-class="{disabled: network_interface.floating_ip == null}">
                                 <svg width="22px" height="17px" viewBox="0 0 22 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

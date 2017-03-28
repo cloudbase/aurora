@@ -21,7 +21,7 @@
                     {{item.name}}
                 </div>
             </div>
-            <div class='cell'>
+            <div class='cell centered'>
                 <div ng-if="item.subnetCollection.length">
                     <div ng-repeat="subnet in item.subnetCollection">
                         <span>{{subnet.name}}</span> {{subnet.cidr}}
@@ -45,10 +45,10 @@
                     <li uib-tooltop="{{ 'ADD_SUBNET' | translate }}" ng-click="netView.addSubnetAction(item)" data-placement="top">
                         <div class="icon-action icon-newsubnet"></div>
                     </li>
-                    <li data-toggle="confirmation" title="Release Floating IP" uib-tooltop="{{ 'RELEASE_FLOATING_IP' | translate }}"  data-placement="top" mwl-confirm message="{{ 'RELEASE_FLOATING_IP_CONFIRM' | translate }}" title="Delete" on-confirm="netView.releaseFloatingIpAction(item)" ng-class="{disabled: item.assigned_to == null}">
-                        <div class="icon-action icon-release"></div>
+                    <li uib-tooltop="{{ 'EDIT' | translate }}"  data-placement="top" mwl-confirm message="{{ 'RELEASE_FLOATING_IP_CONFIRM' | translate }}">
+                        <div class="icon-action icon-edit"></div>
                     </li>
-                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'NETWORK_DELETE_CONFIRM' | translate }}" title="Delete" on-confirm="vm.removeInterface(network_interface)">
+                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'NETWORK_DELETE_CONFIRM' | translate }}" title="Delete" on-confirm="vm.deleteNetwork(item)">
                         <div class="icon-action icon-delete"></div>
                     </li>
 

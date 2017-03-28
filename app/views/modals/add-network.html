@@ -26,15 +26,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>
-                            <label class="switch"><input type="checkbox" ng-model="subnet.enableGateway" class="ios-switch green tinyswitch" /><div><div></div></div></label>
-                            {{ 'GATEWAY_IP' | translate }}
-                        </label>
+                        <label>{{ 'GATEWAY_IP' | translate }} </label>
                         <div class="row">
                             <div class="col-xs-8">
-                                <input placeholder="Eg: 192.168.0.1" type="text" ng-disabled="!subnet.enableGateway" ng-model="subnet.gateway" class="form-control"/>
+                                <input placeholder="Eg: 192.168.0.1" type="text" ng-disabled="subnet.disableGateway" ng-model="subnet.gateway" class="form-control"/>
                             </div>
                             <div class="col-xs-4">
+                                <label class="btn btn-primary btn-checkbox pull-right" ng-model="subnet.disableGateway" uib-btn-checkbox btn-checkbox-true="0" btn-checkbox-false="1">
+                                    Enable
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -43,9 +43,10 @@
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <h4>
-                        <label class="switch large"><input type="checkbox" ng-model="subnet.enableDHCP" class="ios-switch green" checked /><div><div></div></div></label>
-                        Subnet DHCP
+                    <h4>Subnet DHCP
+                        <label class="btn btn-primary btn-checkbox pull-right" ng-model="subnet.enableDHCP" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                            Enable
+                        </label>
                     </h4>
 
                     <div class="form-group">

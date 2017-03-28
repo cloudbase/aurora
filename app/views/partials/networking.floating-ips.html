@@ -1,7 +1,7 @@
 <div class="main-list">
     <div class='list-header'>
         <h1>{{ 'FLOATING_IPS' | translate }}</h1>
-        <a class="btn btn-primary btn-add" ng-click="netView.reserveFloatingIp()">
+        <a class="btn btn-primary btn-add" ng-click="netView.reserveFloatingIpAction()">
             {{ 'RESERVE_IP' | translate }}
         </a>
     </div>
@@ -90,7 +90,7 @@
                     <li data-toggle="confirmation" title="{{ 'RELEASE_FLOATING_IP' | translate }}" data-placement="top" mwl-confirm message="Are you sure you want to release this floating ip?" title="Delete" on-confirm="netView.releaseFloatingIp(item)" ng-class="{disabled: item.port_id == null}">
                         <div class="icon-action icon-release"></div>
                     </li>
-                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'REMOVE_FLOATING_IP_CONFIRM' | translate }}" title="{{ 'DELETE' | translate }}" on-confirm="vmView.removeInterface(network_interface)" ng-class="{disabled: item.port_id != null}">
+                    <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'REMOVE_FLOATING_IP_CONFIRM' | translate }}" title="{{ 'DELETE' | translate }}" on-confirm="netView.deleteFloatingIpAction(item)" ng-class="{disabled: item.port_id != null}">
                         <div class="icon-action icon-delete"></div>
                     </li>
 

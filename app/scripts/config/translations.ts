@@ -141,7 +141,8 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'NO_NETWORKS': 'No networks',
 		'MANAGE_WIDGETS': 'Manage Widgets',
 		'AVAILABLE_WIDGETS': 'Available Widgets',
-		'ADD': "Add"
+		'ADD': "Add",
+		'NETWORK_POOL': 'Network pool'
 	});
 	
 	$translateProvider.preferredLanguage('en');

@@ -163,7 +163,7 @@ module auroraApp.Services {
 		
 		loadImages():ng.IPromise< VmImage[] >
 		{
-			let endpoint = this.images_url()
+			let endpoint = this.images_endpoint()
 			let url = this.os_url + "/glance/v2/images"
 			let deferred = this.$q.defer()
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
@@ -190,7 +190,7 @@ module auroraApp.Services {
 		
 		loadSnapshots():ng.IPromise< VmImage[] >
 		{
-			let endpoint = this.cinder_url()
+			let endpoint = this.cinder_endpoint()
 			let url = this.os_url + "/cinder/snapshots/detail"
 			let deferred = this.$q.defer()
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
@@ -218,7 +218,7 @@ module auroraApp.Services {
 		
 		loadVolumes():ng.IPromise< VmImage[] >
 		{
-			let endpoint = this.cinder_url()
+			let endpoint = this.cinder_endpoint()
 			let url = this.os_url + "/cinder/volumes/detail"
 			let deferred = this.$q.defer()
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
@@ -285,7 +285,7 @@ module auroraApp.Services {
 		}
 		
 		insertVolume(volumeData) {
-			let endpoint = this.cinder_url()
+			let endpoint = this.cinder_endpoint()
 			let url = this.os_url + "/cinder/volumes"
 			let deferred = this.$q.defer()
 			var payload = {
@@ -318,7 +318,7 @@ module auroraApp.Services {
 		}
 		
 		deleteVolume(volume_id) {
-			let endpoint = this.cinder_url()
+			let endpoint = this.cinder_endpoint()
 			let url = this.os_url + "/cinder/volumes/" + volume_id
 			let deferred = this.$q.defer()
 			
@@ -334,7 +334,7 @@ module auroraApp.Services {
 		}
 		
 		updateVolume(newVolumeData) {
-			let endpoint = this.cinder_url()
+			let endpoint = this.cinder_endpoint()
 			let url = this.os_url + "/cinder/volumes/" + newVolumeData.id
 			let deferred = this.$q.defer()
 			let payload = {
@@ -712,6 +712,32 @@ module auroraApp.Services {
 			return network
 		}
 		
+		deleteNetwork(network:INetwork) {
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/networks/" + network.id
+			let deferred = this.$q.defer()
+			
+			this.http.delete(
+				url,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				this.removeNetwork(network.id)
+				deferred.resolve(response)
+			})
+			return deferred.promise
+		}
+		removeNetwork(network_id) {
+			let deleteIndex = null
+			this.networks.forEach((network, index) => {
+				if (network.id == network_id) {
+					deleteIndex = index
+				}
+			})
+			if (deleteIndex != null) {
+				this.networks.splice(deleteIndex, 1)
+			}
+		}
+		
 		loadSubnets():ng.IPromise< any > {
 			let deferred = this.$q.defer();
 			
@@ -801,6 +827,46 @@ module auroraApp.Services {
 					this.addFloatingIp(response.floatingip)
 				}
 				deferred.resolve(response.subnet)
+			});
+			
+			return deferred.promise
+		}
+		
+		reserveFloatingIp(network:INetwork) {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/floatingips"
+			
+			let payload = { floatingip: { floating_network_id: network.id } }
+			
+			this.http.post(
+				url,
+				payload,
+				{ "headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id }}
+			).then((response):void => {
+				if (response.floatingip) {
+					this.addFloatingIp(response.floatingip)
+				}
+				deferred.resolve(response.subnet)
+			});
+			
+			return deferred.promise
+		}
+		
+		deleteFloatingIp(fip:IFloatingIp) {
+			let deferred = this.$q.defer();
+			
+			let endpoint = this.network_endpoint()
+			let url:string = this.os_url + "/neutron/v2.0/floatingips/" + fip.id
+			
+			this.http.delete(
+				url,
+				{ "headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id }}
+			).then((response):void => {
+				let index = this.project.floating_ips.indexOf(fip)
+				this.project.floating_ips.splice(index, 1)
+				deferred.resolve(true)
 			});
 			
 			return deferred.promise
@@ -930,7 +996,7 @@ module auroraApp.Services {
 		 * Retrieves compute url
 		 * @returns {any}
 		 */
-		private images_url():any
+		private images_endpoint():any
 		{
 			let endpoints = this.localStorage.get('endpoints')
 			let url = endpoints.image.publicURL
@@ -948,7 +1014,7 @@ module auroraApp.Services {
 		 * Retrieves compute url
 		 * @returns {any}
 		 */
-		private cinder_url():any
+		private cinder_endpoint():any
 		{
 			let endpoints = this.localStorage.get('endpoints')
 			let url = endpoints.volume.publicURL

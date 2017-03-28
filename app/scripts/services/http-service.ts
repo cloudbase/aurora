@@ -124,13 +124,18 @@ module auroraApp.Services {
 		
 		private handleResponse(response:any, params:any):any {
 			$("#loader").removeClass('loading');
-			if (response.data.error) {
-				console.log("ERROR CATCHING", response)
-				var errorKey = Object.keys(response.data.error.message)[0]
-				this.Notification.error(response.data.error.message[errorKey].message)
-			}else {
-				response.data.requestParams = params
-				return response.data
+			if (response.status == -1) {
+				this.Notification.error("There is a problem with the connection")
+				return false
+			} else {
+				if (response.data.error) {
+					console.log("ERROR CATCHING", response)
+					var errorKey = Object.keys(response.data.error.message)[0]
+					this.Notification.error(response.data.error.message[errorKey].message)
+				} else {
+					response.data.requestParams = params
+					return response.data
+				}
 			}
 		}
 	}

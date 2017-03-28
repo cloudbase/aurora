@@ -50,7 +50,7 @@ module auroraApp {
                 controller: ($scope, $uibModalInstance) => {
                     $scope.subnet = {
                         ipVersion: 4,
-                        disableGateway: 0,
+                        enableGateway: true,
                         gateway: null,
                         allocationPools: null,
                         dnsNameservers: null,
@@ -65,7 +65,7 @@ module auroraApp {
                             name: $scope.subnet.name,
                             ip_version: $scope.subnet.ipVersion,
                             cidr: $scope.subnet.cidr,
-                            gateway_ip: $scope.subnet.gateway,
+                            gateway_ip: $scope.enableGateway ? $scope.subnet.gateway : null,
                             allocation_pools: $scope.subnet.allocationPools,
                             dns_nameservers: $scope.subnet.dnsNameservers,
                             host_routes: $scope.subnet.hostRoutes
@@ -95,37 +95,73 @@ module auroraApp {
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'views/modals/reserve-floating-ip.html',
-                controller: ($scope, $uibModalInstance, project) => {
+                controller: ($scope, $uibModalInstance, project, networks) => {
                     $scope.project = project
+                    $scope.networks = networks
+                    $scope.selectedNetwork = null
+                    
+                    // select first external network
+                    networks.forEach(network => {
+                        if (network['router:external'] && $scope.selectedNetwork == null) {
+                            $scope.selectedNetwork = network
+                        }
+                    })
                     $scope.cancel = () => {
                         $uibModalInstance.dismiss('cancel')
                     }
                     $scope.ok = () => {
-                        $uibModalInstance.close(true);
+                        _this.apiService.reserveFloatingIp($scope.selectedNetwork).then(response => {
+                            _this.notification.success("Floating ip added!")
+                            $uibModalInstance.close(true);
+                        })
                     }
                 },
                 controllerAs: 'ctrl',
                 resolve: {
                     project: function () {
                         return _this.apiService.project
-                    }
+                    },
+                    networks: () => _this.apiService.networks
                 }
             });
+        }
     
-            modalInstance.result.then(function (selectedItem) {
-                let randomIp:string = Math.floor((Math.random() * 255) + 1) + "." +
-                  Math.floor((Math.random() * 255) + 1) + "." +
-                  Math.floor((Math.random() * 255) + 1) + "." +
-                  Math.floor((Math.random() * 255) + 1)
+        addNetworkAction() {
+            let _this = this
         
-                _this.apiService.project.floating_ips.push({
-                    id: _this.apiService.project.floating_ips.length + 1,
-                    ip: randomIp,
-                    assigned_to: null,
-                    assigned_vm: null
-                })
-            }, function () {
-        
+            var modalInstance = this.$uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/modals/reserve-floating-ip.html',
+                controller: ($scope, $uibModalInstance, project, networks) => {
+                    $scope.project = project
+                    $scope.networks = networks
+                    $scope.selectedNetwork = null
+                
+                    // select first external network
+                    networks.forEach(network => {
+                        if (network['router:external'] && $scope.selectedNetwork == null) {
+                            $scope.selectedNetwork = network
+                        }
+                    })
+                    $scope.cancel = () => {
+                        $uibModalInstance.dismiss('cancel')
+                    }
+                    $scope.ok = () => {
+                        _this.apiService.reserveFloatingIp($scope.selectedNetwork).then(response => {
+                            _this.notification.success("Floating ip added!")
+                            $uibModalInstance.close(true);
+                        })
+                    }
+                },
+                controllerAs: 'ctrl',
+                resolve: {
+                    project: function () {
+                        return _this.apiService.project
+                    },
+                    networks: () => _this.apiService.networks
+                }
             });
         }
 
@@ -133,6 +169,12 @@ module auroraApp {
             floating_ip.assigned_to.floating_ip = null
             floating_ip.assigned_to = null
             floating_ip.assigned_vm = null
+        }
+        
+        deleteFloatingIpAction(fip: IFloatingIp) {
+            this.apiService.deleteFloatingIp(fip).then(response => {
+                this.notification.success("Floating ip deleted")
+            })
         }
     
         selectVm(item:IPort, floatingIp: IFloatingIp)
@@ -152,6 +194,12 @@ module auroraApp {
         
         groupPorts(item) {
             return item.device.name
+        }
+        
+        deleteNetwork(network:INetwork) {
+            this.apiService.deleteNetwork(network).then(response => {
+                this.notification.success("Network " + network.name + " has been deleted")
+            })
         }
         
         mapInit()

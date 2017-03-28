@@ -2,12 +2,6 @@
     .project-limits {
         width: 55%;
         display: inline-block;
-        .project-label {
-            font-family: "geomanist_book";
-            font-size: 14px;
-            color: #354052;
-            margin-bottom: 5px;
-        }
         .item {
             font-size: 14px;
             color: #8E8E93;
@@ -18,8 +12,15 @@
         width: 44%;
         display: inline-block;
     }
-    .modal-body {
-        padding: 30px;
+    .graph {
+        padding-top: 10px;
+        position: relative;
+        .values {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            bottom: 0px;
+        }
     }
 }
 .edit-volume-details {
@@ -81,6 +82,13 @@
     }
     h4 {
         line-height: 32px;
+    }
+    .switch {
+        float: left;
+        margin-right: 10px;
+        &.large {
+            margin-top: 5px;
+        }
     }
 }
 .form .btn-checkbox {

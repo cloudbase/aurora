@@ -3,13 +3,40 @@
         <h3 class="modal-title" id="modal-title">{{ 'RESERVE_FLOATING_IP' | translate }}</h3>
     </div>
     <div class="modal-body" id="modal-body">
-        <div class='project-limits'>
-            <div class='project-label'>{{ 'PROJECT_LIMITS' | translate }}</div>
-            <div class='item'>Floating IP's</div>
-            <uib-progressbar max="project.floating_ip_limit" value="project.floating_ips.length"<i>{{ project.floating_ips.length }} / {{ project.floating_ip_limit }}</i></uib-progressbar>
-        </div>
-        <div class='network-pool'>
-            
+        <div class="row">
+            <div class="col-xs-9">
+                <h4>{{ 'NETWORK_POOL' | translate }}</h4>
+                <ui-select ng-model="selectedNetwork" on-select="netView.selectNetworkPool($item, item)">
+                    <ui-select-match placeholder="Network pool" class='select-choice'>
+                        <span ng-bind="$select.selected.name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="network in networks | filter: {'router:external': true}" class='select-choice'>
+                        <span ng-bind="network.name"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-xs-3">
+                <div class='graph'>
+                    <round-progress
+                            max="project.floating_ip_limit"
+                            current="project.floating_ips.length"
+                            color="{{ (project.floating_ips.length / project.floating_ip_limit) > 0.75 ? 'FD9727' : '4CD964' }}"
+                            bgcolor="#eaeaea"
+                            radius="60"
+                            stroke="10"
+                            semi="true"
+                            rounded="false"
+                            clockwise="true"
+                            responsive="false"
+                            duration="800"
+                            animation="easeInOutQuart"
+                            animation-delay="200"></round-progress>
+                    <span class='values'>
+                        Limit <br />
+                        <span>{{project.floating_ips.length}}</span>/{{project.floating_ip_limit}}
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
