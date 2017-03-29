@@ -451,5 +451,12 @@ module auroraApp {
         ) {}
     }
     
+    export interface IUser {
+        username: string
+        id: string
+        roles: any[]
+        name: string
+    }
+    
     
 } 

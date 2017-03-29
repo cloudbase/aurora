@@ -3,6 +3,7 @@
 'use strict';
 import IIdentityService = auroraApp.Services.IIdentityService;
 import IComputeService = auroraApp.Services.IComputeService;
+
 var app = angular.module('auroraApp', [
     'ngCookies',
     'ngResource',
@@ -352,6 +353,33 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       templateUrl: 'views/sections/snapshot_list.html',
       controller: 'SnapshotsCtrl',
       controllerAs: 'vm'
+    })
+    .state('user', {
+      abstract: true,
+      parent: "main",
+      url: "user",
+      templateUrl: 'views/sections/user_view.html',
+      controller: 'UserCtrl',
+      controllerAs: 'ctrl',
+      resolve: {
+        keypairs: ["ComputeService", (apiService:IComputeService) => {
+          return apiService.getKeypairs()
+        }]
+      }
+    })
+    .state('user-overview', {
+      parent: 'user',
+      url: "/overview",
+      templateUrl: "views/partials/user_view.overview.html",
+      controller: 'UserCtrl',
+      controllerAs: 'ctrl'
+    })
+    .state('user-keypairs', {
+      parent: 'user',
+      url: "/keypairs",
+      templateUrl: "views/partials/user_view.keypairs.html",
+      controller: 'UserCtrl',
+      controllerAs: 'ctrl'
     })
 }]).config(function(NotificationProvider) {
       NotificationProvider.setOptions({

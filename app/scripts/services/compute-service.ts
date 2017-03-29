@@ -1079,6 +1079,18 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
+		getKeypairs():ng.IPromise< any > {
+			let deferred = this.$q.defer()
+			
+			let endpoint = this.compute_endpoint()
+			let url = this.os_url + "/nova/os-keypairs"
+			
+			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
+				deferred.resolve(response.keypairs)
+			})
+			return deferred.promise;
+		}
+		
 		/**
 		 * Retrieves compute url
 		 * @returns {any}

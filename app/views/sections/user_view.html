@@ -1,0 +1,34 @@
+<div class='create-pane vm-view-details' id="vm-view">
+    <div class='vm-details-panel status-{{ vmView.item.host_status }}'>
+        <div class="vm-details">
+            <span class="icon user">
+            </span>
+            <div class="info">
+                <span class="name" >{{ ctrl.identity.user.name }}</span>
+                <span class="details">email@email.com</span>
+            </div>
+        </div>
+        <div class='controls pull-right'>
+            <a class='btn btn-primary btn-shutoff' data-toggle="confirmation" data-placement="bottom" mwl-confirm
+               message="Are you sure you want to logout?" title="Logout">
+                {{ 'LOGOUT' | translate }}
+            </a>
+        </div>
+    </div>
+    <div class="sidebar is-menu">
+        <ul class="sidebar-menu">
+            <li ui-sref-active="active">
+                <div class="icon-submenu overview"></div>
+                <a ui-sref="user-overview">{{ 'OVERVIEW' | translate }}</a>
+
+            </li>
+            <li ui-sref-active="active">
+                <div class="icon-submenu resize"></div>
+                <a ui-sref='user-keypairs'>{{ 'KEYPAIRS' | translate }}</a>
+            </li>
+        </ul>
+    </div>
+    <div class='main'>
+        <div ui-view></div>
+    </div>
+</div>

@@ -23,9 +23,9 @@ module auroraApp {
 				]
 			},
 			{
-				label: "Preferences",
+				label: "Settings",
 				action: () => {
-					
+					this.$state.go("user-overview")
 				}
 			},
 			{

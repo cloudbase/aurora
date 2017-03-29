@@ -9,7 +9,7 @@ module auroraApp.Services {
 		tenant_name:string
 		tenants: any[]
 		tenant_id:string
-		user: any
+		user: IUser
 		auth_url:string
 		public os_url:string
 		bridge_url:string
@@ -191,7 +191,6 @@ module auroraApp.Services {
 			
 			this.token = response.access.token.id
 			this.user = response.access.user
-			
 			this.loggedIn = true
 			
 			this.handleServices(response)
@@ -221,6 +220,7 @@ module auroraApp.Services {
 					this.tenants.push(newTenant)
 				})
 			}
+			
 		}
 		
 		private getTenants():ng.IPromise< string >
@@ -259,7 +259,6 @@ module auroraApp.Services {
 				}
 				
 				let url:string = this.auth_url + "/tokens"
-				
 				this.http.post(url, {auth: authObj}).then(response => {
 					this.handleServices(response)
 					this.handleAuthSuccess(response)
