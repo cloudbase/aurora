@@ -87,13 +87,20 @@
                 </svg>
               </div>
             </div>
-            <div class='cell iprange-{{ vm.numOfIps(item) }}'>
+            <div class='cell centered'>
+              <!--
               <div ng-repeat="network_interface in item.network_interfaces" class='network-interface ipnum-{{item.network_interfaces.length}}'>
                 <div ng-if="network_interface.floating_ip" class='floating-ip'>
                   <div class="label label-pub">PUB</div> {{network_interface.floating_ip.ip}}
                 </div>
                 <div class='ip-addr'>
                   <div class="label label-priv">PRIV</div>{{network_interface.ip_addr}}
+                </div>
+              </div>
+              -->
+              <div>
+                <div ng-repeat="(key, port) in item.ports">
+                  <strong>{{port.network.name}}</strong> {{port.fixed_ips[0].ip_address}}
                 </div>
               </div>
             </div>
