@@ -16,7 +16,7 @@
       float: left;
       background-color: #E7E9ED;
       border-radius: 4px;
-      width: 202px;
+      width: 276px;
       height: 130px;
       margin-right: 20px;
       margin-bottom: 20px;
@@ -24,7 +24,7 @@
       cursor: pointer;
       .image {
         float: right;
-        width: 60%;
+        width: 72%;
         font-family: WorkSans;
         font-weight: 500;
         font-size: 18px;
@@ -82,7 +82,7 @@
           background: #30AD63;
         }
       }
-      &:nth-child(4n) {
+      &:nth-child(3n) {
         margin-right: 0;
       }
 

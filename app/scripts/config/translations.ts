@@ -145,6 +145,7 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'NETWORK_POOL': 'Network pool',
 		'STOP': "Stop",
 		'RESET': "Reset",
+		'REBOOT': "Reboot",
 		'NO_FLOATING_IPS': "You have no floating IPs",
 		'NO_ROUTERS': "You have no routers",
 		'ADD_SUBNET': "Add subnet",

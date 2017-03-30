@@ -127,7 +127,7 @@
                 <li ng-click="vm.unpauseVm(item)" ng-if="item.host_status == 'PAUSED'">
                   <div uib-tooltip="{{ 'RESUME' | translate }}" class="icon-action icon-play" data-placement="top" title="Resume"></div>
                 </li>
-                <li uib-tooltip="{{ 'RESET' | translate }}" ng-click='vm.resetVm(item)' ng-if='item.host_status != "STOPPED"'>
+                <li uib-tooltip="{{ 'REBOOT' | translate }}" ng-click='vm.resetVm(item)' ng-if='item.host_status != "STOPPED"'>
                   <div class="icon-action icon-restart"></div>
                 </li>
                 <li uib-tooltip="{{ 'STOP' | translate }}" class="stopVM" ng-click='vm.haltVm(item)' ng-class='{disabled: item.host_status == "STOPPED"}'>
