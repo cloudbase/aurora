@@ -74,14 +74,12 @@ body .header {
       float: left;
       padding: 8px 15px 5px;
       a {
-        font-family: "geomanist_book";
+        font-family: WorkSans;
+        font-weight: 500;
         font-size: $font-size-menu;
         line-height: $line-height-menu;
         color: #D8D8D8;
         position: relative;
-        font-family: WorkSans;
-        font-size: 17px;
-        font-weight: 500;
         letter-spacing: -0.4px;
         .menu-caret {
           margin-left: 5px;

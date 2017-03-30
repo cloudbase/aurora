@@ -55,7 +55,7 @@
         padding-right: 10px;
         display: block;
         float: left;
-        font-family: "geomanist_medium";
+        font-family: WorkSans;
       }
       span.field-value {
         display: block;
@@ -82,7 +82,8 @@
         display: block;
         &.resource-label {
           font-size: 16px;
-          font-family: "geomanist_book";
+          font-family: WorkSans;
+          font-weight: 500;
           color: $font-default-color;
           background-color: #FFF;
           border-right: 1px solid $light-grey;
@@ -90,7 +91,8 @@
           padding: 5px 0;
         }
         &.resource-value {
-          font-family: "geomanist_book";
+          font-family: WorkSans;
+          font-weight: 500;
           font-size: 14px;
           padding-top: 10px;
         }

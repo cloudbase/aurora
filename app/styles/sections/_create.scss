@@ -25,7 +25,8 @@
       .image {
         float: right;
         width: 60%;
-        font-family: "geomanist_book";
+        font-family: WorkSans;
+        font-weight: 500;
         font-size: 18px;
         color: $dark-blue;
         padding: 0px 22px 0 5px;
@@ -129,7 +130,8 @@
       }
       .name {
         padding: 13px 15px 10px;
-        font-family: 'geomanist_book';
+        font-family: WorkSans;
+        font-weight: 500;
         font-size: 18px;
         line-height: 22px;
         color: #354052;
@@ -145,7 +147,8 @@
         span {
           display: inline-block;
           width: 34%;
-          font-family: "geomanist_book";
+          font-family: WorkSans;
+          font-weight: 500;
           font-size: 24px;
           line-height: 24px;
           color: #354052;
@@ -173,7 +176,8 @@
         border-top: 1px solid #B7C0CD;
         padding: 7px 15px;
         .value {
-          font-family: "geomanist_book";
+          font-family: WorkSans;
+          font-weight: 500;
           font-size: 24px;
           color: #354052;
           float: left;

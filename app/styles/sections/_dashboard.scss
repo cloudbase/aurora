@@ -19,13 +19,11 @@
     position: relative;
     padding: 10px;
     h2 {
-      font-family: "geomanist_regular";
       font-size: 24px;
       color: #353746;
       margin: 0 0 10px;
     }
     h4 {
-      font-family: "geomanist-book";
       font-size: 14px;
       color: #354052;
       margin-bottom: 10px;
@@ -90,7 +88,8 @@
     }
     .btn {
       width: 270px;
-      font-family: "geomanist_book";
+      font-family: WorkSans;
+      font-weight: 500;
       font-size: 18px;
       color: #FFFFFF;
       svg {
@@ -169,7 +168,8 @@
     }
     .widget-title {
       float: left;
-      font-family: "geomanist-book";
+      font-family: WorkSans;
+      font-weight: 500;
       font-size: 18px;
       margin: 20px 0 0 10px;
     }
@@ -226,7 +226,8 @@
           margin: 0 20px 0 0;
           position: relative;
           text-align: center;
-          font-family: "geomanist-book";
+          font-family: WorkSans;
+          font-weight: 500;
           &:last-child {
             margin-right: 0;
           }
