@@ -276,9 +276,18 @@ module auroraApp.Directives {
 			scope: {
 				menuItems: "="
 			},
-			link: ($scope, $element) => {
-				
-			},
+			controller: ["$scope", "$element", "IdentityService",($scope, $element, identity) => {
+				$scope.projects = []
+				console.log('identity.tenants', identity.tenants)
+				identity.tenants.forEach(tenant => {
+					$scope.projects.push({
+						label: tenant.name,
+						action: () => {
+							alert(tenant.name)
+						}
+					})
+				})
+			}],
 			templateUrl: 'views/directives/user-menu.html'
 		}
 	}

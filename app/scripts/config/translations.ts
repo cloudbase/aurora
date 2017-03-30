@@ -105,7 +105,7 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'SHARED' : "Shared",
 		'LAUNCH_VIRTUAL_MACHINE': 'Launch Virtual Machine',
 		'NO_SNAPSHOTS': 'No snapshots available',
-		'NO_VOLUMES': 'No volumes',
+		'NO_VOLUMES': 'You have no volumes',
 		'OVERVIEW': 'Overview',
 		'LOG': "Log",
 		'ALL_ACTIONS': 'All Actions',
@@ -142,7 +142,17 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'MANAGE_WIDGETS': 'Manage Widgets',
 		'AVAILABLE_WIDGETS': 'Available Widgets',
 		'ADD': "Add",
-		'NETWORK_POOL': 'Network pool'
+		'NETWORK_POOL': 'Network pool',
+		'STOP': "Stop",
+		'RESET': "Reset",
+		'NO_FLOATING_IPS': "You have no floating IPs",
+		'NO_ROUTERS': "You have no routers",
+		'ADD_SUBNET': "Add subnet",
+		'ALLOCATION_POOLS': "Allocation Pools",
+		'DNS_NAMESERVERS': "DNS Nameservers",
+		'HOST_ROUTES': "Host Routes",
+		'GATEWAY_IP': "Gateway IP",
+		'NETWORK_ADDRESS': "Network Adress"
 	});
 	
 	$translateProvider.preferredLanguage('en');

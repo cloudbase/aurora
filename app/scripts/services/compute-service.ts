@@ -6,11 +6,9 @@ module auroraApp.Services {
 		url:string
 		listItems:VmItem[] = []
 		vmFlavors:VmFlavor[] = []
-		vmFlavorsList:string[] = []
 		vmImages:VmImage[] = []
 		vmVolumes: VmVolume[] = []
 		vmSnapshots: VmSnapshot[] = []
-		vmImagesList:string[]
 		vmNetworks:VmNetwork[] = []
 		networks: INetwork[] = []
 		ports: IPort[] = []
@@ -52,7 +50,7 @@ module auroraApp.Services {
 				deferred.resolve(true)
 			} else {
 				this.$q.all([this.loadImages(), this.loadFlavors()]).then(response => {
-					this.$q.all([this.loadServers(), this.getTenantQuota()]).then(res => {
+					this.$q.all([this.loadServers(), this.getTenantQuota(this.identity.tenant_id)]).then(res => {
 						this.initialized = true
 						deferred.resolve(true)
 						this.loadVolumes()
@@ -97,12 +95,12 @@ module auroraApp.Services {
 			return deferred.promise;
 		}
 		
-		getTenantQuota():ng.IPromise< Project >
+		getTenantQuota(tenant_id:string):ng.IPromise< Project >
 		{
 			let deferred = this.$q.defer()
 			
 			let endpoint = this.compute_endpoint()
-			let url = this.os_url + "/nova/os-quota-sets/" + this.identity.tenant_id
+			let url = this.os_url + "/nova/os-quota-sets/" + tenant_id
 			
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
 				if (response.quota_set) {
@@ -110,6 +108,7 @@ module auroraApp.Services {
 					let zone:IZone = {id: "nova", name: "nova"}
 					this.project = new Project(
 						quota.id,
+						null,
 						quota.instances,
 						quota.cores,
 						quota.ram,
@@ -1038,7 +1037,7 @@ module auroraApp.Services {
 		
 		insertVm(vm:VmItem):ng.IPromise< boolean > {
 			let index = this.listItems.length
-			
+			console.log("VM", vm)
 			let vm_pos_y = index * 2 - 1
 			let vm_pos_x = 15
 			/*window['mapDetails']['elements']['vm' + '_' + vm.id] = {x: vm_pos_x, y: vm_pos_y, type: 'vm'}
@@ -1063,6 +1062,7 @@ module auroraApp.Services {
 			
 			let deferred = this.$q.defer()
 			let endpoint = this.compute_endpoint()
+			console.log("ENDPOINT",endpoint)
 			let url:string = this.os_url + "/nova/servers"
 			
 			this.http.post(

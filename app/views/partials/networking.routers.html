@@ -65,5 +65,8 @@
                 </ul>
             </div>
         </div>
+        <div ng-hide='netView.apiService.routers.length' class='empty-table'>
+            <h3>{{ 'NO_ROUTERS' | translate }}</h3>
+        </div>
     </div>
 </div>

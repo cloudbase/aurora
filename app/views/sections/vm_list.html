@@ -155,6 +155,12 @@
             </div>
           </div>
         </div>
+        <div ng-hide="vm.compute.listItems.length" class="empty-table">
+          <h3>You have no virtual machines.</h3>
+          <a class="btn btn-primary btn-add" ng-click="vm.newVm()">
+            {{ 'NEW_VM' | translate }}
+          </a>
+        </div>
       </div>
     </div>
   </div>

@@ -14,15 +14,6 @@
             <div class='cell'>{{ 'STATUS' | translate }}</div>
             <div class='cell'>{{ 'ACTIONS' | translate }}</div>
         </div>
-        <div ng-if='vmView.item.snapshots.length == 0' class='empty-table'>
-            <h3>{{ 'NO_NETWORKS' | translate }}</h3>
-            <a class='btn btn-primary btn-snapshot btn-jumbo'>
-                <svg width="15px" height="15px" viewBox="10 11 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <path d="M18.6895536,16.9526844 L18.6895536,11 L15.8799999,11 L15.8799999,16.9526844 L10,16.9526844 L10,19.762238 L15.8799999,19.762238 L15.8799999,25.8812697 L18.6895536,25.8812697 L18.6895536,19.762238 L24.6999998,19.762238 L24.6999998,16.9526844 L18.6895536,16.9526844 Z" id="Plus-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd" opacity="0.695079291"></path>
-                </svg>
-                {{ 'NETWORK' | translate }}
-            </a>
-        </div>
         <div  class='table-row' ng-repeat="item in netView.apiService.project.floating_ips">
             <div class='cell'>
                 <div ng-if="item.port == null">
@@ -96,6 +87,12 @@
 
                 </ul>
             </div>
+        </div>
+        <div ng-hide='netView.apiService.project.floating_ips.length' class='empty-table'>
+            <h3>{{ 'NO_FLOATING_IPS' | translate }}</h3>
+            <a class="btn btn-primary btn-add" ng-click="netView.reserveFloatingIpAction()">
+                {{ 'RESERVE_IP' | translate }}
+            </a>
         </div>
     </div>
 </div>

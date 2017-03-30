@@ -39,6 +39,8 @@ module auroraApp {
                 image.tags.push(image.os)
             })
             
+            if (!firstSelected) compute.vmImages[0].selected = true
+            
             this.images = this.compute.vmImages
             
             compute.listItems.forEach((vm:VmItem) => {

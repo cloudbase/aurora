@@ -69,8 +69,10 @@ module auroraApp.Directives {
 	export function projectLimitsWidget($compile) {
 		return {
 			restrict: "EA",
-			controller: ["$scope", "$element", "ComputeService", ($scope, $element, compute) => {
+			controller: ["$scope", "$element", "ComputeService", "IdentityService", ($scope, $element, compute, identity) => {
 				$scope.compute = compute
+				$scope.identity = identity
+				console.log("IDENTITY", identity)
 				
 				compute.project.current_cost = 0
 				compute.project.current_vm = 0

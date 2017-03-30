@@ -4,6 +4,15 @@
   border: 1px solid #B7C0CD;
   border-radius: 4px;
   padding-left: 0;
+  .btn-add {
+    float: right;
+    padding: 7px 12px 5px;
+    position: relative;
+    font-size: 16px;
+    line-height: 26px;
+    width: 160px;
+    text-align: center;
+  }
   .list-header {
     padding: 20px 20px 20px 0px;
     @include clearfix();
@@ -16,15 +25,6 @@
 	  font-size: 36px;
 	  font-weight: 300;
 	  letter-spacing: -0.5px;
-    }
-    .btn-add {
-      float: right;
-      padding: 7px 12px 5px;
-      position: relative;
-      font-size: 16px;
-      line-height: 26px;
-      width: 160px;
-      text-align: center;
     }
   }
   .list-categories {
@@ -461,13 +461,12 @@
 
 .empty-table {
   text-align: center;
-  padding-bottom: 20px;
+  padding: 20px 20px 40px;
   h4 {
     
   }
   .btn {
     float: none;
-    padding: 10px 15px;
   }
 }
 

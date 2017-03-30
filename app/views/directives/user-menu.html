@@ -20,10 +20,18 @@
         </svg>
     </div>
     <ul class="menu">
+        <li class="withSubmenu">
+            Switch Projects
+            <ul class="submenu">
+                <li ng-repeat="project in projects">
+                    {{ project.label }}
+                </li>
+            </ul>
+        </li>
         <li ng-repeat="menuItem in menuItems" ng-click="menuItem.action()" ng-class="{withSubmenu: menuItem.children}">
             {{ menuItem.label }}
-            <ul class="submenu" ng-if="menuItem.children">
-                <li ng-repeat="subItem in menuItem.children" ng-click="subItem.action()">
+            <ul class="submenu" ng-if="getChildrenMenu(menuItem)">
+                <li ng-repeat="subItem in getChildrenMenu(menuItem)" ng-click="subItem.action()">
                     {{ subItem.label }}
                 </li>
             </ul>

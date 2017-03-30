@@ -11,9 +11,4 @@ declare module auroraApp.Services {
 		tenant_id: string
 		endpoints: any
 	}
-	
-	interface ITenant {
-		name: string
-		id: string
-	}
 }

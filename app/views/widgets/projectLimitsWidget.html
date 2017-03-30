@@ -10,8 +10,7 @@
             </svg>
         </div>
         <div class="list-filters">
-            <a class="active">Nova 1</a>
-            <a>Nova 2</a>
+            <a ng-repeat="(index, tenant) in identity.tenants" ng-class="{active: index == 0}">{{tenant.name}}</a>
         </div>
         <div class="stats">
             <div class='graphs'>

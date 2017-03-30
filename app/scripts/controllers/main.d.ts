@@ -5,6 +5,6 @@ declare module auroraApp {
 	export interface IUserMenuItem {
 		label: string
 		action?()
-		children ?: IUserMenuItem[]
+		children ?: IUserMenuItem[]|any
 	}
 }

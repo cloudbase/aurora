@@ -407,6 +407,7 @@ module auroraApp {
 
     export interface IProject {
         id: string
+        tenant: ITenant
         vm_limit: number
         vcpu_limit: number
         vram_limit: number
@@ -434,6 +435,7 @@ module auroraApp {
         inital_cost: number = 0
         constructor(
             public id,
+            public tenant: ITenant,
             public vm_limit,
             public vcpu_limit,
             public vram_limit,
@@ -458,5 +460,11 @@ module auroraApp {
         name: string
     }
     
+    export interface ITenant {
+        id: string
+        name: string
+        description: string
+        enabled: boolean
+    }
     
-} 
+}

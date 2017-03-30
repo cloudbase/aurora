@@ -7,7 +7,8 @@ module auroraApp.Services {
 		loggedIn = false // TODO: loggedIn - false
 		token:string
 		tenant_name:string
-		tenants: any[]
+		tenants: ITenant[]
+		projects: IProject[]
 		tenant_id:string
 		user: IUser
 		auth_url:string
@@ -15,8 +16,6 @@ module auroraApp.Services {
 		bridge_url:string
 		endpoints: any
 		services: any
-		project: Project
-		project_id: string
 		
 		private authenticated:boolean = false
 		
@@ -211,14 +210,13 @@ module auroraApp.Services {
 		handleTenants(response: any)
 		{
 			if (response.tenants.tenants.length) {
+				this.tenants = []
 				response.tenants.tenants.forEach(tenant => {
-					let newTenant:ITenant = {
-						name: tenant.name,
-						id: tenant.id
-					}
-					this.tenant_id = tenant.id
+					let newTenant:ITenant = tenant
 					this.tenants.push(newTenant)
+					console.log("ADD TENANT", newTenant)
 				})
+				this.tenant_id = this.tenants[0].id
 			}
 			
 		}

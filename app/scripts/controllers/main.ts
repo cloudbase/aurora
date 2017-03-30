@@ -6,23 +6,6 @@ module auroraApp {
 	export class MainCtrl {
 		userMenuItems: IUserMenuItem[] = [
 			{
-				label: "Switch Project",
-				children: [
-					{
-						label: "aurora",
-						action: () => {
-							alert('heyho')
-						}
-					},
-					{
-						label: "nova",
-						action: () => {
-							alert('heyho nova')
-						}
-					}
-				]
-			},
-			{
 				label: "Settings",
 				action: () => {
 					this.$state.go("user-overview")
@@ -63,8 +46,6 @@ module auroraApp {
 					this.redirect()
 				}
 			})
-			
-			
 		}
 		
 		redirect()
