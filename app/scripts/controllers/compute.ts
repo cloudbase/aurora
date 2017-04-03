@@ -368,6 +368,10 @@ module auroraApp {
                     return vmNetwork.selected == true
                 })
     
+                let keypair = this.compute.keypairs.filter((keypair:IKeypair):boolean => {
+                    return keypair.selected == true
+                })[0]
+    
                 network_interfaces = []
                 
                 networks.forEach((network) => {
@@ -396,7 +400,7 @@ module auroraApp {
                     []
                 )
                 
-                this.compute.insertVm(newVm).then((response:any) => {
+                this.compute.insertVm(newVm, keypair).then((response:any) => {
                     if (!response.error) {
                         this.Notification.primary("Deploying VM: " + "machine-" + rand + _i, " - status: deploying")
                         this.$state.go("vm-list");

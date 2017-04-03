@@ -199,7 +199,7 @@
       border-bottom: 0;
     }
   }
-  .panel-security-groups {
+  .panel-security-groups, .panel-keypairs {
     section {
       padding: 0;
     }
@@ -709,6 +709,34 @@ $vmSnapshotsCols: (
     .name {
       float: left;
       margin-top: 15px;
+    }
+  }
+}
+
+/// -------------- ///
+// SECTION: USER VIEW
+
+
+$keypairsColSizes: (
+        1 25% "default", // name
+        2 50% "default", // fingerprint
+        3 10% "default", // type
+        4 15% "default", // actions
+);
+
+@include generateTable("user-keypairs", $keypairsColSizes);
+
+textarea.public-key-input {
+  height: 125px;
+}
+
+.list-keypairs {
+  .cell {
+    &:nth-child(1) {
+      width: 8%;
+    }
+    &:nth-child(2) {
+      width: 92%;
     }
   }
 }

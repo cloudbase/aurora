@@ -360,12 +360,7 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
       url: "user",
       templateUrl: 'views/sections/user_view.html',
       controller: 'UserCtrl',
-      controllerAs: 'ctrl',
-      resolve: {
-        keypairs: ["ComputeService", (apiService:IComputeService) => {
-          return apiService.getKeypairs()
-        }]
-      }
+      controllerAs: 'ctrl'
     })
     .state('user-overview', {
       parent: 'user',

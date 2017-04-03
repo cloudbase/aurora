@@ -15,6 +15,7 @@ module auroraApp.Services {
 		networkList:VmNetwork[] = []
 		routers: IRouter[]
 		subnets: ISubnet[] = []
+		keypairs: IKeypair[] = []
 		project: Project
 		queried:boolean = false
 		os_url: string
@@ -59,6 +60,7 @@ module auroraApp.Services {
 							this.loadPorts().then(() => this.loadFloatingIps())
 							this.loadRouters()
 						})
+						this.loadKeypairs()
 					})
 				})
 			}
@@ -1035,7 +1037,7 @@ module auroraApp.Services {
 			})
 		}
 		
-		insertVm(vm:VmItem):ng.IPromise< boolean > {
+		insertVm(vm:VmItem, keypair:IKeypair = null):ng.IPromise< boolean > {
 			let index = this.listItems.length
 			console.log("VM", vm)
 			let vm_pos_y = index * 2 - 1
@@ -1058,6 +1060,11 @@ module auroraApp.Services {
 					networks: networks
 				}
 			}
+			
+			if (keypair) {
+				payload.server['keypair'] = keypair.name
+			}
+			
 			console.log("Payload", payload)
 			
 			let deferred = this.$q.defer()
@@ -1079,16 +1086,64 @@ module auroraApp.Services {
 			return deferred.promise
 		}
 		
-		getKeypairs():ng.IPromise< any > {
+		loadKeypairs():ng.IPromise< any > {
 			let deferred = this.$q.defer()
 			
 			let endpoint = this.compute_endpoint()
 			let url = this.os_url + "/nova/os-keypairs"
 			
 			this.http.get(url, {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}).then(response => {
+				if (response.keypairs) {
+					response.keypairs.forEach(keypair => {
+						this.addKeypair(keypair.keypair)
+					}, this)
+				}
 				deferred.resolve(response.keypairs)
 			})
 			return deferred.promise;
+		}
+		
+		addKeypair(keypair:IKeypair) {
+			console.log(keypair)
+			this.keypairs.push(keypair)
+		}
+		
+		createKeypair(keypair:IKeypair) {
+			let deferred = this.$q.defer()
+			let endpoint = this.compute_endpoint()
+			let url:string = this.os_url + "/nova/os-keypairs"
+			
+			let payload = { keypair: keypair}
+			
+			this.http.post(
+				url,
+				payload,
+				{"headers": {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then((response):void => {
+				this.addKeypair(response.keypair)
+				deferred.resolve(response)
+			});
+			return deferred.promise
+		}
+		
+		removeKeypair(keypair: IKeypair) {
+			let index = this.keypairs.indexOf(keypair)
+			this.keypairs.splice(index, 1)
+		}
+		
+		deleteKeypair(keypair: IKeypair) {
+			let endpoint = this.compute_endpoint()
+			let url = this.os_url + "/nova/os-keypairs/" + keypair.name
+			let deferred = this.$q.defer()
+			
+			this.http.delete(
+				url,
+				{headers: {"Endpoint-ID": endpoint.id, "Tenant-ID": this.identity.tenant_id}}
+			).then(response => {
+				this.removeKeypair(keypair)
+				deferred.resolve(response)
+			})
+			return deferred.promise
 		}
 		
 		/**

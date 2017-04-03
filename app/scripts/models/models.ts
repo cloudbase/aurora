@@ -467,4 +467,12 @@ module auroraApp {
         enabled: boolean
     }
     
+    export interface IKeypair {
+        name: string
+        type: string
+        public_key: string
+        user_id: string
+        fingerprint?: string
+        selected?:boolean
+    }
 }

@@ -93,6 +93,27 @@
                     </div>
                 </div>
             </collapse>
+            <collapse class="panel panel-keypairs" title="Keypair" opened="true" valid="vm.validation.security_groups" ng-model="validation.security_groups">
+                <div class="list list-keypairs">
+                    <div class='table'>
+                        <div class='table-header'>
+                            <div class='cell'> </div>
+                            <div class='cell'>Name</div>
+                            <div class='cell'></div>
+                        </div>
+
+                        <div class='table-row' ng-repeat="keypair in vm.compute.keypairs" ng-class="{active: group.selected}">
+                            <div class='cell'>
+                                <label><input type="checkbox" class="ios-switch green " checked ng-model="keypair.selected"/><div><div></div></div></label>
+                            </div>
+                            <div class="cell">
+                                {{ keypair.name }}
+                            </div>
+                            <div class='cell'></div>
+                        </div>
+                    </div>
+                </div>
+            </collapse>
             <collapse class="panel panel-security-groups" title="Security Groups" opened="true" valid="vm.validation.security_groups" ng-model="validation.security_groups">
                 <div class="list list-security-groups">
                     <div class='table'>

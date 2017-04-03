@@ -1,7 +1,46 @@
 <div class='section'>
     <div class='section-header'>
-        <h2>Keypairs</h2>
+        <h2>{{ 'KEYPAIRS' | translate }}</h2>
         <br />
-
+        <h3>{{ 'ADD_NEW_KEYPAIR' | translate }}</h3>
+        <div class="row">
+            <div class="form col-xs-9">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" ng-model="ctrl.newKeypair.name" type="text" />
+                </div>
+                <div class="form-group">
+                    <label>Public Key</label>
+                    <textarea class="form-control public-key-input" ng-model="ctrl.newKeypair.public_key"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="btn btn-primary pull-right" ng-click="ctrl.addKeypair()">{{ 'ADD_KEYPAIR' | translate }}</div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="table user-keypairs-table">
+            <div class="table-header">
+                <div class="cell">Name</div>
+                <div class="cell">Fingerprint</div>
+                <div class="cell">Type</div>
+                <div class="cell">Åctions</div>
+            </div>
+            <div class="table-row" ng-repeat="keypair in ctrl.apiService.keypairs">
+                <div class="cell centered" ng-bind="keypair.name"></div>
+                <div class="cell centered" ng-bind="keypair.fingerprint"></div>
+                <div class="cell centered" ng-bind="keypair.type"></div>
+                <div class="cell centered">
+                    <ul class="table-actions">
+                        <li data-toggle="confirmation"  data-placement="top" mwl-confirm message="{{ 'REMOVE_KEYPAIR_CONFIRM' | translate }}" on-confirm="ctrl.deleteKeypair(keypair)">
+                            <div class="icon-action icon-delete"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div ng-hide='ctrl.apiService.keypairs.length' class='empty-table'>
+                <h3>{{ 'NO_KEYPAIRS' | translate }}</h3>
+            </div>
+        </div>
     </div>
 </div>

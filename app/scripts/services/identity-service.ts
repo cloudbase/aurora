@@ -43,11 +43,13 @@ module auroraApp.Services {
 		
 		init():ng.IPromise< any >
 		{
+			console.log('init')
 			let deferred = this.$q.defer()
 			// if there is token, attempt to login
 			this.token = this.$cookies.get('token')
 			
 			if (this.token) {
+				
 				this.authWithToken(this.token).then(authenticated => {
 					console.log(authenticated)
 					if (authenticated) {
@@ -56,6 +58,8 @@ module auroraApp.Services {
 								this.handleUserData(tenant).then(response => deferred.resolve(response))
 							}
 						})
+					} else {
+						console.log("NOT AUTH")
 					}
 				}, (reason) => {
 					if (reason.code == 401) {

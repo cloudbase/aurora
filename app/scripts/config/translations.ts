@@ -153,7 +153,11 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'DNS_NAMESERVERS': "DNS Nameservers",
 		'HOST_ROUTES': "Host Routes",
 		'GATEWAY_IP': "Gateway IP",
-		'NETWORK_ADDRESS': "Network Adress"
+		'NETWORK_ADDRESS': "Network Adress",
+		'KEYPAIRS': "Keypairs",
+		'NO_KEYPAIRS': "No keypairs added",
+		'ADD_NEW_KEYPAIR': "Add new keypair",
+		'ADD_KEYPAIR': "Add keypair"
 	});
 	
 	$translateProvider.preferredLanguage('en');
