@@ -259,7 +259,7 @@ module auroraApp.Services {
 				item.links,
 				item.migration_status,
 				item.region,
-				item.bootable,
+				item.bootable != "false",
 				item.encrypted,
 				region,
 				item.metadata,
