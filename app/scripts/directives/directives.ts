@@ -196,7 +196,7 @@ module auroraApp.Directives {
             <div class="info" ui-sref="vm-view-overview({vm_id: vm.id})">
                 <span class='vm-status status-circle'> </span>
                 <span class="name">{{ vm.name }}</span>
-                <span class="details">{{ vm.flavor.vCpu }} vCPU | {{vm.flavor.ram}} GB RAM | {{ vm.flavor.ssd}} GB SSD</span>
+                <span class="details">{{ vm.flavor.vCpu }} vCPU | {{vm.flavor.ram}} GB RAM | {{ vm.flavor.ssd}} GB Disk</span>
             </div>
         </div>
             `

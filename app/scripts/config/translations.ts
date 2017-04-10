@@ -32,7 +32,7 @@ app.config(['$translateProvider', function ($translateProvider) {
 		'DASHBOARD_TITLE': 'Get started with Dewpoint',
 		'DASHBOARD_SECONDARY_TITLE': 'Get insights into Aurora activities using graphs and vizualization tools.',
 		'DASHBOARD_NEWVM_MSG': 'Easily deploy new \n virtual machines',
-		'DASHBOARD_NEWVM_CTA': 'New VM',
+		'DASHBOARD_NEWVM_CTA': 'New Instance',
 		'NOTIFICATIONS': 'Notifications',
 		'NOTIFICATIONS_ALT': 'News from above',
 		'WIDGETS': 'Widgets',

@@ -3,7 +3,6 @@
 module auroraApp.Services {
 	
 	export class HttpWrapService implements IHttpWrapperService{
-		bridge_url:string = "http://localhost/bridge/bridge.php"
 		
 		static $inject = [
 			"$http",
@@ -128,7 +127,9 @@ module auroraApp.Services {
 				this.Notification.error("There is a problem with the connection")
 				return false
 			} else {
-				if (response.data.error) {
+				if (response.data.code == 403) {
+					console.log("Session expired");
+				} else if (response.data.error) {
 					console.log("ERROR CATCHING", response)
 					var errorKey = Object.keys(response.data.error.message)[0]
 					this.Notification.error(response.data.error.message[errorKey].message)

@@ -89,7 +89,6 @@
     .btn {
       width: 270px;
       font-family: WorkSans;
-      font-weight: 500;
       font-size: 18px;
       color: #FFFFFF;
       svg {
@@ -250,6 +249,11 @@
           }
         }
       }
+    }
+  }
+  .newVmWidget {
+    .widget-container {
+      padding-top: 64px;
     }
   }
 }

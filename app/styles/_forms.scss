@@ -125,9 +125,11 @@ label, .label {
   border-radius: 4px;
   font-family: WorkSans;
   letter-spacing: -0.2px;
-  font-size: 14px;
   color: #FFFFFF;
-  line-height: 20px;
+  padding: 8px 12px 6px;
+  position: relative;
+  font-size: 16px;
+  line-height: 26px;
   border: none;
   transition: background $animation-duration ease-out;
   &:focus {

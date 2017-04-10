@@ -69,7 +69,11 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
           (identity: IIdentityService, compute: IComputeService, q:ng.IQService) => {
             let deferred = q.defer()
             identity.init().then(response => {
-              compute.init().then(response => deferred.resolve(response))
+              compute.init().then(response => deferred.resolve(response), error => {
+                deferred.reject(error)
+              })
+            }, error => {
+              deferred.reject(error)
             })
             return deferred.promise
           }]

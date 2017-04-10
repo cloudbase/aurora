@@ -49,7 +49,6 @@ module auroraApp.Services {
 			this.token = this.$cookies.get('token')
 			
 			if (this.token) {
-				
 				this.authWithToken(this.token).then(authenticated => {
 					console.log(authenticated)
 					if (authenticated) {
@@ -208,6 +207,8 @@ module auroraApp.Services {
 		logout()
 		{
 			this.loggedIn = false;
+			this.$cookies.remove("connect.sid")
+			this.$cookies.remove("io")
 			this.$cookies.remove("token")
 		}
 		

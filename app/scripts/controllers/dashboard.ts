@@ -41,7 +41,7 @@ module auroraApp {
 			},*/
 			{
 				id: "project-limits",
-				name: "New Vm",
+				name: "Project Limits",
 				label: "Adds a new vm widget button",
 				position: {x:0, y:0},
 				size: "3x2",
